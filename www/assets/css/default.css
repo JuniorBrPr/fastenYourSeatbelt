@@ -20,9 +20,10 @@
 body {
 	font-family: "Open Sans", sans-serif;
 }
-/* general costom stylings of reoccuring elements */
+/* general custom stylings of reoccurring elements */
 .btn {
-	display: block;
+	display: flex;
+	align-items: center;
 	background-color: var(--button-color);
 	color: white;
 	font-weight: 800;
@@ -35,7 +36,8 @@ body {
 	margin-right: 1em;
 	position: relative;
 }
-.btn:hover {
+.btn:hover,
+.btn:focus {
 	background-color: var(--button-color-dark);
 }
 .btn .btn-text {
@@ -60,7 +62,8 @@ body {
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
 }
-.btn:hover .triangle {
+.btn:hover .triangle,
+.btn:focus .triangle {
 	background-color: var(--button-color);
 }
 
@@ -93,7 +96,26 @@ body {
 	font-size: 1rem;
 	padding-inline: 0.75em;
 	border-right: 1px solid var(--red-color);
+	transition: font-size 300ms ease-in;
 }
+.link-text {
+	position: relative;
+}
+/* create line underneath the text of nav links when hovering/focusing */
+.link-text::before {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	height: 2px;
+	width: 0;
+	background-color: var(--red-color);
+	transition: width 300ms ease-in;
+}
+.nav-link:hover .link-text::before,
+.nav-link:focus .link-text::before {
+	width: 100%;
+}
+
 .btn-container {
 	display: flex;
 	flex-direction: row;
