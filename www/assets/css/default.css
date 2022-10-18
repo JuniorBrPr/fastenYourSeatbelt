@@ -141,11 +141,8 @@ body {
 }
 /* styling nav menu mobile */
 .nav-container {
-	--mobile-menu-right: -50;
 	display: none;
 	position: absolute;
-	right: calc(var(--mobile-menu-right) * 1%);
-	transition: right 500ms ease-in;
 	border-left: 3px solid var(--red-color);
 	border-bottom: 3px solid var(--red-color);
 	border-bottom-left-radius: 15px;
@@ -155,6 +152,10 @@ body {
 	background-color: var(--white-text-color);
 	/* high z-index makes sure nav-menu is always on top of content */
 	z-index: 999;
+	/* animation name set with javascript */
+	animation-timing-function: linear;
+	animation-duration: 500ms;
+	animation-fill-mode: forwards;
 }
 @media screen and (max-width: 750px) {
 	.nav-menu > .nav-link,
@@ -175,5 +176,23 @@ body {
 		display: flex;
 		flex-direction: column;
 		row-gap: 1em;
+	}
+}
+
+/* animations */
+@keyframes showMenu {
+	from {
+		right: -50%;
+	}
+	to {
+		right: 0%;
+	}
+}
+@keyframes hideMenu {
+	from {
+		right: 0%;
+	}
+	to {
+		right: -50%;
 	}
 }

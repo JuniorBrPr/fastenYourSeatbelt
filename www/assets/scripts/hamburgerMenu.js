@@ -1,7 +1,5 @@
 const hamburger = document.querySelector(".hamburger");
 const navContainer = document.querySelector(".nav-container");
-const navMenuMobile = document.querySelector(".nav-menu-mobile");
-const navLinks = navMenuMobile.querySelectorAll(".nav-link");
 /* when hamburger is clicked change icon to a cross and make the nav menu visible
  */
 hamburger.addEventListener("click", () => {
@@ -12,15 +10,15 @@ hamburger.addEventListener("click", () => {
     */
 	if (hamburger.classList.contains("fa-xmark")) {
 		navContainer.style.display = "block";
-		navContainer.style.setProperty("--mobile-menu-right", "0");
+		navContainer.style.setProperty("animation-name", "showMenu");
 	} else {
-		resetNavBar(navContainer, navLinks);
+		resetNavBar(navContainer);
 	}
 });
 //remove mobile nav when resizing above 750px
 window.addEventListener("resize", () => {
 	if (window.screen.availWidth > 750) {
-		resetNavBar(navContainer, navLinks);
+		resetNavBar(navContainer);
 		hamburger.classList.add("fa-bars");
 		hamburger.classList.remove("fa-xmark");
 	}
@@ -30,6 +28,11 @@ window.addEventListener("resize", () => {
  * @param {Element} navContainer An element which contains the navigation menu
  */
 function resetNavBar(navContainer) {
-	navContainer.style.display = "none";
-	navContainer.style.setProperty("--mobile-menu-right", "-50");
+	navContainer.style.setProperty("animation-name", "hideMenu");
+	navContainer.addEventListener("animationend", (e) => {
+		//only remove if event is the hideMenu animation
+		if (e.animationName == "hideMenu") {
+			navContainer.style.display = "none";
+		}
+	});
 }
