@@ -144,7 +144,7 @@ body {
 	border-bottom-left-radius: 15px;
 	font-size: 24px;
 	font-weight: 800;
-	padding: 8;
+	padding: 8px;
 	background-color: var(--white-text-color);
 	/* high z-index makes sure nav-menu is always on top of content */
 	z-index: 999;
