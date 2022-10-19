@@ -1,3 +1,4 @@
+/* custom variables */
 :root {
 	--red-color: #d81e05;
 	--red-color-dark: #800f00;
@@ -6,4 +7,191 @@
 	--grey-text-color: #666;
 	--grey-border-color: #d9d9d9;
 	--white-text-color: #fff;
+	--navbar-height: 73px;
+}
+/* general reset of user-agent */
+*,
+::after,
+::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	font-family: "Open Sans", sans-serif;
+	width: 100vw;
+	overflow-x: hidden;
+}
+
+/* general custom stylings of reoccurring elements */
+.btn {
+	display: flex;
+	align-items: center;
+	background-color: var(--button-color);
+	color: white;
+	font-size: 14px;
+	font-weight: 800;
+	font-style: italic;
+	text-decoration: none;
+	transition: background-color 300ms ease-in;
+	border-radius: 10px;
+	width: min(150px, 10vw);
+	height: 40px;
+	margin-right: 16px;
+	position: relative;
+}
+.btn:hover,
+.btn:focus {
+	background-color: var(--button-color-dark);
+}
+.btn .btn-text {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: inherit;
+	width: 80%;
+	position: absolute;
+	left: 0;
+}
+.btn .triangle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--button-color-dark);
+	transition: all 300ms ease-in;
+	position: absolute;
+	height: inherit;
+	width: 20%;
+	right: 0%;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+.btn:hover .triangle,
+.btn:focus .triangle {
+	background-color: var(--button-color);
+}
+
+/* styling of header */
+.header {
+	min-height: var(--navbar-height);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 15px solid var(--red-color);
+}
+.logo {
+	height: auto;
+	width: min(200px, 12vw);
+}
+.nav-menu {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.nav-link,
+.nav-link-logo {
+	display: flex;
+	align-items: center;
+	color: var(--red-color);
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 16px;
+	padding-inline: 1vw;
+}
+.link-text {
+	position: relative;
+}
+/* create line underneath the text of nav links when hovering/focusing */
+.link-text::before {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	height: 2px;
+	width: 0;
+	background-color: var(--red-color);
+	transition: width 300ms ease-in;
+}
+.nav-link:hover .link-text::before,
+.nav-link:focus .link-text::before {
+	width: 100%;
+}
+
+.btn-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+/* fix width for register button */
+.register-btn {
+	min-width: 14ch;
+}
+/* styling hamburger */
+.hamburger {
+	font-size: 32px;
+	color: var(--red-color);
+	cursor: pointer;
+	display: none;
+	padding: 4px;
+}
+
+/* styling nav menu mobile */
+.nav-container {
+	display: none;
+	position: absolute;
+	border-left: 3px solid var(--red-color);
+	border-bottom: 3px solid var(--red-color);
+	border-bottom-left-radius: 15px;
+	font-size: 24px;
+	font-weight: 800;
+	padding: 8;
+	background-color: var(--white-text-color);
+	/* high z-index makes sure nav-menu is always on top of content */
+	z-index: 999;
+	/* animation name set with javascript */
+	animation-timing-function: linear;
+	animation-duration: 500ms;
+	animation-fill-mode: forwards;
+}
+@media screen and (max-width: 750px) {
+	.nav-menu > .nav-link,
+	.btn-container {
+		display: none;
+	}
+	.logo {
+		width: 200px;
+	}
+	.hamburger {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 50px;
+		height: 50px;
+	}
+	.nav-menu-mobile {
+		display: flex;
+		flex-direction: column;
+		row-gap: 16px;
+	}
+}
+
+/* animations */
+
+/* animation to show the mobile navigation menu */
+@keyframes showMenu {
+	from {
+		right: -50%;
+	}
+	to {
+		right: 0%;
+	}
+}
+/* animation to hide the mobile navigation menu */
+@keyframes hideMenu {
+	from {
+		right: 0%;
+	}
+	to {
+		right: -50%;
+	}
 }
