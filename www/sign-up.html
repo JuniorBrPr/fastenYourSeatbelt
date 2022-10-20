@@ -80,9 +80,9 @@
 				</a>
 			</nav>
 		</aside>
-		<main>
+		<main class="sign-up-main">
 			<form action="" method="post" class="sign-up-form">
-				<h1 class="title register-title">Registreer</h1>
+				<h1 class="title sub-title">Registreer</h1>
 				<div class="input-container">
 					<label for="first-name" class="input-label">
 						Voornaam
@@ -122,34 +122,59 @@
 					<label for="password" class="input-label">
 						Wachtwoord
 					</label>
-					<input
-						type="password"
-						name="password"
-						id="password"
-						class="input"
-						required />
+					<!-- to make the eye icon fit inside of the input -->
+					<div class="password-input-container">
+						<input
+							type="password"
+							name="password"
+							id="password"
+							class="input"
+							required
+							placeholder="***********" />
+						<i class="fa-solid fa-eye"></i>
+					</div>
 				</div>
 				<div class="input-container">
 					<label for="password-repeat" class="input-label">
 						herhaal Wachtwoord
 					</label>
-					<input
-						type="password"
-						name="password-repeat"
-						id="password-repeat"
-						class="input"
-						required />
+					<div class="password-input-container">
+						<input
+							type="password"
+							name="password-repeat"
+							id="password-repeat"
+							class="input"
+							required
+							placeholder="***********" />
+						<i class="fa-solid fa-eye"></i>
+					</div>
 				</div>
-				<p class="terms-of-use-link">
+				<p class="small-text">
 					Als u registreert gaat u akkoord met de
-					<a href="#" class="register-link">
+					<a href="#" class="terms-of-use-link link">
 						<span class="link-text"> algemene voorwaarden </span>
 					</a>
 				</p>
+				<!-- actions are submitting form or opening login modal -->
+				<div class="sign-up-form-actions-container">
+					<div class="register-btn-container">
+						<button type="submit" class="btn register-submit-btn">
+							<i class="fa-solid fa-check"></i>
+							<span class="btn-text">Registreren</span>
+						</button>
+					</div>
+					<p class="text">
+						Al een account:
+						<a href="#" class="login-link link">
+							<span class="link-text">Log in</span>
+						</a>
+					</p>
+				</div>
 			</form>
 			<img
-				src="assets/img/corendon-vliegtuig.png"
-				alt="Vliegtuig van corendon" />
+				src="assets/img/corendon-vliegtuig.jpg"
+				alt="Vliegtuig van corendon"
+				class="airplane-img" />
 		</main>
 	</body>
 </html>

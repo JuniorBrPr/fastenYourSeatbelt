@@ -26,6 +26,23 @@ body {
 }
 
 /* general custom stylings of reoccurring elements */
+
+/* styling of titles */
+.title {
+	color: var(--red-color);
+	font-weight: 800;
+	font-style: italic;
+}
+.sub-title {
+	font-size: 26px;
+}
+
+/* styling of text */
+.small-text {
+	font-weight: 300;
+	font-size: 14px;
+}
+/* styling of buttons */
 .btn {
 	display: flex;
 	align-items: center;
@@ -39,14 +56,14 @@ body {
 	border-radius: 10px;
 	width: min(150px, 10vw);
 	height: 40px;
-	margin-right: 16px;
 	position: relative;
 }
 .btn:hover,
 .btn:focus {
 	background-color: var(--button-color-dark);
 }
-.btn .btn-text {
+.register-btn .btn-text,
+.login-btn .btn-text {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -72,6 +89,9 @@ body {
 .btn:focus .triangle {
 	background-color: var(--button-color);
 }
+button.btn {
+	border: none;
+}
 
 /* styling of header */
 .header {
@@ -81,6 +101,7 @@ body {
 	justify-content: space-between;
 	align-items: center;
 	border-bottom: 15px solid var(--red-color);
+	padding-inline: 2vw;
 }
 .logo {
 	height: auto;
@@ -99,10 +120,11 @@ body {
 	text-decoration: none;
 	text-transform: uppercase;
 	font-size: 16px;
-	padding-inline: 1vw;
+	padding-right: 2vw;
 }
 .link-text {
 	position: relative;
+	color: var(--red-color);
 }
 /* create line underneath the text of nav links when hovering/focusing */
 .link-text::before {
@@ -114,8 +136,11 @@ body {
 	background-color: var(--red-color);
 	transition: width 300ms ease-in;
 }
+/* makes sure all links get underline when hovering/focusing by getting full width */
 .nav-link:hover .link-text::before,
-.nav-link:focus .link-text::before {
+.nav-link:focus .link-text::before,
+.link:hover .link-text::before,
+.link:focus .link-text::before {
 	width: 100%;
 }
 
@@ -123,6 +148,7 @@ body {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	gap: 16px;
 }
 /* fix width for register button */
 .register-btn {
@@ -154,6 +180,85 @@ body {
 	animation-timing-function: linear;
 	animation-duration: 500ms;
 	animation-fill-mode: forwards;
+}
+
+/* styling of input */
+.input {
+	display: block;
+	border: 2px solid var(--grey-border-color);
+	border-radius: 10px;
+	width: 80%;
+	max-width: 500px;
+	height: 40px;
+	padding-inline-start: 6px;
+	color: var(--grey-text-color);
+}
+.input::placeholder {
+	font-style: italic;
+	color: var(--grey-text-color);
+}
+/* styling of sign-up page */
+.sign-up-main {
+	display: flex;
+}
+/* styling of sign-up form */
+.sign-up-form {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	padding-inline: 2vw;
+	padding-top: 5vh;
+	gap: 20px;
+}
+.input-label {
+	color: var(--grey-text-color);
+	font-weight: 700;
+}
+.password-input-container {
+	position: relative;
+	max-width: 500px;
+	width: 80%;
+}
+/* reset input width, so that container determines with of input instead of the input itself */
+.password-input-container > .input {
+	width: 100%;
+}
+/* styling of links in sign-up form */
+.login-link,
+.terms-of-use-link {
+	text-decoration: none;
+}
+/* styling eye icons for showing/hiding password */
+.fa-eye,
+.fa-eye-slash {
+	position: absolute;
+	right: 10px;
+	/* center the eye in the vertical middle of the input (css trick)*/
+	top: 50%;
+	transform: translateY(-50%);
+	color: var(--grey-text-color);
+}
+.sign-up-form-actions-container {
+	display: flex;
+	justify-content: space-between;
+}
+.register-submit-btn {
+	display: flex;
+	justify-content: space-evenly;
+}
+.fa-check {
+	font-size: 20px;
+}
+.login-link > .link-text {
+	display: block;
+	width: fit-content;
+}
+
+/* styling airplane image on sign up page */
+.airplane-img {
+	width: 50%;
+	object-fit: cover;
+	object-position: left;
 }
 @media screen and (max-width: 750px) {
 	.nav-menu > .nav-link,
