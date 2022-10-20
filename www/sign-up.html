@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Corenbuddy</title>
+		<!-- get open sans font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;
+			0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+			rel="stylesheet" />
+		<!-- link to font-awesome for icons -->
+		<script
+			src="https://kit.fontawesome.com/045f11e82e.js"
+			crossorigin="anonymous"></script>
+
+		<link rel="stylesheet" href="assets/css/default.css" />
+		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are 
+		available  -->
+		<script src="assets/scripts/hamburgerMenu.js" defer></script>
+	</head>
+	<body>
+		<header class="header">
+			<nav class="nav-menu">
+				<a href="index.html" class="nav-link-logo">
+					<img
+						src="assets/img/logo.png"
+						alt="Corendon logo"
+						class="logo" />
+				</a>
+				<a href="index.html" class="nav-link">
+					<i class="fa-solid fa-house"></i>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">corenbuddy</span>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">zoek mijn buddy</span>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">over ons</span>
+				</a>
+			</nav>
+			<div class="btn-container">
+				<a href="#" class="btn login-btn">
+					<span class="btn-text">Login</span>
+					<span class="triangle">
+						<i class="fa-solid fa-play"></i>
+					</span>
+				</a>
+				<a href="#" class="btn register-btn">
+					<span class="btn-text">Registreren</span>
+					<span class="triangle">
+						<i class="fa-solid fa-play"></i>
+					</span>
+				</a>
+			</div>
+			<!-- tabindex makes hamburger-menu focusable -->
+			<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
+		</header>
+		<aside class="nav-container">
+			<nav class="nav-menu-mobile">
+				<a href="#" class="nav-link">
+					<span class="link-text">Corenbuddy</span>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">Zoek mijn buddy</span>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">Over ons</span>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">registreren</span>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">login</span>
+				</a>
+			</nav>
+		</aside>
+		<main>
+			<form action="" method="post" class="sign-up-form">
+				<h1 class="title register-title">Registreer</h1>
+				<div class="input-container">
+					<label for="first-name" class="input-label">
+						Voornaam
+					</label>
+					<input
+						type="text"
+						name="first-name"
+						id="first-name"
+						class="input"
+						required
+						placeholder="Voornaam"
+						autofocus />
+				</div>
+				<div class="input-container">
+					<label for="last-name" class="input-label">
+						Achternaam
+					</label>
+					<input
+						type="text"
+						name="last-name"
+						id="last-name"
+						class="input"
+						required
+						placeholder="Achternaam" />
+				</div>
+				<div class="input-container">
+					<label for="email" class="input-label"> Email </label>
+					<input
+						type="email"
+						name="email"
+						id="email"
+						class="input"
+						required
+						placeholder="Email@voorbeeld.nl" />
+				</div>
+				<div class="input-container">
+					<label for="password" class="input-label">
+						Wachtwoord
+					</label>
+					<input
+						type="password"
+						name="password"
+						id="password"
+						class="input"
+						required />
+				</div>
+				<div class="input-container">
+					<label for="password-repeat" class="input-label">
+						herhaal Wachtwoord
+					</label>
+					<input
+						type="password"
+						name="password-repeat"
+						id="password-repeat"
+						class="input"
+						required />
+				</div>
+				<p class="terms-of-use-link">
+					Als u registreert gaat u akkoord met de
+					<a href="#" class="register-link">
+						<span class="link-text"> algemene voorwaarden </span>
+					</a>
+				</p>
+			</form>
+			<img
+				src="assets/img/corendon-vliegtuig.png"
+				alt="Vliegtuig van corendon" />
+		</main>
+	</body>
+</html>
