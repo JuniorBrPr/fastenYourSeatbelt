@@ -20,6 +20,8 @@
 body {
 	font-family: "Open Sans", sans-serif;
 	width: 100vw;
+	/* make every page  */
+	min-height: 100vh;
 	overflow-x: hidden;
 }
 
