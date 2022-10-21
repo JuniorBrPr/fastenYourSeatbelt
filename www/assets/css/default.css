@@ -237,14 +237,18 @@ button.btn {
 	top: 50%;
 	transform: translateY(-50%);
 	color: var(--grey-text-color);
+	cursor: pointer;
 }
 .sign-up-form-actions-container {
 	display: flex;
 	justify-content: space-between;
+	max-width: 500px;
+	width: 80%;
 }
 .register-submit-btn {
 	display: flex;
 	justify-content: space-evenly;
+	min-width: 14ch;
 }
 .fa-check {
 	font-size: 20px;
@@ -259,7 +263,10 @@ button.btn {
 	width: 50%;
 	object-fit: cover;
 	object-position: left;
+	filter: saturate(0.8);
 }
+
+/* media queries  */
 @media screen and (max-width: 750px) {
 	.nav-menu > .nav-link,
 	.btn-container {
@@ -279,6 +286,26 @@ button.btn {
 		display: flex;
 		flex-direction: column;
 		row-gap: 16px;
+	}
+	/* sign up page */
+
+	.airplane-img {
+		display: none;
+	}
+	.sign-up-form {
+		width: 100vw;
+		align-items: center;
+	}
+	.input-container,
+	.sign-up-form .small-text,
+	.sign-up-form-actions-container {
+		width: 80%;
+		max-width: 500px;
+		margin-inline: auto;
+	}
+	.input-container > .input,
+	.password-input-container {
+		width: 100%;
 	}
 }
 
