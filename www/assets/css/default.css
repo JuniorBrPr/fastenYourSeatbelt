@@ -192,7 +192,7 @@ body {
 	animation-fill-mode: forwards;
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 768px) {
 	.nav-menu > .nav-link,
 	.btn-container {
 		display: none;
@@ -214,6 +214,25 @@ body {
 		display: flex;
 		flex-direction: column;
 		row-gap: 16px;
+	}
+}
+
+@media screen and (max-width: 850px) {
+	/* Shrinks the navbar font-size and btn size to ensure that it can go down to ipad/tablet size */
+	.link-text {
+		font-size: var(--small-font-size);
+	}
+
+	.login-btn {
+		min-width: 11ch;
+	}
+
+	.login-btn .triangle {
+		width: 26px;
+	}
+
+	.nav-link-logo {
+		margin: 0 8px;
 	}
 }
 
