@@ -54,15 +54,15 @@ body {
 	justify-content: center;
 }
 
-.justify-sb {
+.justify-space-between {
 	justify-content: space-between;
 }
 
-.pos-rel {
+.pos-relative {
 	position: relative;
 }
 
-.pos-abs {
+.pos-absolute {
 	position: absolute;
 }
 
