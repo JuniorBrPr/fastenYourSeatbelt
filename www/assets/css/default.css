@@ -1,15 +1,30 @@
 /* custom variables */
 :root {
-	--red-color: #d81e05;
-	--red-color-dark: #800f00;
-	--button-color: #26a514;
-	--button-color-dark: #1e8210;
-	--grey-text-color: #666;
-	--grey-border-color: #d9d9d9;
-	--white-text-color: #fff;
-	--navbar-height: 73px;
+	/* Colors */
+	--color-red: #d81e05;
+	--color-red-dark: #800f00;
+	--color-btn-green: #26a514;
+	--color-btn-dark-green: #1e8210;
+	--color-text-grey: #666;
+	--color-border-grey: #d9d9d9;
+	--color-bg-grey: #f5f5f5;
+	--color-white: #fff;
+
+	/* Typography */
+	--small-font-size: 0.875rem;
+	--base-font-size: 1rem;
+	--sub-title-font-size: 1.618rem;
+	--mid-title-font-size: 2.618rem;
+	--big-title-font-size: 4.236rem;
+	--massive-title-font-size: 6.854rem;
+
+	--base-text-line-height: 1.125rem;
+
+	/* Other */
+	--navbar-height: 85px;
 }
-/* general reset of user-agent */
+
+/* General reset of user-agent */
 *,
 ::after,
 ::before {
@@ -17,12 +32,15 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
 body {
 	font-family: "Open Sans", sans-serif;
 	width: 100vw;
 	/* make every page  */
 	min-height: 100vh;
 	overflow-x: hidden;
+	font-size: var(--base-font-size);
+	line-height: var(--base-text-line-height);
 }
 
 /* general custom stylings of reoccurring elements */
@@ -42,13 +60,35 @@ body {
 	font-weight: 300;
 	font-size: 14px;
 }
-/* styling of buttons */
-.btn {
+/* General custom stylings of reoccurring elements */
+.d-flex {
 	display: flex;
+}
+
+.align-c {
 	align-items: center;
-	background-color: var(--button-color);
-	color: white;
-	font-size: 14px;
+}
+
+.justify-c {
+	justify-content: center;
+}
+
+.justify-space-between {
+	justify-content: space-between;
+}
+
+.pos-relative {
+	position: relative;
+}
+
+.pos-absolute {
+	position: absolute;
+}
+
+.btn {
+	background-color: var(--color-btn-green);
+	color: var(--color-white);
+	font-size: var(--base-font-size);
 	font-weight: 800;
 	font-style: italic;
 	text-decoration: none;
@@ -60,10 +100,10 @@ body {
 }
 .btn:hover,
 .btn:focus {
-	background-color: var(--button-color-dark);
+	background-color: var(--color-btn-dark-green);
 }
-.register-btn .btn-text,
-.login-btn .btn-text {
+
+.btn-text {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -72,11 +112,12 @@ body {
 	position: absolute;
 	left: 0;
 }
-.btn .triangle {
+
+.triangle {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: var(--button-color-dark);
+	background-color: var(--color-btn-dark-green);
 	transition: all 300ms ease-in;
 	position: absolute;
 	height: inherit;
@@ -87,56 +128,56 @@ body {
 }
 .btn:hover .triangle,
 .btn:focus .triangle {
-	background-color: var(--button-color);
+	background-color: var(--color-btn-green);
 }
 button.btn {
 	border: none;
 }
 
-/* styling of header */
+/* Styling of header */
 .header {
 	min-height: var(--navbar-height);
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
 	border-bottom: 15px solid var(--red-color);
 	padding-inline: 2vw;
 }
+
 .logo {
 	height: auto;
 	width: min(200px, 12vw);
 }
+
 .nav-menu {
-	display: flex;
-	flex-direction: row;
 	flex-wrap: wrap;
 }
+
 .nav-link,
 .nav-link-logo {
 	display: flex;
 	align-items: center;
-	color: var(--red-color);
+	color: var(--color-red);
 	text-decoration: none;
 	text-transform: uppercase;
-	font-size: 16px;
 	padding-right: 2vw;
+	font-size: var(--base-font-size);
+	font-weight: 700;
 }
+
 .link-text {
 	position: relative;
 	color: var(--red-color);
 }
-/* create line underneath the text of nav links when hovering/focusing */
+
+/* Create line underneath the text of nav links when hovering/focusing */
 .link-text::before {
 	content: "";
 	position: absolute;
 	bottom: 0;
 	height: 2px;
 	width: 0;
-	background-color: var(--red-color);
+	background-color: var(--color-red);
 	transition: width 300ms ease-in;
 }
-/* makes sure all links get underline when hovering/focusing by getting full width */
+/* Make sure all links get underline when hovering/focusing by getting full width */
 .nav-link:hover .link-text::before,
 .nav-link:focus .link-text::before,
 .link:hover .link-text::before,
@@ -150,35 +191,36 @@ button.btn {
 	align-items: center;
 	gap: 16px;
 }
-/* fix width for register button */
-.register-btn {
+
+/* Fix width for register button */
+.register-btn,
+.login-btn {
 	min-width: 14ch;
 }
-/* styling hamburger */
+
+/* Styling hamburger */
 .hamburger {
 	font-size: 32px;
-	color: var(--red-color);
+	color: var(--color-red);
 	cursor: pointer;
 	display: none;
 	padding: 4px;
 }
 
-/* styling nav menu mobile */
+/* Styling nav menu mobile */
 .nav-container {
 	display: none;
-	position: absolute;
-	border-left: 3px solid var(--red-color);
-	border-bottom: 3px solid var(--red-color);
+	border-left: 3px solid var(--color-red);
+	border-bottom: 3px solid var(--color-red);
 	border-bottom-left-radius: 15px;
-	font-size: 24px;
 	font-weight: 800;
 	padding: 8px;
-	background-color: var(--white-text-color);
-	/* high z-index makes sure nav-menu is always on top of content */
+	background-color: var(--color-white);
+	/* High z-index makes sure nav-menu is always on top of content */
 	z-index: 999;
-	/* animation name set with javascript */
+	/* Animation name set with javascript */
 	animation-timing-function: linear;
-	animation-duration: 500ms;
+	animation-duration: 300ms;
 	animation-fill-mode: forwards;
 }
 
@@ -272,9 +314,11 @@ button.btn {
 	.btn-container {
 		display: none;
 	}
+
 	.logo {
 		width: 200px;
 	}
+
 	.hamburger {
 		display: flex;
 		align-items: center;
@@ -282,6 +326,7 @@ button.btn {
 		width: 50px;
 		height: 50px;
 	}
+
 	.nav-menu-mobile {
 		display: flex;
 		flex-direction: column;
@@ -309,9 +354,28 @@ button.btn {
 	}
 }
 
-/* animations */
+@media screen and (max-width: 850px) {
+	/* Shrinks the navbar font-size and btn size to ensure that it can go down to ipad/tablet size */
+	.link-text {
+		font-size: var(--small-font-size);
+	}
 
-/* animation to show the mobile navigation menu */
+	.login-btn {
+		min-width: 11ch;
+	}
+
+	.login-btn .triangle {
+		width: 26px;
+	}
+
+	.nav-link-logo {
+		margin: 0 8px;
+	}
+}
+
+/* Animations */
+
+/* Animation to show the mobile navigation menu */
 @keyframes showMenu {
 	from {
 		right: -50%;
@@ -320,7 +384,8 @@ button.btn {
 		right: 0%;
 	}
 }
-/* animation to hide the mobile navigation menu */
+
+/* Animation to hide the mobile navigation menu */
 @keyframes hideMenu {
 	from {
 		right: 0%;
