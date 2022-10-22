@@ -65,7 +65,6 @@ body {
 }
 .sub-title {
 	font-size: var(--sub-title-font-size);
-	line-height: ;
 }
 .mid-title {
 	font-size: var(--mid-title-font-size);
