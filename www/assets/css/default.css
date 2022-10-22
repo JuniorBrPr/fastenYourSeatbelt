@@ -32,6 +32,10 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+a {
+	/* remove standard underline of links */
+	text-decoration: none;
+}
 
 body {
 	font-family: "Open Sans", sans-serif;
@@ -47,18 +51,18 @@ body {
 
 /* styling of titles */
 .title {
-	color: var(--red-color);
+	color: var(--color-red);
 	font-weight: 800;
 	font-style: italic;
 }
 .sub-title {
-	font-size: 26px;
+	font-size: var(--sub-title-font-size);
 }
 
 /* styling of text */
 .small-text {
 	font-weight: 300;
-	font-size: 14px;
+	font-size: var(--small-font-size);
 }
 /* General custom stylings of reoccurring elements */
 .d-flex {
@@ -130,6 +134,7 @@ body {
 .btn:focus .triangle {
 	background-color: var(--color-btn-green);
 }
+
 button.btn {
 	border: none;
 }
@@ -137,7 +142,7 @@ button.btn {
 /* Styling of header */
 .header {
 	min-height: var(--navbar-height);
-	border-bottom: 15px solid var(--red-color);
+	border-bottom: 15px solid var(--color-red);
 	padding-inline: 2vw;
 }
 
@@ -161,10 +166,13 @@ button.btn {
 	font-size: var(--base-font-size);
 	font-weight: 700;
 }
+.nav-link:last-child {
+	padding-right: 0;
+}
 
 .link-text {
 	position: relative;
-	color: var(--red-color);
+	color: var(--color-red);
 }
 
 /* Create line underneath the text of nav links when hovering/focusing */
@@ -192,7 +200,7 @@ button.btn {
 	gap: 16px;
 }
 
-/* Fix width for register button */
+/* Minimum width for button */
 .register-btn,
 .login-btn {
 	min-width: 14ch;
@@ -200,7 +208,7 @@ button.btn {
 
 /* Styling hamburger */
 .hamburger {
-	font-size: 32px;
+	font-size: var(--sub-title-font-size);
 	color: var(--color-red);
 	cursor: pointer;
 	display: none;
@@ -227,49 +235,44 @@ button.btn {
 /* styling of input */
 .input {
 	display: block;
-	border: 2px solid var(--grey-border-color);
+	border: 2px solid var(--color-border-grey);
 	border-radius: 10px;
 	width: 80%;
 	max-width: 500px;
 	height: 40px;
 	padding-inline-start: 6px;
-	color: var(--grey-text-color);
+	color: var(--color-text-grey);
 }
 .input::placeholder {
 	font-style: italic;
-	color: var(--grey-text-color);
+	color: var(--color-text-grey);
 }
-/* styling of sign-up page */
-.sign-up-main {
-	display: flex;
-}
-/* styling of sign-up form */
+
+/* styling of sign-up page 
+ styling of sign-up form */
 .sign-up-form {
 	width: 50%;
-	display: flex;
 	flex-direction: column;
 	padding-inline: 2vw;
 	padding-top: 5vh;
 	gap: 20px;
 }
+
 .input-label {
-	color: var(--grey-text-color);
+	color: var(--color-text-grey);
 	font-weight: 700;
 }
+
 .password-input-container {
-	position: relative;
 	max-width: 500px;
 	width: 80%;
 }
+
 /* reset input width, so that container determines with of input instead of the input itself */
 .password-input-container > .input {
 	width: 100%;
 }
-/* styling of links in sign-up form */
-.login-link,
-.terms-of-use-link {
-	text-decoration: none;
-}
+
 /* styling eye icons for showing/hiding password */
 .fa-eye,
 .fa-eye-slash {
@@ -278,23 +281,23 @@ button.btn {
 	/* center the eye in the vertical middle of the input (css trick)*/
 	top: 50%;
 	transform: translateY(-50%);
-	color: var(--grey-text-color);
+	color: var(--color-text-grey);
 	cursor: pointer;
 }
+
 .sign-up-form-actions-container {
-	display: flex;
-	justify-content: space-between;
 	max-width: 500px;
 	width: 80%;
 }
+
 .register-submit-btn {
-	display: flex;
-	justify-content: space-evenly;
 	min-width: 14ch;
 }
+
 .fa-check {
 	font-size: 20px;
 }
+
 .login-link > .link-text {
 	display: block;
 	width: fit-content;
@@ -332,15 +335,17 @@ button.btn {
 		flex-direction: column;
 		row-gap: 16px;
 	}
-	/* sign up page */
 
+	/* Sign up page */
 	.airplane-img {
 		display: none;
 	}
+
 	.sign-up-form {
 		width: 100vw;
 		align-items: center;
 	}
+
 	.input-container,
 	.sign-up-form .small-text,
 	.sign-up-form-actions-container {
@@ -348,6 +353,7 @@ button.btn {
 		max-width: 500px;
 		margin-inline: auto;
 	}
+
 	.input-container > .input,
 	.password-input-container {
 		width: 100%;
@@ -370,6 +376,10 @@ button.btn {
 
 	.nav-link-logo {
 		margin: 0 8px;
+	}
+
+	.nav-link {
+		padding-right: 1vw;
 	}
 }
 
