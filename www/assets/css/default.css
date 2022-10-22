@@ -19,6 +19,7 @@
 	--massive-title-font-size: 6.854rem;
 
 	--base-text-line-height: 1.125rem;
+	--title-line-height: 1.5rem;
 
 	/* Other */
 	--navbar-height: 85px;
@@ -35,6 +36,9 @@
 a {
 	/* remove standard underline of links */
 	text-decoration: none;
+}
+strong {
+	font-weight: 800;
 }
 
 body {
@@ -54,9 +58,20 @@ body {
 	color: var(--color-red);
 	font-weight: 800;
 	font-style: italic;
+	text-shadow: -0.01ch 0.12ch rgba(102, 102, 102, 0.2);
+	text-transform: capitalize;
+	margin-block: 20px;
+	line-height: var(--title-line-height);
 }
 .sub-title {
 	font-size: var(--sub-title-font-size);
+	line-height: ;
+}
+.mid-title {
+	font-size: var(--mid-title-font-size);
+}
+.big-title {
+	font-size: var(--big-title-font-size);
 }
 
 /* styling of text */
@@ -100,8 +115,10 @@ body {
 	border-radius: 10px;
 	width: min(150px, 10vw);
 	height: 40px;
+	margin-right: 16px;
 	position: relative;
 }
+
 .btn:hover,
 .btn:focus {
 	background-color: var(--color-btn-dark-green);
@@ -143,7 +160,6 @@ button.btn {
 .header {
 	min-height: var(--navbar-height);
 	border-bottom: 15px solid var(--color-red);
-	padding-inline: 2vw;
 }
 
 .logo {
@@ -162,14 +178,17 @@ button.btn {
 	color: var(--color-red);
 	text-decoration: none;
 	text-transform: uppercase;
-	padding-right: 2vw;
 	font-size: var(--base-font-size);
 	font-weight: 700;
+	padding-inline: 1vw;
 }
+
 .nav-link:last-child {
 	padding-right: 0;
 }
-
+.link {
+	line-break: strict;
+}
 .link-text {
 	position: relative;
 	color: var(--color-red);
@@ -197,7 +216,6 @@ button.btn {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	gap: 16px;
 }
 
 /* Minimum width for button */
@@ -311,6 +329,32 @@ button.btn {
 	filter: saturate(0.8);
 }
 
+/* Styling terms-of-use page */
+.terms-of-use-main,
+.privacy,
+.service {
+	flex-direction: column;
+}
+.terms-of-use-main {
+	margin-top: var(--navbar-height);
+	gap: 10vh;
+	color: var(--color-text-grey);
+}
+.terms-of-use-title {
+	font-size: 3.5rem;
+	line-height: initial;
+}
+.privacy,
+.service {
+	padding-inline: 2vw;
+	gap: 20px;
+	width: 100vw;
+}
+.privacy li,
+.service li {
+	list-style-position: inside;
+}
+
 /* media queries  */
 @media screen and (max-width: 750px) {
 	.nav-menu > .nav-link,
@@ -358,6 +402,9 @@ button.btn {
 	.password-input-container {
 		width: 100%;
 	}
+	.terms-of-use-title {
+		font-size: var(--mid-title-font-size);
+	}
 }
 
 @media screen and (max-width: 850px) {
@@ -380,6 +427,9 @@ button.btn {
 
 	.nav-link {
 		padding-right: 1vw;
+	}
+	.terms-of-use-main {
+		margin-left: 16px;
 	}
 }
 
