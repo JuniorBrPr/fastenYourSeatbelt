@@ -80,5 +80,27 @@
 				</a>
 			</nav>
 		</aside>
+		<div id="loginModal" class="modal">
+			<form class="modal-content">
+				<div class="modal-header">
+					<span id="closeModal">X</span>
+					<h2 class="modal-title">Login</h2>
+				</div>
+				<div class="modal-body">
+					<label for="email">Email:</label>
+					<input type="text" placeholder="voorbeeld@corenbuddy.nl" name="email" id="email" required>
+					<label for="password">Wachtwoord:</label>
+					<input type="password" placeholder="Wachtwoord" name="password" id="password" required>
+					<button class="btn" type="submit">
+						<span class="btn-text">Login</span>
+						<span class="triangle"><i class="fa-solid fa-play"></i></span>
+					</button>
+				</div>
+				<div class="modal-footer">
+					<span>Wachtwoord <a href="#">vergeten</a>?</span>
+					<span>Nog geen <a href="#">account</a>?</span>
+				</div>
+			</form>
+		</div>
 	</body>
 </html>
