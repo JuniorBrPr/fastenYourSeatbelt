@@ -46,6 +46,10 @@ body {
 	display: flex;
 }
 
+.flex-col {
+	flex-direction: column;
+}
+
 .align-c {
 	align-items: center;
 }
@@ -191,6 +195,33 @@ body {
 	animation-duration: 300ms;
 	animation-fill-mode: forwards;
 }
+
+/*  Home Page  */
+
+/* Hero section */
+section.hero {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), 
+					  url('/www/assets/img/hero-background.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	color: var(--color-white);
+	gap: 60px;
+
+	/* Sets the height of the image to 100vh excluding the header */
+	min-height: calc(100vh - var(--navbar-height));
+}
+
+.hero-title {
+	font-size: var(--big-title-font-size);
+	font-style: italic;
+}
+
+.hero-title-description {
+	font-size: var(--sub-title-font-size);
+	font-weight: 400;
+}
+
 
 @media screen and (max-width: 768px) {
 	.nav-menu > .nav-link,
