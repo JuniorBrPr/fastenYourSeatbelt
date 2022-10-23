@@ -35,8 +35,6 @@
 
 body {
 	font-family: "Open Sans", sans-serif;
-	width: 100vw;
-	overflow-x: hidden;
 	font-size: var(--base-font-size);
 	line-height: var(--base-text-line-height);
 }
@@ -46,7 +44,8 @@ body {
 	display: flex;
 }
 
-.flex-col {
+.d-flex-col {
+	display: flex;
 	flex-direction: column;
 }
 
@@ -196,7 +195,7 @@ body {
 	animation-fill-mode: forwards;
 }
 
-/*  Home Page  */
+/* --- Home Page --- */
 
 /* Hero section */
 section.hero {
@@ -222,6 +221,36 @@ section.hero {
 	font-weight: 400;
 }
 
+/* Information Cards */
+section.info-cards {
+	padding: 30px;
+	gap: 40px;
+}
+
+.card {
+	background-color: var(--color-bg-grey);
+	padding: 30px;
+	width: 25%;
+	height: 150px;
+	gap: 20px;
+	border-radius: 10px;
+	transition: all .2s ease-in-out;
+}
+.card:hover {
+	box-shadow: 0 0 20px var(--color-border-grey);
+}
+
+.card-title {
+	color: var(--color-red);
+	font-weight: 800;
+}
+
+.card-text {
+	text-align: center;
+	/* font-style: italic; */
+	font-size: var(--small-font-size);
+	color: var(--color-text-grey)
+}
 
 @media screen and (max-width: 768px) {
 	.nav-menu > .nav-link,
