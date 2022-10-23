@@ -38,7 +38,10 @@ a {
 	text-decoration: none;
 }
 strong {
-	font-weight: 800;
+	font-weight: 700;
+}
+button {
+	cursor: pointer;
 }
 
 body {
@@ -56,9 +59,8 @@ body {
 /* styling of titles */
 .title {
 	color: var(--color-red);
-	font-weight: 800;
+	font-weight: 700;
 	font-style: italic;
-	text-shadow: -0.01ch 0.12ch rgba(102, 102, 102, 0.2);
 	text-transform: capitalize;
 	margin-block: 20px;
 	line-height: var(--title-line-height);
@@ -68,9 +70,11 @@ body {
 }
 .mid-title {
 	font-size: var(--mid-title-font-size);
+	text-shadow: -0.01ch 0.12ch rgba(102, 102, 102, 0.2);
 }
 .big-title {
 	font-size: var(--big-title-font-size);
+	text-shadow: -0.01ch 0.12ch rgba(102, 102, 102, 0.2);
 }
 
 /* styling of text */
@@ -211,12 +215,6 @@ button.btn {
 	width: 100%;
 }
 
-.btn-container {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
 /* Minimum width for button */
 .register-btn,
 .login-btn {
@@ -308,7 +306,7 @@ button.btn {
 }
 
 .register-submit-btn {
-	min-width: 14ch;
+	min-width: 16ch;
 }
 
 .fa-check {
@@ -335,12 +333,12 @@ button.btn {
 	flex-direction: column;
 }
 .terms-of-use-main {
-	margin-top: var(--navbar-height);
-	gap: 10vh;
+	gap: 5vh;
 	color: var(--color-text-grey);
 }
 .terms-of-use-title {
-	font-size: 3.5rem;
+	font-size: var(--big-title-font-size);
+	text-shadow: -0.01ch 0.12ch rgba(102, 102, 102, 0.2);
 	line-height: initial;
 }
 .privacy,
@@ -348,6 +346,7 @@ button.btn {
 	padding-inline: 2vw;
 	gap: 20px;
 	width: 100vw;
+	margin-bottom: 5vh;
 }
 .privacy li,
 .service li {
@@ -355,7 +354,7 @@ button.btn {
 }
 
 /* media queries  */
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 760px) {
 	.nav-menu > .nav-link,
 	.btn-container {
 		display: none;
