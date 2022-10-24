@@ -354,7 +354,7 @@ button.btn {
 }
 
 /* media queries  */
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
 	.nav-menu > .nav-link,
 	.btn-container {
 		display: none;
