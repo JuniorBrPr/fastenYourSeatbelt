@@ -8,9 +8,11 @@ modalOpenBtn.addEventListener("click", () => {
 	loginModal.style.display = "block";
 });
 //when the login link in the sign up form is clicked, open the modal
-openModalLink.addEventListener("click", () => {
-	loginModal.style.display = "block";
-});
+if (openModalLink != null) {
+	openModalLink.addEventListener("click", () => {
+		loginModal.style.display = "block";
+	});
+}
 //When the cross on the modal is clicked, close the modal
 modalCloseBtn.addEventListener("click", () => {
 	loginModal.style.display = "none";
