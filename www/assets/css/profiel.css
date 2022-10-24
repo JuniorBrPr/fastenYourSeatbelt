@@ -70,7 +70,7 @@
 }
 
 .sub-btn {
-    background-color: #1e8210;
+    background-color: var(--color-btn-dark-green);
     border: none;
     border-radius: 12px;
     color: white;
