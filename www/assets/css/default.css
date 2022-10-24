@@ -13,7 +13,6 @@
 	/* Typography */
 	--small-font-size: .875rem;
 	--base-font-size: 1rem;
-	--cta-btn-font-size: 1.25rem;
 	--sub-title-font-size: 1.618rem;
 	--mid-title-font-size: 2.618rem;
 	--big-title-font-size: 4.236rem;
@@ -230,40 +229,42 @@ section.hero {
 
 /* Information Cards */
 section.info-cards {
-	padding: 50px;
+	margin: 0 100px;
+	padding: 50px 0;
 	gap: 40px;
 }
 
-.card {
+.info-card {
 	background-color: var(--color-bg-grey);
 	padding: 30px;
-	width: 25%;
+	width: 30%;
 	height: 150px;
 	gap: 20px;
 	border-radius: 10px;
 	transition: all .2s ease-in-out;
+	text-align: center;
 }
-.card:hover {
+.info-card:hover {
 	box-shadow: 0 0 20px var(--color-border-grey);
 }
 
-.card-title {
+.info-card-title {
 	color: var(--color-red);
 	font-weight: 800;
 }
 
-.card-text {
-	text-align: center;
+.info-card-text {
 	font-size: var(--small-font-size);
 	color: var(--color-text-grey);
 }
 
 /* Home page cta */
 section.cta {
+	margin: 0 100px;
+	padding: 50px 0;
 	text-align: center;
 	height: 300px;
 	gap: 50px;
-	padding: 50px;
 }
 
 .cta-text {
@@ -288,9 +289,60 @@ section.cta {
 
 .cta-btn {
 	min-width: 20ch;
-	font-size: var(--cta-btn-font-size);
+	font-size: var(--base-font-size);
 	font-weight: 700;
 	margin: 0;
+}
+
+/* Home page CTA cards */
+section.cta-cards {
+	margin: 0 100px;
+	gap: 20px;
+	height: 400px;
+	padding: 50px 0;
+}
+
+.cta-card {
+	color: var(--color-white);
+	width: 20%;
+	max-width: 350px;
+	height: 300px;
+	border-radius: 10px;
+
+	/* For all bg images */
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	transition: all .2s ease-in-out;
+}
+.cta-card:hover {
+	cursor: pointer;
+	transform: scale(1.05);
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.cta-card-title {
+	font-size: var(--base-font-size);
+}
+
+.cta-card-find {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)),
+					  url('/www/assets/img/buddy.jpg');
+}
+
+.cta-card-contact {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)),
+					  url('/www/assets/img/contact-us.jpg');
+}
+
+.cta-card-about {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)),
+					  url('/www/assets/img/about-us.jpg');
+}
+
+.cta-card-matches {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)),
+					  url('/www/assets/img/matches.jpg');
 }
 
 @media screen and (max-width: 768px) {
@@ -316,9 +368,55 @@ section.cta {
 		flex-direction: column;
 		row-gap: 16px;
 	}
+
+	/* Home Page */
+	.hero-title {
+		font-size: var(--sub-title-font-size);
+		text-align: center;
+	}
+
+	.hero-title-description {
+		font-size: var(--base-font-size);
+	}
+
+	section.info-cards,
+	section.cta-cards,
+	section.cta {
+		flex-direction: column;
+		margin: 0 30px;
+		padding: 30px 0;
+		gap: 30px;
+		height: auto;
+	}
+
+	.info-card {
+		width: 100%;
+	}
+
+	.cta-title {
+		font-size: var(--sub-title-font-size);
+	}
+
+	.cta-btn {
+		min-width: 16ch;
+	}
+
+	.cta-card {
+		width: 100%;
+		max-width: none;
+		height: 150px;
+	}
+
+	.cta-btn-container {
+		gap: 10px;
+	}
+
+	.cta-sub-title {
+		font-size: var(--base-font-size);
+	}
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 850px) and (min-width: 769px) {
 	/* Shrinks the navbar font-size and btn size to ensure that it can go down to ipad/tablet size */
 	.link-text {
 		font-size: var(--small-font-size);
@@ -334,6 +432,50 @@ section.cta {
 
 	.nav-link-logo {
 		margin: 0 8px;
+	}
+
+	/* Home Page */
+	.cta-btn {
+		min-width: 20ch;
+	}
+}
+
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+	/* Home Page */
+	section.info-cards {
+		flex-direction: column;
+	}
+
+	.info-card {
+		width: 100%;
+	}
+
+	.hero-title {
+		font-size: var(--mid-title-font-size);
+	}
+
+	.cta-title {
+		font-size: var(--sub-title-font-size);
+	}
+
+	section.cta-cards {
+		flex-direction: column;
+		height: auto;
+	}
+
+	.cta-card {
+		width: 100%;
+		height: 200px;
+		max-width: none;
+	}
+	
+}
+
+@media screen and (max-width: 1500px) and (min-width: 1025px) {
+	/* Home Page */
+	.cta-card {
+		width: 30%;
+		height: 250px;
 	}
 }
 
