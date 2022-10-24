@@ -370,9 +370,8 @@ body {
 	color: var(--color-red);
 }
 
-.login-link:hover {
-	color: var(--color-red-dark);
-	text-decoration: underline;
+.login-link:hover .link-text::before {
+	width: 100%;
 }
 
 @media screen and (max-width: 768px) {
