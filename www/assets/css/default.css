@@ -21,7 +21,7 @@
 	--base-text-line-height: 1.125rem;
 
 	/* Other */
-	--navbar-height: 85px; 
+	--navbar-height: 85px;
 }
 
 /* General reset of user-agent */
@@ -46,6 +46,10 @@ body {
 	display: flex;
 }
 
+.text-align-c {
+	text-align: center;
+}
+
 .align-c {
 	align-items: center;
 }
@@ -64,6 +68,10 @@ body {
 
 .pos-absolute {
 	position: absolute;
+}
+
+.w-100 {
+	width: 100%;
 }
 
 .btn {
@@ -144,6 +152,72 @@ body {
 	position: relative;
 }
 
+/* Buddy popup profile */
+.popup-container {
+	height: 100%;
+	top: 0;
+}
+
+#buddy-popup {
+	margin: 0 auto;
+	top: 15%;
+
+	width: 900px;
+	padding-bottom: 40px;
+	box-shadow: var(--color-bg-grey) 0 0 12px;
+	border-radius: 0 0 10px 10px;
+}
+
+.popup-header {
+	background: linear-gradient(90deg, rgba(216,30,5,1) 0%, rgba(187,57,40,1) 55%, rgba(156,45,30,1) 100%);
+	color: var(--color-white);
+	padding: 25px;
+	border-radius: 10px 10px 0 0;
+}
+
+.popup-header p, .popup-header h1 {
+	margin-left: auto;
+	font-size: var(--sub-title-font-size);
+}
+
+.popup-content {
+	justify-content: space-around;
+	gap: 10px;
+	padding: 40px 40px 0 40px;
+	align-items: flex-start;
+	background: var(--color-white);
+}
+
+.flex-item {
+	background: var(--color-bg-grey);
+	padding: 15px;
+	border-radius: 10px;
+}
+
+.flex-item.buddy-picture {
+	background: var(--color-bg-grey);
+	padding: 0;
+	padding-bottom: 10px;
+	border-radius: 10px;
+}
+
+.flex-item h2 {
+	border-bottom: 2px solid var(--color-border-grey);
+	padding-bottom: 10px;
+	margin-bottom: 15px;
+	color: var(--color-text-grey);
+}
+
+.buddy-picture img {
+	border-radius: 10px 10px 0 0;
+	padding-bottom: 5px;
+}
+
+.interests {
+	flex-flow: row wrap;
+	gap: 15px 50px;
+}
+
 /* Create line underneath the text of nav links when hovering/focusing */
 .link-text::before {
 	content: "";
@@ -192,6 +266,117 @@ body {
 	animation-fill-mode: forwards;
 }
 
+/* Styling login modal */
+.login-container {
+	display: none;
+	left: 0;
+	top: 0;
+	z-index: 1000;
+	width: 100%;
+	height: 100%;
+	background-color:rgba(0,0,0,0.35);
+}
+
+.login {
+	margin: 100px auto;
+        flex-direction: column;
+	max-width: 80%;
+	width: 600px;
+	min-height: min-content;
+	height: 400px;
+	border-radius: 8px;
+	background-color: var(--color-bg-grey);
+        gap: 44px;
+	color: var(--color-text-grey);
+
+}
+
+.login-header {
+	padding: 8px 15px 8px 15px;
+	width: 100%;
+	height: 60px;
+	background-color: var(--color-red);
+	border-radius: 8px 8px 0 0;
+	font-size: var(--sub-title-font-size);
+	color: var(--color-white);
+}
+
+.login-header-content {
+	margin-left: auto;
+	margin-bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.login-header h2{
+	font-style: italic;
+}
+
+.login-close {
+	font-weight: bold;
+}
+
+.login-close:hover {
+	color: var(--color-text-grey);
+	cursor: pointer;
+}
+
+.login-content {
+	display: flex;
+	justify-content: flex-end;
+	gap: 20px;
+	width: 80%;
+	height: 30px;
+	font-size: var(--base-font-size);
+}
+
+.login-input {
+	width: 300px;
+	max-width: 80%;
+	height: 30px;
+	border-radius: 8px;
+	text-align: center;
+}
+
+.login-content-btn {
+	width: 80%;
+	border: none;
+	margin: auto;
+}
+.login-content-btn:hover {
+	cursor: pointer;
+}
+
+.login-content-btn .triangle {
+	position: relative;
+	height: 100%;
+	width: 10%;
+	margin-left: auto;
+}
+
+.login-content-btn .btn-text {
+	width: 100%;
+	height: 100%;
+	margin-left: auto;
+}
+
+.login-footer {
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 10px;
+	font-size: var(--small-font-size);
+	gap: 20px;
+}
+
+.login-link {
+	text-decoration: none;
+	color: var(--color-red);
+}
+
+.login-link:hover .link-text::before {
+	width: 100%;
+}
+
 @media screen and (max-width: 768px) {
 	.nav-menu > .nav-link,
 	.btn-container {
@@ -214,6 +399,53 @@ body {
 		display: flex;
 		flex-direction: column;
 		row-gap: 16px;
+	}
+
+	.interests {
+		gap: 15px 20px;
+	}
+
+	/* Buddy profile popup */
+	.popup-content {
+		gap: 40px;
+		flex-direction: column-reverse;
+	}
+
+	#buddy-popup {
+		width: calc(100vw - 15vw);
+	}
+
+	.buddy-picture {
+		align-self: center;
+	}
+
+	/* Login modal */
+	.login {
+		height: 460px;
+		min-width: min-content;
+		gap: 20px;
+	}
+
+	.login-content {
+		flex-direction: column;
+		height: 80px;
+		width: 100%;
+		margin: 10px auto;
+		gap: 5px;
+	}
+
+	.login-content label {
+		margin-left: 10%;
+		margin-right: auto;
+	}
+
+	.login-input {
+		margin: auto;
+		width: 80%;
+	}
+
+	.login-footer {
+		gap: 5px;
 	}
 }
 
