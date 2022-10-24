@@ -279,14 +279,14 @@ body {
 
 .login {
 	margin: 100px auto;
-    flex-direction: column;
+        flex-direction: column;
 	max-width: 80%;
 	width: 600px;
 	min-height: min-content;
 	height: 400px;
 	border-radius: 8px;
 	background-color: var(--color-bg-grey);
-    gap: 44px;
+        gap: 44px;
 	color: var(--color-text-grey);
 
 }
