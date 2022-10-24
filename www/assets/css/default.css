@@ -304,6 +304,12 @@ body {
 .login-header-content {
 	margin-left: auto;
 	margin-bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.login-header h2{
+	font-style: italic;
 }
 
 .login-close {
