@@ -196,55 +196,48 @@ body {
 /*footer*/
 footer {
 	position: fixed;
-	left: 0;
 	bottom: 0;
 	width: 100%;
 	color: var(--color-red);
-	text-align: center;
 	height: 18%;
 }
 
-.footer-headColor {
-	background-color: var(--color-red);
-	width: 100%;
-	height: 15px;
-}
 
 .flex-container {
 	display: flex;
+	margin-top: 10px;
+	border-top: 15px solid var(--color-red);
 }
 
-.flex-child {
-	flex: 1;
-	margin-left: 20px;
-	margin-inside: 5px;
-}
-
-.footer-ThisBlock {
+.footer-link-block {
 	margin-left: 40px;
+	display: flex;
+	flex-direction: column;
 }
 
-.footer-imgBlock, .footer-logo {
-	height: auto;
-	width: min(200px, 12vw);
-	left: 0;
+.reis-quote{
+	margin-top: 10px;
 }
+
 
 .footer-titel {
 	color: var(--color-text-grey);
-	border-bottom: 2px solid var(--color-text-grey);
 	display: inline-block;
 	margin-bottom: 10px;
 }
 
 .footer-link {
 	color: var(--color-red);
+	text-decoration: none;
 }
 
 .copyright{
 	color: black;
 	position: absolute;
-	bottom: 0%;
+	bottom: 2%;
+	left: 50%;
+	transform: translateX(-50%)
+
 }
 .socialMedia{
 	margin-top: 10px;
