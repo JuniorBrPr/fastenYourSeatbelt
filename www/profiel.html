@@ -18,7 +18,6 @@
             crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="assets/css/default.css" />
-    <link rel="stylesheet" href="assets/css/profiel.css" />
     <!-- load javascript, defer makes sure scripts are loaded when dom-elements are
     available  -->
     <script src="assets/scripts/hamburgerMenu.js" defer></script>
@@ -83,7 +82,7 @@
 </aside>
 
 <main class="profiel-main d-flex justify-c">
-    <form class="profiel" action="results.html" method="GET">
+    <form class="profiel align-c"action="results.html" method="GET">
         <h1 class="h1-mijn-profiel">Mijn Profiel</h1>
         <div class="profiel-container">
             <label class="p-label" for="voornaam">Voornaam</label>
@@ -207,16 +206,15 @@
             </select>
         </div>
         <div class="opslaan-container">
-            <button class="sub-btn" type="submit">Opslaan</button>
+            <button class="sub-btn btn" type="submit">Opslaan</button>
         </div>
-
     </form>
 
     <section class="right-block d-flex">
         <div class="profiel-foto-card">
             <h2>Profiel Foto</h2>
             <img src="assets/img/HenkvanVliet2.jpg" alt="Profiel foto" width="300" height="300" />
-            <p><button class="sub-btn">Upload foto</button></p>
+            <button class="sub-btn btn">Upload foto</button>
 
             <!--				<label class="p-label" >Profiel Foto</label>-->
             <!--				<input class="profiel-foto-upload"-->
@@ -225,7 +223,6 @@
             <!--					   name="image"-->
             <!--					   id="profiel-file">-->
         </div>
-
         <div class="profiel-account-card">
             <h2>Mijn Account</h2>
             <label for="email" class="p-label"> Email </label>
@@ -246,18 +243,17 @@
                     class="profiel-field"
                     required
                     placeholder="***********" />
-            <p><button class="sub-btn">Update Account</button></p>
+            <button class="sub-btn btn">Update Account</button>
         </div>
-
         <div class="profiel-preference-card">
             <h2>Preferences</h2>
             <label class="p-label"
             >Darkmode:</label>
 
-            <label class="switch">
+            <div class="switch">
                 <input type="checkbox">
                 <span class="slider round"></span>
-            </label>
+            </div>
         </div>
     </section>
 </main>
