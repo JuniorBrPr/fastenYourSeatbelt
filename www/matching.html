@@ -21,6 +21,7 @@
         <!-- load javascript, defer makes sure scripts are loaded when dom-elements are
         available  -->
         <script src="assets/scripts/hamburgerMenu.js" defer></script>
+        <script src="assets/scripts/matching.js" defer></script>
     </head>
     <body>
         <header class="header d-flex justify-space-between align-c">
@@ -78,7 +79,7 @@
                 </div>
                 <div class="matching-content d-flex">
                     <div class="matching-sidebar d-flex">
-                        <button class="buddies-btn btn">
+                        <button class="existing-btn btn">
                             <span class="btn-text">Bestaande Buddy's</span>
                         </button>
                         <button class="suggested-btn btn">
@@ -87,7 +88,7 @@
                         <button class="incoming-btn btn">
                             <span class="btn-text">Inkomende match verzoeken</span>
                         </button>
-                        <button class="sent-btn btn">
+                        <button class="outgoing-btn btn">
                             <span class="btn-text">Uitgaande match verzoeken</span>
                         </button>
                     </div>
@@ -98,9 +99,8 @@
                             <span class="matches-header-text">Tijdsbestek</span>
                             <span class="matches-header-text">Aantal Interesses</span>
                         </div>
+                        <ul class="matching-matches d-flex"></ul>
                     </div>
-                    <ul class="matching-matches">
-                    </ul>
                 </div>
             </div>
         </main>
