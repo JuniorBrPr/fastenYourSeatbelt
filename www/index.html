@@ -21,6 +21,7 @@
 		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are 
 		available  -->
 		<script src="assets/scripts/hamburgerMenu.js" defer></script>
+		<script src="assets/scripts/loginModal.js" defer></script>
 	</head>
 	<body>
 		<header class="header d-flex justify-space-between align-c">
@@ -81,10 +82,10 @@
 			</nav>
 		</aside>
 		<div class="login-container pos-absolute">
-			<form id="loginModal" class="login d-flex align-c">
+			<form class="login d-flex align-c">
 				<div class="login-header d-flex align-c">
 					<h2 class="login-header-content">Login</h2>
-					<span id="closeModal" class="login-header-content">X</span>
+					<span class="login-header-content login-close">X</span>
 				</div>
 				<div class="login-content">
 					<label class="d-flex align-c" for="email">Email:</label>
