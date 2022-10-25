@@ -10,9 +10,11 @@ modalOpenBtn.addEventListener("click", () => {
 });
 
 //When the login button on the homepage is clicked, open the modal
-modalOpenBtnTwo.addEventListener("click", () => {
-	loginModal.style.display = "block";
-});
+if (modalOpenBtnTwo != null) {
+	modalOpenBtnTwo.addEventListener("click", () => {
+		loginModal.style.display = "block";
+	});
+}
 
 //when the login link in the sign up form is clicked, open the modal
 if (openModalLink != null) {
