@@ -1,5 +1,6 @@
 const loginModal = document.querySelector(".login-container");
 const modalOpenBtn = document.querySelector(".login-btn");
+const modalOpenBtnTwo = document.querySelector(".login-btn-homepage");
 const modalCloseBtn = document.querySelector(".login-close");
 const openModalLink = document.querySelector(".sign-up-login-link");
 
@@ -7,6 +8,12 @@ const openModalLink = document.querySelector(".sign-up-login-link");
 modalOpenBtn.addEventListener("click", () => {
 	loginModal.style.display = "block";
 });
+
+//When the login button on the homepage is clicked, open the modal
+modalOpenBtnTwo.addEventListener("click", () => {
+	loginModal.style.display = "block";
+});
+
 //when the login link in the sign up form is clicked, open the modal
 if (openModalLink != null) {
 	openModalLink.addEventListener("click", () => {
