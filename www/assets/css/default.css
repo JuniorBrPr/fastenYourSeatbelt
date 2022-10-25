@@ -18,8 +18,9 @@
 	--big-title-font-size: 4.236rem;
 	--massive-title-font-size: 6.854rem;
 
-	--base-text-line-height: 1.125rem;
-	--title-line-height: 1.5rem;
+	/* base = standard for text, small = Titles or exeptions */
+	--base-line-height: 1.75;
+	--small-line-height: 1.3;
 
 	/* Other */
 	--navbar-height: 85px;
@@ -36,12 +37,9 @@
 
 body {
 	font-family: "Open Sans", sans-serif;
-	width: 100vw;
-	/* make every page  */
 	min-height: 100vh;
-	overflow-x: hidden;
 	font-size: var(--base-font-size);
-	line-height: var(--base-text-line-height);
+	line-height: var(--base-line-height);
 }
 
 /* general custom stylings of reoccurring elements */
@@ -75,6 +73,11 @@ body {
 /* General custom stylings of reoccurring elements */
 .d-flex {
 	display: flex;
+}
+
+.d-flex-col {
+	display: flex;
+	flex-direction: column;
 }
 
 .text-align-c {
@@ -153,6 +156,15 @@ body {
 	background-color: var(--color-btn-green);
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	line-height: var(--small-line-height);
+}
+
 button.btn {
 	border: none;
 }
@@ -193,6 +205,7 @@ button.btn {
 }
 .link-text {
 	position: relative;
+	line-height: var(--small-line-height);
 	color: var(--color-red);
 }
 
@@ -265,7 +278,6 @@ button.btn {
 /* styling of sign-up page
  styling of sign-up form */
 .sign-up-main {
-	margin-bottom: 50px;
 	min-height: 100vh;
 }
 .sign-up-form {
@@ -339,7 +351,6 @@ button.btn {
 	gap: 5vh;
 	color: var(--color-text-grey);
 	min-height: 100vh;
-	margin-bottom: 85px;
 }
 .terms-of-use-title {
 	font-size: var(--big-title-font-size);
@@ -474,9 +485,153 @@ button.btn {
 	animation-fill-mode: forwards;
 }
 
+/* --- Home Page --- */
+
+/* Hero section */
+section.hero {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+		url("../img/hero-background.png");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	color: var(--color-white);
+
+	/* Sets the height of the image to 100vh excluding the header */
+	min-height: calc(100vh - var(--navbar-height));
+}
+
+.hero-title {
+	font-size: var(--big-title-font-size);
+	font-style: italic;
+}
+
+.hero-title-description {
+	font-size: var(--sub-title-font-size);
+	font-weight: 400;
+}
+
+/* Information Cards */
+section.info-cards {
+	margin: 0 100px;
+	padding: 50px 0;
+	gap: 40px;
+}
+
+.info-card {
+	background-color: var(--color-bg-grey);
+	padding: 30px;
+	width: 30%;
+	height: 150px;
+	gap: 20px;
+	border-radius: 10px;
+	transition: all 0.2s ease-in-out;
+	text-align: center;
+}
+.info-card:hover {
+	box-shadow: 0 0 20px var(--color-border-grey);
+}
+
+.info-card-title {
+	color: var(--color-red);
+	font-weight: 800;
+}
+
+.info-card-text {
+	font-size: var(--small-font-size);
+	color: var(--color-text-grey);
+}
+
+/* Home page cta */
+section.cta {
+	margin: 0 100px;
+	padding: 50px 0;
+	text-align: center;
+	height: 300px;
+	gap: 50px;
+}
+
+.cta-text {
+	gap: 10px;
+	color: var(--color-text-grey);
+}
+
+.cta-sub-title {
+	font-weight: 200;
+}
+
+.cta-title {
+	font-size: var(--mid-title-font-size);
+	font-weight: 400;
+	font-style: italic;
+}
+
+.cta-btn-container {
+	gap: 30px;
+	width: 100%;
+}
+
+.cta-btn {
+	min-width: 20ch;
+	font-size: var(--base-font-size);
+	font-weight: 700;
+	margin: 0;
+}
+
+/* Home page CTA cards */
+section.cta-cards {
+	margin: 0 100px;
+	gap: 20px;
+	height: 400px;
+	padding: 50px 0;
+}
+
+.cta-card {
+	color: var(--color-white);
+	width: 20%;
+	max-width: 350px;
+	height: 300px;
+	border-radius: 10px;
+
+	/* For all bg images */
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	transition: all 0.2s ease-in-out;
+}
+.cta-card:hover {
+	cursor: pointer;
+	transform: scale(1.05);
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+		rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.cta-card-title {
+	font-size: var(--base-font-size);
+}
+
+.cta-card-find {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+		url("../img/buddy.jpg");
+}
+
+.cta-card-contact {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+		url("../img/contact-us.jpg");
+}
+
+.cta-card-about {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+		url("../img/about-us.jpg");
+}
+
+.cta-card-matches {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+		url("../img/matches.jpg");
+}
+
 /*footer*/
 footer {
-	position: fixed;
+	position: relative;
 	bottom: 0;
 	width: 100%;
 	color: var(--color-red);
@@ -717,6 +872,7 @@ footer {
 
 .login-close {
 	font-weight: bold;
+	margin-left: auto;
 }
 
 .login-close:hover {
@@ -805,6 +961,52 @@ footer {
 		row-gap: 16px;
 	}
 
+	/* Home Page */
+	.hero-title {
+		font-size: var(--sub-title-font-size);
+		text-align: center;
+	}
+
+	.hero-title-description {
+		font-size: var(--base-font-size);
+	}
+
+	section.info-cards,
+	section.cta-cards,
+	section.cta {
+		flex-direction: column;
+		margin: 0 30px;
+		padding: 30px 0;
+		gap: 30px;
+		height: auto;
+	}
+
+	.info-card {
+		width: 100%;
+	}
+
+	.cta-title {
+		font-size: var(--sub-title-font-size);
+	}
+
+	.cta-btn {
+		min-width: 16ch;
+	}
+
+	.cta-card {
+		width: 100%;
+		max-width: none;
+		height: 150px;
+	}
+
+	.cta-btn-container {
+		gap: 10px;
+	}
+
+	.cta-sub-title {
+		font-size: var(--base-font-size);
+	}
+
 	.interests {
 		gap: 15px 20px;
 	}
@@ -831,7 +1033,6 @@ footer {
 	.sign-up-form {
 		width: 100vw;
 		align-items: center;
-		margin-bottom: 85px;
 	}
 
 	.input-container,
@@ -1117,9 +1318,53 @@ input:checked + .slider:before {
 		margin: 0 8px;
 	}
 
+	/* Home Page */
+	.cta-btn {
+		min-width: 20ch;
+	}
+}
+
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+	/* Home Page */
+	section.info-cards {
+		flex-direction: column;
+	}
+
+	.info-card {
+		width: 100%;
+	}
+
+	.hero-title {
+		font-size: var(--mid-title-font-size);
+	}
+
+	.cta-title {
+		font-size: var(--sub-title-font-size);
+	}
+
+	section.cta-cards {
+		flex-direction: column;
+		height: auto;
+	}
+
+	.cta-card {
+		width: 100%;
+		height: 200px;
+		max-width: none;
+	}
+}
+
+@media screen and (max-width: 1500px) and (min-width: 1025px) {
+	/* Home Page */
+	.cta-card {
+		width: 30%;
+		height: 250px;
+	}
+
 	.nav-link {
 		padding-right: 1vw;
 	}
+
 	.terms-of-use-main {
 		margin-left: 16px;
 	}
