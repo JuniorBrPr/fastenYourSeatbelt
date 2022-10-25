@@ -811,6 +811,7 @@ section.cta-cards {
 
 .login-close {
 	font-weight: bold;
+	margin-left: auto;
 }
 
 .login-close:hover {
@@ -1097,7 +1098,7 @@ section.cta-cards {
 	.nav-link {
 		padding-right: 1vw;
 	}
-	
+
 	.terms-of-use-main {
 		margin-left: 16px;
 	}
