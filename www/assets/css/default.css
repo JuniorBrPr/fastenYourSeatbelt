@@ -352,19 +352,15 @@ button.btn {
 }
 
 /* Buddy popup profile */
-.popup-container {
-	height: 100%;
-	top: 0;
-}
 
 #buddy-popup {
-	margin: 0 auto;
+	margin: 100px auto;
 	top: 15%;
-
+	background-color: var(--color-white);
 	width: 900px;
 	padding-bottom: 40px;
 	box-shadow: var(--color-bg-grey) 0 0 12px;
-	border-radius: 0 0 10px 10px;
+	border-radius: 10px 10px 10px 10px;
 }
 
 .popup-header {
@@ -475,34 +471,34 @@ button.btn {
 .matching-container {
 	flex-direction: column;
 	width: 1400px;
-	height: 700px;
-	position: absolute;
-	top: var(--navbar-height);
+	max-width: 95%;
+	height: 750px;
 }
 
 .matching-header {
 	width: 100%;
-	height: 150px;
-	margin-top: 100px;
-	margin-bottom: 75px;
+	min-height: 100px;
+	margin: 50px auto 10px auto;
 }
 
 .matching-header-text {
 	font-size: var(--mid-title-font-size);
 	font-style: italic;
 	color: var(--color-red);
-	margin: auto;
+	text-align: center;
 }
 
 .matching-sidebar {
 	flex-direction: column;
 	width: 20%;
 	margin-top: 75px;
+	margin-right: 10px;
 	gap: 25px;
 }
 
 .matching-sidebar .btn {
 	width: 100%;
+	min-width: 195px;
 	height: 65px;
 	border: 5px solid var(--color-btn-dark-green);
 	cursor: pointer;
@@ -526,13 +522,12 @@ button.btn {
 
 .matching-matches-container {
 	flex-direction: column;
-	height: 100%;
+	height: 600px;
 	width: 80%;
 	overflow: auto;
 }
 
 .matching-matches-header {
-	flex-direction: row;
 	justify-content: flex-start;
 	align-items: end;
 	width: 100%;
@@ -558,16 +553,21 @@ button.btn {
 
 .buddy-list-item {
 	display: flex;
-	flex-direction: row;
 	height: 130px;
-	width: 95%;
+	max-width: 95%;
 	background: var(--color-bg-grey);
 	box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 15px;
 	align-items: center;
 	padding: 25px 25px;
 	margin-left: 10px;
-	gap: 19px;
+}
+
+.buddy-attr-container {
+	display: flex;
+	align-items: center;
+	gap: 2%;
+	margin-left: 10px;
 }
 
 .buddy-img {
@@ -579,12 +579,15 @@ button.btn {
 	display: flex;
 	flex-direction: row;
 	width: 400px;
-	gap: 5px;
+	gap: 1%;
 	margin-right: 10px;
 }
 
 .buddy-btn-container .btn {
 	width: 100%;
+	cursor: pointer;
+	min-width: 90px;
+	min-height: 40px;
 }
 
 .buddy-btn-container .btn-text {
@@ -610,13 +613,14 @@ button.btn {
 
 
 /* Styling login modal */
-.login-container {
+.login-container,
+.popup-container{
 	display: none;
 	left: 0;
 	top: 0;
 	z-index: 1000;
-	width: 100%;
-	height: 100%;
+	min-width: 100%;
+	min-height: 100%;
 	background-color: rgba(0, 0, 0, 0.35);
 }
 
@@ -854,6 +858,46 @@ button.btn {
 	}
 	.terms-of-use-main {
 		margin-left: 16px;
+	}
+
+	.matching-content {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.matching-container {
+		margin: auto;
+		width: 98%;
+	}
+
+	.matching-matches-container {
+		width: 95%;
+	}
+
+	.matching-sidebar {
+		flex-direction: row;
+		width: 95%;
+		gap: 5px;
+	}
+
+	.matching-sidebar .btn {
+		min-width: 120px;
+	}
+
+	.matching-sidebar .btn .btn-text {
+		font-size: var(--small-font-size);
+	}
+
+	.matching-matches {
+		align-items: center;
+		margin: auto;
+	}
+
+	.buddy-list-item{
+		flex-direction: column;
+		height: 200px;
+		width: 100%;
+		padding: 50px 5px;
 	}
 }
 
