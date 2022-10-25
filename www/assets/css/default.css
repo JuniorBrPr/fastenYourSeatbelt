@@ -779,6 +779,148 @@ footer {
 	width: 100%;
 }
 
+/*	styling for about us 
+	added margin because the text went up by 2 px due to border-bottom 
+	needs to be fixed!!! */
+.active.link-text::before {
+	width: 100%;
+}
+	
+.about-us {
+	display: grid;
+	grid-gap: 20px;
+	padding-bottom: 40px;
+}
+	
+.wrapper {
+	margin: 4vh 9vw;
+	min-height: auto;
+}
+	
+.aboutus-head {
+	text-align: center;
+	margin-block: 40px;
+}
+	
+.about-us-card {
+	background-color: var(--color-bg-grey);
+	width: 100%;
+	border-radius: 15px;
+	padding-block: 8px;
+	box-shadow: 5px 5px 10px 5px var(--color-border-grey);
+}
+	
+.about-us-header {
+	color: var(--color-red);
+	font-size: 1.3em;
+	font-style: italic;
+	margin: 0 0 5px 30px;
+}
+	
+.about-us-text {
+	color: var(--color-text-grey);
+	width: 98%;
+}
+	
+.about-us-content-container {
+	display: flex;
+	justify-content: space-between;
+	margin: 10px 0 10px 30px;
+}
+	
+.corenbuddy {
+	grid-column: 1 / 4;
+}
+	
+.corenbuddy-text {
+	width: 80%;
+}
+	
+.corenbuddy-btn {
+	text-align: center;
+	justify-content: center;
+	margin-right: 30px;
+	min-width: 18ch;
+}
+	
+.geschiedenis-card {
+	grid-column: 1 / 3;
+	grid-row: 2 / 3;
+}
+	
+.wie-zijn-wij-card {
+	grid-column: 3 / 4;
+	grid-row: 2 / 3;
+}
+	
+.wie-zijn-wij-text {
+	width: 95%;
+}
+	
+/* styling for line between about us and contact form */
+.devider {
+	width: 80%;
+	border: 2px solid var(--color-red);
+	border-radius: 15px;
+	box-shadow: 1px 1px 5px 1px rgba(255,0,25,0.6);
+	margin: auto;
+}
+	
+/* contact form styling */
+.contact {
+	height: 80vh;
+}
+	
+.contact-form {
+	background-color: rgb(246, 246, 246);
+	width: 75%;
+	height: auto;
+	margin-inline: auto;
+	border-radius: 15px;
+	box-shadow: 5px 5px 10px 5px var(--color-border-grey);
+	padding: 20px;
+}
+	
+.form-row {
+	display: flex;
+}
+	
+.contact-head {
+	text-align: center;
+	margin-block: 40px;
+}
+	
+.form-group {
+	margin: 15px;
+}
+	
+.form-group label {
+	color: var(--color-text-grey);
+	display: block;
+	margin-bottom: 5px;
+}
+	
+.form-group input, .form-group textarea {
+	min-width: 75px;
+	padding: 7.5px;
+	border-radius: 10px;
+	border: 1px solid var(--color-border-grey);
+}
+	
+.contactSubmit {
+	text-align: center;
+	justify-content: center;
+	margin-left: auto;
+	margin-right: 15px;
+	min-width: 13ch;
+	border:none;
+}
+
+#contactText {
+	resize: none;
+	flex-direction: column;
+}
+
 /* media queries  */
 @media screen and (max-width: 768px) {
 	.nav-menu > .nav-link,
@@ -890,6 +1032,35 @@ footer {
 	.login-footer {
 		gap: 5px;
 	}
+
+	/* about us page */
+	.corenbuddy-content-container {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.corenbuddy-text {
+		width: 90%;
+	}
+
+	.geschiedenis-card {
+		grid-column: 1 / 4;
+		grid-row: 2 / 2;
+	}
+	.wie-zijn-wij-card {
+		grid-column: 1 / 4;
+		grid-row: 3 / 3;
+	}
+
+	.corenbuddy-text {
+		width: 100%;
+	}
+
+	.corenbuddy-btn {
+		margin-block: auto;
+		margin-bottom: 0;
+	}
+
 }
 
 @media screen and (max-width: 850px) {
