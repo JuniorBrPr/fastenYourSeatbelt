@@ -189,6 +189,7 @@ button.btn {
 }
 .link {
 	line-break: strict;
+	text-decoration: none;
 }
 .link-text {
 	position: relative;
@@ -263,6 +264,10 @@ button.btn {
 
 /* styling of sign-up page
  styling of sign-up form */
+.sign-up-main {
+	margin-bottom: 50px;
+	min-height: 100vh;
+}
 .sign-up-form {
 	width: 50%;
 	flex-direction: column;
@@ -333,6 +338,8 @@ button.btn {
 .terms-of-use-main {
 	gap: 5vh;
 	color: var(--color-text-grey);
+	min-height: 100vh;
+	margin-bottom: 85px;
 }
 .terms-of-use-title {
 	font-size: var(--big-title-font-size);
@@ -467,12 +474,63 @@ button.btn {
 	animation-fill-mode: forwards;
 }
 
+/*footer*/
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	color: var(--color-red);
+	height: 18%;
+	background-color: var(--color-white);
+}
+
+.flex-container {
+	display: flex;
+	margin-top: 10px;
+	border-top: 15px solid var(--color-red);
+}
+
+.footer-link-block {
+	margin-left: 40px;
+	display: flex;
+	flex-direction: column;
+}
+
+.reis-quote {
+	margin-top: 10px;
+}
+
+.footer-titel {
+	color: var(--color-text-grey);
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+.footer-link {
+	color: var(--color-red);
+	text-decoration: none;
+}
+
+.copyright {
+	color: black;
+	position: absolute;
+	bottom: 2%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.socialMedia {
+	margin-top: 10px;
+	position: absolute;
+	right: 1%;
+}
+
 /* Styling buddy matching */
 .matching-container {
 	flex-direction: column;
 	width: 1400px;
 	max-width: 95%;
 	height: 750px;
+	margin-bottom: 200px;
 }
 
 .matching-header {
@@ -597,24 +655,23 @@ button.btn {
 	position: relative;
 }
 
-.btn-red{
+.btn-red {
 	background-color: var(--color-red);
 }
 
 .btn-red:focus,
 .btn-red:active,
-.btn-red:hover{
+.btn-red:hover {
 	background-color: var(--color-red-dark);
 }
 
-.btn-red{
+.btn-red {
 	transition: background-color 300ms ease-in;
 }
 
-
 /* Styling login modal */
 .login-container,
-.popup-container{
+.popup-container {
 	display: none;
 	left: 0;
 	top: 0;
@@ -774,6 +831,7 @@ button.btn {
 	.sign-up-form {
 		width: 100vw;
 		align-items: center;
+		margin-bottom: 85px;
 	}
 
 	.input-container,
@@ -893,7 +951,7 @@ button.btn {
 		margin: auto;
 	}
 
-	.buddy-list-item{
+	.buddy-list-item {
 		flex-direction: column;
 		height: 200px;
 		width: 100%;
