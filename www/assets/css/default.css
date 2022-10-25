@@ -988,6 +988,11 @@ footer {
 	padding-inline-start: 6px;
 }
 
+.inter-field {
+	margin-bottom: 20px;
+	margin-right: 10px;
+}
+
 .sub-btn {
 	display: block;
 	padding: 5px 12px;
