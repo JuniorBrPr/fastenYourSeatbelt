@@ -963,7 +963,6 @@ footer {
 	border: 2px solid var(--color-text-grey);
 	padding-inline-start: 6px;
 	resize: none;
-	box-sizing: border-box;
 }
 
 /* Profiel form labeling */
@@ -999,7 +998,7 @@ footer {
 	text-decoration: none;
 	margin: 15px 2px;
 	cursor: pointer;
-	font-size: small;
+	font-size: var(--small-font-size);
 	float: right;
 
 }
@@ -1105,7 +1104,7 @@ footer {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: #ccc;
+	background-color: var(--color-red);
 	transition: .4s;
 }
 
@@ -1116,7 +1115,7 @@ footer {
 	width: 26px;
 	left: 4px;
 	bottom: 4px;
-	background-color: white;
+	background-color: var(--color-white);
 	transition: .4s;
 }
 
