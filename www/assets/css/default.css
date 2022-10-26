@@ -645,6 +645,7 @@ footer {
 	margin-left: 40px;
 	display: flex;
 	flex-direction: column;
+	margin-top: 15px;
 }
 
 .reis-quote {
@@ -668,11 +669,48 @@ footer {
 	bottom: 2%;
 	left: 50%;
 	transform: translateX(-50%);
+	top: 98%;
 }
-.socialMedia {
-	margin-top: 10px;
+.socialMedia{
 	position: absolute;
-	right: 1%;
+	right: 2%;
+	margin-top: 15px;
+}
+
+@media screen and (max-width: 850px) and (min-width: 375px) {
+	.flex-container {
+		display: flex;
+		flex-direction: column;
+		margin-top: 10px;
+		border-top: 15px solid var(--color-red);
+	}
+
+	.footer-link-block {
+		margin-left: 10px;
+		display: flex;
+		flex-direction: column;
+		margin-top: 15px;
+	}
+	.footer-titel {
+		color: var(--color-text-grey);
+		display: inline-block;
+		margin-bottom: 10px;
+	}
+
+	.footer-link {
+		color: var(--color-red);
+		text-decoration: none;
+	}
+
+	.copyright {
+		color: black;
+		font-size: var(--base-font-size);
+		position: absolute;
+		top: 100%;
+		width: 100%;
+		margin-left: 10px;
+		text-align: center;
+	}
 }
 
 /* Styling buddy matching */
