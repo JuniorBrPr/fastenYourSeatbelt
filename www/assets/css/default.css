@@ -802,7 +802,6 @@ footer {
 }
 	
 .aboutus-head {
-	text-align: center;
 	margin-block: 40px;
 }
 	
@@ -827,7 +826,6 @@ footer {
 	
 .about-us-content-container {
 	display: flex;
-	justify-content: space-between;
 	margin: 10px 0 10px 30px;
 }
 	
@@ -859,9 +857,6 @@ footer {
 }
 
 /* contact styling */
-.contact {
-	justify-content: center;
-}
 
 .contact-form {
 	background-color: var(--color-bg-grey);
