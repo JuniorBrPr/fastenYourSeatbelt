@@ -808,7 +808,6 @@ footer {
 	
 .about-us-card {
 	background-color: var(--color-bg-grey);
-	width: 100%;
 	border-radius: 15px;
 	padding-block: 8px;
 	box-shadow: 5px 5px 10px 5px var(--color-border-grey);
@@ -816,7 +815,7 @@ footer {
 	
 .about-us-header {
 	color: var(--color-red);
-	font-size: 1.3em;
+	font-size: var(--sub-title-font-size);
 	font-style: italic;
 	margin: 0 0 5px 30px;
 }
