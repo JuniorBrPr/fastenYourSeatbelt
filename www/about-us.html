@@ -114,33 +114,36 @@
             </section>
             <hr class="devider">
             <section class="wrapper">
+				<h2 class="aboutus-head title mid-title">Contact</h2>
+				<div class="contact d-flex">
                 <form action="" class="contact-form">
-                    <div class="form-row">
+                    <div class="form-row fr-1">
                         <div class="form-group">
-                            <label for="contactName">Volledige naam</label>
-                            <input type="text" name="contactName" id="contactName" placeholder="Bijv. Tim Knops">
+                            <h4 class="label-contact"><label for="contactName">Volledige naam</label></h4>
+                            <input type="text" name="contactName" class="contact-name" placeholder="Bijv. Tim Knops">
                         </div>
                         <div class="form-group">
-                            <label for="contactEmail">Email</label>
-                            <input type="email" name="contactEmail" id="contactEmail" placeholder="Bijv. tim.knops@hva.nl">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="contactPhone">Telefoonnummer</label>
-                            <input type="tel" name="contactPhone" id="contactPhone" placeholder="Bijv. 06123456789">
-                        </div>
-                        <div class="form-group">
-                            <label for="contactSubject">Onderwerp</label>
-                            <input type="text" name="contactSubject" id="contactSubject" placeholder="Bijv. Buddy verdwenen">
+                            <h4 class="label-contact"><label for="contactEmail">Email</label></h4>
+                            <input type="email" name="contactEmail" class="contact-email" placeholder="Bijv. tim.knops@hva.nl">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="contactText">Uw vraag</label>
-                        <textarea name="contactText" id="contactText" cols="40" rows="10" placeholder="Voer hier uw vraag in."></textarea>
+                    <div class="form-row fr-2">
+                        <div class="form-group">
+                            <h4 class="label-contact"><label for="contactPhone">Telefoonnummer</label></h4>
+                            <input type="tel" name="contactPhone" class="contact-phone" placeholder="Bijv. 0612345678" maxlength="10">
+                        </div>
+                        <div class="form-group">
+                            <h4 class="label-contact"><label for="contactSubject">Onderwerp</label></h4>
+                            <input type="text" name="contactSubject" class="contact-subject" placeholder="Bijv. Buddy verdwenen">
+                        </div>
+                    </div>
+                    <div class="form-group fr-3">
+                        <h4 class="label-contact"><label for="contact-text">Uw vraag</label></h4>
+                        <textarea name="contact-text" class="contact-text" cols="47" rows="10" placeholder="Voer hier uw vraag in."></textarea>
                     </div>
                     <input type="submit" value="Verstuur" class="contactSubmit btn">
                 </form>
+			</div>
             </section>
         </main>
 	</body>
