@@ -783,9 +783,7 @@ footer {
 	width: 100%;
 }
 
-/*	styling for about us 
-	added margin because the text went up by 2 px due to border-bottom 
-	needs to be fixed!!! */
+/*	styling for about us  */
 .active.link-text::before {
 	width: 100%;
 }
@@ -825,7 +823,6 @@ footer {
 }
 	
 .about-us-content-container {
-	display: flex;
 	margin: 10px 0 10px 30px;
 }
 	
