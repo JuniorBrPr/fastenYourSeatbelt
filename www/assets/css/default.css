@@ -811,9 +811,6 @@ footer {
 }
 	
 .about-us-header {
-	color: var(--color-red);
-	font-size: var(--sub-title-font-size);
-	font-style: italic;
 	margin: 0 0 5px 30px;
 }
 	
@@ -830,13 +827,10 @@ footer {
 	grid-column: 1 / 4;
 }
 	
-.corenbuddy-text {
-	width: 80%;
-}
-	
 .corenbuddy-btn {
 	margin-right: 30px;
 	min-width: 18ch;
+	margin-top: 15px;
 }
 	
 .geschiedenis-card {
