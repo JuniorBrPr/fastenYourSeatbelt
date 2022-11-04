@@ -1042,11 +1042,11 @@ footer {
 		width: 90%;
 	}
 
-	.geschiedenis-card {
+	.history-card {
 		grid-column: 1 / 4;
 		grid-row: 2 / 2;
 	}
-	.wie-zijn-wij-card {
+	.who-are-we-card {
 		grid-column: 1 / 4;
 		grid-row: 3 / 3;
 	}
@@ -1080,8 +1080,10 @@ footer {
 		grid-row: 3 / 4;
 	}
 
-	.contact-name,.contact-phone,
-.contact-email,.contact-subject {
+	.contact-name,
+	.contact-phone,
+	.contact-email,
+	.contact-subject {
 	width: 275px;
 	}
 
