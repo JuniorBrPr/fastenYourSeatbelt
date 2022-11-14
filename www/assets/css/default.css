@@ -55,7 +55,7 @@ textarea {
 	font-style: italic;
 	text-transform: capitalize;
 	margin-block: 20px;
-	line-height: var(--small-line-height);
+	line-height: var(--base-line-height);
 }
 .sub-title {
 	font-size: var(--sub-title-font-size);
@@ -947,7 +947,7 @@ footer {
 .active.link-text::before {
 	width: 100%;
 }
-	
+
 .about-us {
 	display: grid;
 	grid-gap: 20px;
@@ -1079,6 +1079,210 @@ footer {
 	
 /* contact form styling */
 
+
+/* Profiel form */
+
+.profiel-main {
+	margin: 40px;
+	gap: 10px 60px;
+}
+
+/* Profiel form input field  */
+.profiel-field {
+	display: block;
+	border: 2px solid var(--color-text-grey);
+	border-radius: 10px;
+	height: 40px;
+	padding-inline-start: 6px;
+	color: var(--color-text-grey);
+}
+
+/* Profiel form text area input field  */
+.bio-textarea {
+	display: block;
+	width: 500px;
+	height: 200px;
+	border-radius: 10px;
+	border: 2px solid var(--color-text-grey);
+	padding-inline-start: 6px;
+	resize: none;
+}
+
+/* Profiel form labeling */
+.p-label {
+	display: block;
+	padding: 15px 0;
+	font-size: var(--small-font-size);
+	font-weight: 700;
+	color: var(--color-text-grey);
+}
+
+
+
+/* Profiel form tijdsbestek/inter/gender input field */
+.inter-field,
+.tijdsbestek-field,
+.gender-field {
+	width: 130px;
+	height: 40px;
+	border-radius: 10px;
+	border: 2px solid var(--color-text-grey);
+	padding-inline-start: 6px;
+}
+
+.inter-field {
+	margin-bottom: 20px;
+	margin-right: 10px;
+}
+
+.sub-btn {
+	display: block;
+	padding: 5px 12px;
+	text-decoration: none;
+	margin: 15px 2px;
+	cursor: pointer;
+	font-size: var(--small-font-size);
+	float: right;
+
+}
+
+.h1-mijn-profiel {
+	color: var(--color-red);
+	padding-bottom: 20px;
+}
+
+.opslaan-container {
+	padding-top: 15px;
+}
+
+.opslaan-container button {
+	float: left;
+}
+
+/* Mijn profiel foto card*/
+
+.profiel-foto-card {
+	background: var(--color-bg-grey);
+	padding: 20px 40px;
+	height: 452px;
+	border-radius: 10px;
+}
+
+.profiel-foto-card h2 {
+	color: var(--color-red);
+	padding-bottom: 20px;
+}
+
+.profiel-foto-card img {
+	display: block;
+	border-radius: 999px;
+}
+
+.profiel-foto-card p {
+	text-align: right;
+}
+
+.right-block {
+	flex-direction: column;
+	gap: 20px;
+}
+
+/* Mijn account card*/
+
+.profiel-account-card {
+	background: var(--color-bg-grey);
+	padding: 20px 40px;
+	height: 343px;
+	border-radius: 10px;
+}
+
+.profiel-account-card h2 {
+	color: var(--color-red);
+	padding-bottom: 20px;
+}
+
+.profiel-account-card p {
+	text-align: right;
+}
+
+/* Preference card */
+
+.profiel-preference-card {
+	background: var(--color-bg-grey);
+	padding: 20px 40px;
+	height: 200px;
+	border-radius: 10px;
+}
+
+.profiel-preference-card h2 {
+	color: var(--color-red);
+	padding-bottom: 20px;
+}
+
+
+.profiel-preference-card input {
+	display: flex;
+	margin-bottom: 50px;
+}
+
+/*Slider effect Darkmode*/
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: var(--color-red);
+	transition: .4s;
+}
+
+.slider::before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: var(--color-white);
+	transition: .4s;
+}
+
+input:checked + .slider {
+	background-color: #2196F3;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider::before {
+	transform: translateX(26px);
+
+}
+
+/* Rounded sliders */
+.slider.round {
+	border-radius: 10vw;
+}
+
+.slider.round::before {
+	border-radius: 50%;
+}
 
 /* media queries  */
 @media screen and (max-width: 1500px) {
@@ -1379,6 +1583,43 @@ footer {
 		gap: 5px;
 	}
 
+	/* Profiel */
+	.profiel-main {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.profiel-preference-card,
+	.profiel-foto-card div {
+		width: auto;
+	}
+
+	.profiel-foto-card img {
+		width: auto;
+
+	}
+
+	.sub-btn{
+		float: left;
+		width: auto;
+	}
+
+	.inter-field,
+	.bio-textarea,
+	.profiel-field{
+		width:auto;
+		min-width: 50%;
+	}
+
+
+}
+
+@media screen and (max-width: 850px) {
+	/* Shrinks the navbar font-size and btn size to ensure that it can go down to ipad/tablet size */
+	.link-text {
+		font-size: var(--small-font-size);
+	}
+
 	/* about us page */
 	.corenbuddy-content-container {
 		flex-direction: column;
@@ -1434,6 +1675,25 @@ footer {
 	width: 275px;
 	}
 
+	.matching-sidebar .btn {
+		min-width: 120px;
+	}
+
+	.matching-sidebar .btn .btn-text {
+		font-size: var(--small-font-size);
+	}
+
+	.matching-matches {
+		align-items: center;
+		margin: auto;
+	}
+
+	.buddy-list-item {
+		flex-direction: column;
+		height: 200px;
+		width: 100%;
+		padding: 50px 5px;
+	}
 }
 
 /* Animations */
