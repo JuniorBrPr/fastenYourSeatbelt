@@ -1251,7 +1251,7 @@ footer {
 	transition: .4s;
 }
 
-.slider:before {
+.slider::before {
 	position: absolute;
 	content: "";
 	height: 26px;
