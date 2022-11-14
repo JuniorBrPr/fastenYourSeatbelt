@@ -55,7 +55,7 @@ textarea {
 	font-style: italic;
 	text-transform: capitalize;
 	margin-block: 20px;
-	line-height: var(--title-line-height);
+	line-height: var(--base-line-height);
 }
 .sub-title {
 	font-size: var(--sub-title-font-size);
@@ -1089,7 +1089,6 @@ footer {
 	display: block;
 	border: 2px solid var(--color-text-grey);
 	border-radius: 10px;
-	width: 100%;
 	height: 40px;
 	padding-inline-start: 6px;
 	color: var(--color-text-grey);
