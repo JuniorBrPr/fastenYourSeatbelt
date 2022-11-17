@@ -1,7 +1,7 @@
 const loginModal = document.querySelector(".login-container");
 const modalOpenBtns = document.querySelectorAll(".login-btn");
 const modalCloseBtn = document.querySelector(".login-close");
-const openModalLink = document.querySelector(".sign-up-login-link");
+const openModalLinks = document.querySelectorAll(".sign-up-login-link");
 
 //For every login button on a page add an event listener to open the modal.
 for (let i = 0; i < modalOpenBtns.length; i++) {
@@ -9,7 +9,11 @@ for (let i = 0; i < modalOpenBtns.length; i++) {
 }
 
 //Add an event listener to the login link on the register page.
-openModalLink != null ? openModal(openModalLink) : null;
+if (openModalLinks.length > 0){
+    for (let i = 0; i < openModalLinks.length; i++) {
+        openModal(openModalLinks[i]);
+    }
+}
 
 //When the cross on the modal is clicked, close the modal.
 closeModal(modalCloseBtn);
