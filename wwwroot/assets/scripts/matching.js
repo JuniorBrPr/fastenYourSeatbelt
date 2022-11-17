@@ -151,7 +151,7 @@ buddyProfileCloseBtn.addEventListener("click", () => {
 
 /**
  * For every 'buddy' in the data it makes a list item the buddy's information.
- * @param {Element} buddyList A unorderedlist element which will be the parent of
+ * @param {Element} buddyList A unordered-list element which will be the parent of
  * the buddy list items.
  * @param {string} type The type of buddy's you want to populate the list with
  * ("existing" || "suggested" || "incoming" || "outgoing").

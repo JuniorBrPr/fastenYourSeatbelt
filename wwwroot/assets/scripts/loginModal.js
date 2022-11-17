@@ -1,34 +1,42 @@
 const loginModal = document.querySelector(".login-container");
-const modalOpenBtn = document.querySelector(".login-btn");
-const modalOpenBtnTwo = document.querySelector(".login-btn-homepage");
+const modalOpenBtns = document.querySelectorAll(".login-btn");
 const modalCloseBtn = document.querySelector(".login-close");
 const openModalLink = document.querySelector(".sign-up-login-link");
 
-//When the login button is clicked, open the modal
-modalOpenBtn.addEventListener("click", () => {
-	loginModal.style.display = "block";
-});
-
-//When the login button on the homepage is clicked, open the modal
-if (modalOpenBtnTwo != null) {
-	modalOpenBtnTwo.addEventListener("click", () => {
-		loginModal.style.display = "block";
-	});
+//For every login button on a page add an event listener to open the modal.
+for (let i = 0; i < modalOpenBtns.length; i++) {
+    openModal(modalOpenBtns[i]);
 }
 
-//when the login link in the sign up form is clicked, open the modal
-if (openModalLink != null) {
-	openModalLink.addEventListener("click", () => {
-		loginModal.style.display = "block";
-	});
+//Add an event listener to the login link on the register page.
+openModalLink != null ? openModal(openModalLink) : null;
+
+//When the cross on the modal is clicked, close the modal.
+closeModal(modalCloseBtn);
+
+/**
+ * Adds a click listener to an element which opens the login modal.
+ * @param {Element} Element A button or link to add the event-listener to.
+ */
+function openModal(Element) {
+    Element.addEventListener("click", () => {
+        loginModal.style.display = "block";
+    })
 }
-//When the cross on the modal is clicked, close the modal
-modalCloseBtn.addEventListener("click", () => {
-	loginModal.style.display = "none";
-});
+
+/**
+ * Adds a click listener to an element which closes the login modal.
+ * @param {Element} Element A button or link to add the event-listener to.
+ */
+function closeModal(Element) {
+    Element.addEventListener("click", () => {
+        loginModal.style.display = "none";
+    });
+}
+
 //If the user clicks outside the modal, close the modal
 window.addEventListener("click", (event) => {
-	if (event.target === loginModal) {
-		loginModal.style.display = "none";
-	}
+    if (event.target === loginModal) {
+        loginModal.style.display = "none";
+    }
 });
