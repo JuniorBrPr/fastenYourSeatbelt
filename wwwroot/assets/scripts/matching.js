@@ -151,7 +151,7 @@ buddyProfileCloseBtn.addEventListener("click", () => {
 
 /**
  * For every 'buddy' in the data it makes a list item the buddy's information.
- * @param {Element} buddyList A unorderedlist element which will be the parent of
+ * @param {Element} buddyList A unordered-list element which will be the parent of
  * the buddy list items.
  * @param {string} type The type of buddy's you want to populate the list with
  * ("existing" || "suggested" || "incoming" || "outgoing").
@@ -177,10 +177,17 @@ function populateList(buddyList, type, data) {
             buddyAttributeContainer.appendChild(buddyImg);
 
             //Add the buddy's name
+            const buddyNameCon = document.createElement("div");
+            buddyNameCon.className = "buddy-attr";
+            const buddyNameLbl = document.createElement("Span");
+            buddyNameLbl.className = "buddy-attr-lbl";
+            buddyNameLbl.innerHTML = "Name:";
             const buddyName = document.createElement("span");
             buddyName.className = "buddy-name buddy-property";
             buddyName.innerHTML = buddy.name;
-            buddyAttributeContainer.appendChild(buddyName);
+            buddyNameCon.appendChild(buddyNameLbl);
+            buddyNameCon.appendChild(buddyName)
+            buddyAttributeContainer.appendChild(buddyNameCon);
 
             //Add the buddy's preferred travelling destination
             const destination = document.createElement("span");
@@ -223,7 +230,7 @@ function populateList(buddyList, type, data) {
             buddyProfileBtn.appendChild(buddyProfileBtnText);
             btnContainer.appendChild(buddyProfileBtn);
 
-            /**
+            /*
              * If buddy type = "existing", add a "book a trip" button to the buddy
              * and also add a "delete buddy" button to the buddy list item.
              */
@@ -249,7 +256,7 @@ function populateList(buddyList, type, data) {
                 btnContainer.appendChild(buddyDeleteBtn);
             }
 
-            /**
+            /*
              * If buddy type = "suggested" add a "send buddy request" button to the
              * buddy list item.
              */
@@ -263,7 +270,7 @@ function populateList(buddyList, type, data) {
                 btnContainer.appendChild(sendRequestBtn);
             }
 
-            /**
+            /*
              * If buddy type = "incoming" add an "accept buddy request" button  and a
              * refuse buddy request button to the buddy list item.
              */
@@ -285,7 +292,7 @@ function populateList(buddyList, type, data) {
                 btnContainer.appendChild(refuseRequestBtn);
             }
 
-            /**
+            /*
              * If buddy type = "outgoing" add a "withdraw buddy request" button
              * to the buddy list item.
              */
@@ -303,4 +310,9 @@ function populateList(buddyList, type, data) {
             buddyList.appendChild(buddyListItem);
         }
     })
+
+    function addAttribute(attrName, attrValue) {
+        const container = document.createElement("div");
+        
+    }
 }
