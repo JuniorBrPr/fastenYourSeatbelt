@@ -173,7 +173,7 @@ function populateList(buddyList, type, data) {
             buddyListItem.className = "buddy-list-item";
 
             const buddyAttributeContainer = document.createElement("div");
-            buddyAttributeContainer.className = "buddy-attributes-container"
+            buddyAttributeContainer.className = "buddy-attributes-container w-100"
             buddyListItem.appendChild(buddyAttributeContainer);
 
             //Add a profile picture to the buddy
@@ -196,7 +196,7 @@ function populateList(buddyList, type, data) {
 
             //Add the container which will hold the buttons for the buddy list item
             const btnContainer = document.createElement("div");
-            btnContainer.className = "buddy-btn-container";
+            btnContainer.className = "buddy-btn-container w-100";
             buddyListItem.appendChild(btnContainer);
 
             const buddyProfileBtn = addButton("Profiel bekijken", "buddy-profile-btn", btnContainer);
@@ -257,12 +257,12 @@ function addAttribute(name, value, container) {
     cont.className = "buddy-attr-container";
 
     const lbl = document.createElement("h3");
-    lbl.className = "buddy-attr-label";
+    lbl.className = "buddy-attr-label w-100";
     lbl.innerHTML = name + ":";
     cont.appendChild(lbl);
 
     const content = document.createElement("span");
-    content.className = "buddy-attr";
+    content.className = "buddy-attr w-100";
     content.innerHTML = value;
     cont.appendChild(content);
 
