@@ -721,13 +721,14 @@ footer {
 	cursor: pointer;
 }
 
-.matching-sidebar .btn:focus,
-.matching-sidebar .btn:hover {
+.matching-sidebar .active {
+	background-color: var(--color-btn-dark-green);
 	border-color: var(--color-btn-green);
+	cursor: default;
 }
 
-.matching-sidebar .btn:focus {
-	cursor: default;
+.matching-sidebar .btn:hover {
+	border-color: var(--color-btn-green);
 }
 
 .matching-sidebar .btn-text {

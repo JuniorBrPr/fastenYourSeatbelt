@@ -1,14 +1,3 @@
-const buddyList = document.querySelector(".matching-matches");
-const matchingHeaderTitleText = document.querySelector(".matching-header-text");
-
-const buddyProfile = document.querySelector(".popup-container");
-const buddyProfileCloseBtn = document.querySelector(".login-close");
-
-const existingBtn = document.querySelector(".existing-btn");
-const suggestedBtn = document.querySelector(".suggested-btn");
-const incomingBtn = document.querySelector(".incoming-btn");
-const outgoingBtn = document.querySelector(".outgoing-btn");
-
 //Mock data for prototyping purposes
 const data = [
     {
@@ -117,6 +106,23 @@ const data = [
     },
 ];
 
+const buddyList = document.querySelector(".matching-matches");
+const matchingHeaderTitleText = document.querySelector(".matching-header-text");
+
+const buddyProfile = document.querySelector(".popup-container");
+const buddyProfileCloseBtn = document.querySelector(".login-close");
+
+const existingBtn = document.querySelector(".existing-btn");
+const suggestedBtn = document.querySelector(".suggested-btn");
+const incomingBtn = document.querySelector(".incoming-btn");
+const outgoingBtn = document.querySelector(".outgoing-btn");
+
+const btnContainer = document.querySelector(".matching-sidebar");
+let prevButton = document.querySelector(".existing-btn");
+
+//Adds an active state to the sidebar buttons when clicked, used for the decoration of the button.
+setActiveBtn(btnContainer);
+
 //Populates the list when loading the matching page, "existing" buddy's by default
 populateList(buddyList, "existing", data);
 
@@ -176,12 +182,16 @@ function populateList(buddyList, type, data) {
             buddyImg.src = buddy.profilePicture;
             buddyAttributeContainer.appendChild(buddyImg);
 
+            //Add the name of the buddy
             addAttribute("Naam", buddy.name, buddyAttributeContainer);
 
+            //Add the preferred destination of the buddy
             addAttribute("Bestemming", buddy.destination, buddyAttributeContainer);
 
+            //Add the time expenditure of the buddy
             addAttribute("Tijdsbestek", buddy.timeFrame + " dagen", buddyAttributeContainer);
 
+            //Add the amount of common interests with the buddy
             addAttribute("Gemeenschappelijke interesses", buddy.commonInterests, buddyAttributeContainer)
 
             //Add the container which will hold the buttons for the buddy list item
@@ -234,48 +244,74 @@ function populateList(buddyList, type, data) {
             buddyList.appendChild(buddyListItem);
         }
     })
+}
 
-    /**
-     * Adds a given attribute with a label to a given container
-     * @param {string} name The name of the attribute, used for the label.
-     * @param {string} value The value of the attribute.
-     * @param {Element} container The container to add the attribute to.
-     */
-    function addAttribute(name, value, container) {
-        const cont = document.createElement("div");
-        cont.className = "buddy-attr-container";
+/**
+ * Adds a given attribute with a label to a given container
+ * @param {string} name The name of the attribute, used for the label.
+ * @param {string} value The value of the attribute.
+ * @param {Element} container The container to add the attribute to.
+ */
+function addAttribute(name, value, container) {
+    const cont = document.createElement("div");
+    cont.className = "buddy-attr-container";
 
-        const lbl = document.createElement("h3");
-        lbl.className = "buddy-attr-label";
-        lbl.innerHTML = name + ":";
-        cont.appendChild(lbl);
+    const lbl = document.createElement("h3");
+    lbl.className = "buddy-attr-label";
+    lbl.innerHTML = name + ":";
+    cont.appendChild(lbl);
 
-        const content = document.createElement("span");
-        content.className = "buddy-attr";
-        content.innerHTML = value;
-        cont.appendChild(content);
+    const content = document.createElement("span");
+    content.className = "buddy-attr";
+    content.innerHTML = value;
+    cont.appendChild(content);
 
-        container.appendChild(cont);
-    }
+    container.appendChild(cont);
+}
 
-    /**
-     * Adds a button a given container
-     * @param {string} text The text to be added to the button.
-     * @param {string} className A string containing the classnames to be added to the button,
-     * every will automatically contain the "btn" class.
-     * @param {Element} container The container to add the button to.
-     */
-    function addButton(text, className, container) {
-        const btn = document.createElement("button");
-        btn.className = "btn " + className;
+/**
+ * Adds a button a given container
+ * @param {string} text The text to be added to the button.
+ * @param {string} className A string containing the classnames to be added to the button,
+ * every will automatically contain the "btn" class.
+ * @param {Element} container The container to add the button to.
+ */
+function addButton(text, className, container) {
+    const btn = document.createElement("button");
+    btn.className = "btn " + className;
 
-        const btnText = document.createElement("span");
-        btnText.className = "btn-text";
-        btnText.innerHTML = text;
-        btn.appendChild(btnText);
+    const btnText = document.createElement("span");
+    btnText.className = "btn-text";
+    btnText.innerHTML = text;
+    btn.appendChild(btnText);
 
-        container.appendChild(btn);
+    container.appendChild(btn);
 
-        return btn;
-    }
+    return btn;
+}
+
+/**
+ * Sets an active state to a button in a given container, containing other buttons.
+ * @param {Element} container The container containing the buttons.
+ */
+function setActiveBtn(container) {
+    container.addEventListener('click', (e) => {
+        const isButton = e.target.parentElement.nodeName  === 'BUTTON' || e.target.nodeName === 'BUTTON';
+
+        if (!isButton) {
+            return;
+        }
+
+        if(prevButton !== null) {
+            prevButton.classList.remove('active');
+        }
+
+        if( e.target.parentElement.nodeName  === 'BUTTON'){
+            e.target.parentElement.classList.add('active');
+            prevButton = e.target.parentElement;
+        } else {
+            e.target.classList.add('active');
+            prevButton = e.target;
+        }
+    });
 }
