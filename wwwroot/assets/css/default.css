@@ -1326,7 +1326,7 @@ input:checked + .slider::before {
 
 	.matching-matches {
 		align-items: center;
-		margin: auto;
+		margin: 50px auto;
 		width: 100%;
 	}
 
@@ -1369,6 +1369,7 @@ input:checked + .slider::before {
 	/* Buddy matching */
 	.buddy-list-item {
 		flex-direction: column;
+		min-height: fit-content;
 		height: 200px;
 		width: 100%;
 		padding: 50px 5px;
@@ -1624,20 +1625,25 @@ input:checked + .slider::before {
 	}
 
 	/* Buddy matching*/
-	.buddy-list-item {
-		height: 100%;
-	}
-
-	.matching-sidebar,
-	.buddy-attributes-container {
+	.matching-sidebar {
 		flex-wrap: wrap;
 		min-height: fit-content;
 	}
 
-	.matching-sidebar .btn, .buddy-attr-container  {
+	.buddy-attributes-container,
+	.buddy-btn-container{
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.matching-sidebar .btn{
 		max-width: 25%;
 	}
 
+	.buddy-list-item {
+		min-height: 400px;
+		flex-direction: row;
+	}
 }
 
 @media screen and (max-width: 850px) {
