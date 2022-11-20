@@ -1397,7 +1397,6 @@ input:checked + .slider::before {
 		font-size: var(--base-font-size);
 		top: 100%;
 		width: max-content;
-		/* text-align: center; */
 	}
 }
 
