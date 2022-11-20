@@ -1,14 +1,3 @@
-const buddyList = document.querySelector(".matching-matches");
-const matchingHeaderTitleText = document.querySelector(".matching-header-text");
-
-const buddyProfile = document.querySelector(".popup-container");
-const buddyProfileCloseBtn = document.querySelector(".login-close");
-
-const existingBtn = document.querySelector(".existing-btn");
-const suggestedBtn = document.querySelector(".suggested-btn");
-const incomingBtn = document.querySelector(".incoming-btn");
-const outgoingBtn = document.querySelector(".outgoing-btn");
-
 //Mock data for prototyping purposes
 const data = [
     {
@@ -117,6 +106,23 @@ const data = [
     },
 ];
 
+const buddyList = document.querySelector(".matching-matches");
+const matchingHeaderTitleText = document.querySelector(".matching-header-text");
+
+const buddyProfile = document.querySelector(".popup-container");
+const buddyProfileCloseBtn = document.querySelector(".login-close");
+
+const existingBtn = document.querySelector(".existing-btn");
+const suggestedBtn = document.querySelector(".suggested-btn");
+const incomingBtn = document.querySelector(".incoming-btn");
+const outgoingBtn = document.querySelector(".outgoing-btn");
+
+const btnContainer = document.querySelector(".matching-sidebar");
+let prevButton = document.querySelector(".existing-btn");
+
+//Adds an active state to the sidebar buttons when clicked, used for the decoration of the button.
+setActiveBtn(btnContainer);
+
 //Populates the list when loading the matching page, "existing" buddy's by default
 populateList(buddyList, "existing", data);
 
@@ -167,7 +173,7 @@ function populateList(buddyList, type, data) {
             buddyListItem.className = "buddy-list-item";
 
             const buddyAttributeContainer = document.createElement("div");
-            buddyAttributeContainer.className = "buddy-attr-container"
+            buddyAttributeContainer.className = "buddy-attributes-container w-100"
             buddyListItem.appendChild(buddyAttributeContainer);
 
             //Add a profile picture to the buddy
@@ -176,143 +182,136 @@ function populateList(buddyList, type, data) {
             buddyImg.src = buddy.profilePicture;
             buddyAttributeContainer.appendChild(buddyImg);
 
-            //Add the buddy's name
-            const buddyNameCon = document.createElement("div");
-            buddyNameCon.className = "buddy-attr";
-            const buddyNameLbl = document.createElement("Span");
-            buddyNameLbl.className = "buddy-attr-lbl";
-            buddyNameLbl.innerHTML = "Name:";
-            const buddyName = document.createElement("span");
-            buddyName.className = "buddy-name buddy-property";
-            buddyName.innerHTML = buddy.name;
-            buddyNameCon.appendChild(buddyNameLbl);
-            buddyNameCon.appendChild(buddyName)
-            buddyAttributeContainer.appendChild(buddyNameCon);
+            //Add the name of the buddy
+            addAttribute("Naam", buddy.name, buddyAttributeContainer);
 
-            //Add the buddy's preferred travelling destination
-            const destination = document.createElement("span");
-            destination.className = "buddy-destination buddy-property";
-            destination.innerHTML = buddy.destination;
-            buddyAttributeContainer.appendChild(destination);
+            //Add the preferred destination of the buddy
+            addAttribute("Bestemming", buddy.destination, buddyAttributeContainer);
 
-            //Add the buddy's timeFrame, convert timeFrame to weeks if possible
-            const timeFrame = document.createElement("span");
-            timeFrame.className = "buddy-time-frame buddy-property";
-            if (buddy.timeFrame % 7 === 0) {
-                timeFrame.innerHTML = buddy.timeFrame / 7 + " weken";
-            } else {
-                timeFrame.innerHTML = buddy.timeFrame + " dagen";
-            }
-            buddyAttributeContainer.appendChild(timeFrame);
+            //Add the time expenditure of the buddy
+            addAttribute("Tijdsbestek", buddy.timeFrame + " dagen", buddyAttributeContainer);
 
-            //Add the amount of common interests between the buddy and the user
-            const interests = document.createElement("span");
-            interests.className = "buddy-common-interests buddy-property";
-            interests.innerHTML = buddy.commonInterests;
-            buddyAttributeContainer.appendChild(interests);
+            //Add the amount of common interests with the buddy
+            addAttribute("Gemeenschappelijke interesses", buddy.commonInterests, buddyAttributeContainer)
 
             //Add the container which will hold the buttons for the buddy list item
             const btnContainer = document.createElement("div");
-            btnContainer.className = "buddy-btn-container";
+            btnContainer.className = "buddy-btn-container w-100";
             buddyListItem.appendChild(btnContainer);
 
-            //Add a "see profile" button to the buddy
-            const buddyProfileBtn = document.createElement("button");
-            buddyProfileBtn.className = "btn buddy-profile-btn";
-            const buddyProfileBtnText = document.createElement("span");
-            buddyProfileBtnText.className = "btn-text";
-            buddyProfileBtnText.innerHTML = "Profiel bekijken";
+            const buddyProfileBtn = addButton("Profiel bekijken", "buddy-profile-btn", btnContainer);
 
-            //Onclick make the buddy profile modal visible
+            // Onclick make the buddy profile modal visible
             buddyProfileBtn.addEventListener("click", () => {
                 buddyProfile.style.display = "block";
             });
-            buddyProfileBtn.appendChild(buddyProfileBtnText);
-            btnContainer.appendChild(buddyProfileBtn);
 
             /*
              * If buddy type = "existing", add a "book a trip" button to the buddy
              * and also add a "delete buddy" button to the buddy list item.
              */
-            if (buddy.type === "existing"){
-                const bookTripBtn = document.createElement("button");
-                bookTripBtn.className = "btn buddy-book-btn";
-                const bookTripBtnText = document.createElement("span");
-                bookTripBtnText.className = "btn-text";
-                bookTripBtnText.innerHTML = "Boek een reis!";
-                bookTripBtn.appendChild(bookTripBtnText);
+            if (buddy.type === "existing") {
+                const bookTripBtn = addButton("Boek een reis!", "buddy-book-btn", btnContainer);
+
                 //The "book a trip" button redirects to the corendon website.
                 bookTripBtn.addEventListener("click", () => {
                     location.href = "www.corendon.nl";
                 });
-                btnContainer.appendChild(bookTripBtn);
 
-                const buddyDeleteBtn = document.createElement("button");
-                buddyDeleteBtn.className = "btn btn-red buddy-delete-btn";
-                const buddyDeleteBtnText = document.createElement("span");
-                buddyDeleteBtnText.className = "btn-text";
-                buddyDeleteBtnText.innerHTML = "Buddy verwijderen";
-                buddyDeleteBtn.appendChild(buddyDeleteBtnText);
-                btnContainer.appendChild(buddyDeleteBtn);
+                const buddyDeleteBtn = addButton("Buddy verwijderen", "btn-red buddy-delete-btn", btnContainer);
             }
 
-            /*
-             * If buddy type = "suggested" add a "send buddy request" button to the
-             * buddy list item.
-             */
-            if (buddy.type === "suggested"){
-                const sendRequestBtn = document.createElement("button");
-                sendRequestBtn.className = "btn buddy-send-request-btn";
-                const sendRequestBtnText = document.createElement("span");
-                sendRequestBtnText.className = "btn-text";
-                sendRequestBtnText.innerHTML = "Verzoek sturen";
-                sendRequestBtn.appendChild(sendRequestBtnText);
-                btnContainer.appendChild(sendRequestBtn);
+            // If buddy type = "suggested" add a "send buddy request" button to the buddy list item.
+            if (buddy.type === "suggested") {
+                const sendRequestBtn = addButton("Verzoek sturen", "buddy-send-request-btn", btnContainer);
             }
 
-            /*
-             * If buddy type = "incoming" add an "accept buddy request" button  and a
+            /* If buddy type = "incoming" add an "accept buddy request" button  and a
              * refuse buddy request button to the buddy list item.
              */
-            if (buddy.type === "incoming"){
-                const acceptRequestBtn = document.createElement("button");
-                acceptRequestBtn.className = "btn buddy-accept-request-btn";
-                const acceptRequestBtnText = document.createElement("span");
-                acceptRequestBtnText.className = "btn-text";
-                acceptRequestBtnText.innerHTML = "Verzoek accepteren";
-                acceptRequestBtn.appendChild(acceptRequestBtnText);
-                btnContainer.appendChild(acceptRequestBtn);
+            if (buddy.type === "incoming") {
+                const acceptRequestBtn = addButton("Verzoek accepteren", "buddy-accept-request-btn", btnContainer);
 
-                const refuseRequestBtn = document.createElement("button");
-                refuseRequestBtn.className = "btn btn-red buddy-refuse-request-btn";
-                const refuseRequestBtnText = document.createElement("span");
-                refuseRequestBtnText.className = "btn-text";
-                refuseRequestBtnText.innerHTML = "Verzoek weigeren";
-                refuseRequestBtn.appendChild(refuseRequestBtnText);
-                btnContainer.appendChild(refuseRequestBtn);
+                const refuseRequestBtn = addButton("Verzoek weigeren", "btn-red buddy-refuse-request-btn", btnContainer);
             }
 
-            /*
-             * If buddy type = "outgoing" add a "withdraw buddy request" button
-             * to the buddy list item.
-             */
-            if (buddy.type === "outgoing"){
-                const withdrawRequestBtn = document.createElement("button");
-                withdrawRequestBtn.className = "btn btn-red buddy-refuse-request-btn";
-                const withdrawRequestBtnText = document.createElement("span");
-                withdrawRequestBtnText.className = "btn-text";
-                withdrawRequestBtnText.innerHTML = "Verzoek intrekken";
-                withdrawRequestBtn.appendChild(withdrawRequestBtnText);
-                btnContainer.appendChild(withdrawRequestBtn);
+            //If buddy type = "outgoing" add a "withdraw buddy request" button to the buddy list item.
+            if (buddy.type === "outgoing") {
+                const withdrawRequestBtn = addButton("Verzoek intrekken", "btn-red buddy-refuse-request-btn", btnContainer)
             }
 
             //Finally, add the buddy list item to the buddy unordered-list.
             buddyList.appendChild(buddyListItem);
         }
     })
+}
 
-    function addAttribute(attrName, attrValue) {
-        const container = document.createElement("div");
-        
-    }
+/**
+ * Adds a given attribute with a label to a given container
+ * @param {string} name The name of the attribute, used for the label.
+ * @param {string} value The value of the attribute.
+ * @param {Element} container The container to add the attribute to.
+ */
+function addAttribute(name, value, container) {
+    const cont = document.createElement("div");
+    cont.className = "buddy-attr-container";
+
+    const lbl = document.createElement("h3");
+    lbl.className = "buddy-attr-label w-100";
+    lbl.innerHTML = name + ":";
+    cont.appendChild(lbl);
+
+    const content = document.createElement("span");
+    content.className = "buddy-attr w-100";
+    content.innerHTML = value;
+    cont.appendChild(content);
+
+    container.appendChild(cont);
+}
+
+/**
+ * Adds a button a given container
+ * @param {string} text The text to be added to the button.
+ * @param {string} className A string containing the classnames to be added to the button,
+ * every will automatically contain the "btn" class.
+ * @param {Element} container The container to add the button to.
+ */
+function addButton(text, className, container) {
+    const btn = document.createElement("button");
+    btn.className = "btn " + className;
+
+    const btnText = document.createElement("span");
+    btnText.className = "btn-text";
+    btnText.innerHTML = text;
+    btn.appendChild(btnText);
+
+    container.appendChild(btn);
+
+    return btn;
+}
+
+/**
+ * Sets an active state to a button in a given container, containing other buttons.
+ * @param {Element} container The container containing the buttons.
+ */
+function setActiveBtn(container) {
+    container.addEventListener('click', (e) => {
+        const isButton = e.target.parentElement.nodeName  === 'BUTTON' || e.target.nodeName === 'BUTTON';
+
+        if (!isButton) {
+            return;
+        }
+
+        if(prevButton !== null) {
+            prevButton.classList.remove('active');
+        }
+
+        if( e.target.parentElement.nodeName  === 'BUTTON'){
+            e.target.parentElement.classList.add('active');
+            prevButton = e.target.parentElement;
+        } else {
+            e.target.classList.add('active');
+            prevButton = e.target;
+        }
+    });
 }
