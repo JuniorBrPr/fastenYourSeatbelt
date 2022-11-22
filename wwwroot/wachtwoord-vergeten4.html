@@ -23,8 +23,9 @@
 
   <!-- load javascript, defer makes sure scripts are loaded when dom-elements are
   available  -->
-  <script src="assets/scripts/hamburgerMenu.js" defer></script>
-  <script src="assets/scripts/showPassword.js" defer></script>
+
+
+  <script src="assets/scripts/wachtwoord-vergeten-DOM.js" defer></script>
 </head>
 <body>
 <header class="header d-flex justify-space-between align-c">
@@ -85,7 +86,7 @@
   </nav>
 </aside>
 <main class="wwvg-main d-flex">
-  <form action="" method="post" class="wwvg-form d-flex">
+  <form id="pagina1" action="" method="post" class="wwvg-form d-flex">
     <h1 class="title sub-title">Wachtwoord vergeten</h1>
     <p>Vul de E-mail van uw CorenBuddy account in.</p>
     <div class="input-container">
@@ -106,6 +107,8 @@
     <!-- actions are submitting form or opening login modal -->
     <div class="wwvg-btn-container">
       <button
+              id="wwvg-knop"
+
               type="submit"
               class="btn wwvg-submit-btn align-c justify-space-between">
         <i class="fa-solid fa-check"></i>
