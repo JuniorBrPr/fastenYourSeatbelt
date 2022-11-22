@@ -17,6 +17,8 @@ function encodePassword(password) {
  * @param {string} salt a randomly generated string to make every hash function unique to prevent rainbow tables and make it harder for hackers to crack multiple passwords at once
  * @returns A promise with arrayBuffer type, in this arrayBuffer the binary data of the hash is stored
  * @author Julian
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest information about the digest function
+ * @see https://auth0.com/blog/adding-salt-to-hashing-a-better-way-to-store-passwords/ information about a salt
  */
 export function passwordDigest(password, salt) {
 	const encoded = encodePassword(`${salt}${password}`);
