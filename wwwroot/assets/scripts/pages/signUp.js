@@ -17,3 +17,12 @@ eyeIcons.forEach((icon) => {
 		}
 	});
 });
+
+// hash password
+import { passwordDigest, passwordDigestToHex } from "../hash/hash.js";
+
+const buffer = await passwordDigest("test", "test");
+console.log(passwordDigestToHex(buffer));
+//another example to show that salt makes it unique
+const buffer2 = await passwordDigest("test", "test2");
+console.log(passwordDigestToHex(buffer));
