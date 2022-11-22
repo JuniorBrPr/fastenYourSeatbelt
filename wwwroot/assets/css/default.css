@@ -5,7 +5,7 @@
 	--color-red-dark: #800f00;
 	--color-btn-green: #26a514;
 	--color-btn-dark-green: #1e8210;
-	--color-text-grey: #666;
+	--color-text-grey: #282120;
 	--color-border-grey: #d9d9d9;
 	--color-bg-grey: #f5f5f5;
 	--color-white: #fff;
@@ -439,54 +439,6 @@ button.btn {
 .interests {
 	flex-flow: row wrap;
 	gap: 15px 50px;
-}
-
-/* Create line underneath the text of nav links when hovering/focusing */
-.link-text::before {
-	content: "";
-	position: absolute;
-	bottom: 0;
-	height: 2px;
-	width: 0;
-	background-color: var(--color-red);
-	transition: width 300ms ease-in;
-}
-
-.nav-link:hover .link-text::before,
-.nav-link:focus .link-text::before {
-	width: 100%;
-}
-
-/* Fix width for register button */
-.register-btn,
-.login-btn {
-	min-width: 14ch;
-}
-
-/* Styling hamburger */
-.hamburger {
-	font-size: 32px;
-	color: var(--color-red);
-	cursor: pointer;
-	display: none;
-	padding: 4px;
-}
-
-/* Styling nav menu mobile */
-.nav-container {
-	display: none;
-	border-left: 3px solid var(--color-red);
-	border-bottom: 3px solid var(--color-red);
-	border-bottom-left-radius: 15px;
-	font-weight: 800;
-	padding: 8px;
-	background-color: var(--color-white);
-	/* High z-index makes sure nav-menu is always on top of content */
-	z-index: 999;
-	/* Animation name set with javascript */
-	animation-timing-function: linear;
-	animation-duration: 300ms;
-	animation-fill-mode: forwards;
 }
 
 /* --- Home Page --- */
