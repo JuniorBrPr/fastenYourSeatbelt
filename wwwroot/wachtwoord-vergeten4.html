@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Corenbuddy</title>
+
+  <!-- get open sans font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;
+			0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+          rel="stylesheet" />
+
+  <!-- link to font-awesome for icons -->
+  <script
+          src="https://kit.fontawesome.com/045f11e82e.js"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="assets/css/default.css" />
+
+  <!-- load javascript, defer makes sure scripts are loaded when dom-elements are
+  available  -->
+  <script src="assets/scripts/hamburgerMenu.js" defer></script>
+  <script src="assets/scripts/showPassword.js" defer></script>
+</head>
+<body>
+<header class="header d-flex justify-space-between align-c">
+  <nav class="nav-menu d-flex">
+    <a href="index.html" class="nav-link-logo">
+      <img
+              src="assets/img/logo.png"
+              alt="Corendon logo"
+              class="logo" />
+    </a>
+    <a href="index.html" class="nav-link">
+      <i class="fa-solid fa-house"></i>
+    </a>
+    <a href="#" class="nav-link">
+      <span class="link-text">corenbuddy</span>
+    </a>
+    <a href="#" class="nav-link">
+      <span class="link-text">zoek mijn buddy</span>
+    </a>
+    <a href="#" class="nav-link">
+      <span class="link-text">over ons</span>
+    </a>
+  </nav>
+  <div class="btn-container d-flex align-c">
+    <a href="#" class="btn login-btn">
+      <span class="btn-text">Login</span>
+      <span class="triangle">
+						<i class="fa-solid fa-play"></i>
+					</span>
+    </a>
+    <a href="#" class="btn register-btn">
+      <span class="btn-text">Registreren</span>
+      <span class="triangle">
+						<i class="fa-solid fa-play"></i>
+					</span>
+    </a>
+  </div>
+  <!-- tabindex makes hamburger-menu focusable -->
+  <i class="fa-solid fa-bars hamburger" tabindex="0"></i>
+</header>
+<aside class="nav-container">
+  <nav class="nav-menu-mobile">
+    <a href="#" class="nav-link">
+      <span class="link-text">Corenbuddy</span>
+    </a>
+    <a href="#" class="nav-link">
+      <span class="link-text">Zoek mijn buddy</span>
+    </a>
+    <a href="#" class="nav-link">
+      <span class="link-text">Over ons</span>
+    </a>
+    <a href="#" class="nav-link">
+      <span class="link-text">registreren</span>
+    </a>
+    <a href="#" class="nav-link">
+      <span class="link-text">login</span>
+    </a>
+  </nav>
+</aside>
+<main class="wwvg-main d-flex">
+  <form action="" method="post" class="wwvg-form d-flex">
+    <h1 class="title sub-title">Wachtwoord vergeten</h1>
+    <p>Vul de E-mail van uw CorenBuddy account in.</p>
+    <div class="input-container">
+      <label for="wwvg-email" class="input-label">
+        E-mail
+      </label>
+      <input
+              type="text"
+              name="wwvg-email"
+              id="wwvg-email"
+              class="input"
+              required
+              placeholder="Vul uw E-mail in"
+              autofocus />
+    </div>
+
+
+    <!-- actions are submitting form or opening login modal -->
+    <div class="wwvg-btn-container">
+      <button
+              type="submit"
+              class="btn wwvg-submit-btn align-c justify-space-between">
+        <i class="fa-solid fa-check"></i>
+        Verder
+      </button>
+    </div>
+
+  </form>
+</main>
+</body>
+</html>
