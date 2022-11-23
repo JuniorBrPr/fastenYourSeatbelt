@@ -20,9 +20,14 @@ function encodePassword(password) {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest information about the digest function
  * @see https://auth0.com/blog/adding-salt-to-hashing-a-better-way-to-store-passwords/ information about a salt
  */
-export function passwordDigest(password, salt) {
+export async function passwordHash(password, salt) {
 	const encoded = encodePassword(`${salt}${password}`);
-	return subtleCrypto.digest("SHA-512", encoded);
+	try {
+		let hashBuffer = await subtleCrypto.digest("SHA-512", encoded);
+		return passwordDigestToHex(hashBuffer);
+	} catch (err) {
+		console.error(err);
+	}
 }
 /**
  * This function takes data in a ArrayBuffer and formats it to a string which can be stored in a database
@@ -31,7 +36,7 @@ export function passwordDigest(password, salt) {
  * @returns A string containing hexadecimal numbers
  * @author Julian
  */
-export function passwordDigestToHex(digestBuffer) {
+function passwordDigestToHex(digestBuffer) {
 	// get hash values in an array
 	const hashArray = Array.from(new Uint8Array(digestBuffer));
 	return hashArray.map((hash) => hash.toString(16).padStart(2, "0")).join("");
