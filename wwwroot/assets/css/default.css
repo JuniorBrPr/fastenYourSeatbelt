@@ -301,6 +301,9 @@ button.btn {
 	max-width: 500px;
 	width: 80%;
 }
+.warning {
+	color: var(--color-red);
+}
 
 /* reset input width, so that container determines with of input instead of the input itself */
 .password-input-container > .input {
