@@ -892,6 +892,13 @@ footer {
 	width: 100%;
 }
 
+/* Login modal email validation */
+.login-error-message {
+	color: var(--color-red);
+}
+
+
+
 /*	styling for about us  */
 .active.link-text::before {
 	width: 100%;
