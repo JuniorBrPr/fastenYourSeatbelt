@@ -1,3 +1,7 @@
+/**
+ * Class for validating HTML forms
+ * @author Julian
+ */
 export class Validation {
 	constructor() {}
 

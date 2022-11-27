@@ -1,7 +1,12 @@
+/**
+ * All the logic behind signing up the user
+ * @author Julian
+ */
+
 //imports
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 import { Validation } from "../classes/validation.js";
-import { passwordHash } from "../hash/hash.js";
+import { passwordHash } from "../classes/hash.js";
 
 const eyeIcons = document.querySelectorAll("[data-eye]");
 
@@ -23,8 +28,7 @@ eyeIcons.forEach((icon) => {
 	});
 });
 
-//validate sign up form
-
+//validate sign up form on focus out
 const validation = new Validation();
 const signUpForm = document.querySelector(".sign-up-form");
 const inputs = signUpForm.querySelectorAll(".input");
@@ -95,28 +99,40 @@ inputs.forEach((input) => {
 	});
 });
 
-// hash password
-
-const hashText = await passwordHash("password", "salt");
-console.log(hashText);
-const anotherHashText = await passwordHash("password", "pepper");
-console.log(anotherHashText);
-const test3 = await passwordHash("password", "salt");
-console.log(test3);
+/**
+ * Add new user to database when form is submitted
+ */
+signUpForm.addEventListener("submit", async (e) => {
+	e.preventDefault();
+	try {
+		if (await validateForm(signUpForm, validation)) {
+			const values = getInputValues(signUpForm);
+			const salt = await getUniqueSalt();
+			const hashedPassword = await passwordHash(values.password, salt);
+			const data = await FYSCloud.API.queryDatabase(
+				"INSERT INTO `user` (`first_name`, `last_name`, `email`, `password`, `salt`) VALUES (?, ?, ?, ?, ?);",
+				[values.firstName, values.lastName, values.email, hashedPassword, salt]
+			);
+			const container = document.querySelector("[data-success]");
+			container.setAttribute("data-success", "true");
+			container.textContent = `Gefeliciteerd ${values.firstName} ${values.lastName} uw account is aangemaakt!`;
+		} else {
+			throw "Niet alle gegevens zijn correct ingevoerd!";
+		}
+	} catch (err) {
+		const container = document.querySelector("[data-success]");
+		container.setAttribute("data-success", "false");
+		container.textContent = err;
+	}
+});
 
 /**
- *
+ * display an error message on the page
  * @param {function} errorFunction
  * @param {HTMLParagraphElement} errorElement
  * @param {string} errorMessage
  */
-function displayError(
-	errorFunction,
-	errorElement,
-	errorMessage,
-	input,
-	repeatPasswordInput
-) {
+function displayError(errorFunction, errorElement, errorMessage, input, repeatPasswordInput) {
 	if (errorFunction) {
 		errorElement.textContent = errorMessage;
 		input.style.borderColor = "#d81e05";
@@ -131,7 +147,119 @@ function displayError(
 		}
 	}
 }
-
+/**
+ * get all emails for the database
+ * @returns Emails in the database
+ */
 async function getEmails() {
 	return await FYSCloud.API.queryDatabase("SELECT email from user");
+}
+
+/**
+ *  Check if all the validation rules are followed by the user when the form is submitted.
+ * @param {HTMLFormElement} form
+ * @param {Validation} validation
+ * @returns true if validation was successful if not return false
+ */
+async function validateForm(form, validation) {
+	const emails = await getEmails();
+	const formInputs = getFormInputs(form);
+	Object.values(formInputs).forEach((input) => {
+		if (validation.emptyInput(input)) {
+			return false;
+		}
+	});
+	if (
+		validation.invalidName(formInputs.firstName) ||
+		validation.invalidName(formInputs.lastName) ||
+		validation.emailInDatabase(formInputs.email, emails) ||
+		validation.invalidEmail(formInputs.email) ||
+		validation.passwordMatch(formInputs.password, formInputs.passwordRepeat)
+	) {
+		return false;
+	}
+	return true;
+}
+/**
+ * this function gets the inputs from a form and creates an object
+ * @param {HTMLFormElement} form
+ * @returns an object containing HTMLInputElements
+ */
+function getFormInputs(form) {
+	return {
+		firstName: form.querySelector("#first-name"),
+		lastName: form.querySelector("#last-name"),
+		email: form.querySelector("#sign-up-email"),
+		password: form.querySelector("#sign-up-password"),
+		passwordRepeat: form.querySelector("#password-repeat"),
+	};
+}
+/**
+ * get value from the all inputs in a form
+ * @param {HTMLFormElement} form
+ * @returns an object with the value of all inputs
+ */
+function getInputValues(form) {
+	const inputs = getFormInputs(form);
+	return {
+		firstName: capitalizeName(inputs.firstName.value),
+		lastName: capitalizeName(inputs.lastName.value),
+		email: inputs.email.value,
+		password: inputs.password.value,
+	};
+}
+/**
+ * capitalize the first letter in each word of a name
+ * @param {string} name
+ * @returns a string with the fist letters capitalized
+ */
+function capitalizeName(name) {
+	return name
+		.split(" ")
+		.map((word) => {
+			//Irish names like O'Reiley
+			if (word.charAt(1) == "'") {
+				return (
+					word.charAt(0).toUpperCase() +
+					word.charAt(1) +
+					word.charAt(2).toUpperCase() +
+					word.slice(3)
+				);
+			}
+			//Dutch and Spanish names uses prefixes that don't need capitalization
+			if (
+				![
+					"van",
+					"de",
+					"het",
+					"der",
+					"ten",
+					"ter",
+					"te",
+					"'t",
+					"y",
+					"del",
+					"la",
+				].includes(word)
+			) {
+				return word.charAt(0).toUpperCase() + word.slice(1);
+			}
+			return word;
+		})
+		.join(" ");
+}
+
+/**
+ * get a unique salt with random characters
+ * @returns a string with random characters
+ */
+async function getUniqueSalt() {
+	const saltsInDatabase = await FYSCloud.API.queryDatabase("SELECT salt from user");
+	let salt = FYSCloud.Utils.randomString(32, true);
+	saltsInDatabase.forEach((entry) => {
+		while (entry.salt == salt) {
+			salt = FYSCloud.Utils.randomString(32, true);
+		}
+	});
+	return salt;
 }

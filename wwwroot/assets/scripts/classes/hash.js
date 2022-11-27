@@ -15,18 +15,21 @@ function encodePassword(password) {
  *
  * @param {string} password a password given by the user
  * @param {string} salt a randomly generated string to make every hash function unique to prevent rainbow tables and make it harder for hackers to crack multiple passwords at once
- * @returns A promise with arrayBuffer type, in this arrayBuffer the binary data of the hash is stored
+ * @returns a promise with a hashed password or an errormessage
  * @author Julian
  * @see https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest information about the digest function
  * @see https://auth0.com/blog/adding-salt-to-hashing-a-better-way-to-store-passwords/ information about a salt
  */
 export async function passwordHash(password, salt) {
+	if (password == null || salt == null) {
+		return;
+	}
 	const encoded = encodePassword(`${salt}${password}`);
 	try {
 		let hashBuffer = await subtleCrypto.digest("SHA-512", encoded);
 		return passwordDigestToHex(hashBuffer);
 	} catch (err) {
-		console.error(err);
+		throw err;
 	}
 }
 /**
