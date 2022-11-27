@@ -301,8 +301,16 @@ button.btn {
 	max-width: 500px;
 	width: 80%;
 }
+
 .warning {
 	color: var(--color-red);
+}
+
+.warning-message {
+	padding: 10px;
+	font-weight: 100;
+	font-size: var(--small-font-size);
+	font-style: normal;
 }
 
 /* reset input width, so that container determines with of input instead of the input itself */
@@ -804,7 +812,6 @@ footer {
 	max-width: 80%;
 	width: 600px;
 	min-height: min-content;
-	height: 400px;
 	border-radius: 8px;
 	background-color: var(--color-bg-grey);
 	gap: 44px;
@@ -887,7 +894,6 @@ footer {
 	align-items: center;
 	margin-bottom: 10px;
 	font-size: var(--small-font-size);
-	gap: 20px;
 }
 
 .login-link {

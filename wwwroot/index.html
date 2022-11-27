@@ -20,8 +20,8 @@
 		<link rel="stylesheet" href="assets/css/default.css" />
 		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are 
 		available  -->
-		<script src="assets/scripts/app.js" defer></script>
-		
+		<script type="module" src="assets/scripts/app.js" defer></script>
+		<script type="module" src="assets/scripts/login.js" defer></script>
 	</head>
 	<body>
 		<header class="header d-flex justify-space-between align-c">
@@ -109,7 +109,8 @@
 						id="password"
 						required />
 				</div>
-				<button class="login-content-btn btn" type="submit" onclick="validateEmail()"">
+				<button class="login-content-btn btn" 
+						type="submit">
 					<span class="btn-text">Inloggen</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>

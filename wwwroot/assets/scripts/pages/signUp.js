@@ -152,7 +152,7 @@ function displayError(errorFunction, errorElement, errorMessage, input, repeatPa
  * @returns Emails in the database
  */
 async function getEmails() {
-	return await FYSCloud.API.queryDatabase("SELECT email from user");
+	return await FYSCloud.API.queryDatabase("SELECT email FROM user");
 }
 
 /**
