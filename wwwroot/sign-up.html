@@ -21,10 +21,19 @@
 
 		<link rel="stylesheet" href="assets/css/default.css" />
 
+		<!-- load in FYS cloud connection  -->
+		<script
+			type="module"
+			src="https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js"
+			crossorigin></script>
+		<script type="module" src="assets/scripts/config.js"></script>
 		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are 
 		available  -->
 		<script src="assets/scripts/app.js" defer></script>
-		<script src="assets/scripts/pages/signUp.js" defer></script>
+		<script
+			type="module"
+			src="assets/scripts/pages/signUp.js"
+			defer></script>
 	</head>
 	<body>
 		<header class="header d-flex justify-space-between align-c">
@@ -150,7 +159,9 @@
 						class="input"
 						required
 						placeholder="Voornaam"
-						autofocus />
+						autofocus
+						data-input="name" />
+					<p class="warning" data-warning="first-name"></p>
 				</div>
 				<div class="input-container">
 					<label for="last-name" class="input-label">
@@ -162,20 +173,25 @@
 						id="last-name"
 						class="input"
 						required
-						placeholder="Achternaam" />
+						placeholder="Achternaam"
+						data-input="name" />
+					<p class="warning" data-warning="last-name"></p>
 				</div>
 				<div class="input-container">
-					<label for="email" class="input-label"> Email </label>
+					<label for="sign-up-email" class="input-label">
+						Email
+					</label>
 					<input
 						type="email"
 						name="email"
-						id="email"
+						id="sign-up-email"
 						class="input"
 						required
 						placeholder="Email@voorbeeld.nl" />
+					<p class="warning" data-warning="email"></p>
 				</div>
 				<div class="input-container">
-					<label for="password" class="input-label">
+					<label for="sign-up-password" class="input-label">
 						Wachtwoord
 					</label>
 					<!-- to make the eye icon fit inside of the input -->
@@ -183,12 +199,14 @@
 						<input
 							type="password"
 							name="password"
-							id="password"
+							id="sign-up-password"
 							class="input"
 							required
-							placeholder="***********" />
+							placeholder="***********"
+							data-input="password" />
 						<i class="fa-solid fa-eye" data-eye></i>
 					</div>
+					<p class="warning" data-warning="password"></p>
 				</div>
 				<div class="input-container">
 					<label for="password-repeat" class="input-label">
@@ -201,9 +219,11 @@
 							id="password-repeat"
 							class="input"
 							required
-							placeholder="***********" />
+							placeholder="***********"
+							data-input="password" />
 						<i class="fa-solid fa-eye" data-eye></i>
 					</div>
+					<p class="warning" data-warning="password-repeat"></p>
 				</div>
 				<p class="small-text">
 					Als u registreert gaat u akkoord met de
@@ -229,6 +249,7 @@
 						</a>
 					</p>
 				</div>
+				<div class="success" data-success=""></div>
 			</form>
 			<img
 				src="assets/img/corendon-vliegtuig.jpg"

@@ -301,6 +301,9 @@ button.btn {
 	max-width: 500px;
 	width: 80%;
 }
+.warning {
+	color: var(--color-red);
+}
 
 /* reset input width, so that container determines with of input instead of the input itself */
 .password-input-container > .input {
@@ -335,6 +338,12 @@ button.btn {
 .sign-up-login-link > .link-text {
 	display: block;
 	width: fit-content;
+}
+[data-success="false"] {
+	font-weight: 700;
+	color: var(--color-red);
+	font-size: var(--base-font-size);
+	margin-bottom: 10px;
 }
 
 /* styling airplane image on sign up page */
@@ -557,8 +566,7 @@ section.cta-cards {
 .cta-card:hover {
 	cursor: pointer;
 	transform: scale(1.05);
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-		rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .cta-card-title {
@@ -597,7 +605,6 @@ footer {
 
 .flex-container {
 	display: flex;
-	margin-top: 10px;
 	border-top: 15px solid var(--color-red);
 }
 

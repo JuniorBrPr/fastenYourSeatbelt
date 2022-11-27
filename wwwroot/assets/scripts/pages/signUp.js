@@ -1,3 +1,13 @@
+/**
+ * All the logic behind signing up the user
+ * @author Julian
+ */
+
+//imports
+import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
+import { Validation } from "../classes/validation.js";
+import { getUniqueSalt, passwordHash } from "../classes/hash.js";
+
 const eyeIcons = document.querySelectorAll("[data-eye]");
 
 //Change the eye icon, placeholder and type, to make a password visible or hidden in the input
@@ -17,3 +27,224 @@ eyeIcons.forEach((icon) => {
 		}
 	});
 });
+
+//validate sign up form on focus out
+const validation = new Validation();
+const signUpForm = document.querySelector(".sign-up-form");
+const inputs = signUpForm.querySelectorAll(".input");
+inputs.forEach((input) => {
+	input.addEventListener("focusout", async () => {
+		const errorDisplay =
+			input.getAttribute("data-input") == "password"
+				? input.parentElement.nextElementSibling
+				: input.nextElementSibling;
+		//check if input is empty
+		if (input.getAttribute("data-input") == "name") {
+			displayError(
+				validation.invalidName(input),
+				errorDisplay,
+				"Er zijn vreemde karakters gebruikt in uw naam!",
+				input
+			);
+			if (errorDisplay.textContent != "") {
+				return;
+			}
+		}
+		if (input.type == "email") {
+			displayError(
+				validation.invalidEmail(input),
+				errorDisplay,
+				"Dit is een ongeldig emailadres!",
+				input
+			);
+			if (errorDisplay.textContent != "") {
+				return;
+			}
+			//get emails in database
+			const emails = await getEmails();
+			displayError(
+				validation.emailInDatabase(input, emails),
+				errorDisplay,
+				"U heeft al een account op dit emailadres",
+				input
+			);
+
+			if (errorDisplay.textContent != "") {
+				return;
+			}
+		}
+		if (input.name == "password-repeat") {
+			const passwordInput =
+				input.parentElement.parentElement.previousElementSibling.querySelector(
+					"input"
+				);
+			displayError(
+				validation.passwordMatch(passwordInput, input),
+				errorDisplay,
+				"Wachtwoorden zijn niet hetzelfde!",
+				passwordInput,
+				input
+			);
+			if (errorDisplay.textContent != "") {
+				return;
+			}
+		}
+		displayError(
+			validation.emptyInput(input),
+			errorDisplay,
+			"Veld moet ingevuld zijn!",
+			input
+		);
+		//check if the name inputs are valid
+	});
+});
+
+/**
+ * Add new user to database when form is submitted
+ */
+signUpForm.addEventListener("submit", async (e) => {
+	e.preventDefault();
+	try {
+		if (await validateForm(signUpForm, validation)) {
+			const values = getInputValues(signUpForm);
+			const salt = await getUniqueSalt();
+			const hashedPassword = await passwordHash(values.password, salt);
+			const data = await FYSCloud.API.queryDatabase(
+				"INSERT INTO `user` (`first_name`, `last_name`, `email`, `password`, `salt`) VALUES (?, ?, ?, ?, ?);",
+				[values.firstName, values.lastName, values.email, hashedPassword, salt]
+			);
+			const container = document.querySelector("[data-success]");
+			container.setAttribute("data-success", "true");
+			container.textContent = `Gefeliciteerd ${values.firstName} ${values.lastName} uw account is aangemaakt!`;
+		} else {
+			throw "Niet alle gegevens zijn correct ingevoerd!";
+		}
+	} catch (err) {
+		const container = document.querySelector("[data-success]");
+		container.setAttribute("data-success", "false");
+		container.textContent = err;
+	}
+});
+
+/**
+ * display an error message on the page
+ * @param {function} errorFunction
+ * @param {HTMLParagraphElement} errorElement
+ * @param {string} errorMessage
+ */
+function displayError(errorFunction, errorElement, errorMessage, input, repeatPasswordInput) {
+	if (errorFunction) {
+		errorElement.textContent = errorMessage;
+		input.style.borderColor = "#d81e05";
+		if (repeatPasswordInput != null) {
+			repeatPasswordInput.style.borderColor = "#d81e05";
+		}
+	} else {
+		errorElement.textContent = "";
+		input.style.borderColor = "#d9d9d9";
+		if (repeatPasswordInput != null) {
+			repeatPasswordInput.style.borderColor = "#d9d9d9";
+		}
+	}
+}
+/**
+ * get all emails for the database
+ * @returns Emails in the database
+ */
+async function getEmails() {
+	return await FYSCloud.API.queryDatabase("SELECT email from user");
+}
+
+/**
+ *  Check if all the validation rules are followed by the user when the form is submitted.
+ * @param {HTMLFormElement} form
+ * @param {Validation} validation
+ * @returns true if validation was successful if not return false
+ */
+async function validateForm(form, validation) {
+	const emails = await getEmails();
+	const formInputs = getFormInputs(form);
+	Object.values(formInputs).forEach((input) => {
+		if (validation.emptyInput(input)) {
+			return false;
+		}
+	});
+	if (
+		validation.invalidName(formInputs.firstName) ||
+		validation.invalidName(formInputs.lastName) ||
+		validation.emailInDatabase(formInputs.email, emails) ||
+		validation.invalidEmail(formInputs.email) ||
+		validation.passwordMatch(formInputs.password, formInputs.passwordRepeat)
+	) {
+		return false;
+	}
+	return true;
+}
+/**
+ * this function gets the inputs from a form and creates an object
+ * @param {HTMLFormElement} form
+ * @returns an object containing HTMLInputElements
+ */
+function getFormInputs(form) {
+	return {
+		firstName: form.querySelector("#first-name"),
+		lastName: form.querySelector("#last-name"),
+		email: form.querySelector("#sign-up-email"),
+		password: form.querySelector("#sign-up-password"),
+		passwordRepeat: form.querySelector("#password-repeat"),
+	};
+}
+/**
+ * get value from the all inputs in a form
+ * @param {HTMLFormElement} form
+ * @returns an object with the value of all inputs
+ */
+function getInputValues(form) {
+	const inputs = getFormInputs(form);
+	return {
+		firstName: capitalizeName(inputs.firstName.value),
+		lastName: capitalizeName(inputs.lastName.value),
+		email: inputs.email.value,
+		password: inputs.password.value,
+	};
+}
+/**
+ * capitalize the first letter in each word of a name
+ * @param {string} name
+ * @returns a string with the fist letters capitalized
+ */
+function capitalizeName(name) {
+	return name
+		.split(" ")
+		.map((word) => {
+			//Irish names like O'Reiley
+			if (word.charAt(1) == "'") {
+				return (
+					word.charAt(0).toUpperCase() +
+					word.charAt(1) +
+					word.charAt(2).toUpperCase() +
+					word.slice(3)
+				);
+			}
+			//Dutch and Spanish names uses prefixes that don't need capitalization
+			if (
+				![
+					"van",
+					"de",
+					"het",
+					"der",
+					"ten",
+					"ter",
+					"te",
+					"'t",
+					"y",
+					"del",
+					"la",
+				].includes(word)
+			) {
+				return word.charAt(0).toUpperCase() + word.slice(1);
+			}
+			return word;
+		})
+		.join(" ");
+}
