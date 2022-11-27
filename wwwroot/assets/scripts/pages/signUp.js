@@ -6,7 +6,7 @@
 //imports
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 import { Validation } from "../classes/validation.js";
-import { passwordHash } from "../classes/hash.js";
+import { getUniqueSalt, passwordHash } from "../classes/hash.js";
 
 const eyeIcons = document.querySelectorAll("[data-eye]");
 
@@ -247,19 +247,4 @@ function capitalizeName(name) {
 			return word;
 		})
 		.join(" ");
-}
-
-/**
- * get a unique salt with random characters
- * @returns a string with random characters
- */
-async function getUniqueSalt() {
-	const saltsInDatabase = await FYSCloud.API.queryDatabase("SELECT salt from user");
-	let salt = FYSCloud.Utils.randomString(32, true);
-	saltsInDatabase.forEach((entry) => {
-		while (entry.salt == salt) {
-			salt = FYSCloud.Utils.randomString(32, true);
-		}
-	});
-	return salt;
 }

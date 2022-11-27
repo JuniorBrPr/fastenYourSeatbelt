@@ -44,3 +44,17 @@ function passwordDigestToHex(digestBuffer) {
 	const hashArray = Array.from(new Uint8Array(digestBuffer));
 	return hashArray.map((hash) => hash.toString(16).padStart(2, "0")).join("");
 }
+/**
+ * get a unique salt with random characters
+ * @returns a string with random characters
+ */
+export async function getUniqueSalt() {
+	const saltsInDatabase = await FYSCloud.API.queryDatabase("SELECT salt from user");
+	let salt = FYSCloud.Utils.randomString(32, true);
+	saltsInDatabase.forEach((entry) => {
+		while (entry.salt == salt) {
+			salt = FYSCloud.Utils.randomString(32, true);
+		}
+	});
+	return salt;
+}
