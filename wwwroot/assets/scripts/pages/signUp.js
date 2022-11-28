@@ -61,9 +61,8 @@ inputs.forEach((input) => {
 				return;
 			}
 			//get emails in database
-			const emails = await getEmails();
 			displayError(
-				validation.emailInDatabase(input, emails),
+				await validation.emailInDatabase(input),
 				errorDisplay,
 				"U heeft al een account op dit emailadres",
 				input
@@ -147,13 +146,6 @@ function displayError(errorFunction, errorElement, errorMessage, input, repeatPa
 		}
 	}
 }
-/**
- * get all emails for the database
- * @returns Emails in the database
- */
-async function getEmails() {
-	return await FYSCloud.API.queryDatabase("SELECT email from user");
-}
 
 /**
  *  Check if all the validation rules are followed by the user when the form is submitted.
@@ -162,7 +154,6 @@ async function getEmails() {
  * @returns true if validation was successful if not return false
  */
 async function validateForm(form, validation) {
-	const emails = await getEmails();
 	const formInputs = getFormInputs(form);
 	Object.values(formInputs).forEach((input) => {
 		if (validation.emptyInput(input)) {
@@ -172,7 +163,7 @@ async function validateForm(form, validation) {
 	if (
 		validation.invalidName(formInputs.firstName) ||
 		validation.invalidName(formInputs.lastName) ||
-		validation.emailInDatabase(formInputs.email, emails) ||
+		(await validation.emailInDatabase(formInputs.email)) ||
 		validation.invalidEmail(formInputs.email) ||
 		validation.passwordMatch(formInputs.password, formInputs.passwordRepeat)
 	) {
