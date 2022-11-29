@@ -50,8 +50,6 @@ const modalOpenBtns = document.querySelectorAll(".login-btn");
 const modalCloseBtn = document.querySelector(".login-close");
 const openModalLinks = document.querySelectorAll(".sign-up-login-link");
 
-import { displayErrorMessage } from "./login.js";
-
 //For every login button on a page add an event listener to open the modal.
 for (let i = 0; i < modalOpenBtns.length; i++) {
 	openModal(modalOpenBtns[i]);
@@ -96,6 +94,11 @@ window.addEventListener("click", (event) => {
 	}
 });
 
+/**
+ * Clears the login input values and error status whenever the modal is closed.
+ * 
+ * @author Tim Knops
+ */
 function clearLoginValues() {
 	const loginInputField = document.querySelectorAll(".login-input");
 	const warningMessage = document.querySelector(".warning-message");
