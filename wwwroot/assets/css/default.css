@@ -381,7 +381,7 @@ button.btn {
 	background-color: var(--color-white);
 	width: 900px;
 	padding-bottom: 40px;
-	box-shadow: var(--color-bg-grey) 0 0 12px;
+	box-shadow: var(--color-text-grey) 0 0 12px;
 	border-radius: 10px 10px 10px 10px;
 }
 
