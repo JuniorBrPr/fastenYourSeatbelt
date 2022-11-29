@@ -1,60 +1,60 @@
-import { Validation } from "./classes/validation.js";
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
+
+import { Validation } from "./classes/validation.js";
+import { passwordHash } from "./classes/hash.js";
 
 /**
  * Code for login validation.
  * 
  * @author Tim Knops
  */
-const loginInputField = document.querySelectorAll(".login-input");
 const loginSubmitBtn = document.querySelector(".login-content-btn");
+const loginInput = document.querySelector(".login-input-field");
+const passwordInput = document.querySelector(".password-input-field");
 
 const validation = new Validation();
 
-loginSubmitBtn.addEventListener("click", () => {
-    loginInputField.forEach((input) => {
-        // if (input.type == "email") {
-        //     if (validation.invalidEmail(input)) {
-        //         displayErrorMessage(false, input);
+loginSubmitBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
 
-        //     } else {
-        //         displayErrorMessage(true, input);
-        //     }
-        // }
-    
-        // else if (input.type == "password") {
-        //     if (!passwordValidation(input.value)) {
-        //         displayErrorMessage(false, input);
+    const existingUser = await userExists(loginInput);
 
-        //     } else {
-        //         displayErrorMessage(true, input);
-        //     }
-        // }
+    if (existingUser) {
+        const existingUserSalt = await getUserSalt(loginInput);
+        const existingUserPassword = await getUserPassword(loginInput);
 
-        displayErrorMessage(false, input);
-        userExists(input);
-    });
+        const hash = await passwordHash(passwordInput.value, existingUserSalt[0].salt);
+
+        removeErrorMessage(loginInput, passwordInput);
+
+        if (hash == existingUserPassword[0].password) {
+            console.log("SUCCESS");
+
+            // === USER HAS LOGGED IN ===
+
+        }
+
+    } else {
+        displayErrorMessage(false, loginInput, passwordInput);
+    }
 });
 
-// function passwordValidation(input) {
-//     const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/;
-
-//     return input.match(regex) != null;
-// }
-
-function displayErrorMessage(active, input) {
+function displayErrorMessage(active, loginInput, passwordInput) {
     const warningMessage = document.querySelector(".warning-message");
 
     if (!active && warningMessage == null) {
         createErrorMessage();
-        input.style.borderColor = "#d81e05";
-
-    } else if (!active && warningMessage != null) {
-        input.style.borderColor = "#d81e05";
-
-    } else if (active && warningMessage != null) {
-        input.style.borderColor = "";
+        loginInput.style.borderColor = "#d81e05";
+        passwordInput.style.borderColor = "#d81e05";
     }
+}
+
+function removeErrorMessage(loginInput, passwordInput) {
+    const warningMessage = document.querySelector(".warning-message");
+
+    loginInput.style.borderColor = "";
+    passwordInput.style.borderColor = "";
+    warningMessage.remove();
 }
 
 function createErrorMessage() {
@@ -66,31 +66,27 @@ function createErrorMessage() {
     loginSubmitBtn.appendChild(errorMessage);
 }
 
-const loginBtn = document.querySelector(".login-content-btn");
-
-loginBtn.addEventListener("click", (e) => {
-    e.preventDefault(); // Prevents the form from submitting.
-})
-
 async function getEmails() {
     return await FYSCloud.API.queryDatabase("SELECT email FROM user");
 }
 
-console.log(getEmails());
+async function getUserSalt(email) {
+    return await FYSCloud.API.queryDatabase(
+        "SELECT salt FROM user WHERE email = ?", 
+        email.value
+        );
+}
+
+async function getUserPassword(email) {
+    return await FYSCloud.API.queryDatabase(
+        "SELECT password FROM user WHERE email = ?",
+        email.value
+    );
+}
 
 async function userExists(emailInput) {
     const emails = await getEmails();
-    const validEmail = validation.emailInDatabase("echt@email.com", emails);
+    const validEmail = validation.emailInDatabase(emailInput, emails);
 
-    for (let i = 0; i < emails.length; i++) {
-        console.log(emails[i]);
-    }
-
-    console.log(validEmail);
+    return validEmail;
 }
-
-
-// const emails = await getEmails();
-// for (let i = 0; i < emails.length; i++) {
-//     console.log(i);
-// }
