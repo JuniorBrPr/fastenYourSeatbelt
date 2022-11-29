@@ -25,36 +25,42 @@ loginSubmitBtn.addEventListener("click", async (e) => {
 
         const hash = await passwordHash(passwordInput.value, existingUserSalt[0].salt);
 
-        removeErrorMessage(loginInput, passwordInput);
+        // Removes the error border color if email is found.
+        loginInput.style.borderColor = ""; 
 
+        // Compares hash just created and hash in the database.
         if (hash == existingUserPassword[0].password) {
-            console.log("SUCCESS");
+            removeFullErrorMessage(loginInput, passwordInput);
+
+            console.log("LOGGED IN");
 
             // === USER HAS LOGGED IN ===
 
         }
 
     } else {
-        displayErrorMessage(false, loginInput, passwordInput);
+        displayErrorMessage(loginInput, passwordInput);
     }
 });
 
-function displayErrorMessage(active, loginInput, passwordInput) {
+function displayErrorMessage(loginInput, passwordInput) {
     const warningMessage = document.querySelector(".warning-message");
 
-    if (!active && warningMessage == null) {
+    if (warningMessage == null) {
         createErrorMessage();
         loginInput.style.borderColor = "#d81e05";
         passwordInput.style.borderColor = "#d81e05";
     }
 }
 
-function removeErrorMessage(loginInput, passwordInput) {
+function removeFullErrorMessage(loginInput, passwordInput) {
     const warningMessage = document.querySelector(".warning-message");
 
-    loginInput.style.borderColor = "";
-    passwordInput.style.borderColor = "";
-    warningMessage.remove();
+    if (warningMessage != null) {
+        loginInput.style.borderColor = "";
+        passwordInput.style.borderColor = "";
+        warningMessage.remove();
+    }
 }
 
 function createErrorMessage() {
