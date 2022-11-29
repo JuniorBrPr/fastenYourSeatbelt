@@ -50,6 +50,8 @@ const modalOpenBtns = document.querySelectorAll(".login-btn");
 const modalCloseBtn = document.querySelector(".login-close");
 const openModalLinks = document.querySelectorAll(".sign-up-login-link");
 
+import { displayErrorMessage } from "./login.js";
+
 //For every login button on a page add an event listener to open the modal.
 for (let i = 0; i < modalOpenBtns.length; i++) {
 	openModal(modalOpenBtns[i]);
@@ -82,6 +84,7 @@ function openModal(Element) {
 function closeModal(Element) {
 	Element.addEventListener("click", () => {
 		loginModal.style.display = "none";
+		clearLoginValues();
 	});
 }
 
@@ -89,6 +92,20 @@ function closeModal(Element) {
 window.addEventListener("click", (event) => {
 	if (event.target === loginModal) {
 		loginModal.style.display = "none";
+		clearLoginValues();
 	}
 });
 
+function clearLoginValues() {
+	const loginInputField = document.querySelectorAll(".login-input");
+	const warningMessage = document.querySelector(".warning-message");
+
+	loginInputField.forEach((input) => {
+		if (warningMessage != null) {
+			warningMessage.remove();
+		}
+		
+		input.style.borderColor = "";
+		input.value = "";
+	});
+}

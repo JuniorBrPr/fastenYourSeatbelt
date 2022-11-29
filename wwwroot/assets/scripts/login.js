@@ -1,8 +1,10 @@
 import { Validation } from "./classes/validation.js";
 
-// Login validation	
-const loginFormContainer = document.querySelector(".login");
-const loginFooter = document.querySelector(".login-content");
+/**
+ * Code for login validation
+ * 
+ * @author Tim Knops
+ */
 const loginInputField = document.querySelectorAll(".login-input");
 const loginSubmitBtn = document.querySelector(".login-content-btn");
 
@@ -16,29 +18,53 @@ loginInputField.forEach((input) => {
 			} else {
 				displayErrorMessage(true, input);
 			}
-        } else if (input.type == "password") {
-			console.log("password");
+        }
+        
+        if (input.type == "password") {
+            if (!passwordValidation(input.value)) {
+                displayErrorMessage(false, input);
+            } else {
+                displayErrorMessage(true, input);
+            }
 		}
-
 	});
 });
 
-function displayErrorMessage(active, input) {
+function passwordValidation(input) {
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/;
+
+    return input.match(regex) != null;
+}
+
+export function displayErrorMessage(active, input) {
     const warningMessage = document.querySelector(".warning-message");
 
     if (!active && warningMessage == null) {
-        const errorMessage = document.createElement('p');
-        errorMessage.classList.add("warning", "warning-message");
-        errorMessage.innerHTML = "Email is ongeldig!";
-        loginSubmitBtn.appendChild(errorMessage);
+        createErrorMessage();
 
         input.style.borderColor = "#d81e05";
 
+    } else if (!active && warningMessage != null) {
+        input.style.borderColor = "#d81e05";
     } else if (active && warningMessage != null) {
-        warningMessage.remove();
-
-        input.style.borderColor = "";
-
-
+        input.style.borderColor = "#26a514";
     }
+
+    checkForColors();
+}
+
+function createErrorMessage() {
+    const errorMessage = document.createElement('p');
+    errorMessage.classList.add("warning", "warning-message");
+    errorMessage.innerHTML = "Wachtwoord en/of email niet toegestaan";
+    loginSubmitBtn.appendChild(errorMessage);
+}
+
+function checkForColors() {
+    const emailField = document.getElementById("#email");
+    const passwordField = document.querySelector(".password");
+
+
+    console.log(emailField);
+    console.log(passwordField);
 }

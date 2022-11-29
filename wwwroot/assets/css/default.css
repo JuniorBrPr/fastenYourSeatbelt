@@ -864,12 +864,16 @@ footer {
 	max-width: 80%;
 	height: 30px;
 	border-radius: 8px;
+	border: 1px solid var(--color-border-grey);
 	text-align: center;
 }
+.login-input:focus {
+	outline: 1px solid var(--color-text-grey);
+}
+
 
 .login-content-btn {
 	width: 80%;
-	border: none;
 	margin: auto;
 }
 .login-content-btn:hover {
