@@ -4,9 +4,7 @@ function initialize() {
     document.getElementById("pagina2").style.display = "none";
     document.getElementById("pagina3").style.display = "none";
     document.getElementById("wwvg-knop").addEventListener("click", evt => showpage2(evt));
-    console.log("hoi");
     document.getElementById("wwvg-knop2").addEventListener("click", evt => showpage3(evt));
-
     document.getElementById("wwvg-knop3").addEventListener("click", evt => validateForm(evt));
 
 }
@@ -37,6 +35,17 @@ function showpage3(evt){
 
 function validateForm(evt) {
     evt.preventDefault();
-    let x = document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord"];
-    console.log(x);
+    let nieuwWw = document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord"].value;
+    let nieuwWwControle = document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord-herhalen"].value;
+
+
+    if (nieuwWw != nieuwWwControle) {
+        alert("Wachtwoord komt niet overeen");
+        if (nieuwWw == "") {
+            alert("wachtoord kan niet leeg zijn");
+        }
+    }
+
+    console.log(nieuwWw);
+    console.log(nieuwWwControle);
 }
