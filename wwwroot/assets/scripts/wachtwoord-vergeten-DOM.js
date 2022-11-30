@@ -1,5 +1,19 @@
 window.addEventListener("DOMContentLoaded", initialize);
 
+
+
+
+//imports
+import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
+
+
+/**
+ * logica achter de wachtwoord vergeten pagina
+ *
+ * @author Jurian Blommers
+ */
+
+
 function initialize() {
     document.getElementById("pagina2").style.display = "none";
     document.getElementById("pagina3").style.display = "none";
@@ -45,7 +59,6 @@ function validateForm(evt) {
             alert("wachtoord kan niet leeg zijn");
         }
     }
-
     console.log(nieuwWw);
     console.log(nieuwWwControle);
 }
