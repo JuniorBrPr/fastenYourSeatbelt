@@ -25,7 +25,7 @@
   available  -->
 
 
-  <script src="assets/scripts/wachtwoord-vergeten-DOM.js" defer></script>
+  <script src="assets/scripts/wachtwoord-vergeten-DOM.js"></script>
 </head>
 <body>
 <header class="header d-flex justify-space-between align-c">
@@ -136,6 +136,51 @@
     </div>
 
   </form>
+
+  <form id="pagina3" name="nieuw-wachtwoord-form" method="post" class="wwvg-form d-flex">
+    <h1 class="title sub-title">Nieuw wachtwoord aanmaken</h1>
+    <p>Vul uw nieuwe wachtwoord in</p>
+    <div class="input-container">
+      <label for="nieuw-wachtwoord" class="input-label">
+        Nieuw wachtwoord
+      </label>
+      <input
+              type="text"
+              name="nieuw-wachtwoord"
+              id="nieuw-wachtwoord"
+              class="input"
+              required
+              placeholder=""
+              autofocus />
+    </div>
+    <div class="input-container">
+      <label for="nieuw-wachtwoord-herhalen" class="input-label">
+        Nieuw wachtwoord herhalen
+      </label>
+      <input
+              type="text"
+              name="nieuw-wachtwoord-herhalen"
+              id="nieuw-wachtwoord-herhalen"
+              class="input"
+              required
+              placeholder=""
+              autofocus />
+    </div>
+
+
+    <!-- actions are submitting form or opening login modal -->
+    <div class="register-btn-container">
+      <button
+              id="wwvg-knop2"
+              type="submit"
+              class="btn register-submit-btn align-c justify-space-between">
+        <i class="fa-solid fa-check"></i>
+        Opslaan
+      </button>
+    </div>
+
+  </form>
+
 </main>
 </body>
 </html>
