@@ -713,12 +713,12 @@ footer {
 	border-radius: 15px;
 	align-items: center;
 	padding: 25px 25px;
-	margin-left: 10px;
 }
 
 .buddy-attributes-container {
 	display: flex;
 	gap: 2%;
+	padding: 10px;
 	min-height: fit-content;
 }
 
@@ -1285,7 +1285,6 @@ input:checked + .slider::before {
 	}
 
 	.buddy-list-item {
-		height: 200px;
 		width: 100%;
 		padding: 50px 5px;
 	}
@@ -1324,7 +1323,6 @@ input:checked + .slider::before {
 	.buddy-list-item {
 		flex-direction: column;
 		min-height: fit-content;
-		height: 200px;
 		width: 100%;
 		padding: 50px 5px;
 	}
@@ -1650,7 +1648,7 @@ input:checked + .slider::before {
 
 	.matching-matches {
 		align-items: center;
-		margin: auto;
+		margin: 25px auto;
 	}
 }
 
