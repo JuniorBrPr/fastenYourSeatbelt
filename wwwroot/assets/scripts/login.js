@@ -128,7 +128,7 @@ async function getUserPassword(email) {
 /**
  * Checks to see whether the email matches an email that is in the database.
  * @param {HTMLInputElement} emailInput - input field from the login modal.
- * @returns {Promse<boolean>} true if the email is present in the database, else false.
+ * @returns {Promise<boolean>} true if the email is present in the database, else false.
  */
 async function emailExists(emailInput) {
     const emails = await getEmails();
