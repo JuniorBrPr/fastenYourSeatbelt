@@ -2,6 +2,7 @@ import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 
 import { Validation } from "./classes/validation.js";
 import { passwordHash } from "./classes/hash.js";
+import { clearLoginValues } from "./app.js";
 
 /**
  * Code for the login functionality. Checks to see if the user is existing in the database.
@@ -12,6 +13,7 @@ import { passwordHash } from "./classes/hash.js";
 const loginSubmitBtn = document.querySelector(".login-content-btn");
 const loginInput = document.querySelector(".login-input-field");
 const passwordInput = document.querySelector(".password-input-field");
+const loginModal = document.querySelector(".login-container");
 
 const validation = new Validation();
 
@@ -42,6 +44,9 @@ loginSubmitBtn.addEventListener("click", async (e) => {
             FYSCloud.Session.set("userId", userId[0].user_id);
 
             // On logout, use FYSCloud.Session.clear(); to remove the userId from the local storage!
+
+            loginModal.style.display = "none";
+            clearLoginValues();
         }
 
     } else {

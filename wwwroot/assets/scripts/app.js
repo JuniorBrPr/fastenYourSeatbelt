@@ -98,7 +98,7 @@ window.addEventListener("click", (event) => {
  * Clears the login input values and error status whenever the modal is closed.
  * @author Tim Knops
  */
-function clearLoginValues() {
+export function clearLoginValues() {
 	const loginInputField = document.querySelectorAll(".login-input");
 	const warningMessage = document.querySelector(".warning-message");
 
