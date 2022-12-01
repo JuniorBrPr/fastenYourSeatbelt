@@ -1,3 +1,4 @@
+import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 /**
  * Class for validating HTML forms
  * @author Julian
@@ -36,16 +37,14 @@ export class Validation {
 	/**
 	 * check if email already has an account
 	 * @param {HTMLInputElement} emailInput email input to check
-	 * @param {Array} databaseEmails email that is in the database
 	 * @returns true if email is in database false if not
 	 */
-	emailInDatabase(emailInput, databaseEmails) {
-		for (let i = 0; i < databaseEmails.length; i++) {
-			if (databaseEmails[i].email == emailInput.value) {
-				return true;
-			}
-		}
-		return false;
+	async emailInDatabase(emailInput) {
+		const data = await FYSCloud.API.queryDatabase(
+			"SELECT `email` FROM `user` WHERE `email` = ?;",
+			[emailInput.value]
+		);
+		return data.length > 0;
 	}
 	/**
 	 *  check if password and repeat password are the same
