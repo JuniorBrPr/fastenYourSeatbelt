@@ -137,7 +137,7 @@ async function getUserPassword(email) {
  */
 async function emailExists(emailInput) {
     const emails = await getEmails();
-    const validEmail = validation.emailInDatabase(emailInput, emails);
+    const validEmail = await validation.emailInDatabase(emailInput);
 
     return validEmail;
 }
