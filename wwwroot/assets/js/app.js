@@ -7,45 +7,45 @@ FYSCloud.API.configure({
 });
 
 /**
- * code for loading the nav, footer and modal dynamic
+ * code for loading the nav, footer and mobileNav dynamic
  * @author Lucas
  */
- await loadHeader();
- async function loadHeader() {
-	 try {
-		 const nav = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_header.html");
-		 const footer = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_footer.html");
-		const modal = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_modal.html");
-		 const header = nav[0];
-		 const footerInsert = footer[0];
-		 const modalInsert = modal[0];
-		 const links = header.querySelectorAll("a > span");
-		 const aLinks = header.querySelectorAll("a");
-		
-		 if (window.location.pathname == "/wwwroot/index.html") {
-			 links[1].classList.remove("active");
-			 aLinks[0].style.pointerEvents = "none";
-			 aLinks[1].style.pointerEvents = "none";
-			 links[2].classList.remove("active");
-		 } else if (window.location.pathname == "/wwwroot/matching.html") {
+await loadHeader();
+async function loadHeader() {
+	try {
+		const nav = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_header.html");
+		const footer = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_footer.html");
+		const mobileNav = await FYSCloud.Utils.fetchAndParseHtml(
+			"./assets/dynamic/_mobile-nav.html"
+		);
+		const header = nav[0];
+		const footerInsert = footer[0];
+		const mobileNavInsert = mobileNav[0];
+		const links = header.querySelectorAll("a > span");
+		const aLinks = header.querySelectorAll("a");
+
+		if (window.location.pathname == "/wwwroot/index.html") {
+			links[1].classList.remove("active");
+			aLinks[0].style.pointerEvents = "none";
+			aLinks[1].style.pointerEvents = "none";
+			links[2].classList.remove("active");
+		} else if (window.location.pathname == "/wwwroot/matching.html") {
 			links[1].classList.add("active");
 			aLinks[3].style.pointerEvents = "none";
 			links[2].classList.remove("active");
-		 } else if (window.location.pathname == "/wwwroot/about-us.html") {
-			 links[2].classList.add("active");
-			 aLinks[4].style.pointerEvents = "none";
-			 links[1].classList.remove("active");
-		 }
-		  document.body.insertBefore(header, document.body.firstChild);
-		  document.body.insertBefore(modalInsert, document.body.beforeend);
-		  document.body.insertBefore(footerInsert, document.body.lastChild);
-		  
-		 FYSCloud.Localization.translate();
-	 } catch (error) {
-		 console.error(error);
-	 }
- }
-
+		} else if (window.location.pathname == "/wwwroot/about-us.html") {
+			links[2].classList.add("active");
+			aLinks[4].style.pointerEvents = "none";
+			links[1].classList.remove("active");
+		}
+		document.body.insertBefore(header, document.body.firstChild);
+		header.insertAdjacentElement("afterend", mobileNavInsert);
+		document.body.insertBefore(footerInsert, document.body.lastChild);
+		FYSCloud.Localization.translate();
+	} catch (error) {
+		console.error(error);
+	}
+}
 
 /**
  * Code for the hamburger menu
@@ -91,54 +91,52 @@ function resetNavBar(navContainer) {
 }
 
 /**
- * code for the login modal
+ * code for the login mobileNav
  * @author Junior
  */
-const loginModal = document.querySelector(".login-container");
-const modalOpenBtns = document.querySelectorAll(".login-btn");
-const modalCloseBtn = document.querySelector(".login-close");
-const openModalLinks = document.querySelectorAll(".sign-up-login-link");
+const loginmobileNav = document.querySelector(".login-container");
+const mobileNavOpenBtns = document.querySelectorAll(".login-btn");
+const mobileNavCloseBtn = document.querySelector(".login-close");
+const openmobileNavLinks = document.querySelectorAll(".sign-up-login-link");
 
-//For every login button on a page add an event listener to open the modal.
-for (let i = 0; i < modalOpenBtns.length; i++) {
-	openModal(modalOpenBtns[i]);
+//For every login button on a page add an event listener to open the mobileNav.
+for (let i = 0; i < mobileNavOpenBtns.length; i++) {
+	openmobileNav(mobileNavOpenBtns[i]);
 }
 
 //Add an event listener to the login link on the register page.
-if (openModalLinks.length > 0) {
-	for (let i = 0; i < openModalLinks.length; i++) {
-		openModal(openModalLinks[i]);
+if (openmobileNavLinks.length > 0) {
+	for (let i = 0; i < openmobileNavLinks.length; i++) {
+		openmobileNav(openmobileNavLinks[i]);
 	}
 }
 
-//When the cross on the modal is clicked, close the modal.
-closeModal(modalCloseBtn);
+//When the cross on the mobileNav is clicked, close the mobileNav.
+closemobileNav(mobileNavCloseBtn);
 
 /**
- * Adds a click listener to an element which opens the login modal.
+ * Adds a click listener to an element which opens the login mobileNav.
  * @param {Element} Element A button or link to add the event-listener to.
  */
-function openModal(Element) {
+function openmobileNav(Element) {
 	Element.addEventListener("click", () => {
-		loginModal.style.display = "block";
+		loginmobileNav.style.display = "block";
 	});
 }
 
 /**
- * Adds a click listener to an element which closes the login modal.
+ * Adds a click listener to an element which closes the login mobileNav.
  * @param {Element} Element A button or link to add the event-listener to.
  */
-function closeModal(Element) {
+function closemobileNav(Element) {
 	Element.addEventListener("click", () => {
-		loginModal.style.display = "none";
+		loginmobileNav.style.display = "none";
 	});
 }
 
-//If the user clicks outside the modal, close the modal
+//If the user clicks outside the mobileNav, close the mobileNav
 window.addEventListener("click", (event) => {
-	if (event.target === loginModal) {
-		loginModal.style.display = "none";
+	if (event.target === loginmobileNav) {
+		loginmobileNav.style.display = "none";
 	}
 });
-
-
