@@ -5,7 +5,7 @@ import { passwordHash } from "./classes/hash.js";
 import { clearLoginValues } from "./app.js";
 
 /**
- * Code for the login functionality. Checks to see if the user is existing in the database.
+ * Code for the login functionality. Checks to see if the user is existing in the database. If the user is, then the user id is added to the localStorage.
  * 
  * @author Tim Knops
  */
