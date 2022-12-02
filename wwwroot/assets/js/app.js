@@ -1,3 +1,52 @@
+import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
+FYSCloud.API.configure({
+	url: "https://api.fys.cloud",
+	apiKey: "fys_is101_2.ZkYZIDcFQuh8EKxc",
+	database: "fys_is101_2_dev",
+	environment: "mockup",
+});
+
+/**
+ * code for loading the nav, footer and modal dynamic
+ * @author Lucas
+ */
+ await loadHeader();
+ async function loadHeader() {
+	 try {
+		 const nav = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_header.html");
+		 const footer = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_footer.html");
+		const modal = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_modal.html");
+		 const header = nav[0];
+		 const footerInsert = footer[0];
+		 const modalInsert = modal[0];
+		 const links = header.querySelectorAll("a > span");
+		 const aLinks = header.querySelectorAll("a");
+		
+		 if (window.location.pathname == "/wwwroot/index.html") {
+			 links[1].classList.remove("active");
+			 aLinks[0].style.pointerEvents = "none";
+			 aLinks[1].style.pointerEvents = "none";
+			 links[2].classList.remove("active");
+		 } else if (window.location.pathname == "/wwwroot/matching.html") {
+			links[1].classList.add("active");
+			aLinks[3].style.pointerEvents = "none";
+			links[2].classList.remove("active");
+		 } else if (window.location.pathname == "/wwwroot/about-us.html") {
+			 links[2].classList.add("active");
+			 aLinks[4].style.pointerEvents = "none";
+			 links[1].classList.remove("active");
+		 }
+		  document.body.insertBefore(header, document.body.firstChild);
+		  document.body.insertBefore(modalInsert, document.body.beforeend);
+		  document.body.insertBefore(footerInsert, document.body.lastChild);
+		  
+		 FYSCloud.Localization.translate();
+	 } catch (error) {
+		 console.error(error);
+	 }
+ }
+
+
 /**
  * Code for the hamburger menu
  * @author Julian
@@ -91,3 +140,5 @@ window.addEventListener("click", (event) => {
 		loginModal.style.display = "none";
 	}
 });
+
+
