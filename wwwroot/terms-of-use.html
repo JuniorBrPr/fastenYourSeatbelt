@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Corenbuddy</title>
+		<!-- get open sans font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;
+			0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+			rel="stylesheet" />
+		<!-- link to font-awesome for icons -->
+		<script
+			src="https://kit.fontawesome.com/045f11e82e.js"
+			crossorigin="anonymous"></script>
+
+		<link rel="stylesheet" href="assets/css/default.css" />
+		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are 
+		available  -->
+		<script src="assets/js/app.js" defer></script>
+	</head>
+	<body>
+		<header class="header d-flex justify-space-between align-c">
+			<nav class="nav-menu d-flex">
+				<a href="index.html" class="nav-link-logo d-flex align-c">
+					<img src="assets/img/logo.png" alt="Corendon logo" class="logo" />
+				</a>
+				<a href="index.html" class="nav-link">
+					<i class="fa-solid fa-house"></i>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">corenbuddy</span>
+				</a>
+				<a href="matching.html" class="nav-link">
+					<span class="link-text">zoek mijn buddy</span>
+				</a>
+				<a href="about-us.html" class="nav-link">
+					<span class="link-text">over ons</span>
+				</a>
+			</nav>
+			<div class="btn-container d-flex align-c">
+				<a href="#" class="btn login-btn">
+					<span class="btn-text">Login</span>
+					<span class="triangle">
+						<i class="fa-solid fa-play"></i>
+					</span>
+				</a>
+				<a href="sign-up.html" class="btn register-btn">
+					<span class="btn-text">Registreren</span>
+					<span class="triangle">
+						<i class="fa-solid fa-play"></i>
+					</span>
+				</a>
+			</div>
+			<!-- tabindex makes hamburger-menu focusable -->
+			<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
+		</header>
+		<aside class="nav-container pos-absolute">
+			<nav class="nav-menu-mobile">
+				<a href="#" class="nav-link">
+					<span class="link-text">Corenbuddy</span>
+				</a>
+				<a href="matching.html" class="nav-link">
+					<span class="link-text">Zoek mijn buddy</span>
+				</a>
+				<a href="about-us.html" class="nav-link">
+					<span class="link-text">Over ons</span>
+				</a>
+				<a href="sign-up.html" class="nav-link">
+					<span class="link-text">registreren</span>
+				</a>
+				<a href="#" class="nav-link sign-up-login-link">
+					<span class="link-text">login</span>
+				</a>
+			</nav>
+		</aside>
+		<div class="login-container pos-absolute">
+			<form class="login d-flex align-c">
+				<div class="login-header d-flex align-c pos-relative">
+					<h2 class="login-header-content pos-absolute">Login</h2>
+					<span class="login-header-content login-close">X</span>
+				</div>
+				<div class="login-content">
+					<label class="d-flex align-c" for="email">Email:</label>
+					<input
+						class="login-input"
+						type="email"
+						placeholder="voorbeeld@corenbuddy.nl"
+						name="email"
+						id="email"
+						required />
+				</div>
+				<div class="login-content">
+					<label class="d-flex align-c" for="password"> Wachtwoord: </label>
+					<input
+						class="login-input"
+						type="password"
+						placeholder="Wachtwoord"
+						name="password"
+						id="password"
+						required />
+				</div>
+				<button class="login-content-btn btn" type="submit">
+					<span class="btn-text">Inloggen</span>
+					<span class="triangle">
+						<i class="fa-solid fa-play"></i>
+					</span>
+				</button>
+				<div class="login-footer d-flex">
+					<span>
+						Wachtwoord
+						<a class="login-link" href="#">
+							<span class="link-text"> vergeten </span>
+						</a>
+						?
+					</span>
+					<span>
+						Nog geen
+						<a class="login-link" href="#">
+							<span class="link-text">account</span>
+						</a>
+						?
+					</span>
+				</div>
+			</form>
+		</div>
+		<main class="d-flex align-c terms-of-use-main">
+			<h1 class="title terms-of-use-title">Algemene voorwaarden</h1>
+			<section class="privacy d-flex">
+				<h2 class="title mid-title">privacy</h2>
+				<p class="text">
+					Bij Corenbuddy staat privacy op nummer één. Alle
+					gegevens van de gebruiker worden veilig opgeslagen. Onze
+					database beheerders hebben een screening gehad om
+					misbruik te kunnen voorkomen. Wij als Corenbuddy zullen
+					nooit meer persoonsgevens vragen dan hieronder vermeld
+					staan.
+				</p>
+				<h3 class="title sub-title">Welke gegevens verzamelen wij?</h3>
+				<strong class="list-title">Bij registratie:</strong>
+				<ul>
+					<li>Uw naam</li>
+					<li>Uw emailadres</li>
+				</ul>
+				<strong class="list-title">Bij contact:</strong>
+				<ul>
+					<li>Uw naam</li>
+					<li>Uw emailadres</li>
+				</ul>
+				<strong class="list-title">
+					Bij het aanmaken van een profiel:
+				</strong>
+				<ul>
+					<li>Uw geslacht</li>
+					<li>Uw geboortedatum</li>
+					<li>Uw hobbies en intresses</li>
+					<li>Uw reisbudget</li>
+					<li>Contactgegevens zoals telefoonnummer en social media</li>
+				</ul>
+				<h3 class="title sub-title">
+					Waarom verzamelen wij deze gegevens?
+				</h3>
+				<div class="content-container">
+					<strong class="list-title">
+						Om contact te kunnen leggen met u als gebruiker:
+					</strong>
+					<p class="text">
+						Het is belangrijk als u contact wilt zoeken met ons dat
+						wij een aantal gegevens van u hebben, hierdoor verloopt de
+						communicatie soepeler en kunt u sneller geholpen worden.
+						Denk hierbij aan uw emailadres en/of telefoonnummer.
+					</p>
+				</div>
+				<div class="content-container">
+					<strong class="list-title">
+						Om een geschikte match te kunnen vinden:
+					</strong>
+					<p class="text">
+						Om een goede match voor u te kunnen vinden is het
+						belangrijk dat wij weten waar u heen wilt reizen, wat
+						uw hobbies en intresses zijn. Via onze filters kunnen
+						wij gebruikers een lijst aanbieden van geschikte matches. Deze
+						filters zijn gebaseerd op uw reislocatie, wanneer u wilt
+						reizen en uw interesses. Deze gegevens zijn dus
+						essentieel voor een goed gebruik van onze website.
+					</p>
+				</div>
+				<div class="content-container">
+					<strong class="list-title">
+						Om contact te leggen met matches:
+					</strong>
+					<p class="text">
+						Nadat u een macht heeft gemaakt met een van de andere
+						gebruikers, heeft die gebruiker toegang tot uw
+						contactgegevens zoals social media en telefoonnummer.
+						Gebruikers waarmee u geen match mee heeft, omdat u de gebruiker
+						heeft geweigerd, de gebruiker heeft u geweigerd of de
+						gebruiker is nooit een match optie geweest, krijgen
+						nóóit toegang tot uw contact gegevens.
+					</p>
+				</div>
+				<h3 class="title sub-title">Corendon:</h3>
+				<p class="text">
+					Wij als corenbuddy zijn een dochtermaatschappij. Dit houdt in
+					dat ook Corendon toegang heeft tot uw persoonsgegevens.
+					Corendon zal uw gegevens uitsluitend gebruiken om geschikte
+					reizen aan te kunnen bieden aan u en uw match. Verder zijn
+					er op de website meerdere verwijzingen naar de website van
+					Corendon, als u daar gebruik van maakt zal Corendon daar
+					gegevens over krijgen. Ook is het mogelijk dat Corendon
+					reclames over reisbestemmingen aan u aanbied.
+				</p>
+				<h3 class="title sub-title">Verwijderen persoonsgegevens:</h3>
+				<p class="text">
+					Bij het verwijderen van uw account worden ook uw persoonsgegevens uit onze
+					database verwijderd. Wilt u later weer opnieuw gebruik maken van onze
+					service moet u weer opnieuw uw gegevens aan ons doorgeven.
+				</p>
+			</section>
+			<section class="service d-flex">
+				<h2 class="title mid-title">Service</h2>
+				<p class="text">
+					Wij bieden u een manier aan om een reispartner te kunnen vinden. Hieraan
+					hebben wij een aantal regels gesteld
+				</p>
+				<h3 class="title sub-title">Gebruik:</h3>
+				<ul>
+					<li>
+						Corenbuddy wordt uitsluitend gebruikt voor het maken van
+						reismatches. Dit houdt in dat wij geen service(s)
+						aanbieden om een reis te verzorgen om te reizen met uw match.
+						<a href="https://www.corendon.nl/" class="link">
+							<span class="link-text">Corendon.</span>
+						</a>
+					</li>
+					<li>
+						Contact tussen matches wordt gelegd door de personen zelf. Corenbuddy
+						zelf biedt geen mogelijk van contact tussen matches via de
+						webapplicatie. Wel leveren wij de juiste gegevens om matches de
+						mogelijkheid te geven om contact te leggen.
+					</li>
+				</ul>
+				<h3 class="title sub-title">Hoe bepalen wij matches?</h3>
+				<p class="text">
+					De lijst van machtes wordt bepaald op basis van uw
+					reisbestemming, de periode waarin u wilt reizen en uw
+					interesses. Wij laten u geen matches zien als de
+					reisbestemming en tijdsbestek niet overeenkomen. U kan zelf
+					aan de hand van onze filters aangeven welke interesses
+					prioriteit hebben. U kunt optioneel ook filteren op basis
+					van uw budget, zodat u geen zorgen hoeft te maken over te
+					dure vakanties. U als gebruiker besluit zelf of u met andere
+					gebruiker wilt matchen of niet.
+				</p>
+				<h3 class="title sub-title">Aansprakelijkheid:</h3>
+				<ul>
+					<li>
+						Corenbuddy is niet verantwoordelijk voor situaties die voortvloeien uit
+						afspraken die zijn gemaakt tijdens privè contact tussen de matches.
+					</li>
+					<li>
+						Corenbuddy is niet verantwoordelijk voor problemen die
+						onstaan tijdens de reis met je match, hiervoor verwijzen
+						wij u naar de
+						<a
+							href="https://www.corendon.nl/algemene-voorwaarden"
+							class="link">
+							<span class="link-text">
+								algemene voorwaarde van Corendon.
+							</span>
+						</a>
+					</li>
+					<li>
+						Bij herhaald misbruik van onze match service kan uw account verwijderd
+						worden.
+					</li>
+					<li>
+						Corenbuddy probeert in al zijn capaciteiten misbruikers op te sporen en
+						aan te pakken. Wij raden onze gebruikers aan om nooit zomaar betalingen
+						te maken zonder de juiste kennis over uw match.
+					</li>
+					<li>
+						Na wederzijdse acceptatie van een match is corenbuddy niet meer
+						verantwoordelijk voor het bekent worden van uw contactgegevens aan uw
+						match.
+					</li>
+				</ul>
+			</section>
+		</main>
+		<footer>
+			<div class="flex-container">
+				<div class="flex-child footer-imgBlock footer-link-block">
+					<img src="assets/img/logo.png" alt="Corendon logo" class="logo" />
+					<p class="reis-quote">Met een Corenbuddy reis je niet meer alleen!</p>
+				</div>
+				<div class="flex-child footer-link-block">
+					<h4 class="footer-titel">INFORMATIE</h4>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Over ons</span>
+					</a>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Privacy</span>
+					</a>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Contact</span>
+					</a>
+				</div>
+				<div class="flex-child footer-link-block">
+					<h4 class="footer-titel">CORENBUDDY</h4>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Profiel</span>
+					</a>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Matches</span>
+					</a>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Registreren</span>
+					</a>
+				</div>
+				<div><p class="copyright">©Copyright DiscordModerators</p></div>
+				<div class="socialMedia">
+					<i class="fa-brands fa-facebook fa-2xl"></i>
+					<i class="fa-brands fa-twitter fa-2xl"></i>
+					<i class="fa-brands fa-instagram fa-2xl"></i>
+					<i class="fa-brands fa-youtube fa-2xl"></i>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

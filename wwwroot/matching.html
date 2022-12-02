@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Corenbuddy</title>
+		<!-- get open sans font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;
+			0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+			rel="stylesheet" />
+		<!-- link to font-awesome for icons -->
+		<script
+			src="https://kit.fontawesome.com/045f11e82e.js"
+			crossorigin="anonymous"></script>
+
+		<link rel="stylesheet" href="assets/css/default.css" />
+		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are
+        available  -->
+		<script src="assets/js/app.js" defer></script>
+		<script src="assets/js/pages/matching.js" defer></script>
+	</head>
+	<body>
+		<header class="header d-flex justify-space-between align-c">
+			<nav class="nav-menu d-flex">
+				<a href="index.html" class="nav-link-logo d-flex align-c">
+					<img src="assets/img/logo.png" alt="Corendon logo" class="logo" />
+				</a>
+				<a href="index.html" class="nav-link">
+					<i class="fa-solid fa-house"></i>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">corenbuddy</span>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">zoek mijn buddy</span>
+				</a>
+				<a href="about-us.html" class="nav-link">
+					<span class="link-text">over ons</span>
+				</a>
+			</nav>
+			<div class="btn-container d-flex align-c">
+				<a href="profiel.html" class="btn profile-btn">
+					<span class="btn-text">Mijn Profiel</span>
+					<span class="triangle">
+						<i class="fa-solid fa-play"></i>
+					</span>
+				</a>
+			</div>
+			<!-- tabindex makes hamburger-menu focusable -->
+			<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
+		</header>
+		<aside class="nav-container pos-absolute">
+			<nav class="nav-menu-mobile">
+				<a href="#" class="nav-link">
+					<span class="link-text">Mijn profiel</span>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">Corenbuddy</span>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">Zoek mijn buddy</span>
+				</a>
+				<a href="about-us.html" class="nav-link">
+					<span class="link-text">Over ons</span>
+				</a>
+			</nav>
+		</aside>
+		<main class="d-flex justify-c">
+			<div class="matching-container d-flex">
+				<div class="matching-header d-flex justify-c">
+					<h2 class="matching-header-text">Corenbuddy's</h2>
+				</div>
+				<div class="matching-content d-flex">
+					<div class="matching-sidebar d-flex">
+						<button class="existing-btn btn active">
+							<span class="btn-text">Bestaande Buddy's</span>
+						</button>
+						<button class="suggested-btn btn">
+							<span class="btn-text">Voogestelde matches</span>
+						</button>
+						<button class="incoming-btn btn">
+							<span class="btn-text">Inkomende match verzoeken</span>
+						</button>
+						<button class="outgoing-btn btn">
+							<span class="btn-text">Uitgaande match verzoeken</span>
+						</button>
+					</div>
+					<div class="matching-matches-container d-flex">
+						<ul class="matching-matches d-flex"></ul>
+					</div>
+				</div>
+			</div>
+			<section class="popup-container pos-absolute w-100">
+				<div id="buddy-popup" class="pos-relative">
+					<div class="popup-header d-flex">
+						<h1>Buddy Profiel</h1>
+						<span class="login-close">X</span>
+					</div>
+					<div class="popup-content d-flex">
+						<div class="flex-item">
+							<h2 class="text-align-c">Biografie</h2>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+								vulputate libero et velit interdum, ac aliquet odio mattis.
+								Class aptent taciti sociosqu ad litora torquent per conubia
+								nostra, per inceptos himenaeos. Curabitur tempus urna at turpis
+								condimentum lobortis. Ut commodo efficitur neque.
+							</p>
+						</div>
+						<div class="flex-item buddy-picture">
+							<img
+								src="assets/img/HenkvanVliet2.jpg"
+								alt="Profiel Foto"
+								width="200px"
+								height="auto" />
+							<p class="text-align-c">Henk van Vliet</p>
+						</div>
+					</div>
+					<div class="popup-content d-flex">
+						<div class="flex-item w-100">
+							<h2 class="text-align-c">Interesses</h2>
+							<div class="interests pos-relative d-flex justify-c">
+								<p>Schaken</p>
+								<p>Vissen</p>
+								<p>Zomer</p>
+								<p>Zonnen</p>
+								<p>Zwemmen</p>
+								<p>Warmen landen</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer class="pos-relative">
+			<div class="flex-container">
+				<div class="flex-child footer-imgBlock footer-link-block">
+					<img src="assets/img/logo.png" alt="Corendon logo" class="logo" />
+					<p class="reis-quote">Met een Corenbuddy reis je niet meer alleen!</p>
+				</div>
+				<div class="flex-child footer-link-block">
+					<h4 class="footer-titel">INFORMATIE</h4>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Over ons</span>
+					</a>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Privacy</span>
+					</a>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Contact</span>
+					</a>
+				</div>
+				<div class="flex-child footer-link-block">
+					<h4 class="footer-titel">CORENBUDDY</h4>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Profiel</span>
+					</a>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Matches</span>
+					</a>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Registreren</span>
+					</a>
+				</div>
+				<div><p class="copyright">©Copyright DiscordModerators</p></div>
+				<div class="socialMedia">
+					<i class="fa-brands fa-facebook fa-2xl"></i>
+					<i class="fa-brands fa-twitter fa-2xl"></i>
+					<i class="fa-brands fa-instagram fa-2xl"></i>
+					<i class="fa-brands fa-youtube fa-2xl"></i>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

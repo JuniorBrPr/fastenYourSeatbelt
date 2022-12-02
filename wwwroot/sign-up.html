@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Corenbuddy</title>
+
+		<!-- get open sans font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;
+			0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+			rel="stylesheet" />
+
+		<!-- link to font-awesome for icons -->
+		<script
+			src="https://kit.fontawesome.com/045f11e82e.js"
+			crossorigin="anonymous"></script>
+
+		<link rel="stylesheet" href="assets/css/default.css" />
+
+		<!-- load in FYS cloud connection  -->
+		<script
+			type="module"
+			src="https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js"
+			crossorigin></script>
+		<script type="module" src="assets/js/config.js"></script>
+		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are 
+		available  -->
+		<script 
+				src="assets/js/app.js" 
+				type="module"
+				defer></script>
+		<script
+			type="module"
+			src="assets/js/pages/signUp.js"
+			defer></script>
+		<script 
+			type="module" 
+			src="assets/js/login.js" 
+			defer></script>
+
+	</head>
+	<body>
+		<header class="header d-flex justify-space-between align-c">
+			<nav class="nav-menu d-flex">
+				<a href="index.html" class="nav-link-logo">
+					<img src="assets/img/logo.png" alt="Corendon logo" class="logo" />
+				</a>
+				<a href="index.html" class="nav-link">
+					<i class="fa-solid fa-house"></i>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">corenbuddy</span>
+				</a>
+				<a href="matching.html" class="nav-link">
+					<span class="link-text">zoek mijn buddy</span>
+				</a>
+				<a href="about-us.html" class="nav-link">
+					<span class="link-text">over ons</span>
+				</a>
+			</nav>
+			<div class="btn-container d-flex align-c">
+				<a href="#" class="btn login-btn">
+					<span class="btn-text">Login</span>
+					<span class="triangle">
+						<i class="fa-solid fa-play"></i>
+					</span>
+				</a>
+				<a href="#" class="btn register-btn">
+					<span class="btn-text">Registreren</span>
+					<span class="triangle">
+						<i class="fa-solid fa-play"></i>
+					</span>
+				</a>
+			</div>
+			<!-- tabindex makes hamburger-menu focusable -->
+			<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
+		</header>
+		<aside class="nav-container pos-absolute">
+			<nav class="nav-menu-mobile">
+				<a href="#" class="nav-link">
+					<span class="link-text">Corenbuddy</span>
+				</a>
+				<a href="matching.html" class="nav-link">
+					<span class="link-text">Zoek mijn buddy</span>
+				</a>
+				<a href="about-us.html" class="nav-link">
+					<span class="link-text">Over ons</span>
+				</a>
+				<a href="#" class="nav-link">
+					<span class="link-text">registreren</span>
+				</a>
+				<a href="#" class="nav-link sign-up-login-link">
+					<span class="link-text">login</span>
+				</a>
+			</nav>
+		</aside>
+		<div class="login-container pos-absolute">
+			<form class="login d-flex align-c">
+				<div class="login-header d-flex align-c pos-relative">
+					<h2 class="login-header-content pos-absolute">Login</h2>
+					<span class="login-header-content login-close">X</span>
+				</div>
+				<div class="login-content">
+					<label class="d-flex align-c" for="email">Email:</label>
+					<input
+						class="login-input"
+						type="email"
+						placeholder="voorbeeld@corenbuddy.nl"
+						name="email"
+						id="email"
+						required />
+				</div>
+				<div class="login-content">
+					<label class="d-flex align-c" for="password">Wachtwoord: </label>
+					<input
+						class="login-input"
+						type="password"
+						placeholder="Wachtwoord"
+						name="password"
+						id="password"
+						required />
+				</div>
+				<button class="login-content-btn btn" type="submit">
+					<span class="btn-text">Inloggen</span>
+					<span class="triangle">
+						<i class="fa-solid fa-play"></i>
+					</span>
+				</button>
+				<div class="login-footer d-flex">
+					<span
+						>Wachtwoord
+						<a class="login-link" href="#">
+							<span class="link-text">vergeten</span>
+						</a>
+						?
+					</span>
+					<span>
+						Nog geen
+						<a class="login-link" href="#">
+							<span class="link-text">account</span>
+						</a>
+						?
+					</span>
+				</div>
+			</form>
+		</div>
+		<main class="sign-up-main d-flex">
+			<form action="" method="post" class="sign-up-form d-flex">
+				<h1 class="title sub-title">Registreer</h1>
+				<div class="input-container">
+					<label for="first-name" class="input-label"> Voornaam </label>
+					<input
+						type="text"
+						name="first-name"
+						id="first-name"
+						class="input"
+						required
+						placeholder="Voornaam"
+						autofocus
+						data-input="name" />
+					<p class="warning" data-warning="first-name"></p>
+				</div>
+				<div class="input-container">
+					<label for="last-name" class="input-label"> Achternaam </label>
+					<input
+						type="text"
+						name="last-name"
+						id="last-name"
+						class="input"
+						required
+						placeholder="Achternaam"
+						data-input="name" />
+					<p class="warning" data-warning="last-name"></p>
+				</div>
+				<div class="input-container">
+					<label for="sign-up-email" class="input-label"> Email </label>
+					<input
+						type="email"
+						name="email"
+						id="sign-up-email"
+						class="input"
+						required
+						placeholder="Email@voorbeeld.nl" />
+					<p class="warning" data-warning="email"></p>
+				</div>
+				<div class="input-container">
+					<label for="sign-up-password" class="input-label"> Wachtwoord </label>
+					<!-- to make the eye icon fit inside of the input -->
+					<div class="password-input-container pos-relative">
+						<input
+							type="password"
+							name="password"
+							id="sign-up-password"
+							class="input"
+							required
+							placeholder="***********"
+							data-input="password" />
+						<i class="fa-solid fa-eye" data-eye></i>
+					</div>
+					<p class="warning" data-warning="password"></p>
+				</div>
+				<div class="input-container">
+					<label for="password-repeat" class="input-label">
+						Herhaal Wachtwoord
+					</label>
+					<div class="password-input-container pos-relative">
+						<input
+							type="password"
+							name="password-repeat"
+							id="password-repeat"
+							class="input"
+							required
+							placeholder="***********"
+							data-input="password" />
+						<i class="fa-solid fa-eye" data-eye></i>
+					</div>
+					<p class="warning" data-warning="password-repeat"></p>
+				</div>
+				<p class="small-text">
+					Als u registreert gaat u akkoord met de
+					<a href="terms-of-use.html" class="terms-of-use-link link">
+						<span class="link-text"> algemene voorwaarden </span>
+					</a>
+				</p>
+				<!-- actions are submitting form or opening login modal -->
+				<div class="sign-up-form-actions-container d-flex justify-space-between">
+					<div class="register-btn-container">
+						<button
+							type="submit"
+							class="btn register-submit-btn align-c justify-space-between">
+							<i class="fa-solid fa-check"></i>
+							Registreren
+						</button>
+					</div>
+					<p class="text">
+						Al een account:
+						<a href="#" class="sign-up-login-link link">
+							<span class="link-text">Log in</span>
+						</a>
+					</p>
+				</div>
+				<div class="success" data-success=""></div>
+			</form>
+			<img
+				src="assets/img/corendon-vliegtuig.jpg"
+				alt="Vliegtuig van corendon"
+				class="airplane-img" />
+		</main>
+		<footer>
+			<div class="flex-container">
+				<div class="flex-child footer-imgBlock footer-link-block">
+					<img src="assets/img/logo.png" alt="Corendon logo" class="logo" />
+					<p class="reis-quote">Met een Corenbuddy reis je niet meer alleen!</p>
+				</div>
+				<div class="flex-child footer-link-block">
+					<h4 class="footer-titel">INFORMATIE</h4>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Over ons</span>
+					</a>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Privacy</span>
+					</a>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Contact</span>
+					</a>
+				</div>
+				<div class="flex-child footer-link-block">
+					<h4 class="footer-titel">CORENBUDDY</h4>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Profiel</span>
+					</a>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Matches</span>
+					</a>
+					<a href="#" class="footer-link">
+						<span class="footerLink-tekst">Registreren</span>
+					</a>
+				</div>
+				<div><p class="copyright">©Copyright DiscordModerators</p></div>
+				<div class="socialMedia">
+					<i class="fa-brands fa-facebook fa-2xl"></i>
+					<i class="fa-brands fa-twitter fa-2xl"></i>
+					<i class="fa-brands fa-instagram fa-2xl"></i>
+					<i class="fa-brands fa-youtube fa-2xl"></i>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>
