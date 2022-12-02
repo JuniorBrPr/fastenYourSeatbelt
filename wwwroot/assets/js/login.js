@@ -100,14 +100,6 @@ function createErrorMessage() {
 }
 
 /**
- * Gets all the emails from the database.
- * @return {Promise<string[]>} promise with an array of email strings.
- */
-async function getEmails() {
-	return await FYSCloud.API.queryDatabase("SELECT email FROM user");
-}
-
-/**
  * Uses the email input from the user to get the user salt from the database.
  * @param {HTMLInputElement} email - input field from the login modal.
  * @returns {Promise<string[]>} promise with an array of a salt string.
@@ -137,9 +129,7 @@ async function getUserPassword(email) {
  * @returns {Promise<boolean>} true if the email is present in the database, else false.
  */
 async function emailExists(emailInput) {
-	const emails = await getEmails();
 	const validEmail = await validation.emailInDatabase(emailInput);
-
 	return validEmail;
 }
 
