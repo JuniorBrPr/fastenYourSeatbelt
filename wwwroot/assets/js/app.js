@@ -18,11 +18,19 @@ async function loadHeader() {
 		const mobileNav = await FYSCloud.Utils.fetchAndParseHtml(
 			"./assets/dynamic/_mobile-nav.html"
 		);
+
+		const session = FYSCloud.Session.get("userId");
 		const header = nav[0];
 		const footerInsert = footer[0];
 		const mobileNavInsert = mobileNav[0];
 		const links = header.querySelectorAll("a > span");
 		const aLinks = header.querySelectorAll("a");
+
+		if(session == null) {
+			
+		} else {
+
+		}
 
 		if (window.location.pathname == "/wwwroot/index.html") {
 			links[1].classList.remove("active");

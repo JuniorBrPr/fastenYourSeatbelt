@@ -184,6 +184,14 @@ button.btn {
 	width: min(200px, 12vw);
 }
 
+.nav-shown {
+	display: block;
+}
+
+.nav-hidden {
+	display: none;
+}
+
 .nav-menu {
 	flex-wrap: wrap;
 }
