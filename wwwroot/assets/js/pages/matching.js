@@ -1,128 +1,7 @@
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 
-//Mock data for prototyping purposes
-const data = [
-    {
-        type: "existing",
-        profilePicture: "assets/img/users/noah.png",
-        name: "Noah Trevor McCay",
-        destination: "Sint Maarten",
-        timeFrame: 14,
-        commonInterests: 8
-    },
-    {
-        type: "existing",
-        profilePicture: "assets/img/users/liam.png",
-        name: "Liam Cosworth",
-        destination: "Rio de Janeiro, Brazilië",
-        timeFrame: 10,
-        commonInterests: 6
-    },
-    {
-        type: "existing",
-        profilePicture: "assets/img/users/delaila.png",
-        name: "Delaila Besselink",
-        destination: "Ambergris Caye, Belize",
-        timeFrame: 9,
-        commonInterests: 5
-    },
-    {
-        type: "suggested",
-        profilePicture: "assets/img/users/henk.png",
-        name: "Henk van vliet",
-        destination: "Barcelona",
-        timeFrame: 14,
-        commonInterests: 8
-    },
-    {
-        type: "suggested",
-        profilePicture: "assets/img/users/sarah.png",
-        name: "Sarah Kesselaar ",
-        destination: "Hamburg",
-        timeFrame: 6,
-        commonInterests: 7
-    },
-    {
-        type: "suggested",
-        profilePicture: "assets/img/users/peter.png",
-        name: "Peter Mathias Willink ",
-        destination: "Mallorca",
-        timeFrame: 5,
-        commonInterests: 6
-    },
-    {
-        type: "suggested",
-        profilePicture: "assets/img/users/jan.png",
-        name: "Jan Hendrik Matroos",
-        destination: "Zakynthos",
-        timeFrame: 21,
-        commonInterests: 4
-    },
-    {
-        type: "suggested",
-        profilePicture: "assets/img/users/koosje.png",
-        name: "Koosje De Witte",
-        destination: "Santo Domingo",
-        timeFrame: 28,
-        commonInterests: 2
-    },
-    {
-        type: "incoming",
-        profilePicture: "assets/img/users/mulder.png",
-        name: "Cusco, Peru",
-        destination: "Sint Maarten",
-        timeFrame: 28,
-        commonInterests: 4
-    },
-    {
-        type: "incoming",
-        profilePicture: "assets/img/users/john.png",
-        name: "John Smith",
-        destination: "Bora Bora",
-        timeFrame: 10,
-        commonInterests: 3
-    },
-    {
-        type: "incoming",
-        profilePicture: "assets/img/users/fred.png",
-        name: "Fred Patek",
-        destination: "Kathmandu, Nepal",
-        timeFrame: 16,
-        commonInterests: 3
-    },
-    {
-        type: "outgoing",
-        profilePicture: "assets/img/users/remco.png",
-        name: "Remco Verhoeven",
-        destination: "Marrakech, Marokko",
-        timeFrame: 5,
-        commonInterests: 7
-    },
-    {
-        type: "outgoing",
-        profilePicture: "assets/img/users/alexandra.png",
-        name: "Alexandra Schumacher",
-        destination: "Roatan, Bay Islands ",
-        timeFrame: 5,
-        commonInterests: 7
-    },
-];
-
+//Temporary
 FYSCloud.Session.set("userId", 1);
-
-const userId = FYSCloud.Session.get("userId");
-
-const recommended = await getRecommendedBuddies(userId);
-console.log(recommended);
-
-const existing = await getExistingBuddies(userId);
-console.log(existing);
-
-const outgoing = await getOutgoingBuddyRequests(userId);
-console.log(outgoing);
-
-const incoming = await getIncomingBuddyRequests(userId);
-console.log(incoming);
 
 const buddyList = document.querySelector(".matching-matches");
 const matchingHeaderTitleText = document.querySelector(".matching-header-text");
@@ -142,30 +21,30 @@ let prevButton = document.querySelector(".existing-btn");
 setActiveBtn(btnContainer);
 
 //Populates the list when loading the matching page, "existing" buddy's by default
-populateList(buddyList, "existing", data);
+populateList(buddyList, "existing", await getExistingBuddies(FYSCloud.Session.get("userId")));
 
 //Button to switch to the list of existing buddy's
-existingBtn.addEventListener("click", () => {
+existingBtn.addEventListener("click", async () => {
     matchingHeaderTitleText.innerHTML = "Corenbuddy’s";
-    populateList(buddyList, "existing", data);
+    populateList(buddyList, "existing", await getExistingBuddies(FYSCloud.Session.get("userId")));
 });
 
-//Button to switch to the list of suggested buddy'
-suggestedBtn.addEventListener("click", () => {
+//Button to switch to the list of suggested buddies
+suggestedBtn.addEventListener("click", async () => {
     matchingHeaderTitleText.innerHTML = "Voorgestelde Corenbuddy’s";
-    populateList(buddyList, "suggested", data);
+    populateList(buddyList, "suggested", await getRecommendedBuddies(FYSCloud.Session.get("userId")));
 })
 
 //Button to switch to the list of incoming buddy requests
-incomingBtn.addEventListener("click", () => {
+incomingBtn.addEventListener("click", async () => {
     matchingHeaderTitleText.innerHTML = "Inkomendende buddy verzoeken";
-    populateList(buddyList, "incoming", data);
+    populateList(buddyList, "incoming", await getIncomingBuddyRequests(FYSCloud.Session.get("userId")));
 })
 
 //Button to switch to the list of outgoing buddy requests
-outgoingBtn.addEventListener("click", () => {
+outgoingBtn.addEventListener("click", async () => {
     matchingHeaderTitleText.innerHTML = "Uitgaande buddy verzoeken";
-    populateList(buddyList, "outgoing", data);
+    populateList(buddyList, "outgoing", await getOutgoingBuddyRequests(FYSCloud.Session.get("userId")));
 })
 
 //Button to close the "watch profile" modal
@@ -185,82 +64,97 @@ function populateList(buddyList, type, data) {
     //Clear the list before populating again.
     buddyList.innerHTML = "";
 
+    //If the chosen list is empty or the user is not logged in, display a message letting the user know.
+    if (data.length === 0) {
+        const buddyListItem = document.createElement("li");
+        buddyListItem.className = "buddy-list-item";
+
+        const emptyListMsg = document.createElement("h2");
+        emptyListMsg.className = "empty-buddy-list";
+
+        emptyListMsg.innerHTML = FYSCloud.Session.get("userId") === undefined || null || 0 ?
+            "Oh oh, je bent niet ingelogd!" : "Deze lijst is nog leeg ;(";
+
+        buddyListItem.appendChild(emptyListMsg);
+        buddyList.appendChild(buddyListItem);
+        return;
+    }
+
     data.forEach(buddy => {
-        if (buddy.type === type) {
-            const buddyListItem = document.createElement("li");
-            buddyListItem.className = "buddy-list-item";
+        const buddyListItem = document.createElement("li");
+        buddyListItem.className = "buddy-list-item";
 
-            const buddyAttributeContainer = document.createElement("div");
-            buddyAttributeContainer.className = "buddy-attributes-container w-100"
-            buddyListItem.appendChild(buddyAttributeContainer);
+        const buddyAttributeContainer = document.createElement("div");
+        buddyAttributeContainer.className = "buddy-attributes-container w-100"
+        buddyListItem.appendChild(buddyAttributeContainer);
 
-            //Add a profile picture to the buddy
-            const buddyImg = document.createElement("img");
-            buddyImg.className = "buddy-img";
-            buddyImg.src = buddy.profilePicture;
-            buddyAttributeContainer.appendChild(buddyImg);
+        //Add a profile picture to the buddy
+        const buddyImg = document.createElement("img");
+        buddyImg.className = "buddy-img";
+        //Temporary till profile picture system is created
+        buddyImg.src = "assets/img/users/henk.png";
+        buddyAttributeContainer.appendChild(buddyImg);
 
-            //Add the name of the buddy
-            addAttribute("Naam", buddy.name, buddyAttributeContainer);
+        //Add the name of the buddy
+        addAttribute("Naam", buddy.name, buddyAttributeContainer);
 
-            //Add the preferred destination of the buddy
-            addAttribute("Bestemming", buddy.destination, buddyAttributeContainer);
+        //Add the preferred destination of the buddy
+        addAttribute("Bestemming", buddy.destination, buddyAttributeContainer);
 
-            //Add the time expenditure of the buddy
-            addAttribute("Tijdsbestek", buddy.timeFrame + " dagen", buddyAttributeContainer);
+        //Add the time expenditure of the buddy
+        addAttribute("Tijdsbestek", buddy.timeframe + " dagen", buddyAttributeContainer);
 
-            //Add the amount of common interests with the buddy
-            addAttribute("Gemeenschappelijke interesses", buddy.commonInterests, buddyAttributeContainer)
+        //Add the amount of common interests with the buddy
+        addAttribute("Gemeenschappelijke interesses", buddy.commonInterests, buddyAttributeContainer)
 
-            //Add the container which will hold the buttons for the buddy list item
-            const btnContainer = document.createElement("div");
-            btnContainer.className = "buddy-btn-container w-100";
-            buddyListItem.appendChild(btnContainer);
+        //Add the container which will hold the buttons for the buddy list item
+        const btnContainer = document.createElement("div");
+        btnContainer.className = "buddy-btn-container w-100";
+        buddyListItem.appendChild(btnContainer);
 
-            const buddyProfileBtn = addButton("Profiel bekijken", "buddy-profile-btn", btnContainer);
+        const buddyProfileBtn = addButton("Profiel bekijken", "buddy-profile-btn", btnContainer);
 
-            // Onclick make the buddy profile modal visible
-            buddyProfileBtn.addEventListener("click", () => {
-                buddyProfile.style.display = "block";
+        // Onclick make the buddy profile modal visible
+        buddyProfileBtn.addEventListener("click", () => {
+            buddyProfile.style.display = "block";
+        });
+
+        /*
+         * If buddy type = "existing", add a "book a trip" button to the buddy
+         * and also add a "delete buddy" button to the buddy list item.
+         */
+        if (type === "existing") {
+            const bookTripBtn = addButton("Boek een reis!", "buddy-book-btn", btnContainer);
+
+            //The "book a trip" button redirects to the corendon website.
+            bookTripBtn.addEventListener("click", () => {
+                location.href = "www.corendon.nl";
             });
 
-            /*
-             * If buddy type = "existing", add a "book a trip" button to the buddy
-             * and also add a "delete buddy" button to the buddy list item.
-             */
-            if (buddy.type === "existing") {
-                const bookTripBtn = addButton("Boek een reis!", "buddy-book-btn", btnContainer);
-
-                //The "book a trip" button redirects to the corendon website.
-                bookTripBtn.addEventListener("click", () => {
-                    location.href = "www.corendon.nl";
-                });
-
-                const buddyDeleteBtn = addButton("Buddy verwijderen", "btn-red buddy-delete-btn", btnContainer);
-            }
-
-            // If buddy type = "suggested" add a "send buddy request" button to the buddy list item.
-            if (buddy.type === "suggested") {
-                const sendRequestBtn = addButton("Verzoek sturen", "buddy-send-request-btn", btnContainer);
-            }
-
-            /* If buddy type = "incoming" add an "accept buddy request" button  and a
-             * refuse buddy request button to the buddy list item.
-             */
-            if (buddy.type === "incoming") {
-                const acceptRequestBtn = addButton("Verzoek accepteren", "buddy-accept-request-btn", btnContainer);
-
-                const refuseRequestBtn = addButton("Verzoek weigeren", "btn-red buddy-refuse-request-btn", btnContainer);
-            }
-
-            //If buddy type = "outgoing" add a "withdraw buddy request" button to the buddy list item.
-            if (buddy.type === "outgoing") {
-                const withdrawRequestBtn = addButton("Verzoek intrekken", "btn-red buddy-refuse-request-btn", btnContainer)
-            }
-
-            //Finally, add the buddy list item to the buddy unordered-list.
-            buddyList.appendChild(buddyListItem);
+            addButton("Buddy verwijderen", "btn-red buddy-delete-btn", btnContainer);
         }
+
+        // If buddy type = "suggested" add a "send buddy request" button to the buddy list item.
+        if (type === "suggested") {
+            addButton("Verzoek sturen", "buddy-send-request-btn", btnContainer);
+        }
+
+        /* If buddy type = "incoming" add an "accept buddy request" button  and a
+         * refuse buddy request button to the buddy list item.
+         */
+        if (type === "incoming") {
+            addButton("Verzoek accepteren", "buddy-accept-request-btn", btnContainer);
+
+            addButton("Verzoek weigeren", "btn-red buddy-refuse-request-btn", btnContainer);
+        }
+
+        //If buddy type = "outgoing" add a "withdraw buddy request" button to the buddy list item.
+        if (type === "outgoing") {
+            addButton("Verzoek intrekken", "btn-red buddy-refuse-request-btn", btnContainer)
+        }
+
+        //Finally, add the buddy list item to the buddy unordered-list.
+        buddyList.appendChild(buddyListItem);
     })
 }
 
@@ -334,6 +228,12 @@ function setActiveBtn(container) {
     });
 }
 
+/**
+ * Retrieves an array of suggested buddies from the database.
+ * Buddies that have sent the user a buddy request or vice-versa, are excluded from the list
+ * and so are existing buddies.
+ * @param {number} userId The ID of the currently active user.
+ */
 async function getRecommendedBuddies(userId) {
     return await FYSCloud.API.queryDatabase(
         "SELECT user_id                            AS userid,\n" +
@@ -371,6 +271,10 @@ async function getRecommendedBuddies(userId) {
     ).catch((reason) => console.log(reason));
 }
 
+/**
+ * Retrieves an array of existing buddies from the database.
+ * @param {number} userId The ID of the currently active user.
+ */
 async function getExistingBuddies(userId) {
     return await FYSCloud.API.queryDatabase(
         "SELECT user_id                              AS userid,\n" +
@@ -394,7 +298,10 @@ async function getExistingBuddies(userId) {
         .catch((reason) => console.log(reason));
 }
 
-
+/**
+ * Retrieves an array of buddies to whom the user has sent a buddy request, from the database.
+ * @param {number} userId The ID of the currently active user.
+ */
 async function getOutgoingBuddyRequests(userId) {
     return await FYSCloud.API.queryDatabase(
         "SELECT user_id                               AS userid,\n" +
@@ -426,12 +333,16 @@ async function getOutgoingBuddyRequests(userId) {
         .catch((reason) => console.log(reason));
 }
 
-async function getIncomingBuddyRequests() {
+/**
+ * Retrieves an array of buddies from whom the user has received a buddy request, from the database.
+ * @param {number} userId The ID of the currently active user.
+ */
+async function getIncomingBuddyRequests(userId) {
     return await FYSCloud.API.queryDatabase(
-        "SELECT user_id                                                                                   AS userid,\n" +
-        "       CONCAT(first_name, \" \", last_name)                                                        AS name,\n" +
-        "       destination                                                                               AS destination,\n" +
-        "       DATEDIFF(end_date, start_date)                                                            AS timeframe,\n" +
+        "SELECT user_id                                     AS userid,\n" +
+        "       CONCAT(first_name, \" \", last_name)        AS name,\n" +
+        "       destination                                 AS destination,\n" +
+        "       DATEDIFF(end_date, start_date)              AS timeframe,\n" +
         "       (SELECT COUNT(DISTINCT interest_id)\n" +
         "        FROM user_interest\n" +
         "        WHERE interest_id\n" +
@@ -442,7 +353,7 @@ async function getIncomingBuddyRequests() {
         "                  IN (SELECT interest_id\n" +
         "                      FROM user_interest\n" +
         "                      WHERE profile_id = user_id)) AS commonInterests,\n" +
-        "       b.is_accepted                                                                             AS accepted\n" +
+        "       b.is_accepted                               AS accepted\n" +
         "FROM user\n" +
         "         JOIN profile AS p\n" +
         "             ON user.user_id = p.profile_id\n" +
