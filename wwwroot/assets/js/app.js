@@ -33,13 +33,13 @@ async function loadHeader() {
 		const registerClass = header.querySelector(".register-btn");
 		const loginClass = header.querySelector(".login-btn");
 		const profileClass = header.querySelector(".profile-btn");
+		const zoekBuddyClass = header.querySelector(".zoek-buddy");
+		const zoekBuddyMobile = mobileNavInsert.querySelector(".zoek-buddy-link");
 		const registerClassMobile = mobileNavInsert.querySelector(".register-link");
 		const loginClassMobile = mobileNavInsert.querySelector(".sign-up-login-link");
 		const profileClassMobile = mobileNavInsert.querySelector(".profile-link");
 
-		session = 1;
 
-		console.log(loginClassMobile);
 
 		if (session == null) {
 			registerClass.classList.add("nav-shown");
@@ -52,6 +52,10 @@ async function loadHeader() {
 			registerClassMobile.classList.remove("nav-hidden");
 			loginClass.classList.remove("nav-hidden");
 			loginClassMobile.classList.remove("nav-hidden");
+			zoekBuddyClass.classList.add("nav-hidden");
+			zoekBuddyMobile.classList.add("nav-hidden");
+			zoekBuddyClass.classList.remove("nav-shown");
+			zoekBuddyMobile.classList.remove("nav-shown");
 		} else {
 			registerClass.classList.add("nav-hidden");
 			registerClassMobile.classList.add("nav-hidden");
@@ -65,6 +69,10 @@ async function loadHeader() {
 			profileClassMobile.classList.add("nav-shown");
 			profileClass.classList.remove("nav-hidden");
 			profileClassMobile.classList.remove("nav-hidden");
+			zoekBuddyClass.classList.remove("nav-hidden");
+			zoekBuddyMobile.classList.remove("nav-hidden");
+			zoekBuddyClass.classList.add("nav-shown");
+			zoekBuddyMobile.classList.add("nav-shown");
 		}
 
 		if (window.location.pathname == "/wwwroot/index.html") {
