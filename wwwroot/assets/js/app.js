@@ -15,8 +15,12 @@ async function loadHeader() {
 	try {
 		const nav = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_header.html");
 		const footer = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_footer.html");
-		const mobileNav = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_mobile-nav.html");
-		const loginModal =  await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_login-modal.html");
+		const mobileNav = await FYSCloud.Utils.fetchAndParseHtml(
+			"./assets/dynamic/_mobile-nav.html"
+		);
+		const loginModal = await FYSCloud.Utils.fetchAndParseHtml(
+			"./assets/dynamic/_login-modal.html"
+		);
 
 		const session = FYSCloud.Session.get("userId");
 		const header = nav[0];
@@ -26,24 +30,23 @@ async function loadHeader() {
 		const links = header.querySelectorAll("a > span");
 		const aLinks = header.querySelectorAll("a");
 
+		const registerClass = header.querySelector("#register-btn");
+		const loginClass = header.querySelector(".login-btn");
+		const profileClass = header.querySelector(".profile-btn");
 
-		// const registerClass = document.getElementById("register-btn");
-		// const loginClass = document.getElementsByClassName("login-btn");
-		// const profileClass = document.getElementsByClassName("profile-btn");
-
-		// if(session == null) {
-		// 	registerClass.classList.add("nav-shown");
-		// 	loginClass.classList.add("nav-shown");
-		// 	profileClass.classList.add("nav-hidden");
-		// 	registerClass.classList.remove("nav-hidden");
-		// 	loginClass.classList.remove("nav-hidden");
-		// } else {
-		// 	registerClass.classList.remove("nav-shown");
-		// 	loginClass.classList.remove("nav-shown");
-		// 	profileClass.classList.remove("nav-hidden");
-		// 	registerClass.classList.add("nav-hidden");
-		// 	loginClass.classList.add("nav-hidden");
-		// }
+		if (session == null) {
+			registerClass.classList.add("nav-shown");
+			loginClass.classList.add("nav-shown");
+			profileClass.classList.add("nav-hidden");
+			registerClass.classList.remove("nav-hidden");
+			loginClass.classList.remove("nav-hidden");
+		} else {
+			registerClass.classList.remove("nav-shown");
+			loginClass.classList.remove("nav-shown");
+			profileClass.classList.remove("nav-hidden");
+			registerClass.classList.add("nav-hidden");
+			loginClass.classList.add("nav-hidden");
+		}
 
 		if (window.location.pathname == "/wwwroot/index.html") {
 			aLinks[0].style.pointerEvents = "none";
