@@ -15,40 +15,50 @@ async function loadHeader() {
 	try {
 		const nav = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_header.html");
 		const footer = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_footer.html");
-		const mobileNav = await FYSCloud.Utils.fetchAndParseHtml(
-			"./assets/dynamic/_mobile-nav.html"
-		);
+		const mobileNav = await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_mobile-nav.html");
+		const loginModal =  await FYSCloud.Utils.fetchAndParseHtml("./assets/dynamic/_login-modal.html");
 
 		const session = FYSCloud.Session.get("userId");
 		const header = nav[0];
 		const footerInsert = footer[0];
 		const mobileNavInsert = mobileNav[0];
+		const loginModalInsert = loginModal[0];
 		const links = header.querySelectorAll("a > span");
 		const aLinks = header.querySelectorAll("a");
 
-		if(session == null) {
-			
-		} else {
 
-		}
+		// const registerClass = document.getElementById("register-btn");
+		// const loginClass = document.getElementsByClassName("login-btn");
+		// const profileClass = document.getElementsByClassName("profile-btn");
+
+		// if(session == null) {
+		// 	registerClass.classList.add("nav-shown");
+		// 	loginClass.classList.add("nav-shown");
+		// 	profileClass.classList.add("nav-hidden");
+		// 	registerClass.classList.remove("nav-hidden");
+		// 	loginClass.classList.remove("nav-hidden");
+		// } else {
+		// 	registerClass.classList.remove("nav-shown");
+		// 	loginClass.classList.remove("nav-shown");
+		// 	profileClass.classList.remove("nav-hidden");
+		// 	registerClass.classList.add("nav-hidden");
+		// 	loginClass.classList.add("nav-hidden");
+		// }
 
 		if (window.location.pathname == "/wwwroot/index.html") {
-			links[1].classList.remove("active");
 			aLinks[0].style.pointerEvents = "none";
 			aLinks[1].style.pointerEvents = "none";
-			links[2].classList.remove("active");
 		} else if (window.location.pathname == "/wwwroot/matching.html") {
+			links[0].classList.add("active");
+			aLinks[2].style.pointerEvents = "none";
+		} else if (window.location.pathname == "/wwwroot/about-us.html") {
 			links[1].classList.add("active");
 			aLinks[3].style.pointerEvents = "none";
-			links[2].classList.remove("active");
-		} else if (window.location.pathname == "/wwwroot/about-us.html") {
-			links[2].classList.add("active");
-			aLinks[4].style.pointerEvents = "none";
-			links[1].classList.remove("active");
 		}
 		document.body.insertBefore(header, document.body.firstChild);
 		header.insertAdjacentElement("afterend", mobileNavInsert);
 		document.body.insertBefore(footerInsert, document.body.lastChild);
+		header.insertAdjacentElement("afterend", loginModalInsert);
 		FYSCloud.Localization.translate();
 	} catch (error) {
 		console.error(error);

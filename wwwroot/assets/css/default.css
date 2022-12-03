@@ -185,7 +185,7 @@ button.btn {
 }
 
 .nav-shown {
-	display: block;
+	display: visible;
 }
 
 .nav-hidden {
