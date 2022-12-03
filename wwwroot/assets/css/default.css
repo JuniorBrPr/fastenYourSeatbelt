@@ -184,14 +184,6 @@ button.btn {
 	width: min(200px, 12vw);
 }
 
-.nav-shown {
-	display: visible;
-}
-
-.nav-hidden {
-	display: none;
-}
-
 .nav-menu {
 	flex-wrap: wrap;
 }
@@ -253,6 +245,13 @@ button.btn {
 	display: none;
 	padding: 4px;
 }
+.nav-shown {
+	display: visible;
+}
+
+.nav-hidden {
+	display: none;
+}
 
 /* Styling nav menu mobile */
 .nav-container {
@@ -288,7 +287,7 @@ button.btn {
 }
 
 /* styling of sign-up page
- styling of sign-up form */
+styling of sign-up form */
 .sign-up-main {
 	min-height: 100vh;
 }

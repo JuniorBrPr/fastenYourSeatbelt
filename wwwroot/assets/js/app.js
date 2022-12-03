@@ -39,7 +39,7 @@ async function loadHeader() {
 
 		session = 1;
 
-		console.log(mobileNavInsert);
+		console.log(loginClassMobile);
 
 		if (session == null) {
 			registerClass.classList.add("nav-shown");
@@ -66,8 +66,6 @@ async function loadHeader() {
 			profileClass.classList.remove("nav-hidden");
 			profileClassMobile.classList.remove("nav-hidden");
 		}
-
-
 
 		if (window.location.pathname == "/wwwroot/index.html") {
 			aLinks[0].style.pointerEvents = "none";
