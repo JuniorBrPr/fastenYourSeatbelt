@@ -308,8 +308,16 @@ styling of sign-up form */
 	max-width: 500px;
 	width: 80%;
 }
+
 .warning {
 	color: var(--color-red);
+}
+
+.warning-message {
+	padding: 10px;
+	font-weight: 100;
+	font-size: var(--small-font-size);
+	font-style: normal;
 }
 
 /* reset input width, so that container determines with of input instead of the input itself */
@@ -811,7 +819,6 @@ footer {
 	max-width: 80%;
 	width: 600px;
 	min-height: min-content;
-	height: 400px;
 	border-radius: 8px;
 	background-color: var(--color-bg-grey);
 	gap: 44px;
@@ -864,12 +871,16 @@ footer {
 	max-width: 80%;
 	height: 30px;
 	border-radius: 8px;
+	border: 1px solid var(--color-border-grey);
 	text-align: center;
 }
+.login-input:focus {
+	outline: 1px solid var(--color-text-grey);
+}
+
 
 .login-content-btn {
 	width: 80%;
-	border: none;
 	margin: auto;
 }
 .login-content-btn:hover {
@@ -894,7 +905,6 @@ footer {
 	align-items: center;
 	margin-bottom: 10px;
 	font-size: var(--small-font-size);
-	gap: 20px;
 }
 
 .login-link {
@@ -905,6 +915,13 @@ footer {
 .login-link:hover .link-text::before {
 	width: 100%;
 }
+
+/* Login modal email validation */
+.login-error-message {
+	color: var(--color-red);
+}
+
+
 
 /*	styling for about us  */
 .active.link-text::before {
