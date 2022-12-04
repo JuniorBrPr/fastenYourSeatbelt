@@ -1,3 +1,4 @@
+import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 //get subtleCrypto object
 const subtleCrypto = window.crypto.subtle;
 /**
