@@ -366,3 +366,45 @@ async function getIncomingBuddyRequests(userId) {
         [userId, userId, userId])
         .catch((reason) => console.log(reason));
 }
+
+/**
+ * Sends a request to a buddy.
+ * @param {userId} userId The ID of the currently active user.
+ * @param {userId} receiverUserId The ID of the user to whom to send the request.
+ */
+async function sendBuddyRequest(userId, receiverUserId){
+    return await FYSCloud.API.queryDatabase(
+        "INSERT INTO buddy(sender_user_id,\n" +
+        "        receiver_user_id,\n" +
+        "        is_accepted)\n" +
+        "VALUES (?,?, FALSE)",
+        [userId, receiverUserId])
+        .catch((reason) => console.log(reason));
+}
+
+/**
+ * Accepts a buddy request.
+ * @param {userId} userId The ID of the currently active user.
+ * @param {userId} senderUserId The ID of the user who sent the request.
+ */
+async function acceptBuddyRequest(userId, senderUserId){
+    return await FYSCloud.API.queryDatabase(
+        "UPDATE buddy\n" +
+        "SET is_accepted = TRUE\n" +
+        "WHERE (sender_user_id = ? and receiver_user_id = ?)",
+        [userId, senderUserId])
+        .catch((reason) => console.log(reason));
+}
+
+/**
+ * Deletes a buddy request or deletes an existing buddy.
+ * @param {userId} userId The ID of the currently active user.
+ * @param {userId} buddyUserId The ID of the buddy.
+ */
+async function deleteBuddyRequest(userId, buddyUserId){
+    return await FYSCloud.API.queryDatabase(
+        "DELETE FROM buddy\n" +
+        "       WHERE (sender_user_id = ? and receiver_user_id = ?)",
+        [userId, buddyUserId])
+        .catch((reason) => console.log(reason));
+}
