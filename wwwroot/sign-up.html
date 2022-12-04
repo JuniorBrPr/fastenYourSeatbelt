@@ -48,9 +48,9 @@
 	<body>
 		<main class="sign-up-main d-flex">
 			<form action="" method="post" class="sign-up-form d-flex">
-				<h1 class="title sub-title">Registreer</h1>
+				<h1 class="title sub-title" data-translate="signUp.register">Registreer</h1>
 				<div class="input-container">
-					<label for="first-name" class="input-label"> Voornaam </label>
+					<label for="first-name" class="input-label" data-translate="signUp.firstName">Voornaam</label>
 					<input
 						type="text"
 						name="first-name"
@@ -63,7 +63,7 @@
 					<p class="warning" data-warning="first-name"></p>
 				</div>
 				<div class="input-container">
-					<label for="last-name" class="input-label"> Achternaam </label>
+					<label for="last-name" class="input-label" data-translate="signUp.lastName"> Achternaam </label>
 					<input
 						type="text"
 						name="last-name"
@@ -86,7 +86,7 @@
 					<p class="warning" data-warning="email"></p>
 				</div>
 				<div class="input-container">
-					<label for="sign-up-password" class="input-label"> Wachtwoord </label>
+					<label for="sign-up-password" class="input-label" data-translate="singUp.password"> Wachtwoord </label>
 					<!-- to make the eye icon fit inside of the input -->
 					<div class="password-input-container pos-relative">
 						<input
@@ -102,7 +102,7 @@
 					<p class="warning" data-warning="password"></p>
 				</div>
 				<div class="input-container">
-					<label for="password-repeat" class="input-label">
+					<label for="password-repeat" class="input-label" data-translate="signUp.repeatPassword">
 						Herhaal Wachtwoord
 					</label>
 					<div class="password-input-container pos-relative">
@@ -118,10 +118,10 @@
 					</div>
 					<p class="warning" data-warning="password-repeat"></p>
 				</div>
-				<p class="small-text">
+				<p class="small-text" data-translate="signUp.agreement">
 					Als u registreert gaat u akkoord met de
 					<a href="terms-of-use.html" class="terms-of-use-link link">
-						<span class="link-text"> algemene voorwaarden </span>
+						<span class="link-text" data-translate="signUp.agreeTerms"> algemene voorwaarden </span>
 					</a>
 				</p>
 				<!-- actions are submitting form or opening login modal -->
@@ -130,14 +130,14 @@
 						<button
 							type="submit"
 							class="btn register-submit-btn align-c justify-space-between">
-							<i class="fa-solid fa-check"></i>
+							<i class="fa-solid fa-check" data-translate="signUp.registerBtn"></i>
 							Registreren
 						</button>
 					</div>
-					<p class="text">
+					<p class="text" data-translate="signUp.alreadyAccount">
 						Al een account:
 						<a href="#" class="sign-up-login-link link">
-							<span class="link-text">Log in</span>
+							<span class="link-text" data-translate="signUp.loginLink">Log in</span>
 						</a>
 					</p>
 				</div>
