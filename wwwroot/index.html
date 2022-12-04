@@ -39,35 +39,30 @@
 					<span class="link-text">corenbuddy</span>
 				</a>
 				<a href="matching.html" class="nav-link">
-					<span class="link-text zoek-buddy">zoek mijn buddy</span>
+					<span class="link-text " data-translate="navbar.findBuddy">zoek mijn buddy</span>
 				</a>
 				<a href="about-us.html" class="nav-link">
-					<span class="link-text over-ons">over ons</span>
+					<span class="link-text" data-translate="navbar.aboutUs">over ons</span>
 				</a>
 				</nav>
 			<div class="btn-container d-flex align-c">
 				<a href="#" class="btn login-btn">
-					<span class="btn-text login-lang">Login</span>
+					<span class="btn-text" data-translate="navbar.login">Login</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</a>
 				<a href="sign-up.html" class="btn register-btn">
-					<span class="btn-text register-lang">Registreren</span>
+					<span class="btn-text" data-translate="navbar.register">Registreren</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</a>
-				<div class="dropdown-language">
-					<button class="dropbtn">Talen </button>
-					<div class="dropdown-content">
-						<div class="langs">
-							<a href="#" language="nederlands" class="active">NL</a>
-							<a href="#" language="engels">EN</a>
-							<a href="#" language="spaans">ES</a>
-						</div>
-					</div>
-				</div>
+				<select id="localizationLanguageSwitch">
+					<option value="nl">Nederlands</option>
+					<option value="en">English</option>
+					<option value="es">Espanol</option>
+				</select>
 			</div>
 			<!-- tabindex makes hamburger-menu focusable -->
 			<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
@@ -78,34 +73,24 @@
 					<span class="link-text">Corenbuddy</span>
 				</a>
 				<a href="matching.html" class="nav-link">
-					<span class="link-text burger-zoek-buddy">Zoek mijn buddy</span>
+					<span class="link-text" data-translate="navbar.findBuddy">Zoek mijn buddy</span>
 				</a>
 				<a href="about-us.html" class="nav-link">
-					<span class="link-text burger-over-ons">Over ons</span>
+					<span class="link-text" data-translate="navbar.aboutUs">Over ons</span>
 				</a>
 				<a href="sign-up.html" class="nav-link">
-					<span class="link-text burger-register-lang">registreren</span>
+					<span class="link-text" data-translate="navbar.register">registreren</span>
 				</a>
 				<a href="#" class="nav-link sign-up-login-link">
-					<span class="link-text burger-login-lang">login</span>
+					<span class="link-text" data-translate="navbar.login">login</span>
 				</a>
-					<div class="dropdown-language">
-						<button class="burger-dropbtn">Talen </button>
-						<div class="dropdown-content">
-							<div class="langs">
-								<a href="#" language="nederlands">NL</a>
-								<a href="#" language="engels">EN</a>
-								<a href="#" language="spaans">ES</a>
-							</div>
-						</div>
-					</div>
 				</div>
 			</nav>
 		</aside>
 		<div class="login-container pos-absolute">
 			<form class="login d-flex align-c">
 				<div class="login-header d-flex align-c pos-relative">
-					<h2 class="login-header-content pos-absolute">Login</h2>
+					<h2 class="login-header-content pos-absolute" data-translate="modal.login">Login</h2>
 					<span class="login-header-content login-close">X</span>
 				</div>
 				<div class="login-content">
@@ -119,7 +104,7 @@
 						required />
 				</div>
 				<div class="login-content">
-					<label class="d-flex align-c login-ww-lang" for="password">
+					<label class="d-flex align-c" data-translate="modal.password" for="password">
 						Wachtwoord:
 					</label>
 					<input
@@ -131,23 +116,23 @@
 						required />
 				</div>
 				<button class="login-content-btn btn" type="submit">
-					<span class="btn-text login-btn-lang">Inloggen</span>
+					<span class="btn-text" data-translate="modal.loginBtn">Inloggen</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</button>
 				<div class="login-footer d-flex">
 					<span>
-						<span class="forgot-password-lang">Wachtwoord</span>
+						<span data-translate="modal.forgotPass">Wachtwoord</span>
 						<a class="login-link" href="#">
-							<span class="link-text forgot-lang">vergeten</span>
+							<span class="link-text" data-translate="modal.forgotPassLink">vergeten</span>
 						</a>
 						?
 					</span>
 					<span>
-						<span class="no-account-lang">Nog geen</span>
+						<span data-translate="modal.noAccount">Nog geen</span>
 						<a class="login-link" href="#">
-							<span class="link-text account-link-lang">account</span>
+							<span class="link-text" data-translate="modal.accountLink">account</span>
 						</a>
 						?
 					</span>
@@ -158,8 +143,8 @@
 		<!-- Home Page -->
 		<main>
 			<section class="hero align-c justify-c d-flex-col">
-				<h1 class="hero-title">Wel reizen, maar niet alleen?</h1>
-				<h4 class="hero-title-description">Zoek nu jouw Corenbuddy!</h4>
+				<h1 class="hero-title" data-translate="index.heroTitle">Wel reizen, maar niet alleen?</h1>
+				<h4 class="hero-title-description" data-translate="index.heroDescr">Zoek nu jouw Corenbuddy!</h4>
 			</section>
 
 			<!-- Information cards -->

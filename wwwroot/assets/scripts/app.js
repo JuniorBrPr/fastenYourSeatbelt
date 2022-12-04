@@ -92,6 +92,7 @@ window.addEventListener("click", (event) => {
 	}
 });
 
+/*
 //Language switcher app.js
 let langs = document.querySelector(".langs"),
 	link = document.querySelectorAll("a"),
@@ -296,8 +297,8 @@ hamMyProfile = document.querySelector(".burger-my-profile"),
 	//My account from profile page
 	myAccountBox = document.querySelector(".my-account-box"),
 	passwordBox = document.querySelector(".password-box"),
-	updateAccountBtn = document.querySelector(".update-account-btn");
-
+	updateAccountBtn = document.querySelector(".update-account-btn");*/
+/*
 link.forEach(el=>{
 	el.addEventListener("click", ()=>{
 		langs.querySelector(".active").classList.remove("active");
@@ -1380,5 +1381,82 @@ let data = {
 		updateAccountBtnLang: "Actualizar cuenta",
 
 	}
-}
+}*/
 
+var initialLanguage = "en";
+
+var translations = {
+	navbar: {
+		findBuddy: {
+			nl: "zoek mijn buddy",
+			en: "Find my buddy"
+		},
+		aboutUs: {
+			nl: "over ons",
+			en: "about us"
+		},
+		login: {
+			nl: "login",
+			en: "Logino"
+		}
+		,
+		register: {
+			nl: "Registreer",
+			en: "Sign up"
+		}
+	},
+
+	modal: {
+		login: {
+			nl: "Login",
+			en: "inlog"
+		},
+		password: {
+			nl: "wachtwoord",
+			en: "password"
+		},
+		loginBtn: {
+			nl: "inloggen",
+			en: "sign in"
+		}
+		,
+		forgotPass: {
+			nl: "wachtwoord",
+			en: "forgot"
+		},
+		forgotPassLink: {
+			nl: "vergeten",
+			en: "password"
+		},
+		noAccount: {
+			nl: "nog geen",
+			en: "create an"
+		},
+		accountLink: {
+			nl: "account",
+			en: "account"
+		},
+	},
+
+	index: {
+		heroTitle: {
+			nl: "Wel reizen, maar niet alleen?",
+			en: "vacation but not alone"
+		},
+		heroDescr: {
+			nl: "Zoek nu jouw Corenbuddy!",
+			en: "Find your Corenbuddy now!"
+		},
+	},
+
+};
+
+FYSCloud.Localization.setTranslations(translations);
+FYSCloud.Localization.switchLanguage(initialLanguage);
+
+document.querySelector("#localizationLanguageSwitch").value = initialLanguage;
+
+document.querySelector("#localizationLanguageSwitch").addEventListener("change", function () {
+	FYSCloud.Localization.switchLanguage(this.value);
+	FYSCloud.Localization.translate();
+});

@@ -264,6 +264,7 @@ button.btn {
 }
 
 /*Styling dropdown language switcher*/
+/*
 .dropdown-language {
 	overflow: hidden;
 }
@@ -307,6 +308,14 @@ button.btn {
 
 .dropdown-language:hover .dropdown-content {
 	display: block;
+}
+*/
+[data-translate] {
+	visibility: hidden;
+}
+
+[data-translate][translated] {
+	visibility: visible;
 }
 
 /* styling of input */
