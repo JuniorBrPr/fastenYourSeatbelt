@@ -22,113 +22,9 @@
 		<link rel="stylesheet" href="assets/css/default.css" />
 		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are 
 		available  -->
-		<script src="assets/js/app.js" defer></script>
+		<script type="module" src="assets/js/app.js" defer></script>
 	</head>
 	<body>
-		<header class="header d-flex justify-space-between align-c">
-			<nav class="nav-menu d-flex">
-				<a href="index.html" class="nav-link-logo d-flex align-c">
-					<img src="assets/img/logo.png" alt="Corendon logo" class="logo" />
-				</a>
-				<a href="index.html" class="nav-link">
-					<i class="fa-solid fa-house"></i>
-				</a>
-				<a href="#" class="nav-link">
-					<span class="link-text">corenbuddy</span>
-				</a>
-				<a href="matching.html" class="nav-link">
-					<span class="link-text">zoek mijn buddy</span>
-				</a>
-				<a href="about-us.html" class="nav-link">
-					<span class="link-text active">over ons</span>
-				</a>
-			</nav>
-			<div class="btn-container d-flex align-c">
-				<a href="#" class="btn login-btn">
-					<span class="btn-text">Login</span>
-					<span class="triangle">
-						<i class="fa-solid fa-play"></i>
-					</span>
-				</a>
-				<a href="sign-up.html" class="btn register-btn">
-					<span class="btn-text">Registreren</span>
-					<span class="triangle">
-						<i class="fa-solid fa-play"></i>
-					</span>
-				</a>
-			</div>
-			<!-- tabindex makes hamburger-menu focusable -->
-			<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
-		</header>
-		<aside class="nav-container pos-absolute">
-			<nav class="nav-menu-mobile">
-				<a href="#" class="nav-link">
-					<span class="link-text">Corenbuddy</span>
-				</a>
-				<a href="matching.html" class="nav-link">
-					<span class="link-text">Zoek mijn buddy</span>
-				</a>
-				<a href="about-us.html" class="nav-link">
-					<span class="link-text">Over ons</span>
-				</a>
-				<a href="sign-up.html" class="nav-link">
-					<span class="link-text">registreren</span>
-				</a>
-				<a href="#" class="nav-link sign-up-login-link">
-					<span class="link-text">login</span>
-				</a>
-			</nav>
-		</aside>
-		<div class="login-container pos-absolute">
-			<form class="login d-flex align-c">
-				<div class="login-header d-flex align-c pos-relative">
-					<h2 class="login-header-content pos-absolute">Login</h2>
-					<span class="login-header-content login-close">X</span>
-				</div>
-				<div class="login-content">
-					<label class="d-flex align-c" for="email">Email:</label>
-					<input
-						class="login-input"
-						type="email"
-						placeholder="voorbeeld@corenbuddy.nl"
-						name="email"
-						id="email"
-						required />
-				</div>
-				<div class="login-content">
-					<label class="d-flex align-c" for="password"> Wachtwoord: </label>
-					<input
-						class="login-input"
-						type="password"
-						placeholder="Wachtwoord"
-						name="password"
-						id="password"
-						required />
-				</div>
-				<button class="login-content-btn btn" type="submit">
-					<span class="btn-text">Inloggen</span>
-					<span class="triangle">
-						<i class="fa-solid fa-play"></i>
-					</span>
-				</button>
-				<div class="login-footer d-flex">
-					<span>
-						Wachtwoord
-						<a class="login-link" href="#">
-							<span class="link-text">vergeten</span>
-						</a>
-						?
-					</span>
-					<span>
-						Nog geen
-						<a class="login-link" href="#">
-							<span class="link-text">account</span>
-						</a>
-						?
-					</span>
-				</div>
-			</form>
-		</div>
 		<main>
 			<section class="wrapper">
 				<h2 class="aboutus-head text-align-c title mid-title">Over ons</h2>
@@ -228,44 +124,5 @@
 				</div>
 			</section>
 		</main>
-		<footer>
-			<div class="flex-container">
-				<div class="flex-child footer-imgBlock footer-link-block">
-					<img src="assets/img/logo.png" alt="Corendon logo" class="logo" />
-					<p class="reis-quote">Met een Corenbuddy reis je niet meer alleen!</p>
-				</div>
-				<div class="flex-child footer-link-block">
-					<h4 class="footer-titel">INFORMATIE</h4>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Over ons</span>
-					</a>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Privacy</span>
-					</a>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Contact</span>
-					</a>
-				</div>
-				<div class="flex-child footer-link-block">
-					<h4 class="footer-titel">CORENBUDDY</h4>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Profiel</span>
-					</a>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Matches</span>
-					</a>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Registreren</span>
-					</a>
-				</div>
-				<div><p class="copyright">©Copyright DiscordModerators</p></div>
-				<div class="socialMedia">
-					<i class="fa-brands fa-facebook fa-2xl"></i>
-					<i class="fa-brands fa-twitter fa-2xl"></i>
-					<i class="fa-brands fa-instagram fa-2xl"></i>
-					<i class="fa-brands fa-youtube fa-2xl"></i>
-				</div>
-			</div>
-		</footer>
 	</body>
 </html>
