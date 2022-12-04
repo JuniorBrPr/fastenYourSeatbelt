@@ -128,7 +128,7 @@ function populateList(buddyList, type, data) {
 
             //The "book a trip" button redirects to the corendon website.
             bookTripBtn.addEventListener("click", () => {
-                location.href = "www.corendon.nl";
+                location.href = "https:////www.corendon.nl";
             });
 
             const buddyDelete = addButton("Buddy verwijderen", "btn-red buddy-delete-btn", btnContainer);
