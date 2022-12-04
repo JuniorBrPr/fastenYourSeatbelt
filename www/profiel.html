@@ -21,6 +21,10 @@
     <!-- load javascript, defer makes sure scripts are loaded when dom-elements are
     available  -->
     <script src="assets/scripts/hamburgerMenu.js" defer></script>
+
+    <!-- Scripts API -->
+    <script type="module" src="assets/scripts/config.js"></script>
+    <script type="module" defer src="assets/scripts/profiel.js"></script>
 </head>
 <body>
 <header class="header d-flex justify-space-between align-c">
@@ -105,14 +109,14 @@
                       id="bio"
                       name="bio"></textarea>
         </div>
-        <div class="profiel-container">
+ <!--       <div class="profiel-container">
             <label class="p-label" for="locatie">Locatie</label>
             <input class="profiel-field w-100"
                    type="text"
                    id="locatie"
                    name="locatie"
                    placeholder="Amsterdam">
-        </div>
+        </div>-->
         <div class="profiel-container">
             <label class="p-label" for="gdatum">Geboortedatum</label>
             <input class="profiel-field w-100"
@@ -120,7 +124,7 @@
                    type="date"
                    name="date"
                    max="2003-01-01"
-                   placeholder="1990-01-01">
+                   >
         </div>
         <div>
             <label class="p-label" for="inter-field-1">Interesses</label>
@@ -183,18 +187,23 @@
                    name="bestemming"
                    placeholder="Spanje">
         </div>
+
         <div>
-            <label class="p-label" for="tijdsbestek">Tijdsbestek</label>
-            <input class="tijdsbestek-field"
-                   type="number"
-                   max="31"
-                   placeholder="28">
-            <select class="tijdsbestek-field"
-                    name="tijdsbestek"
-                    id="tijdsbestek">
-                <option value="jan">January</option>
-            </select>
+            <label class="p-label" for="startdate">Tijdsbestek Start</label>
+            <input class="profiel-field w-100"
+                   id="startdate"
+                   type="date"
+                   name="date"
+                   min="2022-01-01">
+
+            <label class="p-label" for="startdate">Tijdsbestek End</label>
+            <input class="profiel-field w-100"
+                   id="enddate"
+                   type="date"
+                   name="date"
+                   min="2022-01-01">
         </div>
+
         <div class="profiel-container">
             <label class="p-label" for="geslacht-field-1">Geslacht</label>
             <select class="gender-field"
