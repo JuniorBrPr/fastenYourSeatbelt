@@ -233,7 +233,8 @@ button.btn {
 
 /* Minimum width for button */
 .register-btn,
-.login-btn {
+.login-btn,
+.profile-btn {
 	min-width: 14ch;
 }
 
