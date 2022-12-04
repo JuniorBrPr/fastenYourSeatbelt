@@ -1,4 +1,5 @@
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
+console.log("config.js word gerunt");
 //local environment, change database to your own
 FYSCloud.API.configure({
 	url: "https://api.fys.cloud",
