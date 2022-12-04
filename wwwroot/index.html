@@ -5,6 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Corenbuddy</title>
+		<!-- favicon -->
+		<link rel="shortcut icon" href="assets/img/favicon.svg" type="image/x-icon" />
 		<!-- get open sans font -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,170 +22,63 @@
 		<link rel="stylesheet" href="assets/css/default.css" />
 		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are 
 		available  -->
-		<script src="assets/scripts/app.js" defer></script>
-		
+		<script
+			type="module"
+			src="https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js"
+			crossorigin></script>
+		<script type="module" src="assets/js/config.js"></script>
+		<script type="module" src="assets/js/app.js" defer></script>
+		<script type="module" src="assets/js/login.js" defer></script>
 	</head>
 	<body>
-		<header class="header d-flex justify-space-between align-c">
-			<nav class="nav-menu d-flex">
-				<a href="index.html" class="nav-link-logo d-flex align-c">
-					<img
-						src="assets/img/logo.png"
-						alt="Corendon logo"
-						class="logo" />
-				</a>
-				<a href="index.html" class="nav-link">
-					<i class="fa-solid fa-house"></i>
-				</a>
-				<a href="#" class="nav-link">
-					<span class="link-text">corenbuddy</span>
-				</a>
-				<a href="matching.html" class="nav-link">
-					<span class="link-text " data-translate="navbar.findBuddy">zoek mijn buddy</span>
-				</a>
-				<a href="about-us.html" class="nav-link">
-					<span class="link-text" data-translate="navbar.aboutUs">over ons</span>
-				</a>
-				</nav>
-			<div class="btn-container d-flex align-c">
-				<a href="#" class="btn login-btn">
-					<span class="btn-text" data-translate="navbar.login">Login</span>
-					<span class="triangle">
-						<i class="fa-solid fa-play"></i>
-					</span>
-				</a>
-				<a href="sign-up.html" class="btn register-btn">
-					<span class="btn-text" data-translate="navbar.register">Registreren</span>
-					<span class="triangle">
-						<i class="fa-solid fa-play"></i>
-					</span>
-				</a>
-				<select id="localizationLanguageSwitch">
-					<option value="nl">Nederlands</option>
-					<option value="en">English</option>
-					<option value="es">Espanol</option>
-				</select>
-			</div>
-			<!-- tabindex makes hamburger-menu focusable -->
-			<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
-		</header>
-		<aside class="nav-container pos-absolute">
-			<nav class="nav-menu-mobile">
-				<a href="#" class="nav-link">
-					<span class="link-text">Corenbuddy</span>
-				</a>
-				<a href="matching.html" class="nav-link">
-					<span class="link-text" data-translate="navbar.findBuddy">Zoek mijn buddy</span>
-				</a>
-				<a href="about-us.html" class="nav-link">
-					<span class="link-text" data-translate="navbar.aboutUs">Over ons</span>
-				</a>
-				<a href="sign-up.html" class="nav-link">
-					<span class="link-text" data-translate="navbar.register">registreren</span>
-				</a>
-				<a href="#" class="nav-link sign-up-login-link">
-					<span class="link-text" data-translate="navbar.login">login</span>
-				</a>
-				</div>
-			</nav>
-		</aside>
-		<div class="login-container pos-absolute">
-			<form class="login d-flex align-c">
-				<div class="login-header d-flex align-c pos-relative">
-					<h2 class="login-header-content pos-absolute" data-translate="modal.login">Login</h2>
-					<span class="login-header-content login-close">X</span>
-				</div>
-				<div class="login-content">
-					<label class="d-flex align-c" for="email">Email:</label>
-					<input
-						class="login-input"
-						type="email"
-						placeholder="voorbeeld@corenbuddy.nl"
-						name="email"
-						id="email"
-						required />
-				</div>
-				<div class="login-content">
-					<label class="d-flex align-c" data-translate="modal.password" for="password">
-						Wachtwoord:
-					</label>
-					<input
-						class="login-input"
-						type="password"
-						placeholder="Wachtwoord"
-						name="password"
-						id="password"
-						required />
-				</div>
-				<button class="login-content-btn btn" type="submit">
-					<span class="btn-text" data-translate="modal.loginBtn">Inloggen</span>
-					<span class="triangle">
-						<i class="fa-solid fa-play"></i>
-					</span>
-				</button>
-				<div class="login-footer d-flex">
-					<span>
-						<span data-translate="modal.forgotPass">Wachtwoord</span>
-						<a class="login-link" href="#">
-							<span class="link-text" data-translate="modal.forgotPassLink">vergeten</span>
-						</a>
-						?
-					</span>
-					<span>
-						<span data-translate="modal.noAccount">Nog geen</span>
-						<a class="login-link" href="#">
-							<span class="link-text" data-translate="modal.accountLink">account</span>
-						</a>
-						?
-					</span>
-				</div>
-			</form>
-		</div>
-
 		<!-- Home Page -->
 		<main>
 			<section class="hero align-c justify-c d-flex-col">
-				<h1 class="hero-title" data-translate="index.heroTitle">Wel reizen, maar niet alleen?</h1>
-				<h4 class="hero-title-description" data-translate="index.heroDescr">Zoek nu jouw Corenbuddy!</h4>
+				<h1 class="hero-title">Wel reizen, maar niet alleen?</h1>
+				<h4 class="hero-title-description">Zoek nu jouw Corenbuddy!</h4>
 			</section>
 
 			<!-- Information cards -->
 			<section class="info-cards d-flex align-c justify-c">
 				<div class="info-card align-c d-flex-col justify-c">
-					<h4 class="info-card-title first-info-title-lang">Veilig Gebruikmaken</h4>
-					<p class="info-card-text first-info-descr-lang">
-						Onze website slaat alleen de nodige gevens op en verkoopt helemaal niks!
+					<h4 class="info-card-title">Veilig Gebruikmaken</h4>
+					<p class="info-card-text">
+						Onze website slaat alleen de nodige gevens op en verkoopt helemaal
+						niks!
 					</p>
 				</div>
 				<div class="info-card align-c d-flex-col justify-c">
-					<h4 class="info-card-title second-info-title-lang">Gebruiksvriendelijk</h4>
-					<p class="info-card-text second-info-descr-lang">
+					<h4 class="info-card-title">Gebruiksvriendelijk</h4>
+					<p class="info-card-text">
 						Onze gebruikers geven ons een beoordeling van 4.7 sterren!
 					</p>
 				</div>
 				<div class="info-card align-c d-flex-col justify-c">
-					<h4 class="info-card-title third-info-title-lang">Effectiviteit</h4>
-					<p class="info-card-text third-info-descr-lang">
+					<h4 class="info-card-title">Effectiviteit</h4>
+					<p class="info-card-text">
 						Onze website heeft al meer dan 1000 buddy's bij elkaar gebracht
 					</p>
-				</div> 
+				</div>
 			</section>
 
 			<!-- CTA -->
 			<section class="cta align-c d-flex-col justify-c">
 				<div class="cta-text d-flex-col">
 					<h2 class="cta-title">Registreer nu om jouw buddy te vinden!</h2>
-					<h3 class="cta-sub-title">Het werkt echt! We willen je niet alleen naar deze site lokken maar jou helpen</h3>
+					<h3 class="cta-sub-title">
+						Het werkt echt! We willen je niet alleen naar deze site lokken maar jou
+						helpen
+					</h3>
 				</div>
 				<div class="cta-btn-container d-flex justify-c">
 					<a href="#" class="cta-btn btn login-btn">
-						<span class="btn-text cta-login-lang">Login</span>
+						<span class="btn-text">Login</span>
 						<span class="triangle">
 							<i class="fa-solid fa-play"></i>
 						</span>
 					</a>
 					<a href="./sign-up.html" class="cta-btn btn register-btn">
-						<span class="btn-text cta-register-lang">Registreren</span>
+						<span class="btn-text">Registreren</span>
 						<span class="triangle">
 							<i class="fa-solid fa-play"></i>
 						</span>
@@ -194,63 +89,18 @@
 			<!-- CTA Cards -->
 			<section class="cta-cards d-flex justify-c align-c">
 				<div class="cta-card cta-card-find d-flex justify-c align-c" href="#">
-					<h3 class="cta-card-title first-cta-card">Vind een buddy!</h3>
+					<h3 class="cta-card-title">Vind een buddy!</h3>
 				</div>
 				<div class="cta-card cta-card-contact d-flex justify-c align-c" href="#">
-					<h3 class="cta-card-title second-cta-card">Contact</h3>
+					<h3 class="cta-card-title">Contact</h3>
 				</div>
 				<div class="cta-card cta-card-about d-flex justify-c align-c" href="#">
-					<h3 class="cta-card-titl third-cta-card">Over ons</h3>
+					<h3 class="cta-card-title">Over ons</h3>
 				</div>
 				<div class="cta-card cta-card-matches d-flex justify-c align-c" href="#">
-					<h3 class="cta-card-title fourth-cta-card">Matches</h3>
+					<h3 class="cta-card-title">Matches</h3>
 				</div>
 			</section>
 		</main>
-		
-		<footer>
-			<div class="flex-container">
-				<div class="flex-child footer-imgBlock footer-link-block">
-					<img
-						src="assets/img/logo.png"
-						alt="Corendon logo"
-						class="logo" />
-					<p class="reis-quote">
-						Met een Corenbuddy reis je niet meer alleen!
-					</p>
-				</div>
-				<div class="flex-child footer-link-block">
-					<h4 class="footer-titel footer-titel-info">INFORMATIE</h4>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst first-footerLink-info">Over ons</span>
-					</a>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst second-footerLink-info">Privacy</span>
-					</a>
-					<a href="#" class="footer-link third-footerLink-info">
-						<span class="footerLink-tekst">Contact</span>
-					</a>
-				</div>
-				<div class="flex-child footer-link-block">
-					<h4 class="footer-titel">CORENBUDDY</h4>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst first-footerLink-buddy">Profiel</span>
-					</a>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst second-footerLink-buddy">Matches</span>
-					</a>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst third-footerLink-buddy">Registreren</span>
-					</a>
-				</div>
-				<div><p class="copyright">©Copyright DiscordModerators</p></div>
-				<div class="socialMedia">
-					<i class="fa-brands fa-facebook fa-2xl"></i>
-					<i class="fa-brands fa-twitter fa-2xl"></i>
-					<i class="fa-brands fa-instagram fa-2xl"></i>
-					<i class="fa-brands fa-youtube fa-2xl"></i>
-				</div>
-			</div>
-		</footer>
 	</body>
 </html>

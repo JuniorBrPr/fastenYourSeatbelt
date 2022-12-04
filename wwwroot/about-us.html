@@ -5,6 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Corenbuddy</title>
+		<!-- favicon -->
+		<link rel="shortcut icon" href="assets/img/favicon.svg" type="image/x-icon" />
 		<!-- get open sans font -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,159 +20,21 @@
 			crossorigin="anonymous"></script>
 
 		<link rel="stylesheet" href="assets/css/default.css" />
-		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are
+		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are 
 		available  -->
-		<script src="assets/scripts/app.js" defer></script>
+		<script type="module" src="assets/js/app.js" defer></script>
 	</head>
 	<body>
-		<header class="header d-flex justify-space-between align-c">
-			<nav class="nav-menu d-flex">
-				<a href="index.html" class="nav-link-logo d-flex align-c">
-					<img
-						src="assets/img/logo.png"
-						alt="Corendon logo"
-						class="logo" />
-				</a>
-				<a href="index.html" class="nav-link">
-					<i class="fa-solid fa-house"></i>
-				</a>
-				<a href="#" class="nav-link">
-					<span class="link-text">corenbuddy</span>
-				</a>
-				<a href="matching.html" class="nav-link">
-					<span class="link-text zoek-buddy">zoek mijn buddy</span>
-				</a>
-				<a href="about-us.html" class="nav-link">
-					<span class="link-text active over-ons">over ons</span>
-				</a>
-			</nav>
-			<div class="btn-container d-flex align-c">
-				<a href="#" class="btn login-btn">
-					<span class="btn-text login-lang">Login</span>
-					<span class="triangle">
-						<i class="fa-solid fa-play"></i>
-					</span>
-				</a>
-				<a href="sign-up.html" class="btn register-btn">
-					<span class="btn-text register-lang">Registreren</span>
-					<span class="triangle">
-						<i class="fa-solid fa-play"></i>
-					</span>
-				</a>
-				<div class="dropdown-language">
-					<button class="dropbtn">Talen </button>
-					<div class="dropdown-content">
-						<div class="langs">
-							<a href="#" language="nederlands" class="active">NL</a>
-							<a href="#" language="engels">EN</a>
-							<a href="#" language="spaans">ES</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- tabindex makes hamburger-menu focusable -->
-			<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
-		</header>
-		<aside class="nav-container pos-absolute">
-			<nav class="nav-menu-mobile">
-				<a href="#" class="nav-link">
-					<span class="link-text">Corenbuddy</span>
-				</a>
-				<a href="matching.html" class="nav-link">
-					<span class="link-text burger-zoek-buddy">Zoek mijn buddy</span>
-				</a>
-				<a href="about-us.html" class="nav-link">
-					<span class="link-text burger-over-ons">Over ons</span>
-				</a>
-				<a href="sign-up.html" class="nav-link">
-					<span class="link-text burger-register-lang">registreren</span>
-				</a>
-				<a href="#" class="nav-link sign-up-login-link">
-					<span class="link-text burger-login-lang">login</span>
-				</a>
-				<div class="dropdown-language">
-					<button class="burger-dropbtn">Talen </button>
-					<div class="dropdown-content">
-						<div class="langs">
-							<a href="#" language="nederlands">NL</a>
-							<a href="#" language="engels">EN</a>
-							<a href="#" language="spaans">ES</a>
-						</div>
-					</div>
-				</div>
-			</nav>
-		</aside>
-		<div class="login-container pos-absolute">
-			<form class="login d-flex align-c">
-				<div class="login-header d-flex align-c pos-relative">
-					<h2 class="login-header-content pos-absolute">Login</h2>
-					<span class="login-header-content login-close">X</span>
-				</div>
-				<div class="login-content">
-					<label class="d-flex align-c" for="email">Email:</label>
-					<input
-						class="login-input"
-						type="email"
-						placeholder="voorbeeld@corenbuddy.nl"
-						name="email"
-						id="email"
-						required />
-				</div>
-				<div class="login-content">
-					<label class="d-flex align-c login-ww-lang" for="password">
-						Wachtwoord:
-					</label>
-					<input
-						class="login-input"
-						type="password"
-						placeholder="Wachtwoord"
-						name="password"
-						id="password"
-						required />
-				</div>
-				<button class="login-content-btn btn" type="submit">
-					<span class="btn-text login-btn-lang">Inloggen</span>
-					<span class="triangle">
-						<i class="fa-solid fa-play"></i>
-					</span>
-				</button>
-				<div class="login-footer d-flex">
-					<span>
-						<span class="forgot-password-lang">Wachtwoord</span>
-						<a class="login-link" href="#">
-							<span class="link-text forgot-lang">vergeten</span>
-						</a>
-						?
-					</span>
-					<span>
-						<span class="no-account-lang">Nog geen</span>
-						<a class="login-link" href="#">
-							<span class="link-text account-link-lang">account</span>
-						</a>
-						?
-					</span>
-				</div>
-			</form>
-		</div>
 		<main>
 			<section class="wrapper">
-				<h2 class="aboutus-head text-align-c title mid-title">
-					Over ons
-				</h2>
+				<h2 class="aboutus-head text-align-c title mid-title">Over ons</h2>
 				<div class="about-us">
 					<div class="corenbuddy about-us-card w-100">
-						<h2 class="corenbuddy-head about-us-header title about-us-title">
-							CorenBuddy
-						</h2>
+						<h2 class="corenbuddy-head about-us-header title">CorenBuddy</h2>
 						<hr />
 						<div class="corenbuddy-cc about-us-content-container">
-							<p class="corenbuddy-text about-us-text">
-								CorenBuddy is het meest geavanceerde platform om
-								jou Travel Buddy te vinden, gebasseerd op de
-								meest efficiente matching systeem. Vind nu een
-								bijpassende reisgenoot met dezelfde interesses
-								en dromen. Vlieg samen en geniet samen!
-							</p>
+							<p class="corenbuddy-text about-us-text">CorenBuddy is het meest geavanceerde platform om jouw Travel Buddy te vinden, gebasseerd op het meest efficiente matching systeem. Vind nu een bijpassende 
+								reisgenoot met dezelfde interesses en dromen. Vlieg samen, geniet samen!</p>
 							<a
 								href="#"
 								class="corenbuddy-btn btn d-flex align-c text-align-c justify-c"
@@ -184,40 +48,21 @@
 						</h2>
 						<hr />
 						<div class="history-cc about-us-content-container">
-							<p class="history-text about-us-text corendon-history-text">
-								De onderneming is in 2000 opgericht in Haarlem,
-								toen Atilay Uslu en zijn zakenpartner Yildiray
-								Karaer besloten hun krachten te bundelen. Voor
-								die tijd had de jonge ondernemer Uslu al zijn
-								eerste stappen in de reisbranche gezet, maar het
-								echte succes komt met de oprichting van
-								Corendon.<br /><br />
-								Het bedrijf begon als Turkije-specialist dat
-								eerst alleen vliegtickets en later ook volledig
-								verzorgde reizen naar Turkije verkocht. In 20
-								jaar tijd is Corendon uitgegroeid tot een
-								toonaangevende, zeer succesvolle touroperator en
-								dé nummer 1 reisorganisatie als het gaat om veel
-								Turkse en andere populaire bestemmingen binnen
-								en buiten Europa, zoals bijvoorbeeld Ibiza,
-								Cyprus en Curaçao.
+							<p class="history-text about-us-text">
+								De onderneming Corendon is in 2000 opgericht in Haarlem, toen Atilay Uslu en zijn zakenpartner Yildiray Karaer besloten hun krachten te bundelen.  Voor die tijd had de jonge ondernemer Uslu al zijn eerste stappen in de reisbranche gezet, maar het echte succes kwam met de oprichting van Corendon.<br><br>
+								Het bedrijf begon als Turkije-specialist dat eerst alleen vliegtickets en later ook volledig verzorgde reizen naar Turkije verkocht. 
+								In 20 jaar tijd is Corendon uitgegroeid tot een toonaangevende, zeer succesvolle touroperator en dé nummer 1 reisorganisatie als het gaat om veel Turkse en andere populaire bestemmingen binnen en buiten Europa, zoals bijvoorbeeld Ibiza, Cyprus en Curaçao.
 							</p>
 						</div>
 					</div>
 					<div class="who-are-we-card about-us-card w-100">
-						<h2 class="who-are-we-head about-us-header title">
-							Wie zijn wij
-						</h2>
+						<h2 class="who-are-we-head about-us-header title">Wie zijn wij</h2>
 						<hr />
 						<div
 							class="who-are-we-cc about-us-content-container d-flex justify-space-between">
 							<p class="who-are-we-text about-us-text">
-								Team van getalenteerde studenten op de
-								Hogeschool van Amsterdam met een visie om de
-								beste platform te ontwikkelen voor het project
-								Fasten Your Seatbelts. <br /><br />
-								Dit is het eerste project dat ons is voorgelegd
-								in ons eerste blok van de studie.
+								Wij zijn een team van getalenteerde studenten op de Hogeschool van Amsterdam met een visie om het beste platform te ontwikkelen voor het project Fasten Your Seatbelts. <br><br>
+								Dit is het eerste project dat ons is voorgelegd in ons eerste blok van de studie.
 							</p>
 						</div>
 					</div>
@@ -225,14 +70,12 @@
 			</section>
 			<hr class="divider" />
 			<section class="wrapper">
-				<h2 class="aboutus-head text-align-c title mid-title aboutus-contact-head">
-					Contact
-				</h2>
+				<h2 class="aboutus-head text-align-c title mid-title">Contact</h2>
 				<div class="contact d-flex justify-c">
 					<form action="" class="contact-form">
 						<div class="form-row fr-1">
 							<div class="form-group">
-								<h4 class="label-contact full-name-form">Volledige naam</h4>
+								<h4 class="label-contact">Volledige naam</h4>
 								<input
 									type="text"
 									name="contactName"
@@ -250,7 +93,7 @@
 						</div>
 						<div class="form-row fr-2">
 							<div class="form-group">
-								<h4 class="label-contact phone-nr-form">Telefoonnummer</h4>
+								<h4 class="label-contact">Telefoonnummer</h4>
 								<input
 									type="tel"
 									name="contactPhone"
@@ -259,7 +102,7 @@
 									maxlength="10" />
 							</div>
 							<div class="form-group">
-								<h4 class="label-contact topic-form">Onderwerp</h4>
+								<h4 class="label-contact">Onderwerp</h4>
 								<input
 									type="text"
 									name="contactSubject"
@@ -268,7 +111,7 @@
 							</div>
 						</div>
 						<div class="form-group fr-3">
-							<h4 class="label-contact question-form">Uw vraag</h4>
+							<h4 class="label-contact">Uw vraag</h4>
 							<textarea
 								name="contact-text"
 								class="contact-text"
@@ -276,57 +119,10 @@
 								rows="10"
 								placeholder="Voer hier uw vraag in."></textarea>
 						</div>
-						<input
-							type="submit"
-							value="Verstuur"
-							class="contact-submit btn" />
+						<input type="submit" value="Verstuur" class="contact-submit btn" />
 					</form>
 				</div>
 			</section>
 		</main>
-		<footer>
-			<div class="flex-container">
-				<div class="flex-child footer-imgBlock footer-link-block">
-					<img
-						src="assets/img/logo.png"
-						alt="Corendon logo"
-						class="logo" />
-					<p class="reis-quote">
-						Met een Corenbuddy reis je niet meer alleen!
-					</p>
-				</div>
-				<div class="flex-child footer-link-block">
-					<h4 class="footer-titel footer-titel-info">INFORMATIE</h4>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst first-footerLink-info">Over ons</span>
-					</a>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst second-footerLink-info">Privacy</span>
-					</a>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst third-footerLink-info">Contact</span>
-					</a>
-				</div>
-				<div class="flex-child footer-link-block">
-					<h4 class="footer-titel">CORENBUDDY</h4>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst first-footerLink-buddy">Profiel</span>
-					</a>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst second-footerLink-buddy">Matches</span>
-					</a>
-					<a href="#" class="footer-link">
-						<span class="footerLink-tekst third-footerLink-buddy">Registreren</span>
-					</a>
-				</div>
-				<div><p class="copyright">©Copyright DiscordModerators</p></div>
-				<div class="socialMedia">
-					<i class="fa-brands fa-facebook fa-2xl"></i>
-					<i class="fa-brands fa-twitter fa-2xl"></i>
-					<i class="fa-brands fa-instagram fa-2xl"></i>
-					<i class="fa-brands fa-youtube fa-2xl"></i>
-				</div>
-			</div>
-		</footer>
 	</body>
 </html>
