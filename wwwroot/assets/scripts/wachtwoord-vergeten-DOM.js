@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", initialize);
 
 
 //imports
-import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
+//import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 
 
 /**
