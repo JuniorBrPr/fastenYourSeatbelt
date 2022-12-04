@@ -38,25 +38,35 @@
             <span class="link-text">corenbuddy</span>
         </a>
         <a href="#" class="nav-link">
-            <span class="link-text">zoek mijn buddy</span>
+            <span class="link-text zoek-buddy">zoek mijn buddy</span>
         </a>
         <a href="#" class="nav-link">
-            <span class="link-text">over ons</span>
+            <span class="link-text over-ons">over ons</span>
         </a>
     </nav>
     <div class="btn-container d-flex align-c">
         <a href="#" class="btn login-btn">
-            <span class="btn-text">Login</span>
+            <span class="btn-text login-lang">Login</span>
             <span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
         </a>
         <a href="#" class="btn register-btn">
-            <span class="btn-text">Registreren</span>
+            <span class="btn-text register-lang">Registreren</span>
             <span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
         </a>
+        <div class="dropdown-language">
+            <button class="dropbtn">Talen </button>
+            <div class="dropdown-content">
+                <div class="langs">
+                    <a href="#" language="nederlands" class="active">NL</a>
+                    <a href="#" language="engels">EN</a>
+                    <a href="#" language="spaans">ES</a>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- tabindex makes hamburger-menu focusable -->
     <i class="fa-solid fa-bars hamburger" tabindex="0"></i>
@@ -67,17 +77,27 @@
             <span class="link-text">Corenbuddy</span>
         </a>
         <a href="#" class="nav-link">
-            <span class="link-text">Zoek mijn buddy</span>
+            <span class="link-text burger-zoek-buddy">Zoek mijn buddy</span>
         </a>
         <a href="#" class="nav-link">
-            <span class="link-text">Over ons</span>
+            <span class="link-text burger-over-ons">Over ons</span>
         </a>
         <a href="#" class="nav-link">
-            <span class="link-text">registreren</span>
+            <span class="link-text burger-register-lang">registreren</span>
         </a>
         <a href="#" class="nav-link sign-up-login-link">
-            <span class="link-text">login</span>
+            <span class="link-text burger-login-lang">login</span>
         </a>
+        <div class="dropdown-language">
+            <button class="burger-dropbtn">Talen </button>
+            <div class="dropdown-content">
+                <div class="langs">
+                    <a href="#" language="nederlands" class="active">NL</a>
+                    <a href="#" language="engels">EN</a>
+                    <a href="#" language="spaans">ES</a>
+                </div>
+            </div>
+        </div>
     </nav>
 </aside>
 
@@ -85,14 +105,14 @@
     <form class="profiel align-c" action="results.html" method="GET">
         <h1 class="h1-mijn-profiel">Mijn Profiel</h1>
         <div class="profiel-container">
-            <label class="p-label" for="voornaam">Voornaam</label>
+            <label class="p-label my-first-name" for="voornaam">Voornaam</label>
             <input class="profiel-field w-100"
                    type="text" id="voornaam"
                    name="naam"
                    placeholder="Quandale">
         </div>
         <div class="profiel-container">
-            <label class="p-label" for="achternaam">Achternaam</label>
+            <label class="p-label my-last-Name" for="achternaam">Achternaam</label>
             <input class="profiel-field w-100"
                    type="text"
                    id="achternaam"
@@ -100,13 +120,13 @@
                    placeholder="Dingle">
         </div>
         <div class="profiel-container">
-            <label class="p-label" for="bio">Bio</label>
+            <label class="p-label my-bio" for="bio">Bio</label>
             <textarea class="bio-textarea"
                       id="bio"
                       name="bio"></textarea>
         </div>
         <div class="profiel-container">
-            <label class="p-label" for="locatie">Locatie</label>
+            <label class="p-label my-location" for="locatie">Locatie</label>
             <input class="profiel-field w-100"
                    type="text"
                    id="locatie"
@@ -114,7 +134,7 @@
                    placeholder="Amsterdam">
         </div>
         <div class="profiel-container">
-            <label class="p-label" for="gdatum">Geboortedatum</label>
+            <label class="p-label my-birth-date" for="gdatum">Geboortedatum</label>
             <input class="profiel-field w-100"
                    id="gdatum"
                    type="date"
@@ -123,60 +143,60 @@
                    placeholder="1990-01-01">
         </div>
         <div>
-            <label class="p-label" for="inter-field-1">Interesses</label>
+            <label class="p-label my-interest" for="inter-field-1">Interesses</label>
             <select class="inter-field"
                     name="interesses"
                     id="inter-field-1">
-                <option value="yoga">Yoga</option>
-                <option>Voetbal</option>
-                <option>Fietsen</option>
-                <option>Uitgaan</option>
+                <option class="first-field-one" value="yoga">Yoga</option>
+                <option class="first-field-two">Voetbal</option>
+                <option class="first-field-three">Fietsen</option>
+                <option class="first-field-four">Uitgaan</option>
             </select>
             <select class="inter-field"
                     name="interesses"
                     id="inter-field-2">
-                <option value="yoga">Yoga</option>
-                <option>Voetbal</option>
-                <option>Fietsen</option>
-                <option>Uitgaan</option>
+                <option class="second-field-one" value="yoga">Yoga</option>
+                <option class="second-field-two">Voetbal</option>
+                <option class="second-field-three">Fietsen</option>
+                <option class="second-field-four">Uitgaan</option>
             </select>
             <select class="inter-field"
                     name="interesses"
                     id="inter-field-3">
-                <option value="yoga">Yoga</option>
-                <option>Voetbal</option>
-                <option>Fietsen</option>
-                <option>Uitgaan</option>
+                <option class="third-field-one" value="yoga">Yoga</option>
+                <option class="third-field-two">Voetbal</option>
+                <option class="third-field-three">Fietsen</option>
+                <option class="third-field-four">Uitgaan</option>
             </select>
         </div>
         <div>
             <select class="inter-field"
                     name="interesses"
                     id="inter-field-4">
-                <option value="yoga">Yoga</option>
-                <option>Voetbal</option>
-                <option>Fietsen</option>
-                <option>Uitgaan</option>
+                <option class="fourth-field-one" value="yoga">Yoga</option>
+                <option class="fourth-field-two">Voetbal</option>
+                <option class="fourth-field-three">Fietsen</option>
+                <option class="fourth-field-four">Uitgaan</option>
             </select>
             <select class="inter-field"
                     name="interesses"
                     id="inter-field-5">
-                <option value="yoga">Yoga</option>
-                <option>Voetbal</option>
-                <option>Fietsen</option>
-                <option>Uitgaan</option>
+                <option class="fifth-field-one" value="yoga">Yoga</option>
+                <option class="fifth-field-two">Voetbal</option>
+                <option class="fifth-field-three">Fietsen</option>
+                <option class="fifth-field-four">Uitgaan</option>
             </select>
             <select class="inter-field"
                     name="interesses"
                     id="inter-field-6">
-                <option value="yoga">Yoga</option>
-                <option>Voetbal</option>
-                <option>Fietsen</option>
-                <option>Uitgaan</option>
+                <option class="sixth-field-one" value="yoga">Yoga</option>
+                <option class="sixth-field-two">Voetbal</option>
+                <option class="sixth-field-three">Fietsen</option>
+                <option class="sixth-field-four">Uitgaan</option>
             </select>
         </div>
         <div class="profiel-container">
-            <label class="p-label" for="bestemming">Bestemming</label>
+            <label class="p-label my-destionation" for="bestemming">Bestemming</label>
             <input class="profiel-field w-100"
                    type="text"
                    id="bestemming"
@@ -184,7 +204,7 @@
                    placeholder="Spanje">
         </div>
         <div>
-            <label class="p-label" for="tijdsbestek">Tijdsbestek</label>
+            <label class="p-label my-time-frame" for="tijdsbestek">Tijdsbestek</label>
             <input class="tijdsbestek-field"
                    type="number"
                    max="31"
@@ -196,22 +216,22 @@
             </select>
         </div>
         <div class="profiel-container">
-            <label class="p-label" for="geslacht-field-1">Geslacht</label>
+            <label class="p-label my-gender" for="geslacht-field-1">Geslacht</label>
             <select class="gender-field"
                     name="geslacht"
                     id="geslacht-field-1">
-                <option value="man">Man</option>
-                <option value="vrouw">Vrouw</option>
-                <option value="anders">Anders</option>
+                <option class="gender-man" value="man">Man</option>
+                <option class="gender-women" value="vrouw">Vrouw</option>
+                <option class="gender-other" value="anders">Anders</option>
             </select>
         </div>
         <div class="opslaan-container">
-            <button class="sub-btn btn" type="submit">Opslaan</button>
+            <button class="sub-btn btn safe-btn" type="submit">Opslaan</button>
         </div>
     </form>
     <section class="right-block d-flex">
         <div class="profiel-foto-card">
-            <h2>Profiel Foto</h2>
+            <h2 class="profile-photo">Profiel Foto</h2>
             <img src="assets/img/HenkvanVliet2.jpg" alt="Profiel foto" width="300" height="300"/>
             <button class="sub-btn btn">Upload foto</button>
 
@@ -223,7 +243,7 @@
             <!--					   id="profiel-file">-->
         </div>
         <div class="profiel-account-card">
-            <h2>Mijn Account</h2>
+            <h2 class="my-account-box">Mijn Account</h2>
             <label for="email" class="p-label"> Email </label>
             <input
                     type="email"
@@ -232,7 +252,7 @@
                     class="profiel-field"
                     required
                     placeholder="quandale@gmail.com"/>
-            <label for="password" class="p-label">
+            <label for="password" class="p-label password-box">
                 Wachtwoord
             </label>
             <input
@@ -242,7 +262,7 @@
                     class="profiel-field"
                     required
                     placeholder="***********"/>
-            <button class="sub-btn btn">Update Account</button>
+            <button class="sub-btn btn update-account-btn">Update Account</button>
         </div>
         <div class="profiel-preference-card">
             <h2>Preferences</h2>

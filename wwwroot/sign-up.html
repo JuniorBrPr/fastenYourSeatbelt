@@ -42,25 +42,35 @@
 					<span class="link-text">corenbuddy</span>
 				</a>
 				<a href="matching.html" class="nav-link">
-					<span class="link-text">zoek mijn buddy</span>
+					<span class="link-text zoek-buddy">zoek mijn buddy</span>
 				</a>
 				<a href="about-us.html" class="nav-link">
-					<span class="link-text">over ons</span>
+					<span class="link-text over-ons">over ons</span>
 				</a>
 			</nav>
 			<div class="btn-container d-flex align-c">
 				<a href="#" class="btn login-btn">
-					<span class="btn-text">Login</span>
+					<span class="btn-text login-lang">Login</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</a>
 				<a href="#" class="btn register-btn">
-					<span class="btn-text">Registreren</span>
+					<span class="btn-text register-lang">Registreren</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</a>
+				<div class="dropdown-language">
+					<button class="dropbtn">Talen </button>
+					<div class="dropdown-content">
+						<div class="langs">
+							<a href="#" language="nederlands" class="active">NL</a>
+							<a href="#" language="engels">EN</a>
+							<a href="#" language="spaans">ES</a>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- tabindex makes hamburger-menu focusable -->
 			<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
@@ -71,17 +81,27 @@
 					<span class="link-text">Corenbuddy</span>
 				</a>
 				<a href="matching.html" class="nav-link">
-					<span class="link-text">Zoek mijn buddy</span>
+					<span class="link-text burger-zoek-buddy">Zoek mijn buddy</span>
 				</a>
 				<a href="about-us.html" class="nav-link">
-					<span class="link-text">Over ons</span>
+					<span class="link-text burger-over-ons">Over ons</span>
 				</a>
 				<a href="#" class="nav-link">
-					<span class="link-text">registreren</span>
+					<span class="link-text burger-register-lang">registreren</span>
 				</a>
 				<a href="#" class="nav-link sign-up-login-link">
-					<span class="link-text">login</span>
+					<span class="link-text burger-login-lang">login</span>
 				</a>
+				<div class="dropdown-language">
+					<button class="burger-dropbtn">Talen </button>
+					<div class="dropdown-content">
+						<div class="langs">
+							<a href="#" language="nederlands" class="active">NL</a>
+							<a href="#" language="engels">EN</a>
+							<a href="#" language="spaans">ES</a>
+						</div>
+					</div>
+				</div>
 			</nav>
 		</aside>
 		<div class="login-container pos-absolute">
@@ -101,7 +121,7 @@
 						required />
 				</div>
 				<div class="login-content">
-					<label class="d-flex align-c" for="password"
+					<label class="d-flex align-c login-ww-lang" for="password"
 						>Wachtwoord:
 					</label>
 					<input
@@ -113,23 +133,23 @@
 						required />
 				</div>
 				<button class="login-content-btn btn" type="submit">
-					<span class="btn-text">Inloggen</span>
+					<span class="btn-text login-btn-lang">Inloggen</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</button>
 				<div class="login-footer d-flex">
-					<span
-						>Wachtwoord
+					<span>
+						<span class="forgot-password-lang">Wachtwoord</span>
 						<a class="login-link" href="#">
-							<span class="link-text">vergeten</span>
+							<span class="link-text forgot-lang">vergeten</span>
 						</a>
 						?
 					</span>
 					<span>
-						Nog geen
+						<span class="no-account-lang">Nog geen</span>
 						<a class="login-link" href="#">
-							<span class="link-text">account</span>
+							<span class="link-text account-link-lang">account</span>
 						</a>
 						?
 					</span>
@@ -138,9 +158,9 @@
 		</div>
 		<main class="sign-up-main d-flex">
 			<form action="" method="post" class="sign-up-form d-flex">
-				<h1 class="title sub-title">Registreer</h1>
+				<h1 class="title sub-title register-title">Registreer</h1>
 				<div class="input-container">
-					<label for="first-name" class="input-label">
+					<label for="first-name" class="input-label first-name-text">
 						Voornaam
 					</label>
 					<input
@@ -153,7 +173,7 @@
 						autofocus />
 				</div>
 				<div class="input-container">
-					<label for="last-name" class="input-label">
+					<label for="last-name" class="input-label last-name-text">
 						Achternaam
 					</label>
 					<input
@@ -175,7 +195,7 @@
 						placeholder="Email@voorbeeld.nl" />
 				</div>
 				<div class="input-container">
-					<label for="password" class="input-label">
+					<label for="password" class="input-label password-text">
 						Wachtwoord
 					</label>
 					<!-- to make the eye icon fit inside of the input -->
@@ -191,7 +211,7 @@
 					</div>
 				</div>
 				<div class="input-container">
-					<label for="password-repeat" class="input-label">
+					<label for="password-repeat" class="input-label repeat-password-text">
 						Herhaal Wachtwoord
 					</label>
 					<div class="password-input-container pos-relative">
@@ -205,10 +225,10 @@
 						<i class="fa-solid fa-eye" data-eye></i>
 					</div>
 				</div>
-				<p class="small-text">
+				<p class="small-text agreement-text">
 					Als u registreert gaat u akkoord met de
 					<a href="terms-of-use.html" class="terms-of-use-link link">
-						<span class="link-text"> algemene voorwaarden </span>
+						<span class="link-text terms-link-text"> algemene voorwaarden </span>
 					</a>
 				</p>
 				<!-- actions are submitting form or opening login modal -->
@@ -218,14 +238,14 @@
 						<button
 							type="submit"
 							class="btn register-submit-btn align-c justify-space-between">
-							<i class="fa-solid fa-check"></i>
+							<i class="fa-solid fa-check sign-up-register"></i>
 							Registreren
 						</button>
 					</div>
-					<p class="text">
+					<p class="text already-account">
 						Al een account:
 						<a href="#" class="sign-up-login-link link">
-							<span class="link-text">Log in</span>
+							<span class="link-text sign-up-form-login">Log in</span>
 						</a>
 					</p>
 				</div>
@@ -247,27 +267,27 @@
 					</p>
 				</div>
 				<div class="flex-child footer-link-block">
-					<h4 class="footer-titel">INFORMATIE</h4>
+					<h4 class="footer-titel footer-titel-info">INFORMATIE</h4>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Over ons</span>
+						<span class="footerLink-tekst first-footerLink-info">Over ons</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Privacy</span>
+						<span class="footerLink-tekst second-footerLink-info">Privacy</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Contact</span>
+						<span class="footerLink-tekst third-footerLink-info">Contact</span>
 					</a>
 				</div>
 				<div class="flex-child footer-link-block">
 					<h4 class="footer-titel">CORENBUDDY</h4>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Profiel</span>
+						<span class="footerLink-tekst first-footerLink-buddy">Profiel</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Matches</span>
+						<span class="footerLink-tekst second-footerLink-buddy">Matches</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Registreren</span>
+						<span class="footerLink-tekst third-footerLink-buddy">Registreren</span>
 					</a>
 				</div>
 				<div><p class="copyright">©Copyright DiscordModerators</p></div>

@@ -18,7 +18,7 @@
 			crossorigin="anonymous"></script>
 
 		<link rel="stylesheet" href="assets/css/default.css" />
-		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are 
+		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are
 		available  -->
 		<script src="assets/scripts/app.js" defer></script>
 	</head>
@@ -38,25 +38,35 @@
 					<span class="link-text">corenbuddy</span>
 				</a>
 				<a href="matching.html" class="nav-link">
-					<span class="link-text">zoek mijn buddy</span>
+					<span class="link-text zoek-buddy">zoek mijn buddy</span>
 				</a>
 				<a href="about-us.html" class="nav-link">
-					<span class="link-text active">over ons</span>
+					<span class="link-text active over-ons">over ons</span>
 				</a>
 			</nav>
 			<div class="btn-container d-flex align-c">
 				<a href="#" class="btn login-btn">
-					<span class="btn-text">Login</span>
+					<span class="btn-text login-lang">Login</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</a>
 				<a href="sign-up.html" class="btn register-btn">
-					<span class="btn-text">Registreren</span>
+					<span class="btn-text register-lang">Registreren</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</a>
+				<div class="dropdown-language">
+					<button class="dropbtn">Talen </button>
+					<div class="dropdown-content">
+						<div class="langs">
+							<a href="#" language="nederlands" class="active">NL</a>
+							<a href="#" language="engels">EN</a>
+							<a href="#" language="spaans">ES</a>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- tabindex makes hamburger-menu focusable -->
 			<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
@@ -67,17 +77,27 @@
 					<span class="link-text">Corenbuddy</span>
 				</a>
 				<a href="matching.html" class="nav-link">
-					<span class="link-text">Zoek mijn buddy</span>
+					<span class="link-text burger-zoek-buddy">Zoek mijn buddy</span>
 				</a>
 				<a href="about-us.html" class="nav-link">
-					<span class="link-text">Over ons</span>
+					<span class="link-text burger-over-ons">Over ons</span>
 				</a>
 				<a href="sign-up.html" class="nav-link">
-					<span class="link-text">registreren</span>
+					<span class="link-text burger-register-lang">registreren</span>
 				</a>
 				<a href="#" class="nav-link sign-up-login-link">
-					<span class="link-text">login</span>
+					<span class="link-text burger-login-lang">login</span>
 				</a>
+				<div class="dropdown-language">
+					<button class="burger-dropbtn">Talen </button>
+					<div class="dropdown-content">
+						<div class="langs">
+							<a href="#" language="nederlands">NL</a>
+							<a href="#" language="engels">EN</a>
+							<a href="#" language="spaans">ES</a>
+						</div>
+					</div>
+				</div>
 			</nav>
 		</aside>
 		<div class="login-container pos-absolute">
@@ -97,7 +117,7 @@
 						required />
 				</div>
 				<div class="login-content">
-					<label class="d-flex align-c" for="password">
+					<label class="d-flex align-c login-ww-lang" for="password">
 						Wachtwoord:
 					</label>
 					<input
@@ -109,23 +129,23 @@
 						required />
 				</div>
 				<button class="login-content-btn btn" type="submit">
-					<span class="btn-text">Inloggen</span>
+					<span class="btn-text login-btn-lang">Inloggen</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</button>
 				<div class="login-footer d-flex">
 					<span>
-						Wachtwoord
+						<span class="forgot-password-lang">Wachtwoord</span>
 						<a class="login-link" href="#">
-							<span class="link-text">vergeten</span>
+							<span class="link-text forgot-lang">vergeten</span>
 						</a>
 						?
 					</span>
 					<span>
-						Nog geen
+						<span class="no-account-lang">Nog geen</span>
 						<a class="login-link" href="#">
-							<span class="link-text">account</span>
+							<span class="link-text account-link-lang">account</span>
 						</a>
 						?
 					</span>
@@ -139,7 +159,7 @@
 				</h2>
 				<div class="about-us">
 					<div class="corenbuddy about-us-card w-100">
-						<h2 class="corenbuddy-head about-us-header title">
+						<h2 class="corenbuddy-head about-us-header title about-us-title">
 							CorenBuddy
 						</h2>
 						<hr />
@@ -164,7 +184,7 @@
 						</h2>
 						<hr />
 						<div class="history-cc about-us-content-container">
-							<p class="history-text about-us-text">
+							<p class="history-text about-us-text corendon-history-text">
 								De onderneming is in 2000 opgericht in Haarlem,
 								toen Atilay Uslu en zijn zakenpartner Yildiray
 								Karaer besloten hun krachten te bundelen. Voor
@@ -205,14 +225,14 @@
 			</section>
 			<hr class="divider" />
 			<section class="wrapper">
-				<h2 class="aboutus-head text-align-c title mid-title">
+				<h2 class="aboutus-head text-align-c title mid-title aboutus-contact-head">
 					Contact
 				</h2>
 				<div class="contact d-flex justify-c">
 					<form action="" class="contact-form">
 						<div class="form-row fr-1">
 							<div class="form-group">
-								<h4 class="label-contact">Volledige naam</h4>
+								<h4 class="label-contact full-name-form">Volledige naam</h4>
 								<input
 									type="text"
 									name="contactName"
@@ -230,7 +250,7 @@
 						</div>
 						<div class="form-row fr-2">
 							<div class="form-group">
-								<h4 class="label-contact">Telefoonnummer</h4>
+								<h4 class="label-contact phone-nr-form">Telefoonnummer</h4>
 								<input
 									type="tel"
 									name="contactPhone"
@@ -239,7 +259,7 @@
 									maxlength="10" />
 							</div>
 							<div class="form-group">
-								<h4 class="label-contact">Onderwerp</h4>
+								<h4 class="label-contact topic-form">Onderwerp</h4>
 								<input
 									type="text"
 									name="contactSubject"
@@ -248,7 +268,7 @@
 							</div>
 						</div>
 						<div class="form-group fr-3">
-							<h4 class="label-contact">Uw vraag</h4>
+							<h4 class="label-contact question-form">Uw vraag</h4>
 							<textarea
 								name="contact-text"
 								class="contact-text"
@@ -276,27 +296,27 @@
 					</p>
 				</div>
 				<div class="flex-child footer-link-block">
-					<h4 class="footer-titel">INFORMATIE</h4>
+					<h4 class="footer-titel footer-titel-info">INFORMATIE</h4>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Over ons</span>
+						<span class="footerLink-tekst first-footerLink-info">Over ons</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Privacy</span>
+						<span class="footerLink-tekst second-footerLink-info">Privacy</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Contact</span>
+						<span class="footerLink-tekst third-footerLink-info">Contact</span>
 					</a>
 				</div>
 				<div class="flex-child footer-link-block">
 					<h4 class="footer-titel">CORENBUDDY</h4>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Profiel</span>
+						<span class="footerLink-tekst first-footerLink-buddy">Profiel</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Matches</span>
+						<span class="footerLink-tekst second-footerLink-buddy">Matches</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Registreren</span>
+						<span class="footerLink-tekst third-footerLink-buddy">Registreren</span>
 					</a>
 				</div>
 				<div><p class="copyright">©Copyright DiscordModerators</p></div>

@@ -38,25 +38,35 @@
 					<span class="link-text">corenbuddy</span>
 				</a>
 				<a href="matching.html" class="nav-link">
-					<span class="link-text">zoek mijn buddy</span>
+					<span class="link-text zoek-buddy">zoek mijn buddy</span>
 				</a>
 				<a href="about-us.html" class="nav-link">
-					<span class="link-text">over ons</span>
+					<span class="link-text over-ons">over ons</span>
 				</a>
 			</nav>
 			<div class="btn-container d-flex align-c">
 				<a href="#" class="btn login-btn">
-					<span class="btn-text">Login</span>
+					<span class="btn-text login-lang">Login</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</a>
 				<a href="sign-up.html" class="btn register-btn">
-					<span class="btn-text">Registreren</span>
+					<span class="btn-text register-lang">Registreren</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</a>
+				<div class="dropdown-language">
+					<button class="dropbtn">Talen </button>
+					<div class="dropdown-content">
+						<div class="langs">
+							<a href="#" language="nederlands" class="active">NL</a>
+							<a href="#" language="engels">EN</a>
+							<a href="#" language="spaans">ES</a>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- tabindex makes hamburger-menu focusable -->
 			<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
@@ -67,17 +77,27 @@
 					<span class="link-text">Corenbuddy</span>
 				</a>
 				<a href="matching.html" class="nav-link">
-					<span class="link-text">Zoek mijn buddy</span>
+					<span class="link-text burger-zoek-buddy">Zoek mijn buddy</span>
 				</a>
 				<a href="about-us.html" class="nav-link">
-					<span class="link-text">Over ons</span>
+					<span class="link-text burger-over-ons">Over ons</span>
 				</a>
 				<a href="sign-up.html" class="nav-link">
-					<span class="link-text">registreren</span>
+					<span class="link-text burger-register-lang">registreren</span>
 				</a>
 				<a href="#" class="nav-link sign-up-login-link">
-					<span class="link-text">login</span>
+					<span class="link-text burger-login-lang">login</span>
 				</a>
+				<div class="dropdown-language">
+					<button class="burger-dropbtn">Talen </button>
+					<div class="dropdown-content">
+						<div class="langs">
+							<a href="#" language="nederlands" class="active">NL</a>
+							<a href="#" language="engels">EN</a>
+							<a href="#" language="spaans">ES</a>
+						</div>
+					</div>
+				</div>
 			</nav>
 		</aside>
 		<div class="login-container pos-absolute">
@@ -97,7 +117,7 @@
 						required />
 				</div>
 				<div class="login-content">
-					<label class="d-flex align-c" for="password">
+					<label class="d-flex align-c login-ww-lang" for="password">
 						Wachtwoord:
 					</label>
 					<input
@@ -109,23 +129,23 @@
 						required />
 				</div>
 				<button class="login-content-btn btn" type="submit">
-					<span class="btn-text">Inloggen</span>
+					<span class="btn-text login-btn-lang">Inloggen</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</button>
 				<div class="login-footer d-flex">
 					<span>
-						Wachtwoord
+						<span class="forgot-password-lang">Wachtwoord</span>
 						<a class="login-link" href="#">
-							<span class="link-text"> vergeten </span>
+							<span class="link-text forgot-lang"> vergeten </span>
 						</a>
 						?
 					</span>
 					<span>
-						Nog geen
+						<span class="no-account-lang">Nog geen</span>
 						<a class="login-link" href="#">
-							<span class="link-text">account</span>
+							<span class="link-text account-link-lang">account</span>
 						</a>
 						?
 					</span>
@@ -135,8 +155,8 @@
 		<main class="d-flex align-c terms-of-use-main">
 			<h1 class="title terms-of-use-title">algemene voorwaarden</h1>
 			<section class="privacy d-flex">
-				<h2 class="title mid-title">privacy</h2>
-				<p class="text">
+				<h2 class="title mid-title privacy-title">privacy</h2>
+				<p class="text privacy-text">
 					Bij Corenbuddy staat privacy hoog in het vaandel. Alle
 					gegevens van de gebruiker worden veilig opgeslagen. Onze
 					database beheerders hebben een screening gehad om zo
@@ -144,47 +164,47 @@
 					nooit meer persoonsgevens vragen dan Hieronder vermeld
 					staan.
 				</p>
-				<h3 class="title sub-title">Welke gegevens verzamelen wij</h3>
-				<strong class="list-title">Bij registratie</strong>
+				<h3 class="title sub-title what-data-collect-title">Welke gegevens verzamelen wij</h3>
+				<strong class="list-title register-titel-list">Bij registratie</strong>
 				<ul>
-					<li>Uw naam</li>
-					<li>Uw emailadres</li>
+					<li class="first-register-data">Uw naam</li>
+					<li class="second-register-data">Uw emailadres</li>
 				</ul>
-				<strong class="list-title">Bij contact</strong>
+				<strong class="list-title contact-titel-list">Bij contact</strong>
 				<ul>
-					<li>Uw naam</li>
-					<li>Uw emailadres</li>
+					<li class="first-contact-data">Uw naam</li>
+					<li class="second-contact-data">Uw emailadres</li>
 				</ul>
-				<strong class="list-title">
+				<strong class="list-title profile-titel-list">
 					Bij het aanmaken van een profiel
 				</strong>
 				<ul>
-					<li>Uw geslacht</li>
-					<li>Uw geboortedatum</li>
-					<li>Uw hobbies en intresses</li>
-					<li>Uw reisbudget</li>
-					<li>
+					<li class="first-profile-data">Uw geslacht</li>
+					<li class="second-profile-data">Uw geboortedatum</li>
+					<li class="third-profile-data">Uw hobbies en intresses</li>
+					<li class="fourth-profile-data">Uw reisbudget</li>
+					<li class="fifth-profile-data">
 						Contactgegevens zoals telefoonnummer en social media
 					</li>
 				</ul>
-				<h3 class="title sub-title">
+				<h3 class="title sub-title why-data-collect-title">
 					Waarom verzamelen wij deze gegevens
 				</h3>
 				<div class="content-container">
-					<strong class="list-title">
+					<strong class="list-title contact-customer-title">
 						Om contact te kunnen leggen met u als klant
 					</strong>
-					<p class="text">
+					<p class="text contact-customer-descr">
 						Het is belangrijk als u contact met ons wil hebben dat
 						wij dan gegevens hebben om met u te communiceren denk
 						hierbij aan u email adres en of telefoonnummer
 					</p>
 				</div>
 				<div class="content-container">
-					<strong class="list-title">
+					<strong class="list-title find-match-title">
 						Om een geschikte match te kunnen vinden
 					</strong>
-					<p class="text">
+					<p class="text find-match-descr">
 						Om een goede match voor uw te kunnen vinden is het
 						belangrijk dat wij weten waar u heen wil reizen en wat
 						uw hobbies en intresses zijn. Via onze filters kunnen
@@ -195,10 +215,10 @@
 					</p>
 				</div>
 				<div class="content-container">
-					<strong class="list-title">
+					<strong class="list-title contact-match-title">
 						Om contact te leggen met matches
 					</strong>
-					<p class="text">
+					<p class="text contact-match-descr">
 						Nadat U een macht heeft gemaakt met een van de andere
 						gebruikers, heeft die gebruiker toegang tot u
 						contactgegevens zoals social media en telefoonnummer.
@@ -209,7 +229,7 @@
 					</p>
 				</div>
 				<h3 class="title sub-title">Corendon</h3>
-				<p class="text">
+				<p class="text corendon-terms-descr">
 					Wij als corenbuddy zijn een dochtermaatschappij. Dit houd in
 					dat ook Corendon toegang heeft tot uw persoonsgegevens.
 					Corendon zal u gegevens uitsluitend gebruiken om geschikte
@@ -219,8 +239,8 @@
 					gegevens over krijgen. Ook is het mogelijk dat Corendon
 					reclames over reisbestemmingen aan u biedt.
 				</p>
-				<h3 class="title sub-title">Verwijderen persoonsgegevens</h3>
-				<p class="text">
+				<h3 class="title sub-title delete-customer-data-title">Verwijderen persoonsgegevens</h3>
+				<p class="text delete-customer-data-descr">
 					Bij het verwijderen van uw account worden ook uw
 					persoonsgegevens uit onze database verwijderd. Wilt u later
 					weer opnieuw gebruik maken van onze service moet u weer
@@ -228,14 +248,14 @@
 				</p>
 			</section>
 			<section class="service d-flex">
-				<h2 class="title mid-title">service</h2>
-				<p class="text">
+				<h2 class="title mid-title service-title">service</h2>
+				<p class="text service-descr">
 					Wij bieden u een manier aan om een reispartner te kunnen
 					vinden. Hieraan hebben wij een aantal regels gesteld
 				</p>
-				<h3 class="title sub-title">Gebruik</h3>
+				<h3 class="title sub-title usage-title">Gebruik</h3>
 				<ul>
-					<li>
+					<li class="usage-first-text">
 						Corenbuddy wordt uitsluitend gebruikt voor het maken van
 						reismatches. Dit houdt in dat wij niet de service
 						aanbieden om een reis te verzorgenVoor reizen: zie
@@ -244,7 +264,7 @@
 							<span class="link-text">Corendon.</span>
 						</a>
 					</li>
-					<li>
+					<li class="usage-second-text">
 						Contact tussen matches wordt gelegd door de personen
 						zelf. Corenbuddy zelf biedt geen mogelijk van contact
 						tussen matches via de webapplicatie. Wel leveren wij de
@@ -252,8 +272,8 @@
 						contact te leggen.
 					</li>
 				</ul>
-				<h3 class="title sub-title">hoe bepalen wij matches</h3>
-				<p class="text">
+				<h3 class="title sub-title determine-matches-title">hoe bepalen wij matches</h3>
+				<p class="text determine-matches-text">
 					De lijst van machtes wordt bepaald op basis van
 					reisbestemming, de periode waarin u wilt reizen en uw
 					interesses. Wij laten u geen matches zien als de
@@ -264,36 +284,36 @@
 					dure vakanties. U als gebruiker besluit zelf of u met andere
 					gebruiker wil matchen of niet.
 				</p>
-				<h3 class="title sub-title">Aansprakelijkheid</h3>
+				<h3 class="title sub-title liability-title">Aansprakelijkheid</h3>
 				<ul>
-					<li>
+					<li class="liability-first-text">
 						Corenbuddy is niet verantwoordelijk voor situaties die
 						voortvloeien uit afspraken die zijn gemaakt tijdens
 						privè contact tussen de matches.
 					</li>
-					<li>
+					<li class="liability-second-text">
 						Corenbuddy is niet verantwoordelijk voor problemen die
 						onstaan tijdens de reis met je match, hiervoor verwijzen
 						wij u naar de
 						<a
 							href="https://www.corendon.nl/algemene-voorwaarden"
 							class="link">
-							<span class="link-text">
+							<span class="link-text terms-of-use-corendon">
 								algemene voorwaarde van corendon.
 							</span>
 						</a>
 					</li>
-					<li>
+					<li class="liability-third-text">
 						Bij herhaald misbruik van onze match service kan uw
 						account verwijderd worden.
 					</li>
-					<li>
+					<li class="liability-fourth-text">
 						Corenbuddy probeert in al zijn capaciteiten misbruikers
 						op te sporen en aan te pakken. Wij raden onze gebruikers
 						aan om nooit zomaar betalingen te maken zonder de juiste
 						kennis over uw match.
 					</li>
-					<li>
+					<li class="liability-fifth-text">
 						Na wederzijdse acceptatie van een match is corenbuddy
 						niet meer verantwoordelijk voor het bekent worden van uw
 						contactgegevens aan uw match.
@@ -313,27 +333,27 @@
 					</p>
 				</div>
 				<div class="flex-child footer-link-block">
-					<h4 class="footer-titel">INFORMATIE</h4>
+					<h4 class="footer-titel footer-titel-info">INFORMATIE</h4>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Over ons</span>
+						<span class="footerLink-tekst first-footerLink-info">Over ons</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Privacy</span>
+						<span class="footerLink-tekst second-footerLink-info">Privacy</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Contact</span>
+						<span class="footerLink-tekst third-footerLink-info">Contact</span>
 					</a>
 				</div>
 				<div class="flex-child footer-link-block">
 					<h4 class="footer-titel">CORENBUDDY</h4>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Profiel</span>
+						<span class="footerLink-tekst first-footerLink-buddy">Profiel</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Matches</span>
+						<span class="footerLink-tekst second-footerLink-buddy">Matches</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Registreren</span>
+						<span class="footerLink-tekst third-footerLink-buddy">Registreren</span>
 					</a>
 				</div>
 				<div><p class="copyright">©Copyright DiscordModerators</p></div>

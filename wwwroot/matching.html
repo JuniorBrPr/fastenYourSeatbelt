@@ -39,19 +39,29 @@
 					<span class="link-text">corenbuddy</span>
 				</a>
 				<a href="#" class="nav-link">
-					<span class="link-text">zoek mijn buddy</span>
+					<span class="link-text zoek-buddy">zoek mijn buddy</span>
 				</a>
 				<a href="about-us.html" class="nav-link">
-					<span class="link-text">over ons</span>
+					<span class="link-tex over-ons">over ons</span>
 				</a>
 			</nav>
 			<div class="btn-container d-flex align-c">
 				<a href="profiel.html" class="btn profile-btn">
-					<span class="btn-text">Mijn Profiel</span>
+					<span class="btn-text my-profile">Mijn Profiel</span>
 					<span class="triangle">
 						<i class="fa-solid fa-play"></i>
 					</span>
 				</a>
+				<div class="dropdown-language">
+					<button class="dropbtn">Talen </button>
+					<div class="dropdown-content">
+						<div class="langs">
+							<a href="#" language="nederlands" class="active">NL</a>
+							<a href="#" language="engels">EN</a>
+							<a href="#" language="spaans">ES</a>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- tabindex makes hamburger-menu focusable -->
 			<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
@@ -59,18 +69,28 @@
 		<aside class="nav-container pos-absolute">
 			<nav class="nav-menu-mobile">
 				<a href="#" class="nav-link">
-					<span class="link-text">Mijn profiel</span>
+					<span class="link-text burger-my-profile">Mijn profiel</span>
 				</a>
 				<a href="#" class="nav-link">
 					<span class="link-text">Corenbuddy</span>
 				</a>
 				<a href="#" class="nav-link">
-					<span class="link-text">Zoek mijn buddy</span>
+					<span class="link-text burger-zoek-buddy">Zoek mijn buddy</span>
 				</a>
 				<a href="about-us.html" class="nav-link">
-					<span class="link-text">Over ons</span>
+					<span class="link-text burger-over-ons">Over ons</span>
 				</a>
-			</nav>
+				<div class="dropdown-language">
+					<button class="burger-dropbtn">Talen </button>
+					<div class="dropdown-content">
+						<div class="langs">
+							<a href="#" language="nederlands" class="active">NL</a>
+							<a href="#" language="engels">EN</a>
+							<a href="#" language="spaans">ES</a>
+						</div>
+					</div>
+				</div>
+			</nav>0
 		</aside>
 		<main class="d-flex justify-c">
 			<div class="matching-container d-flex">
@@ -80,18 +100,18 @@
 				<div class="matching-content d-flex">
 					<div class="matching-sidebar d-flex">
 						<button class="existing-btn btn active">
-							<span class="btn-text">Bestaande Buddy's</span>
+							<span class="btn-text existing-buddy">Bestaande Buddy's</span>
 						</button>
 						<button class="suggested-btn btn">
-							<span class="btn-text">Voogestelde matches</span>
+							<span class="btn-text proposed-match">Voogestelde matches</span>
 						</button>
 						<button class="incoming-btn btn">
-							<span class="btn-text"
+							<span class="btn-text incoming-match"
 								>Inkomende match verzoeken</span
 							>
 						</button>
 						<button class="outgoing-btn btn">
-							<span class="btn-text"
+							<span class="btn-text outgoing-match"
 								>Uitgaande match verzoeken</span
 							>
 						</button>
@@ -104,12 +124,12 @@
 			<section class="popup-container pos-absolute w-100">
 				<div id="buddy-popup" class="pos-relative">
 					<div class="popup-header d-flex">
-						<h1>Buddy Profiel</h1>
+						<h1 class="buddy-profile">Buddy Profiel</h1>
 						<span class="login-close">X</span>
 					</div>
 					<div class="popup-content d-flex">
 						<div class="flex-item">
-							<h2 class="text-align-c">Biografie</h2>
+							<h2 class="text-align-c bio-title">Biografie</h2>
 							<p>
 								Lorem ipsum dolor sit amet, consectetur
 								adipiscing elit. Nunc vulputate libero et velit
@@ -131,15 +151,15 @@
 					</div>
 					<div class="popup-content d-flex">
 						<div class="flex-item w-100">
-							<h2 class="text-align-c">Interesses</h2>
+							<h2 class="text-align-c interest-title">Interesses</h2>
 							<div
 								class="interests pos-relative d-flex justify-c">
-								<p>Schaken</p>
-								<p>Vissen</p>
-								<p>Zomer</p>
-								<p>Zonnen</p>
-								<p>Zwemmen</p>
-								<p>Warmen landen</p>
+								<p class="interest-chess">Schaken</p>
+								<p class="interest-fishing">Vissen</p>
+								<p class="interest-summer">Zomer</p>
+								<p class="interest-tanning">Zonnen</p>
+								<p class="interest-swimming">Zwemmen</p>
+								<p class="interest-hot-country">Warmen landen</p>
 							</div>
 						</div>
 					</div>
@@ -158,27 +178,27 @@
 					</p>
 				</div>
 				<div class="flex-child footer-link-block">
-					<h4 class="footer-titel">INFORMATIE</h4>
+					<h4 class="footer-titel footer-titel-info">INFORMATIE</h4>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Over ons</span>
+						<span class="footerLink-tekst first-footerLink-info">Over ons</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Privacy</span>
+						<span class="footerLink-tekst second-footerLink-info">Privacy</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Contact</span>
+						<span class="footerLink-tekst third-footerLink-info">Contact</span>
 					</a>
 				</div>
 				<div class="flex-child footer-link-block">
 					<h4 class="footer-titel">CORENBUDDY</h4>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Profiel</span>
+						<span class="footerLink-tekst first-footerLink-buddy">Profiel</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Matches</span>
+						<span class="footerLink-tekst second-footerLink-buddy">Matches</span>
 					</a>
 					<a href="#" class="footer-link">
-						<span class="footerLink-tekst">Registreren</span>
+						<span class="footerLink-tekst third-footerLink-buddy">Registreren</span>
 					</a>
 				</div>
 				<div><p class="copyright">©Copyright DiscordModerators</p></div>
