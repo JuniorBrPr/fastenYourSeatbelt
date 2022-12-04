@@ -151,7 +151,7 @@ textarea {
 	position: absolute;
 	height: inherit;
 	width: 20%;
-	right: 0%;
+	right: 0;
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
 }
@@ -302,6 +302,17 @@ button.btn {
 	width: 80%;
 }
 
+.warning {
+	color: var(--color-red);
+}
+
+.warning-message {
+	padding: 10px;
+	font-weight: 100;
+	font-size: var(--small-font-size);
+	font-style: normal;
+}
+
 /* reset input width, so that container determines with of input instead of the input itself */
 .password-input-container > .input {
 	width: 100%;
@@ -335,6 +346,12 @@ button.btn {
 .sign-up-login-link > .link-text {
 	display: block;
 	width: fit-content;
+}
+[data-success="false"] {
+	font-weight: 700;
+	color: var(--color-red);
+	font-size: var(--base-font-size);
+	margin-bottom: 10px;
 }
 
 /* styling airplane image on sign up page */
@@ -557,8 +574,7 @@ section.cta-cards {
 .cta-card:hover {
 	cursor: pointer;
 	transform: scale(1.05);
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-		rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+	box-shadow: rgba(50, 50, 93, 0.25) 0 13px 27px -5px, rgba(0, 0, 0, 0.3) 0 8px 16px -8px;
 }
 
 .cta-card-title {
@@ -597,7 +613,6 @@ footer {
 
 .flex-container {
 	display: flex;
-	margin-top: 10px;
 	border-top: 15px solid var(--color-red);
 }
 
@@ -661,13 +676,13 @@ footer {
 	flex-direction: column;
 	width: 20%;
 	gap: 10px;
-	margin-top: 25px;
 }
 
 .matching-sidebar .btn {
 	width: 100%;
 	min-width: 195px;
 	height: 65px;
+	margin-right: 0;
 	border: 5px solid var(--color-btn-dark-green);
 	cursor: pointer;
 }
@@ -699,19 +714,21 @@ footer {
 
 .buddy-list-item {
 	display: flex;
+	flex-direction: column;
 	min-height: 180px;
 	max-width: 95%;
 	background: var(--color-bg-grey);
 	box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 15px;
 	align-items: center;
-	padding: 25px 25px;
-	margin-left: 10px;
+	margin-left: 25px;
+	padding: 25px;
 }
 
 .buddy-attributes-container {
 	display: flex;
 	gap: 2%;
+	padding: 10px;
 	min-height: fit-content;
 }
 
@@ -725,6 +742,7 @@ footer {
 	flex-direction: column;
 	align-items: flex-start;
 	min-height: fit-content;
+	margin: auto;
 }
 
 .buddy-attr-label {
@@ -735,6 +753,7 @@ footer {
 
 .buddy-attr {
 	color: var(--color-text-grey);
+	text-align: center;
 }
 
 .matching-matches {
@@ -748,7 +767,7 @@ footer {
 	display: flex;
 	flex-direction: row;
 	gap: 1%;
-	margin-right: 10px;
+	margin-top: 15px;
 }
 
 .buddy-btn-container .btn {
@@ -756,6 +775,7 @@ footer {
 	cursor: pointer;
 	min-width: 90px;
 	min-height: 40px;
+	margin-right: 0;
 }
 
 .buddy-btn-container .btn-text {
@@ -797,7 +817,6 @@ footer {
 	max-width: 80%;
 	width: 600px;
 	min-height: min-content;
-	height: 400px;
 	border-radius: 8px;
 	background-color: var(--color-bg-grey);
 	gap: 44px;
@@ -850,12 +869,15 @@ footer {
 	max-width: 80%;
 	height: 30px;
 	border-radius: 8px;
+	border: 1px solid var(--color-border-grey);
 	text-align: center;
+}
+.login-input:focus {
+	outline: 1px solid var(--color-text-grey);
 }
 
 .login-content-btn {
 	width: 80%;
-	border: none;
 	margin: auto;
 }
 .login-content-btn:hover {
@@ -880,7 +902,6 @@ footer {
 	align-items: center;
 	margin-bottom: 10px;
 	font-size: var(--small-font-size);
-	gap: 20px;
 }
 
 .login-link {
@@ -890,6 +911,11 @@ footer {
 
 .login-link:hover .link-text::before {
 	width: 100%;
+}
+
+/* Login modal email validation */
+.login-error-message {
+	color: var(--color-red);
 }
 
 /*	styling for about us  */
@@ -1305,7 +1331,7 @@ input:checked + .slider::before {
 
 	.matching-sidebar {
 		flex-direction: row;
-		margin: auto;
+		justify-content: center;
 		width: 100%;
 	}
 
@@ -1324,9 +1350,8 @@ input:checked + .slider::before {
 	}
 
 	.buddy-list-item {
-		height: 200px;
 		width: 100%;
-		padding: 50px 5px;
+		margin-left: 0;
 	}
 }
 
@@ -1361,19 +1386,7 @@ input:checked + .slider::before {
 
 	/* Buddy matching */
 	.buddy-list-item {
-		flex-direction: column;
-		min-height: fit-content;
-		height: 200px;
 		width: 100%;
-		padding: 50px 5px;
-	}
-
-	.buddy-attributes-container {
-		margin-left: 0;
-	}
-
-	.buddy-btn-container {
-		margin: 10px auto;
 	}
 }
 
@@ -1544,6 +1557,7 @@ input:checked + .slider::before {
 	.login {
 		height: 460px;
 		min-width: min-content;
+		width: unset;
 		gap: 20px;
 	}
 
@@ -1604,17 +1618,17 @@ input:checked + .slider::before {
 
 	.buddy-attributes-container,
 	.buddy-btn-container {
-		flex-direction: column;
+		flex-wrap: wrap;
 		gap: 10px;
 	}
 
 	.matching-sidebar .btn {
-		max-width: 25%;
+		max-width: 45%;
 	}
 
 	.buddy-list-item {
 		min-height: 400px;
-		flex-direction: row;
+		flex-direction: column;
 	}
 }
 
@@ -1689,7 +1703,7 @@ input:checked + .slider::before {
 
 	.matching-matches {
 		align-items: center;
-		margin: auto;
+		margin: 25px auto;
 	}
 }
 
@@ -1701,14 +1715,14 @@ input:checked + .slider::before {
 		right: -50%;
 	}
 	to {
-		right: 0%;
+		right: 0;
 	}
 }
 
 /* Animation to hide the mobile navigation menu */
 @keyframes hideMenu {
 	from {
-		right: 0%;
+		right: 0;
 	}
 	to {
 		right: -50%;

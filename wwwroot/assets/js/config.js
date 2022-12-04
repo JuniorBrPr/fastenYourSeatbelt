@@ -1,9 +1,10 @@
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
+console.log("config.js word gerunt");
 //local environment, change database to your own
 FYSCloud.API.configure({
 	url: "https://api.fys.cloud",
 	apiKey: "fys_is101_2.ZkYZIDcFQuh8EKxc",
-	database: "fys_is101_2_mockup",
+	database: "fys_is101_2_dev",
 	environment: "mockup",
 });
 

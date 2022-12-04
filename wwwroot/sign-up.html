@@ -5,6 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Corenbuddy</title>
+		<!-- favicon -->
+		<link rel="shortcut icon" href="assets/img/favicon.svg" type="image/x-icon" />
 
 		<!-- get open sans font -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,19 +23,33 @@
 
 		<link rel="stylesheet" href="assets/css/default.css" />
 
+		<!-- load in FYS cloud connection  -->
+		<script
+			type="module"
+			src="https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js"
+			crossorigin></script>
+		<script type="module" src="assets/js/config.js"></script>
 		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are 
 		available  -->
-		<script src="assets/scripts/app.js" defer></script>
-		<script src="assets/scripts/pages/signUp.js" defer></script>
+		<script 
+				src="assets/js/app.js" 
+				type="module"
+				defer></script>
+		<script
+			type="module"
+			src="assets/js/pages/signUp.js"
+			defer></script>
+		<script 
+			type="module" 
+			src="assets/js/login.js" 
+			defer></script>
+
 	</head>
 	<body>
 		<header class="header d-flex justify-space-between align-c">
 			<nav class="nav-menu d-flex">
 				<a href="index.html" class="nav-link-logo">
-					<img
-						src="assets/img/logo.png"
-						alt="Corendon logo"
-						class="logo" />
+					<img src="assets/img/logo.png" alt="Corendon logo" class="logo" />
 				</a>
 				<a href="index.html" class="nav-link">
 					<i class="fa-solid fa-house"></i>
@@ -101,9 +117,7 @@
 						required />
 				</div>
 				<div class="login-content">
-					<label class="d-flex align-c" for="password"
-						>Wachtwoord:
-					</label>
+					<label class="d-flex align-c" for="password">Wachtwoord: </label>
 					<input
 						class="login-input"
 						type="password"
@@ -140,9 +154,7 @@
 			<form action="" method="post" class="sign-up-form d-flex">
 				<h1 class="title sub-title">Registreer</h1>
 				<div class="input-container">
-					<label for="first-name" class="input-label">
-						Voornaam
-					</label>
+					<label for="first-name" class="input-label"> Voornaam </label>
 					<input
 						type="text"
 						name="first-name"
@@ -150,45 +162,48 @@
 						class="input"
 						required
 						placeholder="Voornaam"
-						autofocus />
+						autofocus
+						data-input="name" />
+					<p class="warning" data-warning="first-name"></p>
 				</div>
 				<div class="input-container">
-					<label for="last-name" class="input-label">
-						Achternaam
-					</label>
+					<label for="last-name" class="input-label"> Achternaam </label>
 					<input
 						type="text"
 						name="last-name"
 						id="last-name"
 						class="input"
 						required
-						placeholder="Achternaam" />
+						placeholder="Achternaam"
+						data-input="name" />
+					<p class="warning" data-warning="last-name"></p>
 				</div>
 				<div class="input-container">
-					<label for="email" class="input-label"> Email </label>
+					<label for="sign-up-email" class="input-label"> Email </label>
 					<input
 						type="email"
 						name="email"
-						id="email"
+						id="sign-up-email"
 						class="input"
 						required
 						placeholder="Email@voorbeeld.nl" />
+					<p class="warning" data-warning="email"></p>
 				</div>
 				<div class="input-container">
-					<label for="password" class="input-label">
-						Wachtwoord
-					</label>
+					<label for="sign-up-password" class="input-label"> Wachtwoord </label>
 					<!-- to make the eye icon fit inside of the input -->
 					<div class="password-input-container pos-relative">
 						<input
 							type="password"
 							name="password"
-							id="password"
+							id="sign-up-password"
 							class="input"
 							required
-							placeholder="***********" />
+							placeholder="***********"
+							data-input="password" />
 						<i class="fa-solid fa-eye" data-eye></i>
 					</div>
+					<p class="warning" data-warning="password"></p>
 				</div>
 				<div class="input-container">
 					<label for="password-repeat" class="input-label">
@@ -201,9 +216,11 @@
 							id="password-repeat"
 							class="input"
 							required
-							placeholder="***********" />
+							placeholder="***********"
+							data-input="password" />
 						<i class="fa-solid fa-eye" data-eye></i>
 					</div>
+					<p class="warning" data-warning="password-repeat"></p>
 				</div>
 				<p class="small-text">
 					Als u registreert gaat u akkoord met de
@@ -212,8 +229,7 @@
 					</a>
 				</p>
 				<!-- actions are submitting form or opening login modal -->
-				<div
-					class="sign-up-form-actions-container d-flex justify-space-between">
+				<div class="sign-up-form-actions-container d-flex justify-space-between">
 					<div class="register-btn-container">
 						<button
 							type="submit"
@@ -229,6 +245,7 @@
 						</a>
 					</p>
 				</div>
+				<div class="success" data-success=""></div>
 			</form>
 			<img
 				src="assets/img/corendon-vliegtuig.jpg"
@@ -238,13 +255,8 @@
 		<footer>
 			<div class="flex-container">
 				<div class="flex-child footer-imgBlock footer-link-block">
-					<img
-						src="assets/img/logo.png"
-						alt="Corendon logo"
-						class="logo" />
-					<p class="reis-quote">
-						Met een Corenbuddy reis je niet meer alleen!
-					</p>
+					<img src="assets/img/logo.png" alt="Corendon logo" class="logo" />
+					<p class="reis-quote">Met een Corenbuddy reis je niet meer alleen!</p>
 				</div>
 				<div class="flex-child footer-link-block">
 					<h4 class="footer-titel">INFORMATIE</h4>

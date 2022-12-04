@@ -82,6 +82,7 @@ function openModal(Element) {
 function closeModal(Element) {
 	Element.addEventListener("click", () => {
 		loginModal.style.display = "none";
+		clearLoginValues();
 	});
 }
 
@@ -89,5 +90,24 @@ function closeModal(Element) {
 window.addEventListener("click", (event) => {
 	if (event.target === loginModal) {
 		loginModal.style.display = "none";
+		clearLoginValues();
 	}
 });
+
+/**
+ * Clears the login input values and error status whenever the modal is closed.
+ * @author Tim Knops
+ */
+export function clearLoginValues() {
+	const loginInputField = document.querySelectorAll(".login-input");
+	const warningMessage = document.querySelector(".warning-message");
+
+	loginInputField.forEach((input) => {
+		if (warningMessage != null) {
+			warningMessage.remove();
+		}
+		
+		input.style.borderColor = "";
+		input.value = "";
+	});
+}
