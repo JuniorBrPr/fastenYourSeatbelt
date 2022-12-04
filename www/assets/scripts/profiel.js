@@ -17,20 +17,11 @@ async function dataLoad() {
     const birthDateField = document.getElementById('gdatum')
     const interField = document.getElementsByClassName('inter-field')
     const destinationField = document.getElementById('bestemming')
+    const tijdsbestekStart = document.getElementById('startdate')
+    const tijdsbestekEnd = document.getElementById('enddate')
 
 
     /* Pulling Data and parsing it into the fields*/
-
-
-        // await FYSCloud.API.queryDatabase(
-        //     "SELECT * FROM user WHERE user_id = ?",
-        //     [userId],
-        // ).then(function(data) {
-        //     console.log(data);
-        // }).catch(function(reason) {
-        //     console.log(reason)
-
-
 
     const getData = await FYSCloud.API.queryDatabase(
         "SELECT first_name AS firstName,\n" +
@@ -49,43 +40,29 @@ async function dataLoad() {
 
     loadData(getData);
 
-    //Functie loadData
+    /*Load all data in the right fields on Profile page*/
+    
     function loadData(data) {
         firstNameField.innerHTML = data.firstName;
     }
-
-    const firstName = await FYSCloud.API.queryDatabase(
-        "SELECT first_name FROM user WHERE user_id=?",
-        userId)
-
-    //firstNameField.value = JSON.stringify(firstName,null,0)
-
-
-    const lastName = await FYSCloud.API.queryDatabase(
-        "SELECT last_name FROM user WHERE user_id=?",
-        userId)
-
-    lastNameField.value = JSON.stringify(lastName, null, 0)
-
-    const bio = await FYSCloud.API.queryDatabase(
-        "SELECT biography FROM profile WHERE profile_id=?",
-        userId)
-
-    bioField.value = JSON.stringify(bio, null, 0)
-
-
-    const birthDay = await FYSCloud.API.queryDatabase(
-        "SELECT birthdate FROM profile WHERE profile_id=?",
-        userId)
-
-    birthDateField.value = JSON.stringify(birthDay, null, 0)
-
-    const destination = await FYSCloud.API.queryDatabase(
-        "SELECT destination FROM profile WHERE profile_id=?",
-        userId)
-
-    destinationField.value = JSON.stringify(destination, null, 0)
-
 }
 
+
+/*Submit data to the databse*/
+
+function submitData(data) {
+
+    const InsertData = FYSCloud.API.queryDatabase(
+        "INSERT first_name AS firstName,\n" +
+        "       last_name AS lastName,\n" +
+        "       birthdate as bday,\n" +
+        "       biography as bio,\n" +
+        "       start_date as startDate,\n" +
+        "       end_date as endDate,\n" +
+        "       destination,\n" +
+        "       budget\n" +
+        "FROM user\n" +
+        "LEFT JOIN profile p on p.profile_id = ?\n" +
+        "WHERE user_id = ?", [userId, userId]);
+}
 
