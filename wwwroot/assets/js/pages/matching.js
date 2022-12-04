@@ -360,10 +360,9 @@ async function getIncomingBuddyRequests(userId) {
         "         JOIN buddy AS b\n" +
         "             ON user.user_id = b.sender_user_id AND NOT b.is_accepted = TRUE\n" +
         "WHERE user_id != ?\n" +
-        "  AND b.receiver_user_id = ?\n" +
+        "  AND (b.receiver_user_id = ? or b.sender_user_id = ?)\n" +
         "GROUP BY name\n" +
         "ORDER BY commonInterests DESC",
-        [userId, userId, userId])
+        [userId, userId, userId, userId])
         .catch((reason) => console.log(reason));
 }
-
