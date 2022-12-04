@@ -43,7 +43,18 @@ async function dataLoad() {
     /*Load all data in the right fields on Profile page*/
     
     function loadData(data) {
-        firstNameField.innerHTML = data.firstName;
+        firstNameField.value = data[0].firstName;
+        lastNameField.value = data[0].lastName;
+        bioField.value = data[0].bio;
+        destinationField.value = data[0].destination;
+
+        const bday = data[0].bday;
+        const date = new Date(bday)
+
+
+        birthDateField.value = date;
+        tijdsbestekStart.value = data[0].startDate;
+        tijdsbestekEnd.value = data[0].endDate
     }
 }
 
