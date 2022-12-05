@@ -10,7 +10,6 @@ subBtn.addEventListener("click", async function (e) {
 const userId = FYSCloud.Session.get("userId", 10);
 console.log(userId);
 await dataLoad();
-
 async function dataLoad() {
 	/*Setting Field vars*/
 
@@ -22,50 +21,61 @@ async function dataLoad() {
 	const destinationField = document.getElementById("bestemming");
 	const tijdsbestekStart = document.getElementById("startdate");
 	const tijdsbestekEnd = document.getElementById("enddate");
-	const genderField = document.getElementById("geslacht-field-1")
+	const genderField = document.getElementById("geslacht-field-1");
 
 	/* Pulling Data and parsing it into the fields*/
 
+	try {
 		const getData = await FYSCloud.API.queryDatabase(
-		"SELECT first_name AS firstName,\n" +
-			"       last_name AS lastName,\n" +
-			"       birthdate as bday,\n" +
-			" 		gender,\n" +
-			"       biography as bio,\n" +
-			"       start_date as startDate,\n" +
-			"       end_date as endDate,\n" +
-			"       destination,\n" +
-			"       budget\n" +
-			"FROM user\n" +
-			"INNER JOIN profile p on p.profile_id = ?\n" +
-			"WHERE user_id = ?",
-		[userId, userId]
-	);
+			"SELECT first_name AS firstName,\n" +
+				"       last_name AS lastName,\n" +
+				"       birthdate as bday,\n" +
+				" 		gender,\n" +
+				"       biography as bio,\n" +
+				"       start_date as startDate,\n" +
+				"       end_date as endDate,\n" +
+				"       destination,\n" +
+				"       budget\n" +
+				"FROM user\n" +
+				"INNER JOIN profile p on p.profile_id = ?\n" +
+				"WHERE user_id = ?;",
+			[userId, userId]
+		);
 
-
-	loadData(getData);
-	console.log(getData);
+		loadData(getData);
+	} catch {
+		const getData = await FYSCloud.API.queryDatabase(
+			"SELECT first_name as firstName, last_name as lastName\n" +
+				"FROM user\n" +
+				"WHERE user_id = ?",
+			[userId]
+		);
+		console.log(getData);
+		loadData(getData);
+	}
 
 	/*Load all data in the right fields on Profile page*/
 
 	function loadData(data) {
 		firstNameField.value = data[0].firstName;
 		lastNameField.value = data[0].lastName;
-		bioField.value = data[0].bio;
-		destinationField.value = data[0].destination;
+		if (data[0].bio != null) {
+			bioField.value = data[0].bio;
+			destinationField.value = data[0].destination;
 
-		const bday = data[0].bday;
-		const tijdEnd = data[0].endDate;
-		const tijdStart = data[0].startDate;
+			const bday = data[0].bday;
+			const tijdEnd = data[0].endDate;
+			const tijdStart = data[0].startDate;
 
-		const birthday = change(bday);
-		const tijdEndDate = change(tijdEnd);
-		const tijdStartDate = change(tijdStart);
+			const birthday = change(bday);
+			const tijdEndDate = change(tijdEnd);
+			const tijdStartDate = change(tijdStart);
 
-		birthDateField.value = birthday;
-		tijdsbestekStart.value = tijdEndDate;
-		tijdsbestekEnd.value = tijdStartDate;
-		genderField.value = data[0].gender;
+			birthDateField.value = birthday;
+			tijdsbestekStart.value = tijdEndDate;
+			tijdsbestekEnd.value = tijdStartDate;
+			genderField.value = data[0].gender;
+		}
 	}
 
 	function change(date) {
@@ -133,5 +143,3 @@ function createObject() {
 		endDate: document.getElementById("enddate").value,
 	};
 }
-
-console.log(createObject());
