@@ -9,17 +9,21 @@ const messageInputField = document.querySelector(".contact-text");
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-
-    console.log(e);
     
-    const object = createObject(nameInputField, phoneInputField, emailInputField, subjectInputField, messageInputField)
-    console.log(object);
-
-
-
+    const formInputData = createObject(nameInputField, phoneInputField, emailInputField, subjectInputField, messageInputField);
+    console.log(sendEmail(formInputData));
+    sendEmail(formInputData);
 });
 
-
+/**
+ * Creates an object of the contact form values.
+ * @param {HTMLInputElement} name - name input field
+ * @param {HTMLInputElement} phone - phone input field
+ * @param {HTMLInputElement} email - email input field
+ * @param {HTMLInputElement} subject - subject input field
+ * @param {HTMLTextAreaElement} message - message textarea
+ * @returns {object} object of the contact form input values.
+ */
 function createObject(name, phone, email, subject, message) {
     const object = {
         name: name.value,
@@ -32,4 +36,24 @@ function createObject(name, phone, email, subject, message) {
     return object;
 }
 
-
+/**
+ * Use the object created in createObject() to send an email to the assigned address.
+ * @see createObject()
+ * @param {object} input - object of all the contact form values.
+ */
+async function sendEmail(input) {
+    await FYSCloud.API.sendEmail({
+        from: {
+            name: input.name,
+            adress: input.email
+        },
+        to: [
+            {
+            name: "The Discordmoderators",
+            address: "#"
+            }
+        ],
+        subject: input.subject,
+        html: `${input.message}<br><br><h4>Phone: ${input.phone}<h4>`
+    });
+}
