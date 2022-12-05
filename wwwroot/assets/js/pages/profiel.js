@@ -2,21 +2,21 @@ import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 
 const form = document.querySelector(".profiel");
 const subBtn = document.querySelector(".saveBtn");
-
-
+const userId = FYSCloud.Session.get("userId", 10);
 /*Checks if profiel_id exist otherwise it will create*/
 subBtn.addEventListener("click", async function (e) {
-	if (profielExist()) {
-		updateData(createObject())
+	if (await profielExist()) {
+		console.log("test");
+		updateData(createObject());
 	} else {
-		submitData(createObject())
+		console.log("test");
+		submitData(createObject());
 	}
 });
 
-const userId = FYSCloud.Session.get("userId", 10);
 console.log(userId);
 await dataLoad();
-await profielExist();
+
 async function dataLoad() {
 	/*Setting Field vars*/
 
@@ -152,17 +152,12 @@ function createObject() {
 }
 
 async function profielExist() {
-
 	const data = await FYSCloud.API.queryDatabase(
-		" SELECT `profile_id`" +
-		" FROM `profile`" +
-		" WHERE `profile_id` = ?;",
+		" SELECT `profile_id`" + " FROM `profile`" + " WHERE `profile_id` = ?;",
 		[userId]
 	);
-
 	return data.length > 0;
 }
-
 
 async function submitData(data) {
 	console.log(data.startDate);
@@ -170,16 +165,9 @@ async function submitData(data) {
 	data.startDate = FYSCloud.Utils.toSqlDatetime(new Date(data.startDate));
 	data.endDate = FYSCloud.Utils.toSqlDatetime(new Date(data.endDate));
 
-	const insertUserData = await FYSCloud.API.queryDatabase(
-		"INSERT INTO user VALUES  (first_name, last_name)," +
-		"VALLUES (?,?)" +
-		"WHERE user_id = ?",
-		[data.firstName, data.lastName, userId]
-	);
-
 	const insertProfileData = await FYSCloud.API.queryDatabase(
-		"INSERT INTO profile (profile_id, birthdate, gender, biography, start_date, end_date, destination, budget)," +
-		"VALUES (?,?,?,?,?,?,?,?,?)",
+		"INSERT INTO profile (profile_id, birthdate, gender, biography, start_date, end_date, destination, budget) " +
+			"VALUES (? ,? ,? ,? ,? ,? ,? ,?);",
 		[
 			userId,
 			data.bday,
@@ -191,7 +179,4 @@ async function submitData(data) {
 			data.budget,
 		]
 	);
-
-	console.log(updateProfileData);
-	console.log(updateUserData);
 }
