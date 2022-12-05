@@ -3,6 +3,8 @@ import { Validation } from "../classes/validation.js";
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 
 
+
+
 /**
  * logica achter de wachtwoord vergeten pagina
  *
@@ -144,6 +146,9 @@ async function zetKeyInDb(email, key, date) {
  * @returns {Promise<void>} return 0 if succes, 1 if fail
  */
 async function sendMail(mail, key){
+    let url = FYSCloud.Utils.createUrl(window.location.href, {
+        key: key
+    });
     try {
         await FYSCloud.API.sendEmail({
             from: {
@@ -158,7 +163,7 @@ async function sendMail(mail, key){
             ],
             subject: "Just a test!",
             html: "<h1>Hallo!</h1><p>Hier de code om een nieuw wachtwoord aan te maken, voor testredenen kan je dit " +
-                "achter de url van de wachtwoord vergeten pagina plakken</p><p>achter url: &key=" + key + "</p><p>key: " + key + "</p>" +
+                "achter de url van de wachtwoord vergeten pagina plakken</p><p>achter url: &key=" + key + "</p><p>url: " + url + "</p>" +
                 "<p>Groetjes leden van het discordmoderators team!</p>"
 
         });
