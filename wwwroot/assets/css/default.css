@@ -233,7 +233,8 @@ button.btn {
 
 /* Minimum width for button */
 .register-btn,
-.login-btn {
+.login-btn,
+.profile-btn {
 	min-width: 14ch;
 }
 
@@ -244,6 +245,13 @@ button.btn {
 	cursor: pointer;
 	display: none;
 	padding: 4px;
+}
+.nav-shown {
+	display: visible;
+}
+
+.nav-hidden {
+	display: none;
 }
 
 /* Styling nav menu mobile */
@@ -280,7 +288,7 @@ button.btn {
 }
 
 /* styling of sign-up page
- styling of sign-up form */
+styling of sign-up form */
 .sign-up-main {
 	min-height: 100vh;
 }
@@ -715,7 +723,7 @@ footer {
 .buddy-list-item {
 	display: flex;
 	flex-direction: column;
-	min-height: 180px;
+	min-height: min-content;
 	max-width: 95%;
 	background: var(--color-bg-grey);
 	box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);

@@ -128,29 +128,63 @@ function populateList(buddyList, type, data) {
 
             //The "book a trip" button redirects to the corendon website.
             bookTripBtn.addEventListener("click", () => {
-                location.href = "www.corendon.nl";
+                location.href = "https:////www.corendon.nl";
             });
 
-            addButton("Buddy verwijderen", "btn-red buddy-delete-btn", btnContainer);
+            const buddyDelete = addButton("Buddy verwijderen", "btn-red buddy-delete-btn", btnContainer);
+
+            buddyDelete.addEventListener("click", async () => {
+                if(confirm("Buddy verwijderen?")){
+                    await deleteBuddyRequest(FYSCloud.Session.get("userId"), buddy.userid)
+                        .then(() => buddyList.removeChild(buddyListItem));
+                }
+            });
         }
 
         // If buddy type = "suggested" add a "send buddy request" button to the buddy list item.
         if (type === "suggested") {
-            addButton("Verzoek sturen", "buddy-send-request-btn", btnContainer);
+            const sendRequestBtn = addButton("Verzoek sturen", "buddy-send-request-btn", btnContainer);
+
+            sendRequestBtn.addEventListener("click", async () => {
+                await sendBuddyRequest(FYSCloud.Session.get("userId"), buddy.userid)
+                    .then(() => buddyList.removeChild(buddyListItem))
+            });
         }
 
         /* If buddy type = "incoming" add an "accept buddy request" button  and a
          * refuse buddy request button to the buddy list item.
          */
         if (type === "incoming") {
-            addButton("Verzoek accepteren", "buddy-accept-request-btn", btnContainer);
+            const acceptRequestBtn = addButton("Verzoek accepteren", "buddy-accept-request-btn",
+                btnContainer);
 
-            addButton("Verzoek weigeren", "btn-red buddy-refuse-request-btn", btnContainer);
+            acceptRequestBtn.addEventListener("click", async () => {
+                await acceptBuddyRequest(FYSCloud.Session.get("userId"), buddy.userid)
+                    .then(() => buddyList.removeChild(buddyListItem))
+            });
+
+            const denyRequestBtn = addButton("Verzoek weigeren", "btn-red buddy-refuse-request-btn",
+                btnContainer);
+
+            denyRequestBtn.addEventListener("click", async () => {
+                if(confirm("Verzoek weigeren?")){
+                    await deleteBuddyRequest(FYSCloud.Session.get("userId"), buddy.userid)
+                        .then(() => buddyList.removeChild(buddyListItem));
+                }
+            });
         }
 
         //If buddy type = "outgoing" add a "withdraw buddy request" button to the buddy list item.
         if (type === "outgoing") {
-            addButton("Verzoek intrekken", "btn-red buddy-refuse-request-btn", btnContainer)
+            const withdrawRequestBtn = addButton("Verzoek intrekken", "btn-red buddy-refuse-request-btn",
+                btnContainer)
+
+            withdrawRequestBtn.addEventListener("click", async () => {
+                if(confirm("Verzoek intrekken?")){
+                    await deleteBuddyRequest(FYSCloud.Session.get("userId"), buddy.userid)
+                        .then(() => buddyList.removeChild(buddyListItem));
+                }
+            });
         }
 
         //Finally, add the buddy list item to the buddy unordered-list.
@@ -364,5 +398,49 @@ async function getIncomingBuddyRequests(userId) {
         "GROUP BY name\n" +
         "ORDER BY commonInterests DESC",
         [userId, userId, userId])
+        .catch((reason) => console.log(reason));
+}
+
+/**
+ * Sends a request to a buddy.
+ * @param {userId} userId The ID of the currently active user.
+ * @param {userId} receiverUserId The ID of the user to whom to send the request.
+ */
+async function sendBuddyRequest(userId, receiverUserId){
+    return await FYSCloud.API.queryDatabase(
+        "INSERT INTO buddy(sender_user_id,\n" +
+        "        receiver_user_id,\n" +
+        "        is_accepted)\n" +
+        "VALUES (?,?, FALSE)",
+        [userId, receiverUserId])
+        .catch((reason) => console.log(reason));
+}
+
+/**
+ * Accepts a buddy request.
+ * @param {userId} userId The ID of the currently active user.
+ * @param {userId} senderUserId The ID of the user who sent the request.
+ */
+async function acceptBuddyRequest(userId, senderUserId){
+    return await FYSCloud.API.queryDatabase(
+        "UPDATE buddy\n" +
+        "SET is_accepted = TRUE\n" +
+        "WHERE (sender_user_id = ? and receiver_user_id = ?)",
+        [senderUserId, userId])
+        .catch((reason) => console.log(reason));
+}
+
+/**
+ * Deletes a buddy request or deletes an existing buddy.
+ * @param {userId} userId The ID of the currently active user.
+ * @param {userId} buddyUserId The ID of the buddy.
+ */
+async function deleteBuddyRequest(userId, buddyUserId){
+    return await FYSCloud.API.queryDatabase(
+        "DELETE\n" +
+        "FROM buddy\n" +
+        "WHERE (sender_user_id = ? and receiver_user_id = ?)\n" +
+        "   OR (receiver_user_id = ? and sender_user_id = ?)",
+        [userId, buddyUserId, userId, buddyUserId])
         .catch((reason) => console.log(reason));
 }

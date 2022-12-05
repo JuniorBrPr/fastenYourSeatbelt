@@ -47,6 +47,8 @@ loginSubmitBtn.addEventListener("click", async (e) => {
 
 			loginModal.style.display = "none";
 			clearLoginValues();
+
+			location.reload();
 		} else {
 			displayErrorMessage(loginInput, passwordInput);
 		}
