@@ -7,7 +7,7 @@ subBtn.addEventListener("click", async function (e) {
 	submitData(createObject());
 });
 
-const userId = FYSCloud.Session.get("userId");
+const userId = FYSCloud.Session.get("userId", 10);
 console.log(userId);
 await dataLoad();
 
@@ -22,13 +22,15 @@ async function dataLoad() {
 	const destinationField = document.getElementById("bestemming");
 	const tijdsbestekStart = document.getElementById("startdate");
 	const tijdsbestekEnd = document.getElementById("enddate");
+	const genderField = document.getElementById("geslacht-field-1")
 
 	/* Pulling Data and parsing it into the fields*/
 
-	const getData = await FYSCloud.API.queryDatabase(
+		const getData = await FYSCloud.API.queryDatabase(
 		"SELECT first_name AS firstName,\n" +
 			"       last_name AS lastName,\n" +
 			"       birthdate as bday,\n" +
+			" 		gender,\n" +
 			"       biography as bio,\n" +
 			"       start_date as startDate,\n" +
 			"       end_date as endDate,\n" +
@@ -40,7 +42,9 @@ async function dataLoad() {
 		[userId, userId]
 	);
 
+
 	loadData(getData);
+	console.log(getData);
 
 	/*Load all data in the right fields on Profile page*/
 
@@ -61,6 +65,7 @@ async function dataLoad() {
 		birthDateField.value = birthday;
 		tijdsbestekStart.value = tijdEndDate;
 		tijdsbestekEnd.value = tijdStartDate;
+		genderField.value = data[0].gender;
 	}
 
 	function change(date) {
@@ -93,6 +98,7 @@ async function submitData(data) {
 	const updateProfileData = await FYSCloud.API.queryDatabase(
 		"UPDATE profile\n" +
 			"SET    birthdate = ?,\n" +
+			"       gender =    ?,\n" +
 			"       biography = ?,\n" +
 			"       start_date = ?,\n" +
 			"       end_date = ?,\n" +
@@ -101,6 +107,7 @@ async function submitData(data) {
 			"WHERE profile_id = ?;",
 		[
 			data.bday,
+			data.gender,
 			data.bio,
 			data.startDate,
 			data.endDate,
@@ -119,6 +126,7 @@ function createObject() {
 		firstName: document.getElementById("voornaam").value,
 		lastName: document.getElementById("achternaam").value,
 		bday: document.getElementById("gdatum").value,
+		gender: document.getElementById("geslacht-field-1").value,
 		bio: document.getElementById("bio").value,
 		destination: document.getElementById("bestemming").value,
 		startDate: document.getElementById("startdate").value,
