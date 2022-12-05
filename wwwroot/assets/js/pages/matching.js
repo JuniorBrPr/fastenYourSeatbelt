@@ -47,9 +47,14 @@ outgoingBtn.addEventListener("click", async () => {
     populateList(buddyList, "outgoing", await getOutgoingBuddyRequests(FYSCloud.Session.get("userId")));
 })
 
-//Button to close the "watch profile" modal
+// hides modal and deletes data fields otherwise they duplicate
 buddyProfileCloseBtn.addEventListener("click", () => {
     buddyProfile.style.display = "none";
+
+    const remove = (sel) => document.querySelectorAll(sel).forEach(el => el.remove());
+    remove(".interests");
+    remove(".biography");
+    remove(".username, .buddy-image");
 })
 
 /**
@@ -114,8 +119,14 @@ function populateList(buddyList, type, data) {
 
         const buddyProfileBtn = addButton("Profiel bekijken", "buddy-profile-btn", btnContainer);
 
-        // Onclick make the buddy profile modal visible
-        buddyProfileBtn.addEventListener("click", () => {
+        // Onclick make the buddy profile modal visible and personal fields invisible
+        buddyProfileBtn.addEventListener("click", async () => {
+            buddyModal(await getBuddyInfo(buddy.userid), await getBuddyInterests(buddy.userid));
+
+            if (type !== "existing") {
+                document.querySelector("#friend-fields").style.display = "none";
+            }
+
             buddyProfile.style.display = "block";
         });
 
@@ -204,7 +215,7 @@ function addAttribute(name, value, container) {
 
     const lbl = document.createElement("h3");
     lbl.className = "buddy-attr-label w-100";
-    lbl.innerHTML = name + ":";
+    lbl.innerHTML = name;
     cont.appendChild(lbl);
 
     const content = document.createElement("span");
@@ -443,4 +454,113 @@ async function deleteBuddyRequest(userId, buddyUserId){
         "   OR (receiver_user_id = ? and sender_user_id = ?)",
         [userId, buddyUserId, userId, buddyUserId])
         .catch((reason) => console.log(reason));
+}
+
+/**
+ * Selects the profile and user information from the specific buddy (user id).
+ * @param {userId} userId The ID of the currently active user.
+ */
+async function getBuddyInfo(userId) {
+    return await FYSCloud.API.queryDatabase(
+        "SELECT user_id                              AS userid,\n" +
+        "CONCAT(first_name, \" \", last_name)        AS name,\n" +
+        "email                                       AS email,\n" +
+        "birthdate                                   AS date,\n" +
+        "gender                                      AS gender,\n" +
+        "biography                                   AS bio,\n" +
+        "destination                                 AS destination,\n" +
+        "budget                                      AS budget\n" +
+        "FROM user\n" +
+        "INNER JOIN profile\n" +
+        "ON user.user_id = profile.profile_id\n" +
+        "WHERE user.user_id = ?",
+        [userId])
+        .catch((reason) => console.log(reason));
+}
+
+/**
+ * Selects the interest from the specific buddy (user id).
+ * @param {userId} userId The ID of the currently active user.
+ */
+async function getBuddyInterests(userId) {
+    return await FYSCloud.API.queryDatabase(
+        "SELECT interest_name\n" +
+        "FROM user\n" +
+        "INNER JOIN profile\n" +
+        "ON user.user_id = profile.profile_id\n" +
+        "INNER JOIN user_interest\n" +
+        "ON profile.profile_id = user_interest.profile_id\n" +
+        "INNER JOIN interest\n" +
+        "ON interest.interest_id = user_interest.interest_id\n" +
+        "WHERE user.user_id = ?",
+        [userId])
+        .catch((reason) => console.log(reason));
+}
+
+/**
+ * Makes profile from buddy fulle personal with real data
+ * @param {data} data object filled with user and profile fields from db.
+ * @param {interests} interests object filled with interested from the user..
+ */
+function buddyModal(data, interests) {
+    // get html parents out matching.html
+    const personalInfo = document.querySelector("#personal-info");
+    const buddyPicture = document.querySelector(".buddy-picture");
+    const description = document.querySelector("#description");
+    const interestMain = document.querySelector("#interest");
+
+    // creating sub parent divs with deletable classes
+    const interestDiv = document.createElement("div");
+    interestDiv.className = "interests pos-relative d-flex justify-c";
+
+    const personalDiv = document.createElement("div");
+    personalDiv.className = "interests pos-relative d-flex justify-c";
+
+    const descriptionDiv = document.createElement("div");
+    descriptionDiv.className = "biography";
+
+    const nameDiv = document.createElement("div");
+    nameDiv.className = "username";
+
+    // object for interests from buddy
+    interests.forEach(interest => {
+        // interests
+        addAttribute("", interest.interest_name, interestDiv);
+        interestMain.appendChild(interestDiv);
+    });
+
+    // object for buddy info
+    data.forEach(buddy => {
+
+        // biography
+        addAttribute("", buddy.bio, descriptionDiv);
+        description.appendChild(descriptionDiv);
+
+        // profile picture
+        const img = document.createElement("img");
+        img.style.width = "200px";
+        img.style.height = "auto";
+        img.className = "buddy-image";
+        img.src = "assets/img/users/henk.png";
+        buddyPicture.appendChild(img);
+
+        // name
+        addAttribute("", buddy.name, nameDiv);
+        buddyPicture.appendChild(nameDiv);
+
+        // personal information
+        addAttribute("Geboortedatum", new Date(buddy.date).toISOString().slice(0, 10), personalDiv);
+        if (buddy.gender === 0) {
+            addAttribute("Geslacht", "Man", personalDiv);
+        } else if (buddy.gender === 1) {
+            addAttribute("Geslacht", "Vrouw", personalDiv);
+        } else {
+            addAttribute("Geslacht", "Anders", personalDiv);
+        }
+        addAttribute("Budget", buddy.budget, personalDiv);
+        addAttribute("Bestemming", buddy.destination, personalDiv);
+        addAttribute("Email", buddy.email, personalDiv);
+
+        personalInfo.appendChild(personalDiv);
+    })
 }
