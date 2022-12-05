@@ -172,7 +172,7 @@ function openmobileNav(Element) {
  */
 function closemobileNav(Element) {
 	Element.addEventListener("click", () => {
-		loginModal.style.display = "none";
+		loginmobileNav.style.display = "none";
 		clearLoginValues();
 	});
 }
@@ -180,7 +180,7 @@ function closemobileNav(Element) {
 //If the user clicks outside the mobileNav, close the mobileNav
 window.addEventListener("click", (event) => {
 	if (event.target === loginModal) {
-		loginModal.style.display = "none";
+		loginmobileNav.style.display = "none";
 		clearLoginValues();
 	}
 });
