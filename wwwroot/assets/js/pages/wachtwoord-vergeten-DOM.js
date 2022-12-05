@@ -161,7 +161,7 @@ async function sendMail(mail, key){
                     address: mail.value
                 }
             ],
-            subject: "Just a test!",
+            subject: "Nieuw wachtwoord aanmaken",
             html: "<h1>Hallo!</h1><p>Hier de code om een nieuw wachtwoord aan te maken, voor testredenen kan je dit " +
                 "achter de url van de wachtwoord vergeten pagina plakken</p><p>achter url: &key=" + key + "</p><p>url: " + url + "</p>" +
                 "<p>Groetjes leden van het discordmoderators team!</p>"
