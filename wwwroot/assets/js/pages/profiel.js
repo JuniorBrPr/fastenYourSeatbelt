@@ -3,12 +3,13 @@ import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 const form = document.querySelector(".profiel");
 const subBtn = document.querySelector(".saveBtn");
 
-subBtn.addEventListener('click', function(e) {submitData(createObject())});
+subBtn.addEventListener("click", async function (e) {
+	submitData(createObject());
+});
 
-
-const userId = FYSCloud.Session.get("userId", 1);
-await dataLoad();
+const userId = FYSCloud.Session.get("userId");
 console.log(userId);
+await dataLoad();
 
 async function dataLoad() {
 	/*Setting Field vars*/
@@ -38,8 +39,6 @@ async function dataLoad() {
 			"WHERE user_id = ?",
 		[userId, userId]
 	);
-
-	console.log(getData);
 
 	loadData(getData);
 
@@ -78,7 +77,7 @@ async function dataLoad() {
 /*Submit data to the databse*/
 
 async function submitData(data) {
-
+	console.log(data.startDate);
 	data.bday = FYSCloud.Utils.toSqlDatetime(new Date(data.bday));
 	data.startDate = FYSCloud.Utils.toSqlDatetime(new Date(data.startDate));
 	data.endDate = FYSCloud.Utils.toSqlDatetime(new Date(data.endDate));
@@ -101,11 +100,11 @@ async function submitData(data) {
 			"       budget = ?\n" +
 			"WHERE profile_id = ?;",
 		[
-			data.bio,
 			data.bday,
-			data.destination,
+			data.bio,
 			data.startDate,
 			data.endDate,
+			data.destination,
 			data.budget,
 			userId,
 		]
@@ -119,11 +118,11 @@ function createObject() {
 	return {
 		firstName: document.getElementById("voornaam").value,
 		lastName: document.getElementById("achternaam").value,
+		bday: document.getElementById("gdatum").value,
 		bio: document.getElementById("bio").value,
-		birthDate: document.getElementById("gdatum").value,
 		destination: document.getElementById("bestemming").value,
-		tijdsbestekStart: document.getElementById("startdate").value,
-		tijdsbestekEnd: document.getElementById("enddate").value,
+		startDate: document.getElementById("startdate").value,
+		endDate: document.getElementById("enddate").value,
 	};
 }
 
