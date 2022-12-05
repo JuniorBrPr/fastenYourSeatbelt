@@ -3,13 +3,20 @@ import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 const form = document.querySelector(".profiel");
 const subBtn = document.querySelector(".saveBtn");
 
+
+/*Checks if profiel_id exist otherwise it will create*/
 subBtn.addEventListener("click", async function (e) {
-	submitData(createObject());
+	if (profielExist()) {
+		updateData(createObject())
+	} else {
+		submitData(createObject())
+	}
 });
 
 const userId = FYSCloud.Session.get("userId", 10);
 console.log(userId);
 await dataLoad();
+await profielExist();
 async function dataLoad() {
 	/*Setting Field vars*/
 
@@ -91,7 +98,7 @@ async function dataLoad() {
 
 /*Submit data to the databse*/
 
-async function submitData(data) {
+async function updateData(data) {
 	console.log(data.startDate);
 	data.bday = FYSCloud.Utils.toSqlDatetime(new Date(data.bday));
 	data.startDate = FYSCloud.Utils.toSqlDatetime(new Date(data.startDate));
@@ -142,4 +149,49 @@ function createObject() {
 		startDate: document.getElementById("startdate").value,
 		endDate: document.getElementById("enddate").value,
 	};
+}
+
+async function profielExist() {
+
+	const data = await FYSCloud.API.queryDatabase(
+		" SELECT `profile_id`" +
+		" FROM `profile`" +
+		" WHERE `profile_id` = ?;",
+		[userId]
+	);
+
+	return data.length > 0;
+}
+
+
+async function submitData(data) {
+	console.log(data.startDate);
+	data.bday = FYSCloud.Utils.toSqlDatetime(new Date(data.bday));
+	data.startDate = FYSCloud.Utils.toSqlDatetime(new Date(data.startDate));
+	data.endDate = FYSCloud.Utils.toSqlDatetime(new Date(data.endDate));
+
+	const insertUserData = await FYSCloud.API.queryDatabase(
+		"INSERT INTO user VALUES  (first_name, last_name)," +
+		"VALLUES (?,?)" +
+		"WHERE user_id = ?",
+		[data.firstName, data.lastName, userId]
+	);
+
+	const insertProfileData = await FYSCloud.API.queryDatabase(
+		"INSERT INTO profile (profile_id, birthdate, gender, biography, start_date, end_date, destination, budget)," +
+		"VALUES (?,?,?,?,?,?,?,?,?)",
+		[
+			userId,
+			data.bday,
+			data.gender,
+			data.bio,
+			data.startDate,
+			data.endDate,
+			data.destination,
+			data.budget,
+		]
+	);
+
+	console.log(updateProfileData);
+	console.log(updateUserData);
 }
