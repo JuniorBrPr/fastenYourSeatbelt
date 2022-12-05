@@ -702,8 +702,8 @@ var translations = {
 				"persoonsgevens vragen dan hieronder vermeld staan.",
 			en: "At Corenbuddy, privacy is number one. All user data" +
 				"are stored securely. Our database administrators have a screening" +
-				"to prevent abuse. We as Corenbuddy will never again" +
-				"request personal information as listed below.",
+				"to prevent abuse. We as Corenbuddy will never request more" +
+				"personal information as listed below.",
 			es: "En Corenbuddy, la privacidad es número uno. Todos los datos del usuario" +
 				"se almacenan de forma segura. Nuestros administradores de base de datos tienen una evaluación" +
 				"para prevenir el abuso. Nosotros como Corenbuddy nunca más" +
