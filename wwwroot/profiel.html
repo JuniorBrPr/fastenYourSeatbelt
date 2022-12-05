@@ -20,11 +20,11 @@
     <link rel="stylesheet" href="assets/css/default.css"/>
     <!-- load javascript, defer makes sure scripts are loaded when dom-elements are
     available  -->
-    <script src="assets/scripts/hamburgerMenu.js" defer></script>
+    <script type="module" src="assets/js/app.js" defer></script>
 
     <!-- Scripts API -->
-    <script type="module" src="assets/scripts/config.js"></script>
-    <script type="module" defer src="assets/scripts/profiel.js"></script>
+    <script type="module" src="assets/js/config.js"></script>
+    <script type="module" defer src="assets/js/profiel.js"></script>
 </head>
 <body>
 <header class="header d-flex justify-space-between align-c">
@@ -207,7 +207,7 @@
             </select>
         </div>
         <div class="opslaan-container">
-            <button class="sub-btn btn saveBtn" type="submit">Opslaan</button>
+            <button class="sub-btn btn saveBtn" type="button">Opslaan</button>
         </div>
     </form>
     <section class="right-block d-flex">
