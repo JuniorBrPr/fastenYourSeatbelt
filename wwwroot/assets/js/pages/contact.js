@@ -7,12 +7,20 @@ const emailInputField = document.querySelector(".contact-email");
 const subjectInputField = document.querySelector(".contact-subject");
 const messageInputField = document.querySelector(".contact-text");
 
+/**
+ * Code for the contact form on the about-us page. Allows the user to input their information and their message, 
+ * then the input will be taken and be used to send us (The Discordmoderators) an email.
+ * 
+ * @author Tim Knops
+ */
+
 form.addEventListener("submit", (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Stops the form from submitting.
     
     const formInputData = createObject(nameInputField, phoneInputField, emailInputField, subjectInputField, messageInputField);
-    console.log(sendEmail(formInputData));
     sendEmail(formInputData);
+
+    e.currentTarget.submit(); // Submits the form.
 });
 
 /**
@@ -42,18 +50,30 @@ function createObject(name, phone, email, subject, message) {
  * @param {object} input - object of all the contact form values.
  */
 async function sendEmail(input) {
+    const emailRecipiants = [
+        {address: "lucas.meester@hva.nl"}, 
+        {address: "tim.knops@hva.nl"},
+        {address: "junior.brito.perez@hva.nl"},
+        {address: "johnny.magielse@hva.nl"},
+        {address: "nizar.amine@hva.nl"},
+        {address: "samed.dalkilic@hva.nl"},
+        {address: "jurian.blommers@hva.nl"},
+        {address: "julian.kruithof@hva.nl"}
+    ];
+
     await FYSCloud.API.sendEmail({
         from: {
             name: input.name,
             adress: input.email
         },
-        to: [
-            {
-            name: "The Discordmoderators",
-            address: "#"
-            }
-        ],
+        to: emailRecipiants, 
         subject: input.subject,
-        html: `${input.message}<br><br><h4>Phone: ${input.phone}<h4>`
+        priority: "high",
+        html: `<p>${input.message}</p>
+                <br>
+                <h2>User Information</h2>
+                <h4>Name: ${input.name}</h4>
+                <h4>Email: ${input.email}</h4>
+                <h4>Phone: ${input.phone}</h4>`
     });
 }
