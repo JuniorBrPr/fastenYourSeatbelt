@@ -179,7 +179,7 @@ function closemobileNav(Element) {
 
 //If the user clicks outside the mobileNav, close the mobileNav
 window.addEventListener("click", (event) => {
-	if (event.target === loginModal) {
+	if (event.target === loginmobileNav) {
 		loginmobileNav.style.display = "none";
 		clearLoginValues();
 	}
