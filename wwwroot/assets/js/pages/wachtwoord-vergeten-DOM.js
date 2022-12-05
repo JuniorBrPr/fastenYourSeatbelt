@@ -1,6 +1,6 @@
 import {getUniqueSalt, passwordHash} from "../classes/hash.js";
 import { Validation } from "../classes/validation.js";
-window.addEventListener("DOMContentLoaded", initialize);
+window.addEventListener("DOMContentLoaded", await initialize());
 
 
 
@@ -18,13 +18,13 @@ import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 
 const validation = new Validation();
 
-function initialize() {
+async function initialize() {
 
     document.getElementById("pagina2").style.display = "none";
     document.getElementById("pagina3").style.display = "none";
     document.getElementById("wwvg-knop").addEventListener("click", evt => verwerkEmail(evt));
     //document.getElementById("wwvg-knop2").addEventListener("click", evt => showpage3(evt));
-    document.getElementById("wwvg-knop3").addEventListener("click", evt => validateForm(evt));
+    document.getElementById("wwvg-knop3").addEventListener("click", evt => verwerkNieuwWachtwoord(evt));
     if (checkForKey(window.location.href) == 1) {
         showpage3();
     }
@@ -55,24 +55,31 @@ function showpage3(evt){
     console.log("uitgevoerd");
 }
 
-function verwerkEmail(evt) {
+async function verwerkEmail(evt) {
     evt.preventDefault();
     let email = document.getElementById("wwvg-email");
-    if(validation.invalidEmail(email)){
+    if(await validation.invalidEmail(email)){
         alert("invalid email");
         return 0;
     }
-    if(!validation.emailInDatabase(email)){
+    if(!(await validation.emailInDatabase(email))){
         alert("email niet in database");
         return 0;
     }
-    let key = generateKey(10000000);
+    if(await validation.emailHasResetCodeInBd(email)){
+        console.log("email heeft al reset code, word verwijderd voor nieuwe");
+        if(await deleteResetCodeInBd(email))
+        {
+            console.log("reset code verwijderen gelukt");
+        }
+    }
+    let key;
+    key = await generateKey(10000000);
     let timestamp = new Date();
-    console.log(timestamp.toISOString().slice(0, 10).replace('T', ' '));
-    if(!zetKeyInDb(email, key, timestamp))
-        console.log("mislukt");
-    sendMail(email, key);
-    console.log(keyInDb(100).valueOf());
+
+    if(!(await zetKeyInDb(email, key, timestamp)))
+        console.log("key in db zetten mislukt");
+    await sendMail(email, key);
 
 }
 
@@ -111,26 +118,28 @@ async function zetKeyInDb(email, key, date)
 
 
 }
-function sendMail(mail, key){
+async function sendMail(mail, key){
     console.log("test() word gerunt");
-    FYSCloud.API.sendEmail({
-        from: {
-            name: "corendon",
-            address: "group@hva.nl"
-        },
-        to: [
-            {
-                name: "",
-                address: mail.value
-            }
-        ],
-        subject: "Just a test!",
-        html: "<h1>Hallo!</h1><p>Dit is een email verstuurt vanuit de hva cloud :).</p><p>key: " + key + "</p><p>Groetjes Jurian</p>"
-    }).then(function(data) {
-        console.error(data);
-    }).catch(function(reason) {
-        console.log(reason);
-    });
+    try {
+        await FYSCloud.API.sendEmail({
+            from: {
+                name: "corendon",
+                address: "group@hva.nl"
+            },
+            to: [
+                {
+                    name: "",
+                    address: mail.value
+                }
+            ],
+            subject: "Just a test!",
+            html: "<h1>Hallo!</h1><p>Dit is een email verstuurt vanuit de hva cloud :).</p><p>key: " + key + "</p><p>Groetjes Jurian</p>"});
+
+        console.log("email versturen gelukt");
+
+    } catch (reason) {
+        console.error(reason);
+    };
 }
 
 function checkForKey(url){
@@ -167,8 +176,12 @@ function parseURLParams(url) {
     return parms;
 }
 
-function generateKey(length) {
-    return Math.floor(Math.random() * length);
+async function generateKey(length) {
+    let key = Math.floor(Math.random() * length);
+    while (await keyInDb(key)){
+        key = Math.floor(Math.random() * length);
+    }
+    return key;
 }
 
 async function keyInDb(key){
@@ -179,13 +192,46 @@ async function keyInDb(key){
     return (data == null);
 }
 
-async function verwerkNieuwWachtwoord(){
+async function verwerkNieuwWachtwoord(evt){
+    evt.preventDefault();
+    let emailarray = await getEmailFromKey(5681137);
+    let email = emailarray[0].email;
+    console.log(email);
+
     if(!validateForm(evt))
         return 0;
+
     const salt = await getUniqueSalt();
-    const hashedPassword = await passwordHash(values.password, salt);
+    const hashedPassword = await passwordHash(document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord"].value, salt);
     const data = await FYSCloud.API.queryDatabase(
-        "UPDATE `user` SET (`password`, `salt`) VALUES (?, ?) WHERE email=?;",
-        [values.firstName, values.lastName, values.email, hashedPassword, salt]
+        "UPDATE `user` SET `password`=?, `salt`=? WHERE email=?;",
+        [hashedPassword, salt, email]
     );
+}
+
+async function deleteResetCodeInBd(emailInput) {
+    try {
+        const data = await FYSCloud.API.queryDatabase(
+            "DELETE FROM `forgot_password` WHERE `email` = ?;",
+            [emailInput.value]
+        );
+        return 1;
+    } catch (error) {
+        console.error(error);
+        return 0;
+    }
+}
+
+async function getEmailFromKey(key)
+{
+    try {
+        const data = await FYSCloud.API.queryDatabase(
+            "SELECT `email` FROM `forgot_password` WHERE `code` = ?;",
+            [key]
+        );
+        return data;
+    } catch (error) {
+        console.error(error);
+        return 0;
+    }
 }
