@@ -3,7 +3,9 @@ import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 const form = document.querySelector(".profiel");
 const subBtn = document.querySelector(".saveBtn");
 const userId = FYSCloud.Session.get("userId", 10);
+
 /*Checks if profiel_id exist otherwise it will create*/
+
 subBtn.addEventListener("click", async function (e) {
 	if (await profielExist()) {
 		console.log("test");
@@ -18,17 +20,23 @@ console.log(userId);
 await dataLoad();
 
 async function dataLoad() {
+
 	/*Setting Field vars*/
 
 	const firstNameField = document.getElementById("voornaam");
 	const lastNameField = document.getElementById("achternaam");
 	const bioField = document.getElementById("bio");
 	const birthDateField = document.getElementById("gdatum");
-	const interField = document.getElementsByClassName("inter-field");
 	const destinationField = document.getElementById("bestemming");
 	const tijdsbestekStart = document.getElementById("startdate");
 	const tijdsbestekEnd = document.getElementById("enddate");
 	const genderField = document.getElementById("geslacht-field-1");
+	const interField1 = document.getElementById("inter-field-1")
+	const interField2 = document.getElementById("inter-field-2")
+	const interField3 = document.getElementById("inter-field-3")
+	const interField4 = document.getElementById("inter-field-4")
+	const interField5 = document.getElementById("inter-field-5")
+	const interField6 = document.getElementById("inter-field-6")
 
 	/* Pulling Data and parsing it into the fields*/
 
@@ -49,7 +57,18 @@ async function dataLoad() {
 			[userId, userId]
 		);
 
+		/* TODO
+		*   Interest Display and Update/Submit function */
+/*		const getInterest = await FYSCloud.API.queryDatabase(
+			"SELECT interest_id AS interestID,\n" +
+			"FROM user_interest\n" +
+			"WHERE profile_id = ?;",
+			[userId, userId]
+		)
+		*/
 		loadData(getData);
+
+
 	} catch {
 		const getData = await FYSCloud.API.queryDatabase(
 			"SELECT first_name as firstName, last_name as lastName\n" +
@@ -85,6 +104,8 @@ async function dataLoad() {
 		}
 	}
 
+	/*Change Time Value to the required format */
+
 	function change(date) {
 		const changeDate = new Date(date);
 		const getYear = changeDate.getFullYear();
@@ -96,7 +117,7 @@ async function dataLoad() {
 	}
 }
 
-/*Submit data to the databse*/
+/*Submit data to the database if user has a profile*/
 
 async function updateData(data) {
 	console.log(data.startDate);
@@ -138,6 +159,8 @@ async function updateData(data) {
 	console.log(updateUserData);
 }
 
+/*Create an Object filled with values to be used in a Update/SubmitData function*/
+
 function createObject() {
 	return {
 		firstName: document.getElementById("voornaam").value,
@@ -151,6 +174,9 @@ function createObject() {
 	};
 }
 
+/*Checks if user has a profile_id, if not an if statement will be fired to select which function
+* needs to be used. IF statement used in line 6 */
+
 async function profielExist() {
 	const data = await FYSCloud.API.queryDatabase(
 		" SELECT `profile_id`" + " FROM `profile`" + " WHERE `profile_id` = ?;",
@@ -158,6 +184,8 @@ async function profielExist() {
 	);
 	return data.length > 0;
 }
+
+/*Submit data if user has no profile, this will create a profile_id filled with profile related data */
 
 async function submitData(data) {
 	console.log(data.startDate);
