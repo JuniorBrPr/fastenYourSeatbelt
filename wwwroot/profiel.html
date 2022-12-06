@@ -29,9 +29,11 @@
 	<body>
 		<main class="profiel-main d-flex justify-c">
 			<form class="profiel align-c" action="results.html" method="GET">
-				<h1 class="h1-mijn-profiel">Mijn Profiel</h1>
+				<h1 class="h1-mijn-profiel" data-translate="profile.myProfile">
+					Mijn Profiel
+				</h1>
 				<div class="profiel-container">
-					<label class="p-label" for="voornaam">Voornaam</label>
+					<label class="p-label" for="voornaam" data-translate="profile.firstName">Voornaam</label>
 					<input
 						class="profiel-field w-100"
 						type="text"
@@ -40,7 +42,7 @@
 						placeholder="Quandale" />
 				</div>
 				<div class="profiel-container">
-					<label class="p-label" for="achternaam">Achternaam</label>
+					<label class="p-label" for="achternaam" data-translate="profile.lastName">Achternaam</label>
 					<input
 						class="profiel-field w-100"
 						type="text"
@@ -53,7 +55,7 @@
 					<textarea class="bio-textarea" id="bio" name="bio"></textarea>
 				</div>
 				<div class="profiel-container">
-					<label class="p-label" for="gdatum">Geboortedatum</label>
+					<label class="p-label" for="gdatum" data-translate="profile.birthDate">Geboortedatum</label>
 					<input
 						class="profiel-field w-100"
 						id="gdatum"
@@ -62,48 +64,48 @@
 						max="2003-01-01" />
 				</div>
 				<div>
-					<label class="p-label" for="inter-field-1">Interesses</label>
+					<label class="p-label" for="inter-field-1" data-translate="profile.interest">Interesses</label>
 					<select class="inter-field" name="interesses" id="inter-field-1">
 						<option value="Voetballen">Voetballen</option>
-						<option value="Darten"	  >Darten</option>
-						<option value="Joe" 	  >Joe</option>
-						<option value="Wandelen"  >Wandelen</option>
+						<option value="Darten">Darten</option>
+						<option value="Joe">Joe</option>
+						<option value="Wandelen">Wandelen</option>
 					</select>
 					<select class="inter-field" name="interesses" id="inter-field-2">
 						<option value="Voetballen">Voetballen</option>
-						<option value="Darten"	  >Darten</option>
-						<option value="Joe" 	  >Joe</option>
-						<option value="Wandelen"  >Wandelen</option>
+						<option value="Darten">Darten</option>
+						<option value="Joe">Joe</option>
+						<option value="Wandelen">Wandelen</option>
 					</select>
 					<select class="inter-field" name="interesses" id="inter-field-3">
 						<option value="Voetballen">Voetballen</option>
-						<option value="Darten"	  >Darten</option>
-						<option value="Joe" 	  >Joe</option>
-						<option value="Wandelen"  >Wandelen</option>
+						<option value="Darten">Darten</option>
+						<option value="Joe">Joe</option>
+						<option value="Wandelen">Wandelen</option>
 					</select>
 				</div>
 				<div>
 					<select class="inter-field" name="interesses" id="inter-field-4">
 						<option value="Voetballen">Voetballen</option>
-						<option value="Darten"	  >Darten</option>
-						<option value="Joe" 	  >Joe</option>
-						<option value="Wandelen"  >Wandelen</option>
+						<option value="Darten">Darten</option>
+						<option value="Joe">Joe</option>
+						<option value="Wandelen">Wandelen</option>
 					</select>
 					<select class="inter-field" name="interesses" id="inter-field-5">
 						<option value="Voetballen">Voetballen</option>
-						<option value="Darten"	  >Darten</option>
-						<option value="Joe" 	  >Joe</option>
-						<option value="Wandelen"  >Wandelen</option>
+						<option value="Darten">Darten</option>
+						<option value="Joe">Joe</option>
+						<option value="Wandelen">Wandelen</option>
 					</select>
 					<select class="inter-field" name="interesses" id="inter-field-6">
 						<option value="Voetballen">Voetballen</option>
-						<option value="Darten"	  >Darten</option>
-						<option value="Joe" 	  >Joe</option>
-						<option value="Wandelen"  >Wandelen</option>
+						<option value="Darten">Darten</option>
+						<option value="Joe">Joe</option>
+						<option value="Wandelen">Wandelen</option>
 					</select>
 				</div>
 				<div class="profiel-container">
-					<label class="p-label" for="bestemming">Bestemming</label>
+					<label class="p-label" for="bestemming" data-translate="profile.destination">Bestemming</label>
 					<input
 						class="profiel-field w-100"
 						type="text"
@@ -113,7 +115,7 @@
 				</div>
 
 				<div>
-					<label class="p-label" for="startdate">Tijdsbestek Start</label>
+					<label class="p-label" for="startdate" data-translate="profile.startDate">Tijdsbestek Start</label>
 					<input
 						class="profiel-field w-100"
 						id="startdate"
@@ -121,7 +123,7 @@
 						name="date"
 						min="2022-01-01" />
 
-					<label class="p-label" for="startdate">Tijdsbestek End</label>
+					<label class="p-label" for="startdate" data-translate="profile.endDate">Tijdsbestek End</label>
 					<input
 						class="profiel-field w-100"
 						id="enddate"
@@ -131,26 +133,26 @@
 				</div>
 
 				<div class="profiel-container">
-					<label class="p-label" for="geslacht-field-1">Geslacht</label>
+					<label class="p-label" for="geslacht-field-1" data-translate="profile.gender">Geslacht</label>
 					<select class="gender-field" name="geslacht" id="geslacht-field-1">
-						<option value="0">Man</option>
-						<option value="1">Vrouw</option>
-						<option value="2">Anders</option>
+						<option value="0" data-translate="profile.genderMan">Man</option>
+						<option value="1" data-translate="profile.genderWomen">Vrouw</option>
+						<option value="2" data-translate="profile.genderOther">Anders</option>
 					</select>
 				</div>
 				<div class="opslaan-container">
-					<button class="sub-btn btn saveBtn" type="button">Opslaan</button>
+					<button class="sub-btn btn saveBtn" type="button" data-translate="profile.save">Opslaan</button>
 				</div>
 			</form>
 			<section class="right-block d-flex">
 				<div class="profiel-foto-card">
-					<h2>Profiel Foto</h2>
+					<h2 data-translate="profile.photo">Profiel Foto</h2>
 					<img
 						src="assets/img/HenkvanVliet2.jpg"
 						alt="Profiel foto"
 						width="300"
 						height="300" />
-					<button class="sub-btn btn">Upload foto</button>
+					<button class="sub-btn btn" data-translate="profile.uploadPhoto">Upload foto</button>
 
 					<!--				<label class="p-label" >Profiel Foto</label>-->
 					<!--				<input class="profiel-foto-upload"-->
@@ -160,7 +162,7 @@
 					<!--					   id="profiel-file">-->
 				</div>
 				<div class="profiel-account-card">
-					<h2>Mijn Account</h2>
+					<h2 data-translate="profile.myAccount">Mijn Account</h2>
 					<label for="email" class="p-label"> Email </label>
 					<input
 						type="email"
@@ -169,7 +171,7 @@
 						class="profiel-field"
 						required
 						placeholder="quandale@gmail.com" />
-					<label for="password" class="p-label"> Wachtwoord </label>
+					<label for="password" class="p-label" data-translate="profile.password"> Wachtwoord </label>
 					<input
 						type="password"
 						name="password"
@@ -177,10 +179,10 @@
 						class="profiel-field"
 						required
 						placeholder="***********" />
-					<button class="sub-btn btn">Update Account</button>
+					<button class="sub-btn btn" data-translate="profile.updateAccount">Update Account</button>
 				</div>
 				<div class="profiel-preference-card">
-					<h2>Preferences</h2>
+					<h2 data-translate="profile.preferences">Preferences</h2>
 					<label class="p-label">Darkmode:</label>
 
 					<div class="switch">

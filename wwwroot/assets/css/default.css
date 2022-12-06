@@ -272,6 +272,15 @@ button.btn {
 	animation-fill-mode: forwards;
 }
 
+/* language switcher dropdown */
+[data-translate] {
+	visibility: hidden;
+}
+
+[data-translate][translated] {
+	visibility: visible;
+}
+
 /* styling of input */
 .input {
 	display: block;
