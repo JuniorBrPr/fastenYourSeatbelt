@@ -47,6 +47,18 @@ export class Validation {
 		return data.length > 0;
 	}
 	/**
+	 * check if email already has an account
+	 * @param {HTMLInputElement} emailInput email input to check
+	 * @returns true if email is in database forgot_password false if not
+	 */
+	async emailHasResetCodeInBd(emailInput) {
+		const data = await FYSCloud.API.queryDatabase(
+			"SELECT `email` FROM `forgot_password` WHERE `email` = ?;",
+			[emailInput.value]
+		);
+		return data.length > 0;
+	}
+	/**
 	 *  check if password and repeat password are the same
 	 * @param {HTMLInputElement} passwordInput
 	 * @param {HTMLInputElement} repeatPasswordInput
