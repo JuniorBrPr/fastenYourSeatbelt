@@ -109,11 +109,11 @@ if (session != null) {
 
 	logoutBtn.addEventListener("click", () => {
 		FYSCloud.Session.clear();
-		window.location = "/wwwroot/index.html";
+		window.location = "index.html";
 	});
 	logoutBtnMobile.addEventListener("click", () => {
 		FYSCloud.Session.clear();
-		window.location = "/wwwroot/index.html";
+		window.location = "index.html";
 	});
 }
 
