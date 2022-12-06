@@ -16,7 +16,7 @@ async function loadHeader() {
 			"./assets/dynamic/_login-modal.html"
 		);
 
-		let session = FYSCloud.Session.get("userId");
+		const session = FYSCloud.Session.get("userId");
 		const header = nav[0];
 		const footerInsert = footer[0];
 		const mobileNavInsert = mobileNav[0];
@@ -28,12 +28,12 @@ async function loadHeader() {
 		const loginClass = header.querySelector(".login-btn");
 		const profileClass = header.querySelector(".profile-btn");
 		const zoekBuddyClass = header.querySelector(".zoek-buddy");
+		const logoutClass = header.querySelector(".dropdown");
 		const zoekBuddyMobile = mobileNavInsert.querySelector(".zoek-buddy-link");
 		const registerClassMobile = mobileNavInsert.querySelector(".register-link");
 		const loginClassMobile = mobileNavInsert.querySelector(".sign-up-login-link");
 		const profileClassMobile = mobileNavInsert.querySelector(".profile-link");
-
-
+		const logoutClassMobile = mobileNavInsert.querySelector(".logout-link");
 
 		if (session == null) {
 			registerClass.classList.add("nav-shown");
@@ -50,6 +50,10 @@ async function loadHeader() {
 			zoekBuddyMobile.classList.add("nav-hidden");
 			zoekBuddyClass.classList.remove("nav-shown");
 			zoekBuddyMobile.classList.remove("nav-shown");
+			logoutClass.classList.add("nav-hidden");
+			logoutClass.classList.remove("nav-shown");
+			logoutClassMobile.classList.add("nav-hidden");
+			logoutClassMobile.classList.remove("nav-shown");
 		} else {
 			registerClass.classList.add("nav-hidden");
 			registerClassMobile.classList.add("nav-hidden");
@@ -67,6 +71,10 @@ async function loadHeader() {
 			zoekBuddyMobile.classList.remove("nav-hidden");
 			zoekBuddyClass.classList.add("nav-shown");
 			zoekBuddyMobile.classList.add("nav-shown");
+			logoutClass.classList.add("nav-shown");
+			logoutClass.classList.remove("nav-hidden");
+			logoutClassMobile.classList.add("nav-shown");
+			logoutClassMobile.classList.remove("nav-hidden");
 		}
 
 		if (window.location.pathname == "/wwwroot/index.html") {
@@ -88,6 +96,27 @@ async function loadHeader() {
 		console.error(error);
 	}
 }
+
+/**
+ * Code for logout
+ * @author Lucas
+ */
+
+const session = FYSCloud.Session.get("userId");
+if (session != null) {
+	const logoutBtn = document.querySelector(".logout-btn");
+	const logoutBtnMobile = document.querySelector(".logout-link");
+
+	logoutBtn.addEventListener("click", () => {
+		FYSCloud.Session.clear();
+		window.location = "/wwwroot/index.html";
+	});
+	logoutBtnMobile.addEventListener("click", () => {
+		FYSCloud.Session.clear();
+		window.location = "/wwwroot/index.html";
+	});
+}
+
 
 /**
  * Code for the hamburger menu
@@ -172,15 +201,15 @@ function openmobileNav(Element) {
  */
 function closemobileNav(Element) {
 	Element.addEventListener("click", () => {
-		loginModal.style.display = "none";
+		loginmobileNav.style.display = "none";
 		clearLoginValues();
 	});
 }
 
 //If the user clicks outside the mobileNav, close the mobileNav
 window.addEventListener("click", (event) => {
-	if (event.target === loginModal) {
-		loginModal.style.display = "none";
+	if (event.target === loginmobileNav) {
+		loginmobileNav.style.display = "none";
 		clearLoginValues();
 	}
 });
@@ -234,6 +263,11 @@ var translations = {
 			en: "My Profile",
 			es: "Mi perfil",
 		},
+		logout: {
+			nl: "uitloggen",
+			en: "logout",
+			es: "cerrar sesión"
+		}
 	},
 	//Translate login modal
 	modal: {

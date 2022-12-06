@@ -22,10 +22,13 @@
 		<link rel="stylesheet" href="assets/css/default.css" />
 		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are
         available  -->
-		<script type="module" src="https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js" crossorigin></script>
+		<script
+			type="module"
+			src="https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js"
+			crossorigin></script>
 		<script type="module" src="assets/js/config.js"></script>
 
-		<script src="assets/js/app.js" defer></script>
+		<script type="module" src="assets/js/app.js" defer></script>
 		<script type="module" src="assets/js/pages/matching.js" defer></script>
 	</head>
 	<body>
@@ -37,16 +40,24 @@
 				<div class="matching-content d-flex">
 					<div class="matching-sidebar d-flex">
 						<button class="existing-btn btn active">
-							<span class="btn-text" data-translate="match.existingBuddy">Bestaande Buddy's</span>
+							<span class="btn-text" data-translate="match.existingBuddy"
+								>Bestaande Buddy's</span
+							>
 						</button>
 						<button class="suggested-btn btn">
-							<span class="btn-text" data-translate="match.suggestedMatch">Voorgestelde matches</span>
+							<span class="btn-text" data-translate="match.suggestedMatch"
+								>Voorgestelde matches</span
+							>
 						</button>
 						<button class="incoming-btn btn">
-							<span class="btn-text" data-translate="match.incomingRequest">Inkomende match verzoeken</span>
+							<span class="btn-text" data-translate="match.incomingRequest"
+								>Inkomende match verzoeken</span
+							>
 						</button>
 						<button class="outgoing-btn btn">
-							<span class="btn-text" data-translate="match.outgoingRequest">Uitgaande match verzoeken</span>
+							<span class="btn-text" data-translate="match.outgoingRequest"
+								>Uitgaande match verzoeken</span
+							>
 						</button>
 					</div>
 					<div class="matching-matches-container d-flex">
@@ -61,36 +72,22 @@
 						<span class="login-close">X</span>
 					</div>
 					<div class="popup-content d-flex">
-						<div class="flex-item">
-							<h2 class="text-align-c"data-translate="match.bio">Biografie</h2>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-								vulputate libero et velit interdum, ac aliquet odio mattis.
-								Class aptent taciti sociosqu ad litora torquent per conubia
-								nostra, per inceptos himenaeos. Curabitur tempus urna at turpis
-								condimentum lobortis. Ut commodo efficitur neque.
-							</p>
+						<div id="description" class="flex-item">
+							<h2 class="text-align-c" data-translate="match.bio">Biografie</h2>
 						</div>
-						<div class="flex-item buddy-picture">
-							<img
-								src="assets/img/HenkvanVliet2.jpg"
-								alt="Profiel Foto"
-								width="200px"
-								height="auto" />
-							<p class="text-align-c">Henk van Vliet</p>
+						<div class="flex-item buddy-picture"></div>
+					</div>
+					<div id="friend-fields" class="popup-content d-flex">
+						<div id="personal-info" class="flex-item w-100">
+							<h2 class="text-align-c">Informatie</h2>
 						</div>
 					</div>
 					<div class="popup-content d-flex">
 						<div class="flex-item w-100">
-							<h2 class="text-align-c" data-translate="match.interestList">Interesses</h2>
-							<div class="interests pos-relative d-flex justify-c">
-								<p data-translate="match.firstInterest">Schaken</p>
-								<p data-translate="match.secondInterest">Vissen</p>
-								<p data-translate="match.thirdInterest">Zomer</p>
-								<p data-translate="match.fourthInterest">Zonnen</p>
-								<p data-translate="match.fifthInterest">Zwemmen</p>
-								<p data-translate="match.sixthInterest">Warme landen</p>
-							</div>
+							<h2 class="text-align-c" data-translate="match.interestList">
+								Interesses
+							</h2>
+							<div id="interest" class="pos-relative d-flex justify-c"></div>
 						</div>
 					</div>
 				</div>
