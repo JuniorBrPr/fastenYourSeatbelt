@@ -91,7 +91,6 @@ async function loadHeader() {
 		header.insertAdjacentElement("afterend", mobileNavInsert);
 		document.body.insertBefore(footerInsert, document.body.lastChild);
 		header.insertAdjacentElement("afterend", loginModalInsert);
-		FYSCloud.Localization.translate();
 	} catch (error) {
 		console.error(error);
 	}
