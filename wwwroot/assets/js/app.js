@@ -548,6 +548,16 @@ const translations = {
 			en: "Outgoing match requests",
 			es: "Solicitudes de coincidencia salientes",
 		},
+		buddyProfile: {
+			nl: "Buddy Profiel",
+			en: "Buddy profile",
+			es: "Perfil de amistud",
+		},
+		bio: {
+			nl: "Biografie",
+			en: "Biography",
+			es: "Biografía",
+		},
 		interestList: {
 			nl: "Interesses",
 			en: "Interests",
