@@ -232,9 +232,9 @@ export function clearLoginValues() {
 }
 
 //Language switcher
-var initialLanguage = "en";
+const initialLanguage = "nl";
 
-var translations = {
+const translations = {
 	//Translate navbar and hamburger
 	navbar: {
 		findBuddy: {
@@ -267,6 +267,16 @@ var translations = {
 			en: "logout",
 			es: "cerrar sesión",
 		},
+		myAccount: {
+			nl: "Mijn account",
+			en: "My account",
+			es: "Mi perfil",
+		},
+		logout: {
+			nl: "Uitloggen",
+			en: "Logout",
+			es: "Cerrar sesión",
+		},
 	},
 	//Translate login modal
 	modal: {
@@ -278,7 +288,7 @@ var translations = {
 		login: {
 			nl: "Inloggen",
 			en: "Login",
-			es: "Acceso",
+			es: "Accesar",
 		},
 		forgotPassword: {
 			nl: "Wachtwoord",
@@ -296,9 +306,9 @@ var translations = {
 			es: "crea una",
 		},
 		noAccountLink: {
-			nl: "account",
-			en: "account",
-			es: " cuenta",
+			nl: "Account",
+			en: "Account",
+			es: "Cuenta",
 		},
 	},
 	//Translate footer
@@ -472,7 +482,7 @@ var translations = {
 		whoAreWeTitle: {
 			nl: "Wie zijn wij",
 			en: "Who are we",
-			es: " Quienes somos",
+			es: "Quienes somos",
 		},
 		whoAreWeDescr: {
 			nl:
@@ -482,7 +492,7 @@ var translations = {
 				"We are a team of talented students at the Hogeschool van Amsterdam with a vision to develop the best platform for the Fasten Your Seatbelts project." +
 				"“tThis is the first project presented to us in our first block of the study.",
 			es:
-				" Somos un equipo de estudiantes talentosos en la Hogeschool van Amsterdam con la visión de desarrollar la mejor plataforma para el proyecto Fasten Your Seatbelts." +
+				"Somos un equipo de estudiantes talentosos en la Hogeschool van Amsterdam con la visión de desarrollar la mejor plataforma para el proyecto Fasten Your Seatbelts." +
 				"“Este es el primer proyecto que se nos presenta en nuestro primer bloque de estudio.",
 		},
 		contact: {
@@ -493,22 +503,27 @@ var translations = {
 		fullName: {
 			nl: "Volledige naam",
 			en: "Full name",
-			es: " Nombre completo",
+			es: "Nombre completo",
 		},
 		phoneNr: {
 			nl: "Telefoonnummer",
-			en: "phone number",
-			es: " número de teléfono",
+			en: "Phone number",
+			es: "Número de teléfono",
 		},
 		topic: {
 			nl: "Onderwerp",
 			en: "Topic",
-			es: " Tema",
+			es: "Tema",
 		},
 		question: {
 			nl: "Uw vraag",
 			en: "your question",
-			es: " tu pregunta",
+			es: "Tu pregunta",
+		},
+		send: {
+			nl: "Verstuur",
+			en: "Send",
+			es: "enviar",
 		},
 	},
 	//Translate matching
@@ -606,10 +621,15 @@ var translations = {
 			en: "Destination",
 			es: "Destino",
 		},
-		timeFrame: {
-			nl: "Tijdsbestek",
-			en: "Time frame",
-			es: "Periodo de tiempo",
+		startDate: {
+			nl: "Begin vakantie",
+			en: "Start trip",
+			es: "Empiezo de vacaciones",
+		},
+		endDate: {
+			nl: "Einde vakantie",
+			en: "End trip",
+			es: "Conclusion de vacaciones",
 		},
 		gender: {
 			nl: "Geslacht",
@@ -646,7 +666,7 @@ var translations = {
 			en: "password",
 			es: "contraseña",
 		},
-		updateAccount: {
+		uploadPhoto: {
 			nl: "Upload foto",
 			en: "Upload photo",
 			es: "Subir foto",
@@ -654,9 +674,14 @@ var translations = {
 		myAccount: {
 			nl: "Mijn account",
 			en: "My account",
-			es: "Mi cuenta",
+			es: "Mi perfil",
 		},
-		myPreferences: {
+		updateAccount: {
+			nl: "Update account",
+			en: "Update account",
+			es: "Actualizar perfil",
+		},
+		preferences: {
 			nl: "Voorkeuren",
 			en: "Preferences",
 			es: "Preferencias",
