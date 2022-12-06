@@ -1,8 +1,5 @@
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 
-//Temporary
-FYSCloud.Session.set("userId", 1);
-
 const buddyList = document.querySelector(".matching-matches");
 const matchingHeaderTitleText = document.querySelector(".matching-header-text");
 
@@ -356,14 +353,12 @@ async function getRecommendedBuddies(userId) {
 			"             ON user.user_id = p.profile_id\n" +
 			"         JOIN user_interest AS u\n" +
 			"             ON user.user_id = u.profile_id\n" +
-			"         JOIN buddy AS b\n" +
+			"         LEFT JOIN buddy AS b\n" +
 			"             ON (b.receiver_user_id != user.user_id\n" +
 			"                    OR b.sender_user_id != user.user_id)\n" +
 			"WHERE interest_id IN (SELECT interest_id\n" +
 			"                      FROM user_interest\n" +
 			"                      WHERE profile_id = ?)\n" +
-			"  AND user_id NOT IN (SELECT receiver_user_id FROM buddy)\n" +
-			"  AND user_id NOT IN (SELECT sender_user_id FROM buddy)\n" +
 			"  AND user_id != ?\n" +
 			"GROUP BY NAME\n" +
 			"ORDER BY commonInterests DESC",
@@ -377,23 +372,22 @@ async function getRecommendedBuddies(userId) {
  */
 async function getExistingBuddies(userId) {
 	return await FYSCloud.API.queryDatabase(
-		"SELECT user_id                              AS userid,\n" +
-			'CONCAT(first_name, " ", last_name) AS name,\n' +
-			"destination                          AS destination,\n" +
-			"DATEDIFF(end_date, start_date)       AS timeframe,\n" +
-			"(SELECT count(DISTINCT interest_id)\n" +
-			"FROM user_interest\n" +
-			"WHERE interest_id IN (SELECT interest_id FROM user_interest WHERE profile_id = ?)\n" +
-			"AND interest_id IN (SELECT interest_id FROM user_interest WHERE profile_id = user_id)) AS commonInterests,\n" +
-			"b.is_accepted                        AS ACCEPTED\n" +
-			"FROM user\n" +
-			"JOIN profile p ON user.user_id = p.profile_id\n" +
-			"JOIN buddy b ON user.user_id = b.sender_user_id AND b.is_accepted = TRUE OR\n" +
-			"user_id = b.receiver_user_id AND b.is_accepted = TRUE\n" +
-			"WHERE user_id != ?\n" +
-			"AND (b.receiver_user_id = ? or b.sender_user_id = ?)\n" +
-			"GROUP BY name\n" +
-			"ORDER BY commonInterests DESC",
+		"SELECT user_id                                                                                   AS userid,\n" +
+        "       CONCAT(first_name, \" \", last_name)                                                        AS name,\n" +
+        "       destination                                                                               AS destination,\n" +
+        "       DATEDIFF(end_date, start_date)                                                            AS timeframe,\n" +
+        "       (SELECT count(DISTINCT interest_id)\n" +
+        "        FROM user_interest\n" +
+        "        WHERE interest_id IN (SELECT interest_id FROM user_interest WHERE profile_id = ?)\n" +
+        "          AND interest_id IN (SELECT interest_id FROM user_interest WHERE profile_id = user_id)) AS commonInterests,\n" +
+        "       b.is_accepted                                                                             AS ACCEPTED\n" +
+        "FROM user\n" +
+        "         JOIN profile p ON user.user_id = p.profile_id\n" +
+        "         JOIN buddy b ON user.user_id = b.sender_user_id AND b.is_accepted = TRUE OR\n" +
+        "                         user_id = b.receiver_user_id AND b.is_accepted = TRUE\n" +
+        "WHERE user_id != ?\n" +
+        "GROUP BY name\n" +
+        "ORDER BY commonInterests DESC",
 		[userId, userId, userId, userId]
 	).catch((reason) => console.log(reason));
 }
@@ -424,7 +418,7 @@ async function getOutgoingBuddyRequests(userId) {
 			"              ON user.user_id = p.profile_id\n" +
 			"         JOIN buddy b\n" +
 			"              ON user.user_id = b.receiver_user_id\n" +
-			"                  AND NOT b.is_accepted = TRUE\n" +
+			"                  AND b.is_accepted = FALSE\n" +
 			"WHERE user_id != ?\n" +
 			"  AND b.sender_user_id = ?\n" +
 			"GROUP BY name\n" +
@@ -439,30 +433,30 @@ async function getOutgoingBuddyRequests(userId) {
  */
 async function getIncomingBuddyRequests(userId) {
 	return await FYSCloud.API.queryDatabase(
-		"SELECT user_id                                     AS userid,\n" +
-			'       CONCAT(first_name, " ", last_name)        AS name,\n' +
-			"       destination                                 AS destination,\n" +
-			"       DATEDIFF(end_date, start_date)              AS timeframe,\n" +
-			"       (SELECT COUNT(DISTINCT interest_id)\n" +
-			"        FROM user_interest\n" +
-			"        WHERE interest_id\n" +
-			"                  IN (SELECT interest_id\n" +
-			"                      FROM user_interest\n" +
-			"                      WHERE profile_id = ?)\n" +
-			"          AND interest_id\n" +
-			"                  IN (SELECT interest_id\n" +
-			"                      FROM user_interest\n" +
-			"                      WHERE profile_id = user_id)) AS commonInterests,\n" +
-			"       b.is_accepted                               AS accepted\n" +
-			"FROM user\n" +
-			"         JOIN profile AS p\n" +
-			"             ON user.user_id = p.profile_id\n" +
-			"         JOIN buddy AS b\n" +
-			"             ON user.user_id = b.sender_user_id AND NOT b.is_accepted = TRUE\n" +
-			"WHERE user_id != ?\n" +
-			"  AND (b.receiver_user_id = ?)\n" +
-			"GROUP BY name\n" +
-			"ORDER BY commonInterests DESC",
+		"SELECT user_id                               AS userid,\n" +
+        "       CONCAT(first_name, \" \", last_name)    AS name,\n" +
+        "       destination                           AS destination,\n" +
+        "       DATEDIFF(end_date, start_date)        AS timeframe,\n" +
+        "       (SELECT COUNT(DISTINCT interest_id)\n" +
+        "        FROM user_interest\n" +
+        "        WHERE interest_id\n" +
+        "            IN (SELECT interest_id\n" +
+        "                FROM user_interest\n" +
+        "                WHERE profile_id = ?)\n" +
+        "          AND interest_id\n" +
+        "            IN (SELECT interest_id\n" +
+        "                FROM user_interest\n" +
+        "                WHERE profile_id = user_id)) AS commonInterests,\n" +
+        "       b.is_accepted                         AS accepted\n" +
+        "FROM user\n" +
+        "         JOIN profile AS p\n" +
+        "              ON user.user_id = p.profile_id\n" +
+        "         JOIN buddy AS b\n" +
+        "              ON user.user_id = b.sender_user_id AND b.is_accepted = FALSE\n" +
+        "WHERE user_id != ?\n" +
+        "  AND (b.receiver_user_id = ?)\n" +
+        "GROUP BY name\n" +
+        "ORDER BY commonInterests DESC",
 		[userId, userId, userId]
 	).catch((reason) => console.log(reason));
 }
