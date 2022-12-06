@@ -14,13 +14,13 @@ const messageInputField = document.querySelector(".contact-text");
  * @author Tim Knops
  */
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
     e.preventDefault(); // Stops the form from submitting.
     
     const formInputData = createObject(nameInputField, phoneInputField, emailInputField, subjectInputField, messageInputField);
-    sendEmail(formInputData);
+    await sendEmail(formInputData);
 
-    e.currentTarget.submit(); // Submits the form.
+    e.target.submit(); // Submits the form.
 });
 
 /**
