@@ -16,15 +16,22 @@ const previewText = document.querySelector(".preview-text");
 //set photo from start
 fileSystem.refreshPhoto(await fileSystem.getPhoto(userId), image);
 
+//upload a photo when upload button is clicked
 uploadBtn.addEventListener("click", async () => {
 	try {
 		const upload = await fileSystem.uploadPhoto(fileInput, userId, image);
-		console.log(upload);
+		const p = document.createElement("p");
+		p.textContent = upload;
+		uploadBtn.parentElement.appendChild(p);
 	} catch (error) {
-		console.log(error);
+		const p = document.createElement("p");
+		p.classList.add("warning");
+		p.textContent = error;
+		uploadBtn.parentElement.appendChild(p);
 	}
 });
 
+//refresh the preview display to display info about picture when a file is selected
 fileInput.addEventListener("change", async () => {
 	const dataUrl = await FYSCloud.Utils.getDataUrl(fileInput);
 	if (dataUrl.isImage) {
