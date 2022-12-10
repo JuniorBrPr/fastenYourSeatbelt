@@ -12,6 +12,7 @@ const uploadBtn = document.querySelector("#upload-photo");
 const image = document.querySelector("#profile-picture");
 const preview = document.querySelector(".preview");
 const previewText = document.querySelector(".preview-text");
+const parent = uploadBtn.parentElement;
 
 //set photo from start
 fileSystem.refreshPhoto(await fileSystem.getPhoto(userId), image);
@@ -22,21 +23,28 @@ uploadBtn.addEventListener("click", async () => {
 		const upload = await fileSystem.uploadPhoto(fileInput, userId, image);
 		const p = document.createElement("p");
 		p.textContent = upload;
-		uploadBtn.parentElement.appendChild(p);
+
+		if (parent.lastElementChild.nodeName === "P") {
+			parent.removeChild(parent.lastElementChild);
+		}
+		parent.appendChild(p);
 	} catch (error) {
 		const p = document.createElement("p");
 		p.classList.add("warning");
 		p.textContent = error;
-		uploadBtn.parentElement.appendChild(p);
+		if (parent.lastElementChild.nodeName === "P") {
+			parent.removeChild(parent.lastElementChild);
+		}
+		parent.appendChild(p);
 	}
 });
 
 //refresh the preview display to display info about picture when a file is selected
 fileInput.addEventListener("change", async () => {
 	const dataUrl = await FYSCloud.Utils.getDataUrl(fileInput);
+	previewText.removeAttribute("data-translate");
+	previewText.textContent = fileInput.files[0].name;
 	if (dataUrl.isImage) {
-		previewText.removeAttribute("data-translate");
-		previewText.textContent = fileInput.files[0].name;
 		fileSystem.refreshPhoto(dataUrl.url, preview);
 	}
 });
