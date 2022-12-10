@@ -25,6 +25,7 @@
 		<!-- Scripts API -->
 		<script type="module" src="assets/js/config.js"></script>
 		<script type="module" defer src="assets/js/pages/profiel.js"></script>
+		<script src="assets/js/photo.js" defer type="module"></script>
 	</head>
 	<body>
 		<main class="profiel-main d-flex justify-c">
@@ -33,7 +34,9 @@
 					Mijn Profiel
 				</h1>
 				<div class="profiel-container">
-					<label class="p-label" for="voornaam" data-translate="profile.firstName">Voornaam</label>
+					<label class="p-label" for="voornaam" data-translate="profile.firstName"
+						>Voornaam</label
+					>
 					<input
 						class="profiel-field w-100"
 						type="text"
@@ -42,7 +45,9 @@
 						placeholder="Quandale" />
 				</div>
 				<div class="profiel-container">
-					<label class="p-label" for="achternaam" data-translate="profile.lastName">Achternaam</label>
+					<label class="p-label" for="achternaam" data-translate="profile.lastName"
+						>Achternaam</label
+					>
 					<input
 						class="profiel-field w-100"
 						type="text"
@@ -55,7 +60,9 @@
 					<textarea class="bio-textarea" id="bio" name="bio"></textarea>
 				</div>
 				<div class="profiel-container">
-					<label class="p-label" for="gdatum" data-translate="profile.birthDate">Geboortedatum</label>
+					<label class="p-label" for="gdatum" data-translate="profile.birthDate"
+						>Geboortedatum</label
+					>
 					<input
 						class="profiel-field w-100"
 						id="gdatum"
@@ -64,7 +71,12 @@
 						max="2003-01-01" />
 				</div>
 				<div>
-					<label class="p-label" for="inter-field-1" data-translate="profile.interest">Interesses</label>
+					<label
+						class="p-label"
+						for="inter-field-1"
+						data-translate="profile.interest"
+						>Interesses</label
+					>
 					<select class="inter-field" name="interesses" id="inter-field-1">
 						<option value="Voetballen">Voetballen</option>
 						<option value="Darten">Darten</option>
@@ -105,7 +117,12 @@
 					</select>
 				</div>
 				<div class="profiel-container">
-					<label class="p-label" for="bestemming" data-translate="profile.destination">Bestemming</label>
+					<label
+						class="p-label"
+						for="bestemming"
+						data-translate="profile.destination"
+						>Bestemming</label
+					>
 					<input
 						class="profiel-field w-100"
 						type="text"
@@ -115,7 +132,9 @@
 				</div>
 
 				<div>
-					<label class="p-label" for="startdate" data-translate="profile.startDate">Tijdsbestek Start</label>
+					<label class="p-label" for="startdate" data-translate="profile.startDate"
+						>Tijdsbestek Start</label
+					>
 					<input
 						class="profiel-field w-100"
 						id="startdate"
@@ -123,7 +142,9 @@
 						name="date"
 						min="2022-01-01" />
 
-					<label class="p-label" for="startdate" data-translate="profile.endDate">Tijdsbestek End</label>
+					<label class="p-label" for="startdate" data-translate="profile.endDate"
+						>Tijdsbestek End</label
+					>
 					<input
 						class="profiel-field w-100"
 						id="enddate"
@@ -133,7 +154,12 @@
 				</div>
 
 				<div class="profiel-container">
-					<label class="p-label" for="geslacht-field-1" data-translate="profile.gender">Geslacht</label>
+					<label
+						class="p-label"
+						for="geslacht-field-1"
+						data-translate="profile.gender"
+						>Geslacht</label
+					>
 					<select class="gender-field" name="geslacht" id="geslacht-field-1">
 						<option value="0" data-translate="profile.genderMan">Man</option>
 						<option value="1" data-translate="profile.genderWomen">Vrouw</option>
@@ -141,25 +167,50 @@
 					</select>
 				</div>
 				<div class="opslaan-container">
-					<button class="sub-btn btn saveBtn" type="button" data-translate="profile.save">Opslaan</button>
+					<button
+						class="sub-btn btn saveBtn"
+						type="button"
+						data-translate="profile.save">
+						Opslaan
+					</button>
 				</div>
 			</form>
 			<section class="right-block d-flex">
-				<div class="profiel-foto-card">
+				<div class="profiel-foto-card d-flex-col align-c">
 					<h2 data-translate="profile.photo">Profiel Foto</h2>
 					<img
-						src="assets/img/HenkvanVliet2.jpg"
+						src="assets/img/users/skeleton_profile_picture.svg"
+						id="profile-picture"
 						alt="Profiel foto"
 						width="300"
 						height="300" />
-					<button class="sub-btn btn" data-translate="profile.uploadPhoto">Upload foto</button>
-
-					<!--				<label class="p-label" >Profiel Foto</label>-->
-					<!--				<input class="profiel-foto-upload"-->
-					<!--					   type="file"-->
-					<!--					   accept="image/*"-->
-					<!--					   name="image"-->
-					<!--					   id="profiel-file">-->
+					<label
+						for="profile-upload"
+						class="btn upload-file-btn d-flex justify-c align-c"
+						data-translate="profile.uploadFile">
+						Kies een Foto
+					</label>
+					<input
+						type="file"
+						name="profile-upload"
+						id="profile-upload"
+						class="profile-upload"
+						accept="image/*" />
+					<div class="preview-display">
+						<span class="preview-text" data-translate="profile.previewText"
+							>Geen bestand gekozen</span
+						>
+						<img
+							src="assets/img/users/skeleton_profile_picture.svg"
+							alt="pofile picture preview"
+							class="preview" />
+					</div>
+					<button
+						id="upload-photo"
+						class="sub-btn btn"
+						data-translate="profile.uploadPhoto">
+						Upload foto
+					</button>
 				</div>
 				<div class="profiel-account-card">
 					<h2 data-translate="profile.myAccount">Mijn Account</h2>
@@ -171,7 +222,9 @@
 						class="profiel-field"
 						required
 						placeholder="quandale@gmail.com" />
-					<label for="password" class="p-label" data-translate="profile.password"> Wachtwoord </label>
+					<label for="password" class="p-label" data-translate="profile.password">
+						Wachtwoord
+					</label>
 					<input
 						type="password"
 						name="password"
@@ -179,7 +232,9 @@
 						class="profiel-field"
 						required
 						placeholder="***********" />
-					<button class="sub-btn btn" data-translate="profile.updateAccount">Update Account</button>
+					<button class="sub-btn btn" data-translate="profile.updateAccount">
+						Update Account
+					</button>
 				</div>
 				<div class="profiel-preference-card">
 					<h2 data-translate="profile.preferences">Preferences</h2>
