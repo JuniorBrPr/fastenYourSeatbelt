@@ -680,6 +680,16 @@ const translations = {
 			en: "Upload photo",
 			es: "Subir foto",
 		},
+		uploadFile: {
+			nl: "Kies een foto",
+			en: "Choose a photo",
+			es: "elige una foto",
+		},
+		previewText: {
+			nl: "Geen bestand gekozen",
+			en: "No file is chosen",
+			es: "Ningún archivo elegido",
+		},
 		myAccount: {
 			nl: "Mijn account",
 			en: "My account",
