@@ -115,7 +115,7 @@ async function populateList(buddyList, type, data) {
 		//Add a profile picture to the buddy
 		const buddyImg = document.createElement("img");
 		buddyImg.className = "buddy-img";
-		fileSystem.refreshPhoto(await fileSystem.getPhoto(buddy.user), buddyImg);
+		fileSystem.refreshPhoto(await fileSystem.getPhoto(buddy.userid), buddyImg);
 		buddyAttributeContainer.appendChild(buddyImg);
 
 		//Add the name of the buddy
