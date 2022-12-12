@@ -271,11 +271,6 @@ const translations = {
 			en: "My account",
 			es: "Mi perfil",
 		},
-		logout: {
-			nl: "Uitloggen",
-			en: "Logout",
-			es: "Cerrar sesión",
-		},
 	},
 	//Translate login modal
 	modal: {
@@ -528,9 +523,9 @@ const translations = {
 	//Translate matching
 	match: {
 		existingBuddy: {
-			nl: "Bestaande Buddy's:",
-			en: "Existing Buddies:",
-			es: "Amigos existentes:",
+			nl: "Bestaande Buddy's",
+			en: "Existing Buddies",
+			es: "Amigos existentes",
 		},
 		suggestedMatch: {
 			nl: "Voorgestelde matches",
