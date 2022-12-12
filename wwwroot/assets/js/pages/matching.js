@@ -1,4 +1,8 @@
+import { environmentUrl } from "../config.js";
+import { FileSystem } from "../classes/fileSystem.js";
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
+
+const fileSystem = new FileSystem(environmentUrl);
 
 const buddyList = document.querySelector(".matching-matches");
 const matchingHeaderTitleText = document.querySelector(".matching-header-text");
@@ -18,12 +22,12 @@ let prevButton = document.querySelector(".existing-btn");
 setActiveBtn(btnContainer);
 
 //Populates the list when loading the matching page, "existing" buddy's by default
-populateList(buddyList, "existing", await getExistingBuddies(FYSCloud.Session.get("userId")));
+await populateList(buddyList, "existing", await getExistingBuddies(FYSCloud.Session.get("userId")));
 
 //Button to switch to the list of existing buddy's
 existingBtn.addEventListener("click", async () => {
 	matchingHeaderTitleText.innerHTML = "Corenbuddy’s";
-	populateList(
+	await populateList(
 		buddyList,
 		"existing",
 		await getExistingBuddies(FYSCloud.Session.get("userId"))
@@ -33,7 +37,7 @@ existingBtn.addEventListener("click", async () => {
 //Button to switch to the list of suggested buddies
 suggestedBtn.addEventListener("click", async () => {
 	matchingHeaderTitleText.innerHTML = "Voorgestelde Corenbuddy’s";
-	populateList(
+	await populateList(
 		buddyList,
 		"suggested",
 		await getRecommendedBuddies(FYSCloud.Session.get("userId"))
@@ -43,7 +47,7 @@ suggestedBtn.addEventListener("click", async () => {
 //Button to switch to the list of incoming buddy requests
 incomingBtn.addEventListener("click", async () => {
 	matchingHeaderTitleText.innerHTML = "Inkomendende buddy verzoeken";
-	populateList(
+	await populateList(
 		buddyList,
 		"incoming",
 		await getIncomingBuddyRequests(FYSCloud.Session.get("userId"))
@@ -53,7 +57,7 @@ incomingBtn.addEventListener("click", async () => {
 //Button to switch to the list of outgoing buddy requests
 outgoingBtn.addEventListener("click", async () => {
 	matchingHeaderTitleText.innerHTML = "Uitgaande buddy verzoeken";
-	populateList(
+	await populateList(
 		buddyList,
 		"outgoing",
 		await getOutgoingBuddyRequests(FYSCloud.Session.get("userId"))
@@ -78,7 +82,7 @@ buddyProfileCloseBtn.addEventListener("click", () => {
  * ("existing" || "suggested" || "incoming" || "outgoing").
  * @param {Object[]} data An array with buddy object from which to get the data.
  */
-function populateList(buddyList, type, data) {
+async function populateList(buddyList, type, data) {
 	//Clear the list before populating again.
 	buddyList.innerHTML = "";
 
@@ -100,7 +104,7 @@ function populateList(buddyList, type, data) {
 		return;
 	}
 
-	data.forEach((buddy) => {
+	for (const buddy of data) {
 		const buddyListItem = document.createElement("li");
 		buddyListItem.className = "buddy-list-item";
 
@@ -111,8 +115,7 @@ function populateList(buddyList, type, data) {
 		//Add a profile picture to the buddy
 		const buddyImg = document.createElement("img");
 		buddyImg.className = "buddy-img";
-		//Temporary till profile picture system is created
-		buddyImg.src = "assets/img/users/henk.png";
+		fileSystem.refreshPhoto(await fileSystem.getPhoto(buddy.user), buddyImg);
 		buddyAttributeContainer.appendChild(buddyImg);
 
 		//Add the name of the buddy
@@ -251,7 +254,7 @@ function populateList(buddyList, type, data) {
 
 		//Finally, add the buddy list item to the buddy unordered-list.
 		buddyList.appendChild(buddyListItem);
-	});
+	}
 }
 
 /**
