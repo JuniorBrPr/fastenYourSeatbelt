@@ -358,7 +358,6 @@ async function updateInter() {
                 break;
             }
         }
-
     }
 
 
