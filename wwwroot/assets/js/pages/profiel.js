@@ -323,30 +323,43 @@ async function updateInter() {
     // Get the updated values from the select elements
     const updatedInterests = Array.from(selectElements).map(selectElement => selectElement.value);
 
-    // Delete all of the existing interests
-    await FYSCloud.API.queryDatabase(
-        "DELETE FROM user_interest WHERE profile_id = ?",
-        [userId]
-    );
+    // Checks for Duplicates in updatedInterests Array,
+    // hasDuplicates supplied to an IF statement.
 
-    // Loop over the updated interests and insert the maximum interest
-    for (const interest of updatedInterests) {
+    const hasDuplicates = new Set(updatedInterests).size !== updatedInterests.length;
 
+    if (hasDuplicates) {
+        console.log('Duplicates found')
+        alert('Kies uit verschillende interesses!' +
+            'je kan geen dubbele waardes hebben')
+    } else{
 
-        const result = await FYSCloud.API.queryDatabase(
-            "SELECT interest_id FROM interest WHERE interest_name = ?",
-            [interest]
-        );
-        const interestId = result[0].interest_id;
-
-        // Insert the updated interest
+        // Delete all of the existing interests
         await FYSCloud.API.queryDatabase(
-            "INSERT INTO user_interest (profile_id, interest_id) VALUES (?, ?)",
-            [userId, interestId]
-        );
+            "DELETE FROM user_interest WHERE profile_id = ?",
+            [userId]
+        )
 
-        if (updatedInterests.indexOf(interest) === 5) {
-            break;
+        // Loop over the updated interests and insert the maximum interest
+        for (const interest of updatedInterests) {
+            const result = await FYSCloud.API.queryDatabase(
+                "SELECT interest_id FROM interest WHERE interest_name = ?",
+                [interest]
+            );
+            const interestId = result[0].interest_id;
+
+            // Insert the updated interest
+            await FYSCloud.API.queryDatabase(
+                "INSERT INTO user_interest (profile_id, interest_id) VALUES (?, ?)",
+                [userId, interestId]
+            );
+
+            if (updatedInterests.indexOf(interest) === 5) {
+                break;
+            }
         }
+
     }
+
+
 }
