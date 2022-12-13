@@ -21,7 +21,7 @@ export class Validation {
 	 */
 	invalidName(nameInput) {
 		//if there aren't any matches the match array is empty. so if the length is 0 the name is invalid
-		return nameInput.value.match(/^[\p{L}' -]*$/u) == null;
+		return nameInput.value.match(/^[\p{L}' 0-9\\-]*$/u) == null;
 	}
 	/**
 	 * check if email is valid

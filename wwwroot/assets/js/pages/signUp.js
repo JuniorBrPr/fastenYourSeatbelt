@@ -109,6 +109,11 @@ signUpForm.addEventListener("submit", async (e) => {
 			const container = document.querySelector("[data-success]");
 			container.setAttribute("data-success", "true");
 			container.textContent = `Gefeliciteerd ${values.firstName} ${values.lastName} uw account is aangemaakt!`;
+
+			const inputs = getFormInputs(signUpForm);
+			Object.values(inputs).forEach((input) => {
+				input.value = "";
+			});
 		} else {
 			throw "Niet alle gegevens zijn correct ingevoerd!";
 		}
