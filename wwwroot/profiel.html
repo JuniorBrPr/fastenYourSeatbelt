@@ -1,163 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Corenbuddy</title>
-		<!-- get open sans font -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Corenbuddy</title>
+    <!-- get open sans font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;
 			0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
-			rel="stylesheet" />
-		<!-- link to font-awesome for icons -->
-		<script
-			src="https://kit.fontawesome.com/045f11e82e.js"
-			crossorigin="anonymous"></script>
+            rel="stylesheet" />
+    <!-- link to font-awesome for icons -->
+    <script
+            src="https://kit.fontawesome.com/045f11e82e.js"
+            crossorigin="anonymous"></script>
 
-		<link rel="stylesheet" href="assets/css/default.css" />
-		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are
-    available  -->
-		<script type="module" src="assets/js/app.js" defer></script>
+    <link rel="stylesheet" href="assets/css/default.css" />
+    <!-- load javascript, defer makes sure scripts are loaded when dom-elements are
+available  -->
+    <script type="module" src="assets/js/app.js" defer></script>
 
-		<!-- Scripts API -->
-		<script type="module" src="assets/js/config.js"></script>
-		<script type="module" defer src="assets/js/pages/profiel.js"></script>
-	</head>
-	<body>
-		<main class="profiel-main d-flex justify-c">
-			<form class="profiel align-c" action="results.html" method="GET">
-				<h1 class="h1-mijn-profiel">Mijn Profiel</h1>
-				<div class="profiel-container">
-					<label class="p-label" for="voornaam">Voornaam</label>
-					<input
-						class="profiel-field w-100"
-						type="text"
-						id="voornaam"
-						name="naam"
-						placeholder="Quandale" />
-				</div>
-				<div class="profiel-container">
-					<label class="p-label" for="achternaam">Achternaam</label>
-					<input
-						class="profiel-field w-100"
-						type="text"
-						id="achternaam"
-						name="naam"
-						placeholder="Dingle" />
-				</div>
-				<div class="profiel-container">
-					<label class="p-label" for="bio">Bio</label>
-					<textarea class="bio-textarea" id="bio" name="bio"></textarea>
-				</div>
-				<div class="profiel-container">
-					<label class="p-label" for="gdatum">Geboortedatum</label>
-					<input
-						class="profiel-field w-100"
-						id="gdatum"
-						type="date"
-						name="date"
-						max="2003-01-01" />
-				</div>
-				<div>
-					<label class="p-label" for="inter-field-1">Interesses</label>
-					<select class="inter-field" name="interesses" id="inter-field-1">
-					</select>
-					<select class="inter-field" name="interesses" id="inter-field-2">
-					</select>
-					<select class="inter-field" name="interesses" id="inter-field-3">
-					</select>
-				</div>
-				<div>
-					<select class="inter-field" name="interesses" id="inter-field-4">
-					</select>
-					<select class="inter-field" name="interesses" id="inter-field-5">
-					</select>
-					<select class="inter-field" name="interesses" id="inter-field-6">
-					</select>
-				</div>
-				<div class="profiel-container">
-					<label class="p-label" for="bestemming">Bestemming</label>
-					<input
-						class="profiel-field w-100"
-						type="text"
-						id="bestemming"
-						name="bestemming"
-						placeholder="Spanje" />
-				</div>
+    <!-- Scripts API -->
+    <script type="module" src="assets/js/config.js"></script>
+    <script type="module" defer src="assets/js/pages/profiel.js"></script>
+    <script src="assets/js/photo.js" defer type="module"></script>
+</head>
+<body>
+<main class="profiel-main d-flex justify-c">
+    <form class="profiel align-c" action="results.html" method="GET">
+        <h1 class="h1-mijn-profiel" data-translate="profile.myProfile">
+            Mijn Profiel
+        </h1>
+        <div class="profiel-container">
+            <label class="p-label" for="voornaam" data-translate="profile.firstName"
+            >Voornaam</label
+            >
+            <input
+                    class="profiel-field w-100"
+                    type="text"
+                    id="voornaam"
+                    name="naam"
+                    placeholder="Quandale" />
+        </div>
+        <div class="profiel-container">
+            <label class="p-label" for="achternaam" data-translate="profile.lastName"
+            >Achternaam</label
+            >
+            <input
+                    class="profiel-field w-100"
+                    type="text"
+                    id="achternaam"
+                    name="naam"
+                    placeholder="Dingle" />
+        </div>
+        <div class="profiel-container">
+            <label class="p-label" for="bio">Bio</label>
+            <textarea class="bio-textarea" id="bio" name="bio"></textarea>
+        </div>
+        <div class="profiel-container">
+            <label class="p-label" for="gdatum" data-translate="profile.birthDate"
+            >Geboortedatum</label
+            >
+            <input
+                    class="profiel-field w-100"
+                    id="gdatum"
+                    type="date"
+                    name="date"
+                    max="2003-01-01" />
+        </div>
+        <div>
+            <label
+                    class="p-label"
+                    for="inter-field-1"
+                    data-translate="profile.interest"
+            >Interesses</label
+            >
+            <select class="inter-field" name="interesses" id="inter-field-1">
+            </select>
+            <select class="inter-field" name="interesses" id="inter-field-2">
+            </select>
+            <select class="inter-field" name="interesses" id="inter-field-3">
+            </select>
+        </div>
+        <div>
+            <select class="inter-field" name="interesses" id="inter-field-4">
+            </select>
+            <select class="inter-field" name="interesses" id="inter-field-5">
+            </select>
+            <select class="inter-field" name="interesses" id="inter-field-6">
+            </select>
+        </div>
+        <div class="profiel-container">
+            <label
+                    class="p-label"
+                    for="bestemming"
+                    data-translate="profile.destination"
+            >Bestemming</label
+            >
+            <input
+                    class="profiel-field w-100"
+                    type="text"
+                    id="bestemming"
+                    name="bestemming"
+                    placeholder="Spanje" />
+        </div>
 
-				<div>
-					<label class="p-label" for="startdate">Tijdsbestek Start</label>
-					<input
-						class="profiel-field w-100"
-						id="startdate"
-						type="date"
-						name="date"
-						min="2022-01-01" />
+        <div>
+            <label class="p-label" for="startdate" data-translate="profile.startDate"
+            >Tijdsbestek Start</label
+            >
+            <input
+                    class="profiel-field w-100"
+                    id="startdate"
+                    type="date"
+                    name="date"
+                    min="2022-01-01" />
 
-					<label class="p-label" for="startdate">Tijdsbestek End</label>
-					<input
-						class="profiel-field w-100"
-						id="enddate"
-						type="date"
-						name="date"
-						min="2022-01-01" />
-				</div>
+            <label class="p-label" for="startdate" data-translate="profile.endDate"
+            >Tijdsbestek End</label
+            >
+            <input
+                    class="profiel-field w-100"
+                    id="enddate"
+                    type="date"
+                    name="date"
+                    min="2022-01-01" />
+        </div>
 
-				<div class="profiel-container">
-					<label class="p-label" for="geslacht-field-1">Geslacht</label>
-					<select class="gender-field" name="geslacht" id="geslacht-field-1">
-						<option value="0">Man</option>
-						<option value="1">Vrouw</option>
-						<option value="2">Anders</option>
-					</select>
-				</div>
-				<div class="opslaan-container">
-					<button class="sub-btn btn saveBtn" type="button">Opslaan</button>
-				</div>
-			</form>
-			<section class="right-block d-flex">
-				<div class="profiel-foto-card">
-					<h2>Profiel Foto</h2>
-					<img
-						src="assets/img/HenkvanVliet2.jpg"
-						alt="Profiel foto"
-						width="300"
-						height="300" />
-					<button class="sub-btn btn">Upload foto</button>
-				</div>
-				<div class="profiel-account-card">
-					<h2>Mijn Account</h2>
-					<label for="email" class="p-label"> Email </label>
-					<input
-						type="email"
-						name="email"
-						id="email"
-						class="profiel-field"
-						required
-						placeholder="quandale@gmail.com" />
-					<label for="password" class="p-label"> Wachtwoord </label>
-					<input
-						type="password"
-						name="password"
-						id="password"
-						class="profiel-field"
-						required
-						placeholder="***********" />
-					<button class="sub-btn btn">Update Account</button>
-				</div>
-				<div class="profiel-preference-card">
-					<h2>Preferences</h2>
-					<label class="p-label">Darkmode:</label>
+        <div class="profiel-container">
+            <label
+                    class="p-label"
+                    for="geslacht-field-1"
+                    data-translate="profile.gender"
+            >Geslacht</label
+            >
+            <select class="gender-field" name="geslacht" id="geslacht-field-1">
+                <option value="0" data-translate="profile.genderMan">Man</option>
+                <option value="1" data-translate="profile.genderWomen">Vrouw</option>
+                <option value="2" data-translate="profile.genderOther">Anders</option>
+            </select>
+        </div>
+        <div class="opslaan-container">
+            <button
+                    class="sub-btn btn saveBtn"
+                    type="button"
+                    data-translate="profile.save">
+                Opslaan
+            </button>
+        </div>
+    </form>
+    <section class="right-block d-flex">
+        <div class="profiel-foto-card d-flex-col align-c">
+            <h2 data-translate="profile.photo">Profiel Foto</h2>
+            <img
+                    src="assets/img/users/skeleton_profile_picture.svg"
+                    id="profile-picture"
+                    alt="Profiel foto"
+                    width="300"
+                    height="300" />
+            <label
+                    for="profile-upload"
+                    class="btn upload-file-btn d-flex justify-c align-c"
+                    data-translate="profile.uploadFile">
+                Kies een Foto
+            </label>
+            <input
+                    type="file"
+                    name="profile-upload"
+                    id="profile-upload"
+                    class="profile-upload"
+                    accept="image/*" />
+            <div class="preview-display">
+						<span class="preview-text" data-translate="profile.previewText"
+                        >Geen bestand gekozen</span
+                        >
+                <img
+                        src="assets/img/users/skeleton_profile_picture.svg"
+                        alt="pofile picture preview"
+                        class="preview" />
+            </div>
+            <button
+                    id="upload-photo"
+                    class="sub-btn btn"
+                    data-translate="profile.uploadPhoto">
+                Upload foto
+            </button>
+        </div>
+        <div class="profiel-account-card">
+            <h2 data-translate="profile.myAccount">Mijn Account</h2>
+            <label for="email" class="p-label"> Email </label>
+            <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    class="profiel-field"
+                    required
+                    placeholder="quandale@gmail.com" />
+            <label for="password" class="p-label" data-translate="profile.password">
+                Wachtwoord
+            </label>
+            <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="profiel-field"
+                    required
+                    placeholder="***********" />
+            <button class="sub-btn btn" data-translate="profile.updateAccount">
+                Update Account
+            </button>
+        </div>
+        <div class="profiel-preference-card">
+            <h2 data-translate="profile.preferences">Preferences</h2>
+            <label class="p-label">Darkmode:</label>
 
-					<div class="switch">
-						<input type="checkbox" />
-						<span class="slider round"></span>
-					</div>
-				</div>
-			</section>
-		</main>
-	</body>
+            <div class="switch">
+                <input type="checkbox" />
+                <span class="slider round"></span>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
 </html>
