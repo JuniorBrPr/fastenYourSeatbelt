@@ -193,10 +193,10 @@ function getFormInputs(form) {
 function getInputValues(form) {
 	const inputs = getFormInputs(form);
 	return {
-		firstName: capitalizeName(inputs.firstName.value),
-		lastName: capitalizeName(inputs.lastName.value),
-		email: inputs.email.value,
-		password: inputs.password.value,
+		firstName: capitalizeName(inputs.firstName.value.trim()),
+		lastName: capitalizeName(inputs.lastName.value.trim()),
+		email: inputs.email.value.trim(),
+		password: inputs.password.value.trim(),
 	};
 }
 /**

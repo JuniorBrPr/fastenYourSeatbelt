@@ -12,7 +12,7 @@ export class Validation {
 	 * @returns true if input is empty false if not empty
 	 */
 	emptyInput(input) {
-		return input.value === "";
+		return input.value.trim() === "";
 	}
 	/**
 	 * Check if name is valid for database
