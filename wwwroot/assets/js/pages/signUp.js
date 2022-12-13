@@ -38,12 +38,11 @@ inputs.forEach((input) => {
 			input.getAttribute("data-input") == "password"
 				? input.parentElement.nextElementSibling
 				: input.nextElementSibling;
-		//check if input is empty
 		if (input.getAttribute("data-input") == "name") {
 			displayError(
 				validation.invalidName(input),
 				errorDisplay,
-				"Er zijn vreemde karakters gebruikt in uw naam!",
+				"warningInvalidName",
 				input
 			);
 			if (errorDisplay.textContent != "") {
@@ -54,7 +53,7 @@ inputs.forEach((input) => {
 			displayError(
 				validation.invalidEmail(input),
 				errorDisplay,
-				"Dit is een ongeldig emailadres!",
+				"warningInvalidEmail",
 				input
 			);
 			if (errorDisplay.textContent != "") {
@@ -64,7 +63,7 @@ inputs.forEach((input) => {
 			displayError(
 				await validation.emailInDatabase(input),
 				errorDisplay,
-				"U heeft al een account op dit emailadres",
+				"warningExistingEmail",
 				input
 			);
 
@@ -80,7 +79,7 @@ inputs.forEach((input) => {
 			displayError(
 				validation.passwordMatch(passwordInput, input),
 				errorDisplay,
-				"Wachtwoorden zijn niet hetzelfde!",
+				"warningPassword",
 				passwordInput,
 				input
 			);
@@ -88,12 +87,7 @@ inputs.forEach((input) => {
 				return;
 			}
 		}
-		displayError(
-			validation.emptyInput(input),
-			errorDisplay,
-			"Veld moet ingevuld zijn!",
-			input
-		);
+		displayError(validation.emptyInput(input), errorDisplay, "warningEmpty", input);
 		//check if the name inputs are valid
 	});
 });
@@ -115,6 +109,11 @@ signUpForm.addEventListener("submit", async (e) => {
 			const container = document.querySelector("[data-success]");
 			container.setAttribute("data-success", "true");
 			container.textContent = `Gefeliciteerd ${values.firstName} ${values.lastName} uw account is aangemaakt!`;
+
+			const inputs = getFormInputs(signUpForm);
+			Object.values(inputs).forEach((input) => {
+				input.value = "";
+			});
 		} else {
 			throw "Niet alle gegevens zijn correct ingevoerd!";
 		}
@@ -133,12 +132,14 @@ signUpForm.addEventListener("submit", async (e) => {
  */
 function displayError(errorFunction, errorElement, errorMessage, input, repeatPasswordInput) {
 	if (errorFunction) {
-		errorElement.textContent = errorMessage;
+		errorElement.setAttribute("data-translate", `signUp.${errorMessage}`);
 		input.style.borderColor = "#d81e05";
+		FYSCloud.Localization.translate();
 		if (repeatPasswordInput != null) {
 			repeatPasswordInput.style.borderColor = "#d81e05";
 		}
 	} else {
+		errorElement.removeAttribute("data-translate");
 		errorElement.textContent = "";
 		input.style.borderColor = "#d9d9d9";
 		if (repeatPasswordInput != null) {
