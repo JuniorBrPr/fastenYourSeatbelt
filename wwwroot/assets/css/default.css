@@ -125,6 +125,7 @@ textarea {
 	height: 40px;
 	margin-right: 16px;
 	position: relative;
+	cursor: pointer;
 }
 
 .btn:hover,
@@ -235,7 +236,7 @@ button.btn {
 
 /* Minimum width for button */
 .register-btn,
-.login-btn{
+.login-btn {
 	min-width: 14ch;
 }
 
@@ -270,6 +271,15 @@ button.btn {
 	animation-timing-function: linear;
 	animation-duration: 300ms;
 	animation-fill-mode: forwards;
+}
+
+/* language switcher dropdown */
+[data-translate] {
+	visibility: hidden;
+}
+
+[data-translate][translated] {
+	visibility: visible;
 }
 
 /* styling of input */
@@ -744,6 +754,7 @@ footer {
 .buddy-img {
 	width: 90px;
 	height: 90px;
+	border-radius : 50%;
 }
 
 .buddy-attr-container {
@@ -817,7 +828,6 @@ footer {
 	z-index: 1000;
 	min-width: 100%;
 	min-height: 100%;
-	background-color: rgba(0, 0, 0, 0.35);
 }
 
 .login {
@@ -993,12 +1003,11 @@ footer {
 
 /* wachtwoord vergeten styling*/
 
-.wwvg-main{
+.wwvg-main {
 	min-height: 100vh;
 	align-items: center;
 	flex-direction: column;
 	background-color: var(--color-bg-grey);
-
 }
 
 .wwvg-form {
@@ -1021,21 +1030,17 @@ footer {
 
 .wwvg-submit-btn {
 	min-width: 16ch;
-
 }
 
-
-@media (max-width: 1000px){
+@media (max-width: 1000px) {
 	.wwvg-main {
 		background-color: #0f0;
 		/*flex-direction: row;*/
-
 	}
-	.wwvg-form{
+	.wwvg-form {
 		width: 95vw;
 	}
 }
-
 
 /* contact styling */
 
@@ -1169,7 +1174,7 @@ footer {
 	margin: 15px 2px;
 	cursor: pointer;
 	font-size: var(--small-font-size);
-	float: right;
+	font-family: "open sans", sans-serif;
 }
 
 .h1-mijn-profiel {
@@ -1190,8 +1195,8 @@ footer {
 .profiel-foto-card {
 	background: var(--color-bg-grey);
 	padding: 20px 40px;
-	height: 452px;
 	border-radius: 10px;
+	gap: 20px;
 }
 
 .profiel-foto-card h2 {
@@ -1199,9 +1204,24 @@ footer {
 	padding-bottom: 20px;
 }
 
-.profiel-foto-card img {
+.profiel-foto-card > img {
 	display: block;
 	border-radius: 999px;
+	object-fit: cover;
+	object-position: center;
+}
+.upload-file-btn {
+	font-size: var(--small-font-size);
+}
+.upload-file-btn + input[type="file"] {
+	display: none;
+}
+.preview {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
 }
 
 .profiel-foto-card p {
@@ -1316,10 +1336,10 @@ input:checked + .slider::before {
 	font-size: 16px;
 	border: none;
 	min-width: 16ch;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
 	margin-inline: auto;
 	padding: 5px;
 	display: none;
@@ -1327,40 +1347,40 @@ input:checked + .slider::before {
 	background-color: var(--color-bg-grey);
 	left: 0;
 	right: 16px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 	z-index: 1;
 	border-radius: 10px;
 	border: 1.75px solid var(--color-border-grey);
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
 	color: var(--color-white);
 	text-decoration: none;
 	margin-block: 10px;
 	margin-inline: auto;
 	max-width: 12ch;
 	min-width: 12ch;
-  }
+}
 
-  .logout-btn {
+.logout-btn {
 	background-color: var(--color-red);
-  }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
 	background-color: var(--color-btn-dark-green);
 }
 
 .dropdown-content .logout-btn:hover {
 	background-color: var(--color-red-dark);
-  }
-  
-  /* Show the dropdown menu on hover */
-  .dropdown:focus-within .dropdown-content {
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:focus-within .dropdown-content {
 	display: block;
 }
-  
+
 /* media queries  */
 @media screen and (max-width: 1500px) {
 	/* Home Page */

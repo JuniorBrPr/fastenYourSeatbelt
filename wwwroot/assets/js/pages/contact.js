@@ -14,13 +14,13 @@ const messageInputField = document.querySelector(".contact-text");
  * @author Tim Knops
  */
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
     e.preventDefault(); // Stops the form from submitting.
     
     const formInputData = createObject(nameInputField, phoneInputField, emailInputField, subjectInputField, messageInputField);
-    sendEmail(formInputData);
+    await sendEmail(formInputData);
 
-    e.currentTarget.submit(); // Submits the form.
+    e.target.submit(); // Submits the form.
 });
 
 /**
@@ -33,15 +33,13 @@ form.addEventListener("submit", (e) => {
  * @returns {object} object of the contact form input values.
  */
 function createObject(name, phone, email, subject, message) {
-    const object = {
+    return {
         name: name.value,
         phone: phone.value,
         email: email.value,
         subject: subject.value,
         message: message.value
     };
-
-    return object;
 }
 
 /**
@@ -50,7 +48,7 @@ function createObject(name, phone, email, subject, message) {
  * @param {object} input - object of all the contact form values.
  */
 async function sendEmail(input) {
-    const emailRecipiants = [
+    const emailRecipients = [
         {address: "lucas.meester@hva.nl"}, 
         {address: "tim.knops@hva.nl"},
         {address: "junior.brito.perez@hva.nl"},
@@ -64,9 +62,9 @@ async function sendEmail(input) {
     await FYSCloud.API.sendEmail({
         from: {
             name: input.name,
-            adress: input.email
+            address: input.email
         },
-        to: emailRecipiants, 
+        to: emailRecipients,
         subject: input.subject,
         priority: "high",
         html: `<p>${input.message}</p>
