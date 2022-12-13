@@ -728,6 +728,31 @@ const translations = {
 			en: "Repeat password",
 			es: "Repita la contraseña",
 		},
+		warningEmpty: {
+			nl: "Veld moet ingevuld zijn!",
+			en: "Please fill out this field!",
+			es: "Por favor, rellena este campo",
+		},
+		warningInvalidName: {
+			nl: "Er zijn vreemde karakters gebruikt in uw naam!",
+			en: "Weird characters are used!",
+			es: "¡Se han utilizado caracteres extraños!",
+		},
+		warningInvalidEmail: {
+			nl: "Dit is een ongeldig emailadres!",
+			en: "Please enter a valid email.",
+			es: "Por favor, ingrese un correo electrónico válido.",
+		},
+		warningExistingEmail: {
+			nl: "U heeft al een account op dit emailadres",
+			en: "Email in use. Enter a different email or log in.",
+			es: "Correo electrónico en uso. Ingresa un correo electrónico diferente o inicia sesión.",
+		},
+		warningPassword: {
+			nl: "Wachtwoorden zijn niet hetzelfde!",
+			en: "The passwords you entered do not match.",
+			es: "Las contraseñas que ingresaste no coinciden.",
+		},
 		agreement: {
 			nl: "Als u registreert gaat u akkoord met de",
 			en: "By registering you agree to the",
