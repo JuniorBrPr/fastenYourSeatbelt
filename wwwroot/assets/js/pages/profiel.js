@@ -8,7 +8,9 @@ TODO
  Validation for the fields, make sure user knows
  to fill in all DATE otherwise data wont submit to
  the database.
- -- Nizar*/
+ -- Nizar
+
+ */
 
 
 
