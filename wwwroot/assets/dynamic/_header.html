@@ -1,42 +1,60 @@
 <header class="header d-flex justify-space-between align-c">
-    <nav class="nav-menu d-flex">
-        <a href="index.html" class="nav-link-logo d-flex align-c">
-            <img
-                src="assets/img/logo.png"
-                alt="Corendon logo"
-                class="logo" />
-        </a>
-        <a href="index.html" class="nav-link">
-            <i class="fa-solid fa-house"></i>
-        </a>
-        <a href="matching.html" class="nav-link zoek-buddy">
-            <span class="link-text">zoek mijn buddy</span>
-        </a>
-        <a href="about-us.html" class="nav-link">
-            <span class="link-text">over ons</span>
-        </a>
-    </nav>
-    <div class="btn-container d-flex align-c nav-shown">
-        <a href="#" class="btn login-btn">
-            <span class="btn-text">Login</span>
-            <span class="triangle">
-                <i class="fa-solid fa-play"></i>
-            </span>
-        </a>
-        <a href="sign-up.html" class="btn register-btn" >
-            <span class="btn-text">Registreren</span>
-            <span class="triangle">
-                <i class="fa-solid fa-play"></i>
-            </span>
-        </a>
-        <a href="profiel.html" class="btn profile-btn">
-            <span class="btn-text">Mijn Profiel</span>
-            <span class="triangle">
-                <i class="fa-solid fa-play"></i>
-            </span>
-        </a>
-    </div>
-       
-    <!-- tabindex makes hamburger-menu focusable -->
-    <i class="fa-solid fa-bars hamburger" tabindex="0"></i>
+	<nav class="nav-menu d-flex">
+		<a href="index.html" class="nav-link-logo d-flex align-c">
+			<img src="assets/img/logo.png" alt="Corendon logo" class="logo" />
+		</a>
+		<a href="index.html" class="nav-link">
+			<i class="fa-solid fa-house"></i>
+		</a>
+		<a href="matching.html" class="nav-link zoek-buddy">
+			<span class="link-text" data-translate="navbar.findBuddy">zoek mijn buddy</span>
+		</a>
+		<a href="about-us.html" class="nav-link">
+			<span class="link-text" data-translate="navbar.aboutUs">over ons</span>
+		</a>
+	</nav>
+	<div class="btn-container d-flex align-c nav-shown">
+		<a href="#" class="btn login-btn">
+			<span class="btn-text" data-translate="navbar.login">Login</span>
+			<span class="triangle">
+				<i class="fa-solid fa-play"></i>
+			</span>
+		</a>
+		<a href="sign-up.html" class="btn register-btn">
+			<span class="btn-text" data-translate="navbar.register">Registreren</span>
+			<span class="triangle">
+				<i class="fa-solid fa-play"></i>
+			</span>
+		</a>
+		<div class="dropdown pos-relative">
+			<button class="dropdown-btn btn">
+				<span class="btn-text" data-translate="navbar.myProfile">Mijn profiel</span>
+				<span class="triangle">
+					<i class="fa-solid fa-play"></i>
+				</span>
+			</button>
+			<div class="dropdown-content pos-absolute">
+				<a
+					href="profiel.html"
+					class="btn profile-btn d-flex align-c justify-c"
+					data-translate="navbar.myAccount"
+					>Mijn account</a
+				>
+				<a
+					href="#"
+					class="btn logout-btn d-flex align-c justify-c"
+					data-translate="navbar.logout"
+					>Uitloggen</a
+				>
+			</div>
+		</div>
+		<select id="localizationLanguageSwitch">
+			<option value="nl">Nederlands</option>
+			<option value="en">English</option>
+			<option value="es">Espanol</option>
+		</select>
+	</div>
+
+	<!-- tabindex makes hamburger-menu focusable -->
+	<i class="fa-solid fa-bars hamburger" tabindex="0"></i>
 </header>
