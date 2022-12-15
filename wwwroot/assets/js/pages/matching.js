@@ -149,11 +149,16 @@ async function populateList(buddyList, type, data) {
         buddyProfileBtn.addEventListener("click", async () => {
             buddyModal(
                 await getBuddyInfo(buddy.userid),
-                await getBuddyInterests(buddy.userid)
+                await getBuddyInterests(buddy.userid),
+                await getProfileImage(buddy.userid)
             );
 
-            if (type !== "existing") {
-                document.querySelector("#friend-fields").style.display = "none";
+            if (type === "existing") {
+                document.querySelector("#bud-email").style.display = "block";
+                document.querySelector("#bud-phone").style.display = "block";
+            } else {
+                document.querySelector("#bud-email").style.display = "none";
+                document.querySelector("#bud-phone").style.display = "none";
             }
 
             buddyProfile.style.display = "block";
@@ -515,17 +520,19 @@ async function deleteBuddyRequest(userId, buddyUserId) {
 /**
  * Selects the profile and user information from the specific buddy (user id).
  * @param {userId} userId The ID of the currently active user.
+ * @author Johnny Magielse
  */
 async function getBuddyInfo(userId) {
     return await FYSCloud.API.queryDatabase(
         "SELECT user_id                              AS userid,\n" +
-        'CONCAT(first_name, " ", last_name)        AS name,\n' +
+        'CONCAT(first_name, " ", last_name)          AS name,\n' +
         "email                                       AS email,\n" +
         "birthdate                                   AS date,\n" +
         "gender                                      AS gender,\n" +
         "biography                                   AS bio,\n" +
         "destination                                 AS destination,\n" +
-        "budget                                      AS budget\n" +
+        "budget                                      AS budget,\n" +
+        "phone_number                                AS phoneNumber\n" +
         "FROM user\n" +
         "INNER JOIN profile\n" +
         "ON user.user_id = profile.profile_id\n" +
@@ -537,6 +544,7 @@ async function getBuddyInfo(userId) {
 /**
  * Selects the interest from the specific buddy (user id).
  * @param {userId} userId The ID of the currently active user.
+ * @author Johnny Magielse
  */
 async function getBuddyInterests(userId) {
     return await FYSCloud.API.queryDatabase(
@@ -556,9 +564,10 @@ async function getBuddyInterests(userId) {
 /**
  * Makes profile from buddy fulle personal with real data
  * @param {data} data object filled with user and profile fields from db.
- * @param {interests} interests object filled with interested from the user..
+ * @param {interests} interests object filled with interested from the user.
+ * @author Johnny Magielse
  */
-function buddyModal(data, interests) {
+function buddyModal(data, interests, img) {
     // get html parents out matching.html
     const personalInfo = document.querySelector("#personal-info");
     const buddyPicture = document.querySelector(".buddy-picture");
@@ -571,6 +580,14 @@ function buddyModal(data, interests) {
 
     const personalDiv = document.createElement("div");
     personalDiv.className = "interests pos-relative d-flex justify-c";
+
+    const emailDiv = document.createElement("div");
+    emailDiv.id = "bud-email";
+    emailDiv.className = "text-align-c";
+
+    const phoneDiv = document.createElement("div");
+    phoneDiv.id = "bud-phone";
+    phoneDiv.className = "text-align-c";
 
     const descriptionDiv = document.createElement("div");
     descriptionDiv.className = "biography";
@@ -592,11 +609,6 @@ function buddyModal(data, interests) {
         description.appendChild(descriptionDiv);
 
         // profile picture
-        const img = document.createElement("img");
-        img.style.width = "200px";
-        img.style.height = "auto";
-        img.className = "buddy-image";
-        img.src = "assets/img/users/henk.png";
         buddyPicture.appendChild(img);
 
         // name
@@ -618,9 +630,26 @@ function buddyModal(data, interests) {
         }
         addAttribute("Budget", buddy.budget, personalDiv);
         addAttribute("Bestemming", buddy.destination, personalDiv);
-        addAttribute("Email", buddy.email, personalDiv);
+        addAttribute("Email", buddy.email, emailDiv);
+        addAttribute("Telefoon", buddy.phoneNumber, phoneDiv);
 
+        personalDiv.appendChild(phoneDiv);
+        personalDiv.appendChild(emailDiv);
         personalInfo.appendChild(personalDiv);
         FYSCloud.Localization.translate();
     });
+}
+
+/**
+ * Gets buddy img for the buddy modal adn gives css style to it.
+ * @param userid. Id from the buddy where you click the button on.
+ * @author Johnny Magielse
+ */
+async function getProfileImage(userid) {
+    const img = document.createElement("img");
+    img.style.maxWidth = "250px";
+    img.style.height = "auto";
+    img.className = "buddy-image";
+    fileSystem.refreshPhoto(await fileSystem.getPhoto(userid), img);
+    return img;
 }
