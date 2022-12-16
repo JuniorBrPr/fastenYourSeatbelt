@@ -587,6 +587,11 @@ const translations = {
 			en: "Warm countries",
 			es: " países cálidos",
 		},
+		filter: {
+			nl: "Filter",
+			en: "Filter",
+			es: "Filtrar",
+		},
 	},
 	//Translate matching
 	profile: {

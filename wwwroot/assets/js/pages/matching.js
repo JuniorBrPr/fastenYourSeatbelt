@@ -647,9 +647,30 @@ function buddyModal(data, interests, img) {
  */
 async function getProfileImage(userid) {
     const img = document.createElement("img");
-    img.style.maxWidth = "250px";
+    img.style.maxWidth = "220px";
     img.style.height = "auto";
     img.className = "buddy-image";
     fileSystem.refreshPhoto(await fileSystem.getPhoto(userid), img);
     return img;
 }
+
+const filterForm = document.querySelector("#filter-form");
+
+// Triggers when filter form is submitted and prevents loading and creates formData object
+filterForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // creates new formData object that triggers second eventListener
+    new FormData(filterForm);
+});
+
+// Triggers when formData gets created in above listener. Gets the values submitted from filter
+filterForm.addEventListener("formdata", (e) => {
+    // Get the form data from the event object
+    const data = e.formData;
+
+    for (const value of data.values()) {
+        console.log(value);
+    }
+});
+
