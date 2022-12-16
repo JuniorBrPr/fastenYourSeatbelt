@@ -32,6 +32,7 @@ existingBtn.addEventListener("click", async () => {
         "existing",
         await getExistingBuddies(FYSCloud.Session.get("userId"))
     );
+    document.querySelector(".filter-div").style.display = "none";
 });
 
 //Button to switch to the list of suggested buddies
@@ -42,6 +43,7 @@ suggestedBtn.addEventListener("click", async () => {
         "suggested",
         await getRecommendedBuddies(FYSCloud.Session.get("userId"))
     );
+    document.querySelector(".filter-div").style.display = "block";
 });
 
 //Button to switch to the list of incoming buddy requests
@@ -52,6 +54,7 @@ incomingBtn.addEventListener("click", async () => {
         "incoming",
         await getIncomingBuddyRequests(FYSCloud.Session.get("userId"))
     );
+    document.querySelector(".filter-div").style.display = "none";
 });
 
 //Button to switch to the list of outgoing buddy requests
@@ -62,6 +65,7 @@ outgoingBtn.addEventListener("click", async () => {
         "outgoing",
         await getOutgoingBuddyRequests(FYSCloud.Session.get("userId"))
     );
+    document.querySelector(".filter-div").style.display = "none";
 });
 
 // hides modal and deletes data fields otherwise they duplicate
@@ -663,6 +667,15 @@ async function getProfileImage(userid) {
 }
 
 const filterForm = document.querySelector("#filter-form");
+const filterBtn = document.querySelector(".filter-btn");
+
+filterBtn.addEventListener("click", () => {
+    if (filterForm.style.display === "block") {
+        filterForm.style.display = "none";
+    } else {
+        filterForm.style.display = "block";
+    }
+});
 
 // Triggers when filter form is submitted and prevents loading and creates formData object
 filterForm.addEventListener("submit", async (e) => {
