@@ -669,6 +669,7 @@ async function getProfileImage(userid) {
 const filterForm = document.querySelector("#filter-form");
 const filterBtn = document.querySelector(".filter-btn");
 
+// Checks if filter modal is shown or hidden and will act on that
 filterBtn.addEventListener("click", () => {
     if (filterForm.style.display === "block") {
         filterForm.style.display = "none";
