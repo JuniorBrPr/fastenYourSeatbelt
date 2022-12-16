@@ -697,6 +697,40 @@ footer {
 	gap: 10px;
 }
 
+/* filter */
+.filter-div {
+	min-width: fit-content;
+	width: 100%;
+	position: relative;
+}
+
+.filter-form {
+	position: absolute;
+	background: var(--color-bg-grey);
+	padding: 30px;
+	border-radius: 12px;
+	margin-top: 15px;
+	box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+	margin-left: 10px;
+	z-index: 999;
+}
+
+.filter-submit {
+	padding: 10px 24px;
+	background: var(--color-btn-green);
+	margin-top: 15px;
+	width: 100%;
+	border: 0;
+	color: var(--color-white);
+	border-radius: 3px;
+}
+
+.filter-submit:hover,
+.filter-submit:focus {
+	background-color: var(--color-btn-dark-green);
+	cursor: pointer;
+}
+
 .matching-sidebar .btn {
 	width: 100%;
 	min-width: 195px;
@@ -1509,6 +1543,10 @@ input:checked + .slider::before {
 }
 
 @media screen and (max-width: 768px) {
+	.filter-div {
+		margin-right: -60px;
+	}
+
 	.nav-menu > .nav-link,
 	.btn-container {
 		display: none;
@@ -1715,6 +1753,10 @@ input:checked + .slider::before {
 }
 
 @media screen and (max-width: 850px) {
+	.filter-form {
+		margin-left: 45px;
+	}
+
 	/* Shrinks the navbar font-size and btn size to ensure that it can go down to ipad/tablet size */
 	.link-text {
 		font-size: var(--small-font-size);
@@ -1786,6 +1828,17 @@ input:checked + .slider::before {
 	.matching-matches {
 		align-items: center;
 		margin: 25px auto;
+	}
+}
+
+
+@media screen and (max-width: 500px) {
+	.filter-div {
+		margin-right: -30px;
+	}
+	.filter-form {
+		padding: 7px;
+		margin-left: 0;
 	}
 }
 

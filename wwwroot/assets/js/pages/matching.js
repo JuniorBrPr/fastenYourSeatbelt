@@ -339,7 +339,13 @@ function setActiveBtn(container) {
  * and so are existing buddies.
  * @param {number} userId The ID of the currently active user.
  */
-async function getRecommendedBuddies(userId) {
+async function getRecommendedBuddies(userId, buddyLocation, buddyTime) {
+    if (buddyLocation == null) {
+        buddyLocation = "";
+    }
+    if (buddyTime == null) {
+        buddyTime = "";
+    }
     return await FYSCloud.API.queryDatabase(
         "SELECT user_id                            AS userid,\n" +
         "       CONCAT(first_name, \" \", last_name) AS name,\n" +
@@ -371,9 +377,11 @@ async function getRecommendedBuddies(userId) {
         "                      FROM buddy\n" +
         "                      WHERE sender_user_id = ?)\n" +
         "  AND user_id != ?\n" +
+        "AND destination LIKE '%' ? '%'\n" +
+        "AND DATEDIFF(end_date, start_date) LIKE '%' ? '%'\n" +
         "GROUP BY NAME\n" +
         "ORDER BY commonInterests DESC",
-        [userId, userId, userId, userId, userId]
+        [userId, userId, userId, userId, userId, buddyLocation, buddyTime]
     ).catch((reason) => console.log(reason));
 }
 
@@ -466,7 +474,7 @@ async function getIncomingBuddyRequests(userId) {
         "         JOIN buddy AS b\n" +
         "              ON user.user_id = b.sender_user_id AND b.is_accepted = FALSE\n" +
         "WHERE user_id != ?\n" +
-        "  AND (b.receiver_user_id = ?)\n" +
+        "AND (b.receiver_user_id = ?)\n" +
         "GROUP BY name\n" +
         "ORDER BY commonInterests DESC",
         [userId, userId, userId]
@@ -657,20 +665,24 @@ async function getProfileImage(userid) {
 const filterForm = document.querySelector("#filter-form");
 
 // Triggers when filter form is submitted and prevents loading and creates formData object
-filterForm.addEventListener("submit", (e) => {
+filterForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     // creates new formData object that triggers second eventListener
-    new FormData(filterForm);
+    await new FormData(filterForm);
 });
 
 // Triggers when formData gets created in above listener. Gets the values submitted from filter
-filterForm.addEventListener("formdata", (e) => {
+filterForm.addEventListener("formdata", async (e) => {
     // Get the form data from the event object
-    const data = e.formData;
+    const data = await e.formData;
+    // used for sql statement
+    const buddyLocation = data.get("location");
+    const buddyTime = data.get("time");
+
+    await populateList(buddyList, "suggested", await getRecommendedBuddies(FYSCloud.Session.get("userId"), buddyLocation, buddyTime));
 
     for (const value of data.values()) {
         console.log(value);
     }
 });
-
