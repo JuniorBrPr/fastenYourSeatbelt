@@ -1,41 +1,59 @@
 /**
-Author: Nizar Amine
-DiscordModerators, is101
-*
-
-TODO Phone-Number needs to be inserted into DB. Validation already setup.
- -- Nizar
-
- */
+ Author: Nizar Amine
+ DiscordModerators, is101
+ **/
 
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
+import {passwordHash, getUniqueSalt} from '../classes/hash.js';
+import {Validation} from '../classes/validation.js';
 
+
+const emailBtn = document.querySelector('.updateEmailBtn')
+const passwordBtn = document.querySelector('.updatePasswordBtn')
 const subBtn = document.querySelector(".saveBtn");
-const userId = FYSCloud.Session.get("userId", 10);
-
+const userId = FYSCloud.Session.get("userId", 1);
 
 
 /*Checks if profiel_id exist otherwise it will create*/
 
 
-subBtn.addEventListener('click', async function(e) {
+subBtn.addEventListener('click', async function (e) {
     // Check if the fields are filled in correctly
     if (checkFields()) {
         if (await profielExist()) {
-           await updateData(createObject());
-           await  updateInter();
+            await updateData(createObject());
+            await updateInterest();
         } else {
-           await submitData(createObject());
-           await updateInter();
+            await submitData(createObject());
+            await updateInterest();
         }
         location.reload();
     }
 });
 
 
+emailBtn.addEventListener('click', async function (e) {
+
+    if (checkEmailField()) {
+// Email field is valid, update email in the database
+        await updateEmail()
+    }
+
+
+});
+
+passwordBtn.addEventListener('click', async function (e) {
+
+    if (checkPasswordField()) {
+        await updatePassword()
+    }
+
+});
+
+
 console.log(userId);
 await dataLoad();
-await outerInterFunction();
+await outerInterestFunction();
 await preSelectOptionField();
 
 async function dataLoad() {
@@ -67,7 +85,7 @@ async function dataLoad() {
             "       end_date as endDate,\n" +
             "       destination,\n" +
             "       budget,\n" +
-            "       phone_number AS number\n" +
+            "       phone_number AS phoneNumber\n" +
             "FROM user\n" +
             "INNER JOIN profile p on p.profile_id = ?\n" +
             "WHERE user_id = ?;",
@@ -86,7 +104,6 @@ async function dataLoad() {
         console.log(getData);
         console.log(getUserInterest);
         loadData(getData);
-
 
 
     } catch {
@@ -135,7 +152,7 @@ async function dataLoad() {
             tijdsbestekEnd.value = tijdEndDate;
             genderField.value = data[0].gender;
             budgetField.value = data[0].budget;
-            numberField.value = data[0].number;
+            numberField.value = data[0].phoneNumber;
 
         }
     }
@@ -169,6 +186,8 @@ async function updateData(data) {
         [data.firstName, data.lastName, userId]
     );
 
+    console.log(data.phoneNumber)
+
     const updateProfileData = await FYSCloud.API.queryDatabase(
         "UPDATE profile\n" +
         "SET    birthdate = ?,\n" +
@@ -177,8 +196,8 @@ async function updateData(data) {
         "       start_date = ?,\n" +
         "       end_date = ?,\n" +
         "       destination = ?,\n" +
-        "       budget = ?\n" +
-      //  "       number = ?\n" +
+        "       budget = ?,\n" +
+        "       phone_number = ?\n" +
         "WHERE profile_id = ?;",
         [
             data.bday,
@@ -188,15 +207,17 @@ async function updateData(data) {
             data.endDate,
             data.destination,
             data.budget,
-       //     data.number,
+            data.phoneNumber,
             userId,
         ]
     );
 
+    console.log(data.phoneNumber)
+
     const saveBtn = document.querySelector(".Btn-opslaan")
 
     const errorMessage = "Profile saved!";
-    saveBtn.insertAdjacentHTML("afterend", "<p class='error-message'>" + errorMessage + "</p>");
+    saveBtn.insertAdjacentHTML("afterend", "<p class='error-message valid'>" + errorMessage + "</p>");
 
     console.log(updateProfileData);
     console.log(updateUserData);
@@ -213,7 +234,7 @@ function createObject() {
         bio: document.getElementById("bio").value,
         destination: document.getElementById("bestemming").value,
         budget: document.getElementById("budget").value,
-        number: document.getElementById("number").value,
+        phoneNumber: document.getElementById("number").value,
         startDate: document.getElementById("startdate").value,
         endDate: document.getElementById("enddate").value,
     };
@@ -243,8 +264,8 @@ async function submitData(data) {
     data.endDate = FYSCloud.Utils.toSqlDatetime(new Date(data.endDate));
 
     const insertProfileData = await FYSCloud.API.queryDatabase(
-        "INSERT INTO profile (profile_id, birthdate, gender, biography, start_date, end_date, destination, budget) " +
-        "VALUES (? ,? ,? ,? ,? ,? ,? ,?);",
+        "INSERT INTO profile (profile_id, birthdate, gender, biography, start_date, end_date, destination, budget, phone_number) " +
+        "VALUES (? ,? ,? ,? ,? ,? ,? ,? ,? );",
         [
             userId,
             data.bday,
@@ -254,20 +275,26 @@ async function submitData(data) {
             data.endDate,
             data.destination,
             data.budget,
+            data.phoneNumber,
         ]
     );
+    const saveBtn = document.querySelector(".Btn-opslaan")
+
+    const errorMessage = "Profile saved!";
+    saveBtn.insertAdjacentHTML("afterend", "<p class='error-message valid'>" + errorMessage + "</p>");
+
 }
 
 /*Function to be called to load in the interesse Fields
 * with the correct values from the database,
 * this is not user saved data.*/
 
-async function outerInterFunction() {
+async function outerInterestFunction() {
     const selectElements = document.querySelectorAll(".inter-field");
     //console.log(selectElements);
 
     const getInterest = await FYSCloud.API.queryDatabase(
-        "SELECT interest_name as inter " +  "FROM interest;\n",
+        "SELECT interest_name as inter " + "FROM interest;\n",
     );
     //console.log(getInterest);
 
@@ -322,7 +349,7 @@ This function deletes the existing interest,
  to hold the maximum interest threshold. Could be updated upon
  feedback.
 * */
-async function updateInter() {
+async function updateInterest() {
 
     const selectElements = document.querySelectorAll(".inter-field");
     const updatedInterests = Array.from(selectElements).map(selectElement => selectElement.value);
@@ -358,9 +385,9 @@ async function updateInter() {
 /*Validation for Profiel form*/
 
 
-    /*Validate function for the destination field,
-    * can be reused for the firstname, lastname.
-    * Allows for only chars in the field*/
+/*Validate function for the destination field,
+* can be reused for the firstname, lastname.
+* Allows for only chars in the field*/
 
 function checkFields() {
     // Validate the input fields
@@ -370,13 +397,13 @@ function checkFields() {
     const isValidDate = validateDates();
     const isValidNumber = validateNumberField("number");
     const isValidBudget = validateBudgetField("budget");
-    const isValidInter = validateInter();
+    const isValidInterest = validateInterest();
 
 
     // Check if all fields are valid
     if (isValidVoornaam && isValidAchternaam &&
         isValidBestemming && isValidDate && isValidNumber
-        && isValidBudget && isValidInter) {
+        && isValidBudget && isValidInterest) {
         return true
     } else {
         return false
@@ -388,13 +415,18 @@ function validateField(fieldId) {
 
     const input = document.getElementById(fieldId);
 
-    const regex = /^[a-zA-Z]+$/;
+    const regex = /^[a-z-A-Z]+$/;
 
     if (regex.test(input.value)) {
         return true;
     } else {
+
+        const existingErrorMessage = document.querySelector('.error-test');
+        if (existingErrorMessage) {
+            existingErrorMessage.remove();
+        }
         const errorMessage = "Please enter only letters (A-Z) in this field.";
-        input.insertAdjacentHTML("afterend", "<p class='error-message'>" + errorMessage + "</p>");
+        input.insertAdjacentHTML("afterend", "<p class='error-message error-test'>" + errorMessage + "</p>");
         return false;
     }
 }
@@ -412,13 +444,18 @@ function validateDates() {
 
     if (endDate < startDate) {
 
-        const errorMessage = "Please enter start-date before the end-date";
-        endDateInput.insertAdjacentHTML("afterend", "<p class='error-message'>" + errorMessage + "</p>");
-        return false;
+        const existingErrorMessage = document.querySelector('.error-date');
+        if (existingErrorMessage) {
+            existingErrorMessage.remove();
+        }
 
-    }  else {
+        const errorMessage = "Please enter start-date before the end-date";
+        endDateInput.insertAdjacentHTML("afterend", "<p class='error-message error-date'>" + errorMessage + "</p>");
+        return false;
+    } else {
         return true;
     }
+
 }
 
 function validateNumberField(fieldId) {
@@ -431,8 +468,13 @@ function validateNumberField(fieldId) {
 
         return true;
     } else {
+        const existingErrorMessage = document.querySelector('.error-number');
+        if (existingErrorMessage) {
+            existingErrorMessage.remove();
+        }
+
         const errorMessage = "Please enter only digits in this field and valid number.";
-        input.insertAdjacentHTML("afterend", "<p class='error-message'>" + errorMessage + "</p>");
+        input.insertAdjacentHTML("afterend", "<p class='error-message error-number'>" + errorMessage + "</p>");
         return false;
     }
 }
@@ -447,30 +489,203 @@ function validateBudgetField(fieldId) {
 
         return true;
     } else {
+
+        const existingErrorMessage = document.querySelector('.error-digits');
+        if (existingErrorMessage) {
+            existingErrorMessage.remove();
+        }
+
         const errorMessage = "Please enter only digits in this field.";
-        input.insertAdjacentHTML("afterend", "<p class='error-message'>" + errorMessage + "</p>");
+        input.insertAdjacentHTML("afterend", "<p class='error-message error-digits'>" + errorMessage + "</p>");
         return false;
     }
 }
 
-function validateInter() {
+function validateInterest() {
+
+    const validation = new Validation();
 
     const selectElements = document.querySelectorAll(".inter-field");
-    const interDiv = document.querySelector("#divInter")
+    const interestDiv = document.querySelector("#divInter");
 
-    // Get the updated values from the select elements
-    const updatedInterests = Array.from(selectElements).map(selectElement => selectElement.value);
+    if (validation.validateInterest(selectElements, interestDiv)) {
 
-    // Checks for Duplicates in updatedInterests Array,
-    // hasDuplicates supplied to an IF statement.
+    return true
+    } else {
 
-    const hasDuplicates = new Set(updatedInterests).size !== updatedInterests.length;
+        const errorMessageId = "interestError";
+        const existingErrorMessage = document.getElementById(errorMessageId);
+        if (existingErrorMessage) {
+            existingErrorMessage.remove();
+        }
 
-    if (hasDuplicates) {
         const errorMessage = "Please don't use the same interest more then once.";
-        interDiv.insertAdjacentHTML("afterend", "<p class='error-message'>" + errorMessage + "</p>");
+        interestDiv.insertAdjacentHTML("afterend", `<p id="${errorMessageId}" class='error-message'>${errorMessage}</p>`);
+
         return false
-    }else {
-        return true
+
+
     }
 }
+
+/*function allows the user to update their email address in the database.
+It first checks if the email is already in use, and if it is, it displays an error message.
+If the email is not in use, it updates the email in the database and displays a confirmation message.*/
+
+async function updateEmail() {
+    const validation = new Validation();
+
+    const emailInput = document.getElementById('emailAcc');
+    const repeatEmailInput = document.getElementById('repeat-email');
+
+    const email = emailInput.value;
+
+    try {
+        const emailInDatabase = await validation.emailInDatabase(emailInput);
+        if (emailInDatabase) {
+            showErrorMessage(emailInput, 'This email is already in use.');
+        } else {
+            // Update the email in the database
+            await FYSCloud.API.queryDatabase(
+                "UPDATE user SET email = ? WHERE user_id = ?",
+                [email, userId]
+            );
+            alert("Email updated successfully!");
+            const errorMessage = "Email saved!";
+            emailBtn.insertAdjacentHTML("afterend", "<p class='error-message valid'>" + errorMessage + "</p>");
+
+        }
+    } catch (error) {
+        console.error(error);
+        showErrorMessage(emailInput, 'An error occurred while updating the email.');
+    }
+
+}
+
+/* function allows the user to update their password in the database.
+
+It retrieves the salt value for the user from the database and uses it to generate a hashed version of the password.
+The hashed password is then updated in the database and a confirmation message is displayed.*/
+
+async function updatePassword() {
+
+    const passwordInput = document.getElementById('passwordAcc');
+    const repeatPasswordInput = document.getElementById('passwordRepeat');
+
+    const password = passwordInput.value;
+
+    const result = await FYSCloud.API.queryDatabase(
+        "SELECT salt FROM user WHERE user_id = ?",
+        [userId]
+    );
+
+    // Get the salt from the result
+    const mySalt = result[0].salt;
+    console.log(mySalt)
+
+    const hashedPassword = await passwordHash(password, mySalt);
+
+    // Update the password in the database
+    await FYSCloud.API.queryDatabase(
+        "UPDATE user SET password = ? WHERE user_id = ?",
+        [hashedPassword, userId]
+    );
+    alert("Password updated successfully!");
+    const errorMessage = "Password saved!";
+    passwordBtn.insertAdjacentHTML("afterend", "<p class='error-message valid'>" + errorMessage + "</p>");
+
+
+}
+
+/* this function is used to validate the email input fields before the email is updated.
+It checks if the email and repeat email inputs are empty or contain an invalid email,
+and if the emails match */
+
+function checkEmailField() {
+    const validation = new Validation();
+
+    const emailInput = document.getElementById('emailAcc');
+    const repeatEmailInput = document.getElementById('emailRepeat')
+
+    let isValid = true;
+
+    // Validate email field
+    if (validation.emptyInput(emailInput)) {
+        showErrorMessage(emailInput, 'Please fill in a email.');
+        isValid = false;
+    } else if (validation.invalidEmail(emailInput)) {
+        showErrorMessage(emailInput, 'Please fill in a valid email.');
+        isValid = false;
+    } else {
+        removeErrorMessage(emailInput);
+    }
+
+    if (validation.emptyInput(repeatEmailInput)) {
+        showErrorMessage(repeatEmailInput, 'Please fill in a repeat email.');
+        isValid = false;
+    } else if (validation.invalidEmail(repeatEmailInput)) {
+        showErrorMessage(repeatEmailInput, 'Please fill in a valid repeat email.');
+        isValid = false;
+    } else if (validation.passwordMatch(emailInput, repeatEmailInput)) {
+        showErrorMessage(repeatEmailInput, 'Please make sure the emails match.');
+        isValid = false;
+    } else {
+        removeErrorMessage(repeatEmailInput);
+    }
+
+    return isValid;
+}
+
+/* this function is used to validate the password input fields before the password is updated.
+It checks if the password and repeat password inputs are empty,
+if the passwords match, and if the password is at least 8 characters long.*/
+
+function checkPasswordField() {
+    const validation = new Validation();
+
+    const passwordInput = document.getElementById('passwordAcc');
+    const repeatPasswordInput = document.getElementById('passwordRepeat');
+
+    let isValid = true;
+
+    if (validation.emptyInput(passwordInput)) {
+        showErrorMessage(passwordInput, 'Please fill in a password.');
+        isValid = false;
+    } else if (passwordInput.value.length < 8) {
+        showErrorMessage(passwordInput, 'Please enter a password with at least 8 characters.');
+        isValid = false;
+    } else {
+        removeErrorMessage(passwordInput);
+    }
+
+    if (validation.emptyInput(repeatPasswordInput)) {
+        showErrorMessage(repeatPasswordInput, 'Please fill in a repeat password.');
+        isValid = false;
+    } else if (validation.passwordMatch(passwordInput, repeatPasswordInput)) {
+        showErrorMessage(repeatPasswordInput, 'Please make sure both passwords match.');
+        isValid = false;
+    } else {
+        removeErrorMessage(repeatPasswordInput);
+    }
+    return isValid;
+}
+
+
+/* Both of the functions are used to display and remove error messages
+on the page*/
+
+function showErrorMessage(input, message) {
+    const existingErrorMessage = input.nextSibling;
+    if (existingErrorMessage && existingErrorMessage.classList && existingErrorMessage.classList.contains('error-message')) {
+        existingErrorMessage.remove();
+    }
+    input.insertAdjacentHTML('afterend', `<p class='error-message'>${message}</p>`);
+}
+
+function removeErrorMessage(input) {
+    const existingErrorMessage = input.nextSibling;
+    if (existingErrorMessage && existingErrorMessage.classList && existingErrorMessage.classList.contains('error-message')) {
+        existingErrorMessage.remove();
+    }
+}
+
