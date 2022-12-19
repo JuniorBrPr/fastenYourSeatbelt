@@ -236,7 +236,8 @@ button.btn {
 
 /* Minimum width for button */
 .register-btn,
-.login-btn {
+.login-btn,
+.language-switch {
 	min-width: 14ch;
 }
 
@@ -247,6 +248,13 @@ button.btn {
 	cursor: pointer;
 	display: none;
 	padding: 4px;
+}
+
+.language-switch {
+	text-align: center;
+}
+.language-switch option:first-child {
+	padding-top: 16px;
 }
 .nav-shown {
 	display: visible;
@@ -983,7 +991,7 @@ footer {
 
 .corenbuddy-btn {
 	margin-right: 30px;
-	min-width: 18ch;
+	min-width: 20ch;
 	margin-top: 15px;
 }
 
@@ -1582,8 +1590,16 @@ input:checked + .slider::before {
 
 @media screen and (max-width: 768px) {
 	.nav-menu > .nav-link,
-	.btn-container {
+	.btn-container > :not(.language-switch) {
 		display: none;
+	}
+	.nav-menu {
+		position: relative;
+	}
+	.language-switch {
+		position: absolute;
+		/* width of the hamburger minus the predetermined margin right on the button class */
+		right: 34px;
 	}
 
 	.logo {
@@ -1748,10 +1764,6 @@ input:checked + .slider::before {
 		width: auto;
 	}
 
-	.profiel-foto-card img {
-		width: auto;
-	}
-
 	.sub-btn {
 		float: left;
 		width: auto;
@@ -1783,6 +1795,16 @@ input:checked + .slider::before {
 	.buddy-list-item {
 		min-height: 400px;
 		flex-direction: column;
+	}
+}
+@media screen and (max-width: 500px) {
+	.logo {
+		width: 150px;
+	}
+}
+@media screen and (max-width: 350px) {
+	.logo {
+		width: 125px;
 	}
 }
 
