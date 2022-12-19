@@ -71,11 +71,10 @@ export class Validation {
 	/**
 	 * Validate the interests field in a form
 	 * @param {HTMLCollection} selectElements The select elements in the interests field
-	 * @param {HTMLDivElement} interDiv The div containing the interests field
 	 * @returns {boolean} true if the interests are valid, false if not
 	 * @author Nizar
 	 */
-	validateInterest(selectElements, interestDiv) {
+	validateInterest(selectElements) {
 		// Get the updated values from the select elements
 		const updatedInterests = Array.from(selectElements).map(selectElement => selectElement.value);
 

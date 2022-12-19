@@ -7,6 +7,7 @@ import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 import {passwordHash, getUniqueSalt} from '../classes/hash.js';
 import {Validation} from '../classes/validation.js';
 
+const validation = new Validation();
 
 const emailBtn = document.querySelector('.updateEmailBtn')
 const passwordBtn = document.querySelector('.updatePasswordBtn')
@@ -323,7 +324,7 @@ async function preLoadInterFields(selectElements, data) {
 * elements.*/
 
 async function preSelectOptionField() {
-    // Get all the select elements
+
     const selectElements = document.querySelectorAll(".inter-field");
 
     // Query the database to find the interest_name values associated with the profile_id
@@ -382,60 +383,39 @@ async function updateInterest() {
     }
 }
 
-/*Validation for Profiel form*/
+/*Functions displays an error message under the field,
+* takes arguments input which is the field element,
+* message which is the error message. It checks if
+* there is already an error message if yes, removes it
+* if not it adds error message*/
 
-
-/*Validate function for the destination field,
-* can be reused for the firstname, lastname.
-* Allows for only chars in the field*/
-
-function checkFields() {
-    // Validate the input fields
-    const isValidVoornaam = validateField("voornaam");
-    const isValidAchternaam = validateField("achternaam");
-    const isValidBestemming = validateField("bestemming");
-    const isValidDate = validateDates();
-    const isValidNumber = validateNumberField("number");
-    const isValidBudget = validateBudgetField("budget");
-    const isValidInterest = validateInterest();
-
-
-    // Check if all fields are valid
-    if (isValidVoornaam && isValidAchternaam &&
-        isValidBestemming && isValidDate && isValidNumber
-        && isValidBudget && isValidInterest) {
-        return true
-    } else {
-        return false
+function showErrorMessage(input, message) {
+    const existingErrorMessage = input.nextSibling;
+    if (existingErrorMessage && existingErrorMessage.classList && existingErrorMessage.classList.contains('error-message')) {
+        existingErrorMessage.remove();
     }
-
+    input.insertAdjacentHTML('afterend', `<p class='error-message'>${message}</p>`);
 }
 
-function validateField(fieldId) {
+function removeErrorMessage(input) {
+    const existingErrorMessage = input.nextSibling;
+    if (existingErrorMessage && existingErrorMessage.classList && existingErrorMessage.classList.contains('error-message')) {
+        existingErrorMessage.remove();
+    }
+}
 
-    const input = document.getElementById(fieldId);
 
-    const regex = /^[a-z-A-Z]+$/;
-
-    if (regex.test(input.value)) {
+function validateField(input, errorMessage) {
+    if (!validation.emptyInput(input) && !validation.invalidName(input)) {
+        removeErrorMessage(input);
         return true;
     } else {
-
-        const existingErrorMessage = document.querySelector('.error-test');
-        if (existingErrorMessage) {
-            existingErrorMessage.remove();
-        }
-        const errorMessage = "Please enter only letters (A-Z) in this field.";
-        input.insertAdjacentHTML("afterend", "<p class='error-message error-test'>" + errorMessage + "</p>");
+        showErrorMessage(input, errorMessage);
         return false;
     }
 }
 
 function validateDates() {
-
-    /*Validate function for the two startdate and enddate,
-    making sure user cant fill in a negative timespan*/
-
     const startDateInput = document.getElementById("startdate");
     const endDateInput = document.getElementById("enddate");
 
@@ -443,90 +423,127 @@ function validateDates() {
     const endDate = new Date(endDateInput.value);
 
     if (endDate < startDate) {
-
-        const existingErrorMessage = document.querySelector('.error-date');
-        if (existingErrorMessage) {
-            existingErrorMessage.remove();
-        }
-
-        const errorMessage = "Please enter start-date before the end-date";
-        endDateInput.insertAdjacentHTML("afterend", "<p class='error-message error-date'>" + errorMessage + "</p>");
+        showErrorMessage(endDateInput, "Please enter start-date before the end-date");
         return false;
     } else {
+        removeErrorMessage(endDateInput);
         return true;
     }
-
 }
 
 function validateNumberField(fieldId) {
-
     const input = document.getElementById(fieldId);
-
     const regex = /^\d{0,11}$/;
 
     if (regex.test(input.value)) {
-
+        removeErrorMessage(input);
         return true;
     } else {
-        const existingErrorMessage = document.querySelector('.error-number');
-        if (existingErrorMessage) {
-            existingErrorMessage.remove();
-        }
-
-        const errorMessage = "Please enter only digits in this field and valid number.";
-        input.insertAdjacentHTML("afterend", "<p class='error-message error-number'>" + errorMessage + "</p>");
+        showErrorMessage(input, "Please enter only digits in this field and valid number.");
         return false;
     }
 }
 
 function validateBudgetField(fieldId) {
-
     const input = document.getElementById(fieldId);
-
     const regex = /^\d*$/;
 
     if (regex.test(input.value)) {
-
+        removeErrorMessage(input);
         return true;
     } else {
-
-        const existingErrorMessage = document.querySelector('.error-digits');
-        if (existingErrorMessage) {
-            existingErrorMessage.remove();
-        }
-
-        const errorMessage = "Please enter only digits in this field.";
-        input.insertAdjacentHTML("afterend", "<p class='error-message error-digits'>" + errorMessage + "</p>");
+        showErrorMessage(input, "Please enter only digits in this field.");
         return false;
     }
 }
 
 function validateInterest() {
-
-    const validation = new Validation();
-
     const selectElements = document.querySelectorAll(".inter-field");
-    const interestDiv = document.querySelector("#divInter");
+    const divInter = document.getElementById("divInter");
 
-    if (validation.validateInterest(selectElements, interestDiv)) {
-
-    return true
+    if (validation.validateInterest(selectElements)) {
+        selectElements.forEach(element => {
+            removeErrorMessage(element);
+        });
+        return true;
     } else {
-
-        const errorMessageId = "interestError";
-        const existingErrorMessage = document.getElementById(errorMessageId);
-        if (existingErrorMessage) {
-            existingErrorMessage.remove();
-        }
-
-        const errorMessage = "Please don't use the same interest more then once.";
-        interestDiv.insertAdjacentHTML("afterend", `<p id="${errorMessageId}" class='error-message'>${errorMessage}</p>`);
-
-        return false
-
-
+            showErrorMessage(divInter, "Please don't use the same interest more then once.");
+        return false;
     }
 }
+
+
+function checkFields() {
+    const isValidVoornaam = validateField(
+        document.getElementById("voornaam"),
+        "Please enter only letters (A-Z) in this field."
+    );
+    const isValidAchternaam = validateField(
+        document.getElementById("achternaam"),
+        "Please enter only letters (A-Z) in this field."
+    );
+    const isValidBestemming = validateField(
+        document.getElementById("bestemming"),
+        "Please enter only letters (A-Z) in this field."
+    );
+    const isValidDate = validateDates();
+    const isValidNumber = validateNumberField("number");
+    const isValidBudget = validateBudgetField("budget");
+
+    const selectElements = document.querySelectorAll(".inter-field");
+    const isValidInterest = validateInterest(selectElements);
+
+
+    if (isValidVoornaam && isValidAchternaam && isValidBestemming && isValidDate && isValidNumber && isValidBudget && isValidInterest) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+document.getElementById("voornaam").addEventListener("input", () => {
+    validateField(
+        document.getElementById("voornaam"),
+        "Please enter only letters (A-Z) in this field."
+    );
+    removeErrorMessage(document.getElementById("voornaam"));
+});
+
+document.getElementById("achternaam").addEventListener("input", () => {
+    validateField(
+        document.getElementById("achternaam"),
+        "Please enter only letters (A-Z) in this field."
+    );
+    removeErrorMessage(document.getElementById("achternaam"));
+});
+
+document.getElementById("bestemming").addEventListener("input", () => {
+    validateField(document.getElementById("bestemming"),
+        "Please enter only letters (A-Z) in this field."
+    );
+    removeErrorMessage(document.getElementById("bestemming"));
+});
+
+document.getElementById("number").addEventListener("input", () => {
+    validateNumberField("number");
+    removeErrorMessage(document.getElementById("number"));
+});
+
+document.getElementById("budget").addEventListener("input", () => {
+    validateBudgetField("budget");
+    removeErrorMessage(document.getElementById("budget"));
+});
+
+const selectElements = document.querySelectorAll(".inter-field");
+selectElements.forEach((element) => {
+    element.addEventListener("input", () => {
+        validateInterest(selectElements);
+        removeErrorMessage(element);
+    });
+});
+
+
+
 
 /*function allows the user to update their email address in the database.
 It first checks if the email is already in use, and if it is, it displays an error message.
@@ -536,7 +553,6 @@ async function updateEmail() {
     const validation = new Validation();
 
     const emailInput = document.getElementById('emailAcc');
-    const repeatEmailInput = document.getElementById('repeat-email');
 
     const email = emailInput.value;
 
@@ -563,14 +579,12 @@ async function updateEmail() {
 }
 
 /* function allows the user to update their password in the database.
-
 It retrieves the salt value for the user from the database and uses it to generate a hashed version of the password.
 The hashed password is then updated in the database and a confirmation message is displayed.*/
 
 async function updatePassword() {
 
     const passwordInput = document.getElementById('passwordAcc');
-    const repeatPasswordInput = document.getElementById('passwordRepeat');
 
     const password = passwordInput.value;
 
@@ -579,13 +593,11 @@ async function updatePassword() {
         [userId]
     );
 
-    // Get the salt from the result
     const mySalt = result[0].salt;
     console.log(mySalt)
 
     const hashedPassword = await passwordHash(password, mySalt);
 
-    // Update the password in the database
     await FYSCloud.API.queryDatabase(
         "UPDATE user SET password = ? WHERE user_id = ?",
         [hashedPassword, userId]
@@ -670,22 +682,4 @@ function checkPasswordField() {
     return isValid;
 }
 
-
-/* Both of the functions are used to display and remove error messages
-on the page*/
-
-function showErrorMessage(input, message) {
-    const existingErrorMessage = input.nextSibling;
-    if (existingErrorMessage && existingErrorMessage.classList && existingErrorMessage.classList.contains('error-message')) {
-        existingErrorMessage.remove();
-    }
-    input.insertAdjacentHTML('afterend', `<p class='error-message'>${message}</p>`);
-}
-
-function removeErrorMessage(input) {
-    const existingErrorMessage = input.nextSibling;
-    if (existingErrorMessage && existingErrorMessage.classList && existingErrorMessage.classList.contains('error-message')) {
-        existingErrorMessage.remove();
-    }
-}
 
