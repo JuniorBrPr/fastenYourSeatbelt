@@ -1,13 +1,12 @@
-/**
- * All the logic behind signing up the user
- * @author Julian
- */
-
 //imports
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 import { Validation } from "../classes/validation.js";
 import { getUniqueSalt, passwordHash } from "../classes/hash.js";
 
+/**
+ * All the logic behind signing up the user
+ * @author Julian
+ */
 const eyeIcons = document.querySelectorAll("[data-eye]");
 
 //Change the eye icon, placeholder and type, to make a password visible or hidden in the input
@@ -88,7 +87,6 @@ inputs.forEach((input) => {
 			}
 		}
 		displayError(validation.emptyInput(input), errorDisplay, "warningEmpty", input);
-		//check if the name inputs are valid
 	});
 });
 
@@ -106,21 +104,26 @@ signUpForm.addEventListener("submit", async (e) => {
 				"INSERT INTO `user` (`first_name`, `last_name`, `email`, `password`, `salt`) VALUES (?, ?, ?, ?, ?);",
 				[values.firstName, values.lastName, values.email, hashedPassword, salt]
 			);
-			const container = document.querySelector("[data-success]");
-			container.setAttribute("data-success", "true");
-			container.textContent = `Gefeliciteerd ${values.firstName} ${values.lastName} uw account is aangemaakt!`;
-
+			if (document.querySelector("[data-success]") != null) {
+				signUpForm.removeChild(document.querySelector("[data-success]"));
+			}
+			const div = createSubmitMessage(true, [values.firstName, values.lastName]);
+			signUpForm.appendChild(div);
 			const inputs = getFormInputs(signUpForm);
 			Object.values(inputs).forEach((input) => {
 				input.value = "";
 			});
+			FYSCloud.Localization.translate();
 		} else {
-			throw "Niet alle gegevens zijn correct ingevoerd!";
+			throw "Submit Error";
 		}
 	} catch (err) {
-		const container = document.querySelector("[data-success]");
-		container.setAttribute("data-success", "false");
-		container.textContent = err;
+		if (document.querySelector("[data-success]") != null) {
+			signUpForm.removeChild(document.querySelector("[data-success]"));
+		}
+		const div = createSubmitMessage(false);
+		signUpForm.appendChild(div);
+		FYSCloud.Localization.translate();
 	}
 });
 
@@ -239,4 +242,30 @@ function capitalizeName(name) {
 			return word;
 		})
 		.join(" ");
+}
+
+/**
+ * create a message if sign up form is submitted
+ * @param {boolean} success is submittion succesful or did an error occur
+ * @param {Array<string>} user first and last name of the user
+ * @returns {HTMLDivElement} element with message inside
+ */
+function createSubmitMessage(success, user) {
+	const container = document.createElement("div");
+	if (success) {
+		const [firstName, lastName] = user;
+		container.setAttribute("data-success", "true");
+		const firstSpan = document.createElement("span");
+		const secondSpan = document.createElement("span");
+		firstSpan.setAttribute("data-translate", "signUp.submitSuccess.firstSpan");
+		secondSpan.setAttribute("data-translate", "signUp.submitSuccess.secondSpan");
+		container.textContent = `${firstName} ${lastName}!`;
+		container.insertAdjacentElement("afterBegin", firstSpan);
+		container.insertAdjacentElement("beforeend", secondSpan);
+		return container;
+	} else {
+		container.setAttribute("data-success", "false");
+		container.setAttribute("data-translate", "signUp.submitError");
+		return container;
+	}
 }

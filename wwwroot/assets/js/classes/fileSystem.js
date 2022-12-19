@@ -23,7 +23,6 @@ export class FileSystem {
 	async uploadPhoto(fileInput, user, imageElement) {
 		try {
 			const dataUrl = await FYSCloud.Utils.getDataUrl(fileInput);
-			console.log(dataUrl);
 			if (!dataUrl.isImage) {
 				this.refreshPhoto(false, imageElement);
 				throw "File is not an image";
