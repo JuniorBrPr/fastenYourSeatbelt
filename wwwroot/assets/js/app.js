@@ -231,7 +231,7 @@ export function clearLoginValues() {
 }
 
 //Language switcher
-const initialLanguage = "nl";
+const initialLanguage = FYSCloud.Session.get("language", "nl");
 
 const translations = {
 	//translate 404
@@ -1176,4 +1176,5 @@ document.querySelector("#localizationLanguageSwitch").value = initialLanguage;
 
 document.querySelector("#localizationLanguageSwitch").addEventListener("change", function () {
 	FYSCloud.Localization.switchLanguage(this.value);
+	FYSCloud.Session.set("language", this.value);
 });
