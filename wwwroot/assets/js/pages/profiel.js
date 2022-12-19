@@ -406,12 +406,12 @@ function removeErrorMessage(input) {
 
 
 function validateField(input, errorMessage) {
-    if (!validation.emptyInput(input) && !validation.invalidName(input)) {
-        removeErrorMessage(input);
-        return true;
-    } else {
+    if (validation.emptyInput(input) && validation.invalidName(input)) {
         showErrorMessage(input, errorMessage);
         return false;
+    } else {
+        removeErrorMessage(input);
+        return true;
     }
 }
 
