@@ -101,9 +101,6 @@ async function dataLoad() {
             [userId]
         );
 
-
-        console.log(getData);
-        console.log(getUserInterest);
         loadData(getData);
 
 
@@ -123,9 +120,6 @@ async function dataLoad() {
             [userId]
         );
 
-
-        console.log(getData);
-        console.log(getUserInterest);
         loadData(getData);
 
     }
@@ -174,7 +168,6 @@ async function dataLoad() {
 /*Submit data to the database if user has a profile*/
 
 async function updateData(data) {
-    console.log(data.startDate);
     data.bday = FYSCloud.Utils.toSqlDatetime(new Date(data.bday));
     data.startDate = FYSCloud.Utils.toSqlDatetime(new Date(data.startDate));
     data.endDate = FYSCloud.Utils.toSqlDatetime(new Date(data.endDate));
@@ -186,8 +179,6 @@ async function updateData(data) {
         "WHERE user_id = ?",
         [data.firstName, data.lastName, userId]
     );
-
-    console.log(data.phoneNumber)
 
     const updateProfileData = await FYSCloud.API.queryDatabase(
         "UPDATE profile\n" +
@@ -213,15 +204,10 @@ async function updateData(data) {
         ]
     );
 
-    console.log(data.phoneNumber)
-
     const saveBtn = document.querySelector(".Btn-opslaan")
 
     const errorMessage = "Profile saved!";
     saveBtn.insertAdjacentHTML("afterend", "<p class='error-message valid'>" + errorMessage + "</p>");
-
-    console.log(updateProfileData);
-    console.log(updateUserData);
 }
 
 /* Create an Object filled with values to be used in a Update/SubmitData function*/
@@ -292,12 +278,10 @@ async function submitData(data) {
 
 async function outerInterestFunction() {
     const selectElements = document.querySelectorAll(".inter-field");
-    //console.log(selectElements);
 
     const getInterest = await FYSCloud.API.queryDatabase(
         "SELECT interest_name as inter " + "FROM interest;\n",
     );
-    //console.log(getInterest);
 
     for (let i = 0; i < selectElements.length; i++) {
         await preLoadInterFields(selectElements[i], getInterest);
@@ -335,8 +319,6 @@ async function preSelectOptionField() {
         "WHERE ui.profile_id = ?;",
         [userId]
     );
-
-    console.log(getUserInterest);
 
     const userInterests = getUserInterest.map(interest => interest.inter);
     selectElements.forEach((selectElement, i) => {
