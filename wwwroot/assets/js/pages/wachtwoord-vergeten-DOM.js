@@ -80,13 +80,15 @@ async function verwerkEmail(evt) {
     let key;
     key = await generateKey(10000000);
     let timestamp = new Date();
-
-    if (await zetKeyInDb(email, key, timestamp))
+    let salt = await getSaltFromDatabase(email.value);
+    let hashedResetCode = await hashResetCode(key, salt);
+    console.log("hashedResetCode: " + hashedResetCode);
+    if (await zetKeyInDb(email, hashedResetCode, timestamp))
     {
         displayErrorMessagePage1("reset code in database zetten mislukt");
         return 1;
     }
-    if (await sendMail(email, key)){
+    if (await sendMail(email, key, salt)){
         displayErrorMessagePage1("email versturen mislukt");
         return 1;
     }
@@ -135,8 +137,6 @@ async function zetKeyInDb(email, key, date) {
         console.error(reason);
         return 1;
     }
-
-
 }
 
 /**
@@ -145,9 +145,9 @@ async function zetKeyInDb(email, key, date) {
  * @param key
  * @returns {Promise<void>} return 0 if succes, 1 if fail
  */
-async function sendMail(mail, key){
+async function sendMail(mail, key, salt){
     let url = FYSCloud.Utils.createUrl(window.location.href, {
-        key: key
+        key: key, salt: salt
     });
     try {
         await FYSCloud.API.sendEmail({
@@ -162,8 +162,7 @@ async function sendMail(mail, key){
                 }
             ],
             subject: "Nieuw wachtwoord aanmaken",
-            html: "<h1>Hallo!</h1><p>Hier de code om een nieuw wachtwoord aan te maken, voor testredenen kan je dit " +
-                "achter de url van de wachtwoord vergeten pagina plakken</p><p>achter url: &key=" + key + "</p><p>url: " + url + "</p>" +
+            html: "<h1>Hallo!</h1><p>Hier de link om een nieuw wachtwoord aan te maken.</p><p>url: " + url + "</p>" +
                 "<p>Groetjes leden van het discordmoderators team!</p>"
 
         });
@@ -251,8 +250,11 @@ async function keyInDb(key){
 async function verwerkNieuwWachtwoord(evt) {
     evt.preventDefault();
     let key = parseURLParams(window.location.href).key;
-    let emailarray = await getEmailFromKey(key);
-    if(!await keyInDb(key)){
+    let salt = parseURLParams(window.location.href).salt;
+
+    let emailarray = await getEmailFromKey(await hashResetCode(key, salt));
+    let hashedResetCode = await passwordHash(key, salt);
+    if(!await keyInDb(hashedResetCode)){
         displayErrorMessagePage3("Wachtwoord aanpassen mislukt, wachtwoord is al aangepast, nieuw-wachtwoord-aanvraag mislukt of overschreven.");
         return 1;
     }
@@ -266,7 +268,7 @@ async function verwerkNieuwWachtwoord(evt) {
         return 1;
     }
 
-    const salt = await getUniqueSalt();
+    salt = await getUniqueSalt();
     const hashedPassword = await passwordHash(document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord"].value, salt);
     try {
         await FYSCloud.API.queryDatabase(
@@ -344,4 +346,27 @@ function displayNonErrorMessagePage3(message){
     document.getElementById("nieuw-wachtwoord").style.borderColor = "var(--color-border-grey)";
     document.getElementById("nieuw-wachtwoord-herhalen").style.borderColor = "var(--color-border-grey)";
     document.getElementById("errorMessageContainerPage3").style.color = "black";
+}
+
+/**
+ *
+ * @param key
+ * @param email
+ * @returns {Promise<undefined|*>}
+ */
+async function hashResetCode(key, salt){
+    return await passwordHash(key, salt);
+}
+
+async function getSaltFromDatabase(email){
+    try {
+        const data = await FYSCloud.API.queryDatabase(
+            "SELECT `salt` FROM `user` WHERE `email` = ?;",
+            [email]
+        );
+        return data[0].salt;
+    } catch (error) {
+        console.error(error);
+        return 0;
+    }
 }
