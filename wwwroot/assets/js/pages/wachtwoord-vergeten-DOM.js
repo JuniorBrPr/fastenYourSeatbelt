@@ -17,9 +17,11 @@ const validation = new Validation();
 showpage1();
 document.getElementById("wwvg-knop").addEventListener("click", evt => verwerkEmail(evt));
 document.getElementById("wwvg-knop3").addEventListener("click", evt => verwerkNieuwWachtwoord(evt));
-if (checkForKey(window.location.href) == 1) {
+console.log(checkForKey(window.location.href));
+if (checkForKey(window.location.href) == 0) {
     showpage3();
 }
+
 
 /**
  * hide page 2 and 3, show page 1
@@ -62,7 +64,7 @@ async function verwerkEmail(evt) {
     evt.preventDefault();
     let email = document.getElementById("wwvg-email");
     if(await validation.invalidEmail(email)){
-        alert("invalid email");
+        displayErrorMessagePage1("invalid email");
         return 1;
     }
     if(!(await validation.emailInDatabase(email))){
@@ -71,7 +73,7 @@ async function verwerkEmail(evt) {
     }
     if(await validation.emailHasResetCodeInBd(email)){
         if(await deleteResetCodeInBd(email.value)){
-            alert("reset code verwijderen mislukt");
+            displayErrorMessagePage1("reset code verwijderen mislukt");
             return 1;
         };
     }
@@ -81,11 +83,11 @@ async function verwerkEmail(evt) {
 
     if (await zetKeyInDb(email, key, timestamp))
     {
-        alert("reset code in database zetten mislukt");
+        displayErrorMessagePage1("reset code in database zetten mislukt");
         return 1;
     }
     if (await sendMail(email, key)){
-        alert("email versturen mislukt")
+        displayErrorMessagePage1("email versturen mislukt");
         return 1;
     }
     showpage2(evt);
@@ -104,11 +106,11 @@ function validateForm(evt) {
 
 
     if (nieuwWw != nieuwWwControle) {
-        alert("Wachtwoord komt niet overeen");
+        displayErrorMessagePage3("Wachtwoord komt niet overeen");
         return 1;
     }
     if (nieuwWw == "") {
-        alert("wachtoord kan niet leeg zijn");
+        displayErrorMessagePage3("Wachtwoord kan niet leeg zijn");
         return 1;
     }
     return 0;
@@ -181,11 +183,11 @@ function checkForKey(url){
     let vars = parseURLParams(url);
     if(vars.key == null)
     {
-        return 0;
+        return 1;
     }
     else
     {
-        return 1;
+        return 0;
     }
 }
 
@@ -251,11 +253,11 @@ async function verwerkNieuwWachtwoord(evt) {
     let key = parseURLParams(window.location.href).key;
     let emailarray = await getEmailFromKey(key);
     if(!await keyInDb(key)){
-        alert("wachtwoord aanpassen mislukt, wachtwoord is al aangepast, nieuw-wachtwoord-aanvraag mislukt of overschreven.");
+        displayErrorMessagePage3("Wachtwoord aanpassen mislukt, wachtwoord is al aangepast, nieuw-wachtwoord-aanvraag mislukt of overschreven.");
         return 1;
     }
     if (emailarray.length == 0) {
-        alert("email ophalen mislukt")
+        displayErrorMessagePage3("Email ophalen mislukt")
         return 1;
     }
     let email = emailarray[0].email;
@@ -272,14 +274,14 @@ async function verwerkNieuwWachtwoord(evt) {
             [hashedPassword, salt, email]
         )
     } catch(error) {
-        alert("wachtwoord updaten mislukt");
+        displayErrorMessagePage3("Wachtwoord updaten mislukt");
         return 1;
     }
     if(await deleteResetCodeInBd(email)){
-        alert("reset code verwijderen mislukt");
+        displayErrorMessagePage3("Reset code verwijderen mislukt");
         return 1;
     }
-    alert("wachtwoord aanpassen gelukt");
+    displayNonErrorMessagePage3("Wachtwoord aanpassen gelukt");
 
 }
 
@@ -317,4 +319,29 @@ async function getEmailFromKey(key) {
         console.error(error);
         return 0;
     }
+}
+
+/**
+ * displays message under email input tag in wachtwoord vergeten4.html
+ * @param message
+ */
+function displayErrorMessagePage1(message){
+    document.getElementById("errorMessageContainerPage1").innerText = message;
+    document.getElementById("wwvg-email").style.borderColor = "red";
+}
+
+function displayErrorMessagePage3(message){
+    document.getElementById("errorMessageContainerPage3").style.display = "block";
+    document.getElementById("errorMessageContainerPage3").innerText = message;
+    document.getElementById("nieuw-wachtwoord").style.borderColor = "red";
+    document.getElementById("nieuw-wachtwoord-herhalen").style.borderColor = "red";
+    document.getElementById("errorMessageContainerPage3").style.color = "red";
+}
+
+function displayNonErrorMessagePage3(message){
+    document.getElementById("errorMessageContainerPage3").style.display = "block";
+    document.getElementById("errorMessageContainerPage3").innerText = message;
+    document.getElementById("nieuw-wachtwoord").style.borderColor = "var(--color-border-grey)";
+    document.getElementById("nieuw-wachtwoord-herhalen").style.borderColor = "var(--color-border-grey)";
+    document.getElementById("errorMessageContainerPage3").style.color = "black";
 }
