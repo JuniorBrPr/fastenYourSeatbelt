@@ -234,6 +234,12 @@ export function clearLoginValues() {
 const initialLanguage = "nl";
 
 const translations = {
+	//translate 404
+	404: {
+		nl: "Sorry, de pagina die u zoekt kan niet worden gevonden.",
+		en: "Sorry, the page you are looking for could not be found.",
+		es: "Lo siento, la página que está buscando no se ha podido encontrar.",
+	},
 	//Translate navbar and hamburger
 	navbar: {
 		findBuddy: {
@@ -806,7 +812,26 @@ const translations = {
 		loginLink: {
 			nl: "Log in",
 			en: "Sign in",
-			es: " Iniciar sesión",
+			es: "Iniciar sesión",
+		},
+		submitError: {
+			nl: "Niet alle gegevens zijn correct ingevoerd!",
+			en: "Not all data has been entered correctly!",
+			es: "¡No se han ingresado correctamente todos los datos!",
+		},
+		submitSuccess: {
+			//spaces are necessary
+			firstSpan: {
+				nl: "Gefeliciteerd ",
+				en: "Congratulations ",
+				es: "¡Felicidades ",
+			},
+			//spaces are necessary
+			secondSpan: {
+				nl: " uw account is aangemaakt!",
+				en: " Your account has been created!",
+				es: " ¡Su cuenta ha sido creada!",
+			},
 		},
 	},
 	//Translate terms of use
