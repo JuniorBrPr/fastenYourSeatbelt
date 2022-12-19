@@ -1023,6 +1023,20 @@ footer {
 
 }
 
+#pagina1 #pagina2 #pagina3 {
+	display: none;
+}
+
+#errorMessageContainerPage3{
+	display: none;
+}
+
+.wwvg-error-message{
+	padding: 10px;
+	color: var(--color-red);
+	font-size: var(--small-font-size);
+
+}
 
 @media (max-width: 1000px){
 	.wwvg-main {
