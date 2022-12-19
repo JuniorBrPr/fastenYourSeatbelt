@@ -715,6 +715,7 @@ footer {
 	margin-left: 10px;
 	z-index: 999;
 	display: none;
+	flex-direction: column;
 }
 
 .filter-submit {

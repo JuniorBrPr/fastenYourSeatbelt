@@ -343,6 +343,9 @@ function setActiveBtn(container) {
  * and so are existing buddies.
  * @param {number} userId The ID of the currently active user.
  */
+
+// filterTime is an extra sql line to filter days and is empty by default to read all
+let filterTime = "";
 async function getRecommendedBuddies(userId, buddyLocation, buddyTime) {
     if (buddyLocation == null) {
         buddyLocation = "";
@@ -382,7 +385,7 @@ async function getRecommendedBuddies(userId, buddyLocation, buddyTime) {
         "                      WHERE sender_user_id = ?)\n" +
         "  AND user_id != ?\n" +
         "AND destination LIKE '%' ? '%'\n" +
-        "AND DATEDIFF(end_date, start_date) LIKE '%' ? '%'\n" +
+        filterTime +
         "GROUP BY NAME\n" +
         "ORDER BY commonInterests DESC",
         [userId, userId, userId, userId, userId, buddyLocation, buddyTime]
@@ -671,10 +674,10 @@ const filterBtn = document.querySelector(".filter-btn");
 
 // Checks if filter modal is shown or hidden and will act on that
 filterBtn.addEventListener("click", () => {
-    if (filterForm.style.display === "block") {
+    if (filterForm.style.display === "flex") {
         filterForm.style.display = "none";
     } else {
-        filterForm.style.display = "block";
+        filterForm.style.display = "flex";
     }
 });
 
@@ -694,7 +697,17 @@ filterForm.addEventListener("formdata", async (e) => {
     const buddyLocation = data.get("location");
     const buddyTime = data.get("time");
 
+    // checks if buddyTime is empty and will add extra line of sql query depending on the answer
+    if (buddyTime === "") {
+        filterTime = "";
+    } else {
+        filterTime = "AND DATEDIFF(end_date, start_date) = ?\n";
+    }
+
     await populateList(buddyList, "suggested", await getRecommendedBuddies(FYSCloud.Session.get("userId"), buddyLocation, buddyTime));
+
+    // changes back to default filter value if you switch tabs
+    filterTime = "";
 
     for (const value of data.values()) {
         console.log(value);
