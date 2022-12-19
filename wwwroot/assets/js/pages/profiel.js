@@ -1,5 +1,5 @@
 /**
- Author: Nizar Amine
+ @Author: Nizar Amine
  DiscordModerators, is101
  **/
 
@@ -12,7 +12,7 @@ const validation = new Validation();
 const emailBtn = document.querySelector('.updateEmailBtn')
 const passwordBtn = document.querySelector('.updatePasswordBtn')
 const subBtn = document.querySelector(".saveBtn");
-const userId = FYSCloud.Session.get("userId", 1);
+const userId = FYSCloud.Session.get("userId");
 
 
 /*Checks if profiel_id exist otherwise it will create*/
@@ -52,7 +52,6 @@ passwordBtn.addEventListener('click', async function (e) {
 });
 
 
-console.log(userId);
 await dataLoad();
 await outerInterestFunction();
 await preSelectOptionField();
@@ -93,14 +92,6 @@ async function dataLoad() {
             [userId, userId]
         );
 
-        const getUserInterest = await FYSCloud.API.queryDatabase(
-            "SELECT i.interest_name AS inter\n" +
-            "FROM user_interest AS ui\n" +
-            "INNER JOIN interest AS i ON ui.interest_id = i.interest_id\n" +
-            "WHERE ui.profile_id = ?\n",
-            [userId]
-        );
-
         loadData(getData);
 
 
@@ -109,14 +100,6 @@ async function dataLoad() {
             "SELECT first_name as firstName, last_name as lastName\n" +
             "FROM user\n" +
             "WHERE user_id = ?",
-            [userId]
-        );
-
-        const getUserInterest = await FYSCloud.API.queryDatabase(
-            "SELECT i.interest_name AS inter \n" +
-            "FROM user_interest AS ui\n" +
-            "INNER JOIN interest AS i ON ui.interest_id = i.interest_id\n" +
-            "WHERE ui.profile_id = ?;\n",
             [userId]
         );
 
@@ -168,6 +151,7 @@ async function dataLoad() {
 /*Submit data to the database if user has a profile*/
 
 async function updateData(data) {
+    console.log(data.startDate);
     data.bday = FYSCloud.Utils.toSqlDatetime(new Date(data.bday));
     data.startDate = FYSCloud.Utils.toSqlDatetime(new Date(data.startDate));
     data.endDate = FYSCloud.Utils.toSqlDatetime(new Date(data.endDate));
@@ -179,6 +163,8 @@ async function updateData(data) {
         "WHERE user_id = ?",
         [data.firstName, data.lastName, userId]
     );
+
+
 
     const updateProfileData = await FYSCloud.API.queryDatabase(
         "UPDATE profile\n" +
@@ -208,6 +194,7 @@ async function updateData(data) {
 
     const errorMessage = "Profile saved!";
     saveBtn.insertAdjacentHTML("afterend", "<p class='error-message valid'>" + errorMessage + "</p>");
+
 }
 
 /* Create an Object filled with values to be used in a Update/SubmitData function*/
@@ -245,7 +232,6 @@ async function profielExist() {
 this will create a profile_id filled with profile related data */
 
 async function submitData(data) {
-    console.log(data.startDate);
     data.bday = FYSCloud.Utils.toSqlDatetime(new Date(data.bday));
     data.startDate = FYSCloud.Utils.toSqlDatetime(new Date(data.startDate));
     data.endDate = FYSCloud.Utils.toSqlDatetime(new Date(data.endDate));
@@ -320,6 +306,7 @@ async function preSelectOptionField() {
         [userId]
     );
 
+
     const userInterests = getUserInterest.map(interest => interest.inter);
     selectElements.forEach((selectElement, i) => {
         selectElement.value = userInterests[i] || selectElement.selectedOptions[0].value;
@@ -388,12 +375,12 @@ function removeErrorMessage(input) {
 
 
 function validateField(input, errorMessage) {
-    if (validation.emptyInput(input) && validation.invalidName(input)) {
-        showErrorMessage(input, errorMessage);
-        return false;
-    } else {
+    if (!validation.emptyInput(input) && !validation.invalidName(input)) {
         removeErrorMessage(input);
         return true;
+    } else {
+        showErrorMessage(input, errorMessage);
+        return false;
     }
 }
 
@@ -548,7 +535,6 @@ async function updateEmail() {
                 "UPDATE user SET email = ? WHERE user_id = ?",
                 [email, userId]
             );
-            alert("Email updated successfully!");
             const errorMessage = "Email saved!";
             emailBtn.insertAdjacentHTML("afterend", "<p class='error-message valid'>" + errorMessage + "</p>");
 
@@ -576,7 +562,6 @@ async function updatePassword() {
     );
 
     const mySalt = result[0].salt;
-    console.log(mySalt)
 
     const hashedPassword = await passwordHash(password, mySalt);
 
@@ -584,10 +569,9 @@ async function updatePassword() {
         "UPDATE user SET password = ? WHERE user_id = ?",
         [hashedPassword, userId]
     );
-    alert("Password updated successfully!");
+
     const errorMessage = "Password saved!";
     passwordBtn.insertAdjacentHTML("afterend", "<p class='error-message valid'>" + errorMessage + "</p>");
-
 
 }
 
