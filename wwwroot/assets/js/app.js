@@ -234,6 +234,12 @@ export function clearLoginValues() {
 const initialLanguage = "nl";
 
 const translations = {
+	//translate 404
+	404: {
+		nl: "Sorry, de pagina die u zoekt kan niet worden gevonden.",
+		en: "Sorry, the page you are looking for could not be found.",
+		es: "Lo siento, la página que está buscando no se ha podido encontrar.",
+	},
 	//Translate navbar and hamburger
 	navbar: {
 		findBuddy: {
