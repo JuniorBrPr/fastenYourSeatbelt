@@ -701,10 +701,45 @@ const translations = {
 			en: "Update account",
 			es: "Actualizar perfil",
 		},
+		deleteAccount: {
+			nl: "Verwijder account",
+			en: "Delete account",
+			es: "Eliminar cuenta",
+		},
 		preferences: {
 			nl: "Voorkeuren",
 			en: "Preferences",
 			es: "Preferencias",
+		},
+		budget: {
+			nl: "Budget",
+			en: "Budget",
+			es: "Presupuesto",
+		},
+		number: {
+			nl: "Telefoonnummer",
+			en: "Number",
+			es: "Numero",
+		},
+		emailRepeat: {
+			nl: "Herhaal email",
+			en: "Repeat email",
+			es: "Repite el email",
+		},
+		passwordRepeat: {
+			nl: "Herhaal wachtwoord",
+			en: "Repeat password",
+			es: "Repite el password",
+		},
+		updateEmail: {
+			nl: "Update Email",
+			en: "Update Email",
+			es: "Update Email",
+		},
+		updatePassword: {
+			nl: "Update Password",
+			en: "Update Password",
+			es: "Update Password",
 		},
 	},
 	//Translate sign up

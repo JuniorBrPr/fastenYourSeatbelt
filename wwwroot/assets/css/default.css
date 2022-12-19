@@ -1246,7 +1246,7 @@ footer {
 .profiel-account-card {
 	background: var(--color-bg-grey);
 	padding: 20px 40px;
-	height: 343px;
+	height: auto;
 	border-radius: 10px;
 }
 
@@ -1255,8 +1255,8 @@ footer {
 	padding-bottom: 20px;
 }
 
-.profiel-account-card p {
-	text-align: right;
+.profiel-account-card .valid {
+	color: var(--color-green);
 }
 
 /* Preference card */
@@ -1285,9 +1285,10 @@ footer {
 	display: inline-block;
 	width: 60px;
 	height: 34px;
+	transition: background-color 0.4s ease;
 }
 
-.switch input {
+.switch .checkboxInput {
 	opacity: 0;
 	width: 0;
 	height: 0;
@@ -1300,40 +1301,38 @@ footer {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: var(--color-red);
+	background-color: #ccc;
 	transition: 0.4s;
+	border-radius: 34px;
 }
 
-.slider::before {
+.slider:before {
 	position: absolute;
 	content: "";
 	height: 26px;
 	width: 26px;
 	left: 4px;
 	bottom: 4px;
-	background-color: var(--color-white);
-	transition: 0.4s;
+	background-color: white;
+	transition: 0.4s, transform 0.4s;
+	border-radius: 50%;
+}
+.error-message {
+	font-weight: bold;
+	color: #ff0800;
+	font-size: small;
 }
 
-input:checked + .slider {
+.checkboxInput:checked + .slider {
 	background-color: #2196f3;
 }
 
-input:focus + .slider {
+.checkboxInput:focus + .slider {
 	box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked + .slider::before {
+.checkboxInput:checked + .slider:before {
 	transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-	border-radius: 10vw;
-}
-
-.slider.round::before {
-	border-radius: 50%;
 }
 
 /* Dropdown Button */
@@ -1797,6 +1796,7 @@ input:checked + .slider::before {
 		flex-direction: column;
 	}
 }
+
 @media screen and (max-width: 500px) {
 	.logo {
 		width: 150px;

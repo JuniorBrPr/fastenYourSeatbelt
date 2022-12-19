@@ -67,4 +67,26 @@ export class Validation {
 	passwordMatch(passwordInput, repeatPasswordInput) {
 		return !(passwordInput.value == repeatPasswordInput.value);
 	}
+
+	/**
+	 * Validate the interests field in a form
+	 * @param {HTMLCollection} selectElements The select elements in the interests field
+	 * @returns {boolean} true if the interests are valid, false if not
+	 * @author Nizar
+	 */
+	validateInterest(selectElements) {
+		// Get the updated values from the select elements
+		const updatedInterests = Array.from(selectElements).map(selectElement => selectElement.value);
+
+		// Check for duplicates in updatedInterests array
+		const hasDuplicates = new Set(updatedInterests).size !== updatedInterests.length;
+
+		if (hasDuplicates) {
+			// Add Duplicate interest error to the field
+			return false;
+		} else {
+			// Interests are valid
+			return true;
+		}
+	}
 }
