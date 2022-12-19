@@ -1182,7 +1182,7 @@ footer {
 	margin: 15px 2px;
 	cursor: pointer;
 	font-size: var(--small-font-size);
-	float: right;
+	font-family: "open sans", sans-serif;
 }
 
 .h1-mijn-profiel {

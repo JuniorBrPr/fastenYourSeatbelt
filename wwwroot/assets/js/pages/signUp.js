@@ -1,13 +1,12 @@
-/**
- * All the logic behind signing up the user
- * @author Julian
- */
-
 //imports
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 import { Validation } from "../classes/validation.js";
 import { getUniqueSalt, passwordHash } from "../classes/hash.js";
 
+/**
+ * All the logic behind signing up the user
+ * @author Julian
+ */
 const eyeIcons = document.querySelectorAll("[data-eye]");
 
 //Change the eye icon, placeholder and type, to make a password visible or hidden in the input
@@ -38,12 +37,11 @@ inputs.forEach((input) => {
 			input.getAttribute("data-input") == "password"
 				? input.parentElement.nextElementSibling
 				: input.nextElementSibling;
-		//check if input is empty
 		if (input.getAttribute("data-input") == "name") {
 			displayError(
 				validation.invalidName(input),
 				errorDisplay,
-				"Er zijn vreemde karakters gebruikt in uw naam!",
+				"warningInvalidName",
 				input
 			);
 			if (errorDisplay.textContent != "") {
@@ -54,7 +52,7 @@ inputs.forEach((input) => {
 			displayError(
 				validation.invalidEmail(input),
 				errorDisplay,
-				"Dit is een ongeldig emailadres!",
+				"warningInvalidEmail",
 				input
 			);
 			if (errorDisplay.textContent != "") {
@@ -64,7 +62,7 @@ inputs.forEach((input) => {
 			displayError(
 				await validation.emailInDatabase(input),
 				errorDisplay,
-				"U heeft al een account op dit emailadres",
+				"warningExistingEmail",
 				input
 			);
 
@@ -80,7 +78,7 @@ inputs.forEach((input) => {
 			displayError(
 				validation.passwordMatch(passwordInput, input),
 				errorDisplay,
-				"Wachtwoorden zijn niet hetzelfde!",
+				"warningPassword",
 				passwordInput,
 				input
 			);
@@ -88,13 +86,7 @@ inputs.forEach((input) => {
 				return;
 			}
 		}
-		displayError(
-			validation.emptyInput(input),
-			errorDisplay,
-			"Veld moet ingevuld zijn!",
-			input
-		);
-		//check if the name inputs are valid
+		displayError(validation.emptyInput(input), errorDisplay, "warningEmpty", input);
 	});
 });
 
@@ -112,16 +104,26 @@ signUpForm.addEventListener("submit", async (e) => {
 				"INSERT INTO `user` (`first_name`, `last_name`, `email`, `password`, `salt`) VALUES (?, ?, ?, ?, ?);",
 				[values.firstName, values.lastName, values.email, hashedPassword, salt]
 			);
-			const container = document.querySelector("[data-success]");
-			container.setAttribute("data-success", "true");
-			container.textContent = `Gefeliciteerd ${values.firstName} ${values.lastName} uw account is aangemaakt!`;
+			if (document.querySelector("[data-success]") != null) {
+				signUpForm.removeChild(document.querySelector("[data-success]"));
+			}
+			const div = createSubmitMessage(true, [values.firstName, values.lastName]);
+			signUpForm.appendChild(div);
+			const inputs = getFormInputs(signUpForm);
+			Object.values(inputs).forEach((input) => {
+				input.value = "";
+			});
+			FYSCloud.Localization.translate();
 		} else {
-			throw "Niet alle gegevens zijn correct ingevoerd!";
+			throw "Submit Error";
 		}
 	} catch (err) {
-		const container = document.querySelector("[data-success]");
-		container.setAttribute("data-success", "false");
-		container.textContent = err;
+		if (document.querySelector("[data-success]") != null) {
+			signUpForm.removeChild(document.querySelector("[data-success]"));
+		}
+		const div = createSubmitMessage(false);
+		signUpForm.appendChild(div);
+		FYSCloud.Localization.translate();
 	}
 });
 
@@ -133,12 +135,14 @@ signUpForm.addEventListener("submit", async (e) => {
  */
 function displayError(errorFunction, errorElement, errorMessage, input, repeatPasswordInput) {
 	if (errorFunction) {
-		errorElement.textContent = errorMessage;
+		errorElement.setAttribute("data-translate", `signUp.${errorMessage}`);
 		input.style.borderColor = "#d81e05";
+		FYSCloud.Localization.translate();
 		if (repeatPasswordInput != null) {
 			repeatPasswordInput.style.borderColor = "#d81e05";
 		}
 	} else {
+		errorElement.removeAttribute("data-translate");
 		errorElement.textContent = "";
 		input.style.borderColor = "#d9d9d9";
 		if (repeatPasswordInput != null) {
@@ -193,10 +197,10 @@ function getFormInputs(form) {
 function getInputValues(form) {
 	const inputs = getFormInputs(form);
 	return {
-		firstName: capitalizeName(inputs.firstName.value),
-		lastName: capitalizeName(inputs.lastName.value),
-		email: inputs.email.value,
-		password: inputs.password.value,
+		firstName: capitalizeName(inputs.firstName.value.trim()),
+		lastName: capitalizeName(inputs.lastName.value.trim()),
+		email: inputs.email.value.trim(),
+		password: inputs.password.value.trim(),
 	};
 }
 /**
@@ -238,4 +242,30 @@ function capitalizeName(name) {
 			return word;
 		})
 		.join(" ");
+}
+
+/**
+ * create a message if sign up form is submitted
+ * @param {boolean} success is submittion succesful or did an error occur
+ * @param {Array<string>} user first and last name of the user
+ * @returns {HTMLDivElement} element with message inside
+ */
+function createSubmitMessage(success, user) {
+	const container = document.createElement("div");
+	if (success) {
+		const [firstName, lastName] = user;
+		container.setAttribute("data-success", "true");
+		const firstSpan = document.createElement("span");
+		const secondSpan = document.createElement("span");
+		firstSpan.setAttribute("data-translate", "signUp.submitSuccess.firstSpan");
+		secondSpan.setAttribute("data-translate", "signUp.submitSuccess.secondSpan");
+		container.textContent = `${firstName} ${lastName}!`;
+		container.insertAdjacentElement("afterBegin", firstSpan);
+		container.insertAdjacentElement("beforeend", secondSpan);
+		return container;
+	} else {
+		container.setAttribute("data-success", "false");
+		container.setAttribute("data-translate", "signUp.submitError");
+		return container;
+	}
 }
