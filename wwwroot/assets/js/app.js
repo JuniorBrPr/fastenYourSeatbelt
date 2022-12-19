@@ -782,7 +782,26 @@ const translations = {
 		loginLink: {
 			nl: "Log in",
 			en: "Sign in",
-			es: " Iniciar sesión",
+			es: "Iniciar sesión",
+		},
+		submitError: {
+			nl: "Niet alle gegevens zijn correct ingevoerd!",
+			en: "Not all data has been entered correctly!",
+			es: "¡No se han ingresado correctamente todos los datos!",
+		},
+		submitSuccess: {
+			//spaces are necessary
+			firstSpan: {
+				nl: "Gefeliciteerd ",
+				en: "Congratulations ",
+				es: "¡Felicidades ",
+			},
+			//spaces are necessary
+			secondSpan: {
+				nl: " uw account is aangemaakt!",
+				en: " Your account has been created!",
+				es: " ¡Su cuenta ha sido creada!",
+			},
 		},
 	},
 	//Translate terms of use
