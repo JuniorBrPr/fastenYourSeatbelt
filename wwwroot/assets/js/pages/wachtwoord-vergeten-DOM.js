@@ -14,10 +14,8 @@ import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 
 const validation = new Validation();
 
-document.getElementById("pagina2").style.display = "none";
-document.getElementById("pagina3").style.display = "none";
+showpage1();
 document.getElementById("wwvg-knop").addEventListener("click", evt => verwerkEmail(evt));
-//document.getElementById("wwvg-knop2").addEventListener("click", evt => showpage3(evt));
 document.getElementById("wwvg-knop3").addEventListener("click", evt => verwerkNieuwWachtwoord(evt));
 if (checkForKey(window.location.href) == 1) {
     showpage3();
@@ -27,8 +25,7 @@ if (checkForKey(window.location.href) == 1) {
  * hide page 2 and 3, show page 1
  * @param evt
  */
-function showpage1(evt){
-    evt.preventDefault();
+function showpage1(){
     document.getElementById("pagina1").style.display = "flex";
     document.getElementById("pagina2").style.display = "none";
     document.getElementById("pagina3").style.display = "none";
@@ -69,7 +66,7 @@ async function verwerkEmail(evt) {
         return 1;
     }
     if(!(await validation.emailInDatabase(email))){
-        alert("email niet in database");
+        showpage2(evt);
         return 1;
     }
     if(await validation.emailHasResetCodeInBd(email)){
@@ -92,6 +89,7 @@ async function verwerkEmail(evt) {
         return 1;
     }
     showpage2(evt);
+    return 0;
 }
 
 /**
@@ -248,7 +246,7 @@ async function keyInDb(key){
  * @param evt
  * @returns {Promise<number>} return 0 if inputs are not correct
  */
-async function verwerkNieuwWachtwoord(evt){
+async function verwerkNieuwWachtwoord(evt) {
     evt.preventDefault();
     let key = parseURLParams(window.location.href).key;
     let emailarray = await getEmailFromKey(key);
@@ -308,8 +306,7 @@ async function deleteResetCodeInBd(emailInput) {
  * @param key
  * @returns {Promise<number|*>} return email if success if fail return 0
  */
-async function getEmailFromKey(key)
-{
+async function getEmailFromKey(key) {
     try {
         const data = await FYSCloud.API.queryDatabase(
             "SELECT `email` FROM `forgot_password` WHERE `code` = ?;",
