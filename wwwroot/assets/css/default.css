@@ -237,6 +237,7 @@ button.btn {
 /* Minimum width for button */
 .register-btn,
 .login-btn,
+.profile-btn,
 .language-switch {
 	min-width: 14ch;
 }
@@ -253,9 +254,7 @@ button.btn {
 .language-switch {
 	text-align: center;
 }
-.language-switch option:first-child {
-	padding-top: 16px;
-}
+
 .nav-shown {
 	display: visible;
 }
@@ -808,6 +807,7 @@ footer {
 	align-items: flex-start;
 	min-height: fit-content;
 	margin: auto;
+	background-color: rgba(0, 0, 0, 0.35);
 }
 
 .buddy-attr-label {
@@ -873,6 +873,7 @@ footer {
 	z-index: 1000;
 	min-width: 100%;
 	min-height: 100%;
+	background-color: rgba(0, 0, 0, 0.35);
 }
 
 .login {
@@ -1077,14 +1078,18 @@ footer {
 	min-width: 16ch;
 }
 
-@media (max-width: 1000px) {
-	.wwvg-main {
-		background-color: #0f0;
-		/*flex-direction: row;*/
-	}
-	.wwvg-form {
-		width: 95vw;
-	}
+#pagina1 #pagina2 #pagina3 {
+	display: none;
+}
+
+#errorMessageContainerPage3 {
+	display: none;
+}
+
+.wwvg-error-message {
+	padding: 10px;
+	color: var(--color-red);
+	font-size: var(--small-font-size);
 }
 
 /* contact styling */
@@ -1219,7 +1224,7 @@ footer {
 	margin: 15px 2px;
 	cursor: pointer;
 	font-size: var(--small-font-size);
-	font-family: "open sans", sans-serif;
+	font-family: "Open Sans", sans-serif;
 }
 
 .h1-mijn-profiel {
@@ -1550,11 +1555,6 @@ footer {
 		top: 100%;
 		width: max-content;
 	}
-	/* Shrinks the navbar font-size and btn size to ensure that it can go down to ipad/tablet size */
-	.link-text {
-		font-size: var(--small-font-size);
-	}
-
 	/* about us page */
 	.corenbuddy-content-container {
 		flex-direction: column;
@@ -1843,6 +1843,7 @@ footer {
 		width: 150px;
 	}
 }
+
 @media screen and (max-width: 350px) {
 	.logo {
 		width: 125px;
