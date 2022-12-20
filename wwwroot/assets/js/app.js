@@ -706,6 +706,11 @@ const translations = {
 			en: "Update account",
 			es: "Actualizar perfil",
 		},
+		deleteAccount: {
+			nl: "Verwijder account",
+			en: "Delete account",
+			es: "Eliminar cuenta",
+		},
 		preferences: {
 			nl: "Voorkeuren",
 			en: "Preferences",
