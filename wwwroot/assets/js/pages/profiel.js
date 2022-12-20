@@ -1,11 +1,13 @@
+import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
+import { passwordHash, getUniqueSalt } from "../classes/hash.js";
+import { Validation } from "../classes/validation.js";
+import { FileSystem } from "../classes/fileSystem.js";
+import { environmentUrl } from "../config.js";
+
 /**
  @Author: Nizar Amine
  DiscordModerators, is101
  **/
-
-import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
-import { passwordHash, getUniqueSalt } from "../classes/hash.js";
-import { Validation } from "../classes/validation.js";
 
 const validation = new Validation();
 
@@ -139,7 +141,6 @@ async function dataLoad() {
 /*Submit data to the database if user has a profile*/
 
 async function updateData(data) {
-	console.log(data.startDate);
 	data.bday = FYSCloud.Utils.toSqlDatetime(new Date(data.bday));
 	data.startDate = FYSCloud.Utils.toSqlDatetime(new Date(data.startDate));
 	data.endDate = FYSCloud.Utils.toSqlDatetime(new Date(data.endDate));
@@ -663,3 +664,58 @@ async function deleteAccount() {
 		}
 	}
 }
+
+/**
+ * Code for uploading and getting photo from FYSCloud filesystem
+ *
+ * @author Julian
+ */
+
+//create a filesystem
+const fileSystem = new FileSystem(environmentUrl);
+
+const fileInput = document.querySelector("#profile-upload");
+const uploadBtn = document.querySelector("#upload-photo");
+const image = document.querySelector("#profile-picture");
+const preview = document.querySelector(".preview");
+const previewText = document.querySelector(".preview-text");
+const parent = uploadBtn.parentElement;
+
+//set photo from start
+fileSystem.refreshPhoto(await fileSystem.getPhoto(userId), image);
+
+//upload a photo when upload button is clicked
+uploadBtn.addEventListener("click", async () => {
+	try {
+		const upload = await fileSystem.uploadPhoto(fileInput, userId, image);
+		const p = document.createElement("p");
+		p.textContent = upload;
+		preview.src = "assets/img/users/skeleton_profile_picture.svg";
+		previewText.textContent = "";
+		previewText.setAttribute("data-translate", "profile.previewText");
+		FYSCloud.Localization.translate();
+
+		if (parent.lastElementChild.nodeName === "P") {
+			parent.removeChild(parent.lastElementChild);
+		}
+		parent.appendChild(p);
+	} catch (error) {
+		const p = document.createElement("p");
+		p.classList.add("warning");
+		p.textContent = error;
+		if (parent.lastElementChild.nodeName === "P") {
+			parent.removeChild(parent.lastElementChild);
+		}
+		parent.appendChild(p);
+	}
+});
+
+//refresh the preview display to display info about picture when a file is selected
+fileInput.addEventListener("change", async () => {
+	const dataUrl = await FYSCloud.Utils.getDataUrl(fileInput);
+	previewText.removeAttribute("data-translate");
+	previewText.textContent = fileInput.files[0].name;
+	if (dataUrl.isImage) {
+		fileSystem.refreshPhoto(dataUrl.url, preview);
+	}
+});

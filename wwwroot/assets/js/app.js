@@ -107,11 +107,11 @@ if (session != null) {
 	const logoutBtnMobile = document.querySelector(".logout-link");
 
 	logoutBtn.addEventListener("click", () => {
-		FYSCloud.Session.clear();
+		FYSCloud.Session.remove("userId");
 		window.location = "index.html";
 	});
 	logoutBtnMobile.addEventListener("click", () => {
-		FYSCloud.Session.clear();
+		FYSCloud.Session.remove("userId");
 		window.location = "index.html";
 	});
 }
