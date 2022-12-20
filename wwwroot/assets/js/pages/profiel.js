@@ -644,6 +644,11 @@ function checkPasswordField() {
 	return isValid;
 }
 
+/**
+ * Delete an account from the database, clear the users session and redirect the person back to homepage
+ *
+ * @author Julian
+ */
 async function deleteAccount() {
 	if (confirm("Are you sure you want to delete your account?")) {
 		try {
