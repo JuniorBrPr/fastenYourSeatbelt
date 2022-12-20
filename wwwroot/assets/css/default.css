@@ -125,6 +125,7 @@ textarea {
 	height: 40px;
 	margin-right: 16px;
 	position: relative;
+	cursor: pointer;
 }
 
 .btn:hover,
@@ -139,6 +140,7 @@ textarea {
 	height: inherit;
 	width: 80%;
 	position: absolute;
+	top: 0;
 	left: 0;
 }
 
@@ -151,6 +153,7 @@ textarea {
 	position: absolute;
 	height: inherit;
 	width: 20%;
+	top: 0;
 	right: 0;
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
@@ -234,7 +237,8 @@ button.btn {
 /* Minimum width for button */
 .register-btn,
 .login-btn,
-.profile-btn {
+.profile-btn,
+.language-switch {
 	min-width: 14ch;
 }
 
@@ -246,6 +250,11 @@ button.btn {
 	display: none;
 	padding: 4px;
 }
+
+.language-switch {
+	text-align: center;
+}
+
 .nav-shown {
 	display: visible;
 }
@@ -269,6 +278,15 @@ button.btn {
 	animation-timing-function: linear;
 	animation-duration: 300ms;
 	animation-fill-mode: forwards;
+}
+
+/* language switcher dropdown */
+[data-translate] {
+	visibility: hidden;
+}
+
+[data-translate][translated] {
+	visibility: visible;
 }
 
 /* styling of input */
@@ -780,6 +798,7 @@ footer {
 .buddy-img {
 	width: 90px;
 	height: 90px;
+	border-radius: 50%;
 }
 
 .buddy-attr-container {
@@ -788,6 +807,7 @@ footer {
 	align-items: flex-start;
 	min-height: fit-content;
 	margin: auto;
+	background-color: rgba(0, 0, 0, 0.35);
 }
 
 .buddy-attr-label {
@@ -1009,7 +1029,7 @@ footer {
 
 .corenbuddy-btn {
 	margin-right: 30px;
-	min-width: 18ch;
+	min-width: 20ch;
 	margin-top: 15px;
 }
 
@@ -1070,16 +1090,6 @@ footer {
 	padding: 10px;
 	color: var(--color-red);
 	font-size: var(--small-font-size);
-}
-
-@media (max-width: 1000px) {
-	.wwvg-main {
-		background-color: #0f0;
-		/*flex-direction: row;*/
-	}
-	.wwvg-form {
-		width: 95vw;
-	}
 }
 
 /* contact styling */
@@ -1214,7 +1224,7 @@ footer {
 	margin: 15px 2px;
 	cursor: pointer;
 	font-size: var(--small-font-size);
-	float: right;
+	font-family: "Open Sans", sans-serif;
 }
 
 .h1-mijn-profiel {
@@ -1235,8 +1245,8 @@ footer {
 .profiel-foto-card {
 	background: var(--color-bg-grey);
 	padding: 20px 40px;
-	height: 452px;
 	border-radius: 10px;
+	gap: 20px;
 }
 
 .profiel-foto-card h2 {
@@ -1244,9 +1254,24 @@ footer {
 	padding-bottom: 20px;
 }
 
-.profiel-foto-card img {
+.profiel-foto-card > img {
 	display: block;
 	border-radius: 999px;
+	object-fit: cover;
+	object-position: center;
+}
+.upload-file-btn {
+	font-size: var(--small-font-size);
+}
+.upload-file-btn + input[type="file"] {
+	display: none;
+}
+.preview {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
 }
 
 .profiel-foto-card p {
@@ -1605,8 +1630,16 @@ footer {
 	}
 
 	.nav-menu > .nav-link,
-	.btn-container {
+	.btn-container > :not(.language-switch) {
 		display: none;
+	}
+	.nav-menu {
+		position: relative;
+	}
+	.language-switch {
+		position: absolute;
+		/* width of the hamburger minus the predetermined margin right on the button class */
+		right: 34px;
 	}
 
 	.logo {
@@ -1771,10 +1804,6 @@ footer {
 		width: auto;
 	}
 
-	.profiel-foto-card img {
-		width: auto;
-	}
-
 	.sub-btn {
 		float: left;
 		width: auto;
@@ -1812,6 +1841,12 @@ footer {
 @media screen and (max-width: 500px) {
 	.logo {
 		width: 150px;
+	}
+}
+
+@media screen and (max-width: 350px) {
+	.logo {
+		width: 125px;
 	}
 }
 
