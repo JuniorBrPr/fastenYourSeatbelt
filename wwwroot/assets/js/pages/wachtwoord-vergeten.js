@@ -2,32 +2,25 @@ import {getUniqueSalt, passwordHash} from "../classes/hash.js";
 import { Validation } from "../classes/validation.js";
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 
-
-
-
 /**
- * logica achter de wachtwoord vergeten pagina
- *
+ * Logic behind the porgot password page
  * @author Jurian Blommers
  */
 
-
 const validation = new Validation();
 
-showpage1();
-document.getElementById("wwvg-knop").addEventListener("click", evt => verwerkEmail(evt));
-document.getElementById("wwvg-knop3").addEventListener("click", evt => verwerkNieuwWachtwoord(evt));
-console.log(checkForKey(window.location.href));
-if (checkForKey(window.location.href) == 0) {
-    showpage3();
+showPage1();
+document.getElementById("wwvg-knop").addEventListener("click", event => handleForgotPasswordRequest(event));
+document.getElementById("wwvg-knop3").addEventListener("click", event => handleNewPassword(event));
+console.log(hasKey(window.location.href));
+if (hasKey(window.location.href) == 0) {
+    showPage3();
 }
-
 
 /**
  * hide page 2 and 3, show page 1
- * @param evt
  */
-function showpage1(){
+function showPage1(){
     document.getElementById("pagina1").style.display = "flex";
     document.getElementById("pagina2").style.display = "none";
     document.getElementById("pagina3").style.display = "none";
@@ -35,10 +28,10 @@ function showpage1(){
 
 /**
  * hide page 1 and 3, show page 2
- * @param evt
+ * @param event
  */
-function showpage2(evt){
-    evt.preventDefault();
+function showPage2(event){
+    event.preventDefault();
     document.getElementById("pagina1").style.display = "none";
     document.getElementById("pagina2").style.display = "flex";
     document.getElementById("pagina3").style.display = "none";
@@ -46,9 +39,8 @@ function showpage2(evt){
 
 /**
  * hide page 1 and 2, show page 3
- * @param evt
  */
-function showpage3(evt){
+function showPage3(){
     document.getElementById("pagina1").style.display = "none";
     document.getElementById("pagina2").style.display = "none";
     document.getElementById("pagina3").style.display = "flex";
@@ -60,15 +52,15 @@ function showpage3(evt){
  * @param evt
  * @returns {Promise<number>}
  */
-async function verwerkEmail(evt) {
-    evt.preventDefault();
+async function handleForgotPasswordRequest(event) {
+    event.preventDefault();
     let email = document.getElementById("wwvg-email");
     if(await validation.invalidEmail(email)){
         displayErrorMessagePage1("invalid email", "forgotPassword.page1.errorInvalidEmail");
         return 1;
     }
     if(!(await validation.emailInDatabase(email))){
-        showpage2(evt);
+        showPage2(evt);
         return 1;
     }
     if(await validation.emailHasResetCodeInBd(email)){
@@ -78,13 +70,13 @@ async function verwerkEmail(evt) {
             return 1;
         };
     }
-    let key;
-    key = await generateKey(10000000);
+    const HIGHEST_RESET_CODE = 10000000;
+    let key = await generateKey(HIGHEST_RESET_CODE);
     let timestamp = new Date();
     let salt = await getSaltFromDatabase(email.value);
     let hashedResetCode = await hashResetCode(key, salt);
     console.log("hashedResetCode: " + hashedResetCode);
-    if (await zetKeyInDb(email, hashedResetCode, timestamp))
+    if (await saveKeyInDb(email, hashedResetCode, timestamp))
     {
         displayErrorMessagePage1("reset code in database zetten mislukt",
             "forgotPassword.page1.errorResetCodeInsertFailed");
@@ -115,7 +107,7 @@ async function verwerkEmail(evt) {
             }
             break;
     }
-    showpage2(evt);
+    showPage2(evt);
     return 0;
 }
 
@@ -128,7 +120,6 @@ function validateForm(evt) {
     evt.preventDefault();
     let nieuwWw = document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord"].value;
     let nieuwWwControle = document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord-herhalen"].value;
-
 
     if (nieuwWw != nieuwWwControle) {
         displayErrorMessagePage3("Wachtwoord komt niet overeen");
@@ -148,7 +139,7 @@ function validateForm(evt) {
  * @param date
  * @returns {Promise<number>} return 0 if succes, 1 if fail
  */
-async function zetKeyInDb(email, key, date) {
+async function saveKeyInDb(email, key, date) {
     try{
         await FYSCloud.API.queryDatabase(
             "INSERT INTO `forgot_password` (`email`, `code`, `date`) VALUES (?, ?, ?);",
@@ -169,9 +160,7 @@ async function zetKeyInDb(email, key, date) {
  * @returns {Promise<void>} return 0 if succes, 1 if fail
  */
 async function sendMailDutch(mail, key, salt){
-    let url = FYSCloud.Utils.createUrl(window.location.href, {
-        key: key, salt: salt
-    });
+    let url = FYSCloud.Utils.createUrl(window.location.href, {key: key, salt: salt});
     try {
         await FYSCloud.API.sendEmail({
             from: {
@@ -269,7 +258,7 @@ async function sendMailEnglish(mail, key, salt){
  * @param url
  * @returns {number}
  */
-function checkForKey(url){
+function hasKey(url){
     let vars = parseURLParams(url);
     if(vars.key == null)
     {
@@ -313,7 +302,7 @@ function parseURLParams(url) {
  */
 async function generateKey(length) {
     let key = Math.floor(Math.random() * length);
-    while (await keyInDb(key)){
+    while (await hasKeyInDb(key)){
         key = Math.floor(Math.random() * length);
     }
     return key;
@@ -324,7 +313,7 @@ async function generateKey(length) {
  * @param key
  * @returns {Promise<boolean>} returns true if reset code is in database
  */
-async function keyInDb(key){
+async function hasKeyInDb(key){
     const data = await FYSCloud.API.queryDatabase(
         "SELECT `code` FROM `forgot_password` WHERE `code` = ?;",
         [key]
@@ -338,14 +327,14 @@ async function keyInDb(key){
  * @param evt
  * @returns {Promise<number>} return 0 if inputs are not correct
  */
-async function verwerkNieuwWachtwoord(evt) {
+async function handleNewPassword(evt) {
     evt.preventDefault();
     let key = parseURLParams(window.location.href).key;
     let salt = parseURLParams(window.location.href).salt;
 
     let emailarray = await getEmailFromKey(await hashResetCode(key, salt));
     let hashedResetCode = await passwordHash(key, salt);
-    if(!await keyInDb(hashedResetCode)){
+    if(!await hasKeyInDb(hashedResetCode)){
         displayErrorMessagePage3("Wachtwoord aanpassen mislukt, wachtwoord is al aangepast," +
             " nieuw-wachtwoord-aanvraag mislukt of overschreven.", "forgotPassword.page3.errorNoResetCode");
         return 1;
