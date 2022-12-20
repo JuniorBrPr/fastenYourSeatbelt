@@ -231,7 +231,7 @@ export function clearLoginValues() {
 }
 
 //Language switcher
-const initialLanguage = "nl";
+const initialLanguage = FYSCloud.Session.get("language", "nl");
 
 const translations = {
 	//translate 404
@@ -592,6 +592,11 @@ const translations = {
 			nl: "Warme landen",
 			en: "Warm countries",
 			es: " países cálidos",
+		},
+		filter: {
+			nl: "Filter",
+			en: "Filter",
+			es: "Filtrar",
 		},
 	},
 	//Translate matching
@@ -1206,4 +1211,5 @@ document.querySelector("#localizationLanguageSwitch").value = initialLanguage;
 
 document.querySelector("#localizationLanguageSwitch").addEventListener("change", function () {
 	FYSCloud.Localization.switchLanguage(this.value);
+	FYSCloud.Session.set("language", this.value);
 });
