@@ -32,6 +32,7 @@ existingBtn.addEventListener("click", async () => {
         "existing",
         await getExistingBuddies(FYSCloud.Session.get("userId"))
     );
+    document.querySelector(".filter-div").style.display = "none";
 });
 
 //Button to switch to the list of suggested buddies
@@ -42,6 +43,7 @@ suggestedBtn.addEventListener("click", async () => {
         "suggested",
         await getRecommendedBuddies(FYSCloud.Session.get("userId"))
     );
+    document.querySelector(".filter-div").style.display = "block";
 });
 
 //Button to switch to the list of incoming buddy requests
@@ -52,6 +54,7 @@ incomingBtn.addEventListener("click", async () => {
         "incoming",
         await getIncomingBuddyRequests(FYSCloud.Session.get("userId"))
     );
+    document.querySelector(".filter-div").style.display = "none";
 });
 
 //Button to switch to the list of outgoing buddy requests
@@ -62,6 +65,7 @@ outgoingBtn.addEventListener("click", async () => {
         "outgoing",
         await getOutgoingBuddyRequests(FYSCloud.Session.get("userId"))
     );
+    document.querySelector(".filter-div").style.display = "none";
 });
 
 // hides modal and deletes data fields otherwise they duplicate
@@ -149,11 +153,16 @@ async function populateList(buddyList, type, data) {
         buddyProfileBtn.addEventListener("click", async () => {
             buddyModal(
                 await getBuddyInfo(buddy.userid),
-                await getBuddyInterests(buddy.userid)
+                await getBuddyInterests(buddy.userid),
+                await getProfileImage(buddy.userid)
             );
 
-            if (type !== "existing") {
-                document.querySelector("#friend-fields").style.display = "none";
+            if (type === "existing") {
+                document.querySelector("#bud-email").style.display = "block";
+                document.querySelector("#bud-phone").style.display = "block";
+            } else {
+                document.querySelector("#bud-email").style.display = "none";
+                document.querySelector("#bud-phone").style.display = "none";
             }
 
             buddyProfile.style.display = "block";
@@ -334,7 +343,16 @@ function setActiveBtn(container) {
  * and so are existing buddies.
  * @param {number} userId The ID of the currently active user.
  */
-async function getRecommendedBuddies(userId) {
+
+// filterTime is an extra sql line to filter days and is empty by default to read all
+let filterTime = "";
+async function getRecommendedBuddies(userId, buddyLocation, buddyTime) {
+    if (buddyLocation == null) {
+        buddyLocation = "";
+    }
+    if (buddyTime == null) {
+        buddyTime = "";
+    }
     return await FYSCloud.API.queryDatabase(
         "SELECT user_id                            AS userid,\n" +
         "       CONCAT(first_name, \" \", last_name) AS name,\n" +
@@ -366,9 +384,11 @@ async function getRecommendedBuddies(userId) {
         "                      FROM buddy\n" +
         "                      WHERE sender_user_id = ?)\n" +
         "  AND user_id != ?\n" +
+        "AND destination LIKE '%' ? '%'\n" +
+        filterTime +
         "GROUP BY NAME\n" +
         "ORDER BY commonInterests DESC",
-        [userId, userId, userId, userId, userId]
+        [userId, userId, userId, userId, userId, buddyLocation, buddyTime]
     ).catch((reason) => console.log(reason));
 }
 
@@ -461,7 +481,7 @@ async function getIncomingBuddyRequests(userId) {
         "         JOIN buddy AS b\n" +
         "              ON user.user_id = b.sender_user_id AND b.is_accepted = FALSE\n" +
         "WHERE user_id != ?\n" +
-        "  AND (b.receiver_user_id = ?)\n" +
+        "AND (b.receiver_user_id = ?)\n" +
         "GROUP BY name\n" +
         "ORDER BY commonInterests DESC",
         [userId, userId, userId]
@@ -515,17 +535,19 @@ async function deleteBuddyRequest(userId, buddyUserId) {
 /**
  * Selects the profile and user information from the specific buddy (user id).
  * @param {userId} userId The ID of the currently active user.
+ * @author Johnny Magielse
  */
 async function getBuddyInfo(userId) {
     return await FYSCloud.API.queryDatabase(
         "SELECT user_id                              AS userid,\n" +
-        'CONCAT(first_name, " ", last_name)        AS name,\n' +
+        'CONCAT(first_name, " ", last_name)          AS name,\n' +
         "email                                       AS email,\n" +
         "birthdate                                   AS date,\n" +
         "gender                                      AS gender,\n" +
         "biography                                   AS bio,\n" +
         "destination                                 AS destination,\n" +
-        "budget                                      AS budget\n" +
+        "budget                                      AS budget,\n" +
+        "phone_number                                AS phoneNumber\n" +
         "FROM user\n" +
         "INNER JOIN profile\n" +
         "ON user.user_id = profile.profile_id\n" +
@@ -537,6 +559,7 @@ async function getBuddyInfo(userId) {
 /**
  * Selects the interest from the specific buddy (user id).
  * @param {userId} userId The ID of the currently active user.
+ * @author Johnny Magielse
  */
 async function getBuddyInterests(userId) {
     return await FYSCloud.API.queryDatabase(
@@ -556,9 +579,10 @@ async function getBuddyInterests(userId) {
 /**
  * Makes profile from buddy fulle personal with real data
  * @param {data} data object filled with user and profile fields from db.
- * @param {interests} interests object filled with interested from the user..
+ * @param {interests} interests object filled with interested from the user.
+ * @author Johnny Magielse
  */
-function buddyModal(data, interests) {
+function buddyModal(data, interests, img) {
     // get html parents out matching.html
     const personalInfo = document.querySelector("#personal-info");
     const buddyPicture = document.querySelector(".buddy-picture");
@@ -571,6 +595,14 @@ function buddyModal(data, interests) {
 
     const personalDiv = document.createElement("div");
     personalDiv.className = "interests pos-relative d-flex justify-c";
+
+    const emailDiv = document.createElement("div");
+    emailDiv.id = "bud-email";
+    emailDiv.className = "text-align-c";
+
+    const phoneDiv = document.createElement("div");
+    phoneDiv.id = "bud-phone";
+    phoneDiv.className = "text-align-c";
 
     const descriptionDiv = document.createElement("div");
     descriptionDiv.className = "biography";
@@ -592,11 +624,6 @@ function buddyModal(data, interests) {
         description.appendChild(descriptionDiv);
 
         // profile picture
-        const img = document.createElement("img");
-        img.style.width = "200px";
-        img.style.height = "auto";
-        img.className = "buddy-image";
-        img.src = "assets/img/users/henk.png";
         buddyPicture.appendChild(img);
 
         // name
@@ -618,9 +645,71 @@ function buddyModal(data, interests) {
         }
         addAttribute("Budget", buddy.budget, personalDiv);
         addAttribute("Bestemming", buddy.destination, personalDiv);
-        addAttribute("Email", buddy.email, personalDiv);
+        addAttribute("Email", buddy.email, emailDiv);
+        addAttribute("Telefoon", buddy.phoneNumber, phoneDiv);
 
+        personalDiv.appendChild(phoneDiv);
+        personalDiv.appendChild(emailDiv);
         personalInfo.appendChild(personalDiv);
         FYSCloud.Localization.translate();
     });
 }
+
+/**
+ * Gets buddy img for the buddy modal adn gives css style to it.
+ * @param userid. Id from the buddy where you click the button on.
+ * @author Johnny Magielse
+ */
+async function getProfileImage(userid) {
+    const img = document.createElement("img");
+    img.style.maxWidth = "220px";
+    img.style.height = "auto";
+    img.className = "buddy-image";
+    fileSystem.refreshPhoto(await fileSystem.getPhoto(userid), img);
+    return img;
+}
+
+const filterForm = document.querySelector("#filter-form");
+const filterBtn = document.querySelector(".filter-btn");
+
+// Checks if filter modal is shown or hidden and will act on that
+filterBtn.addEventListener("click", () => {
+    if (filterForm.style.display === "flex") {
+        filterForm.style.display = "none";
+    } else {
+        filterForm.style.display = "flex";
+    }
+});
+
+// Triggers when filter form is submitted and prevents loading and creates formData object
+filterForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // creates new formData object that triggers second eventListener
+    await new FormData(filterForm);
+});
+
+// Triggers when formData gets created in above listener. Gets the values submitted from filter
+filterForm.addEventListener("formdata", async (e) => {
+    // Get the form data from the event object
+    const data = await e.formData;
+    // used for sql statement
+    const buddyLocation = data.get("location");
+    const buddyTime = data.get("time");
+
+    // checks if buddyTime is empty and will add extra line of sql query depending on the answer
+    if (buddyTime === "") {
+        filterTime = "";
+    } else {
+        filterTime = "AND DATEDIFF(end_date, start_date) = ?\n";
+    }
+
+    await populateList(buddyList, "suggested", await getRecommendedBuddies(FYSCloud.Session.get("userId"), buddyLocation, buddyTime));
+
+    // changes back to default filter value if you switch tabs
+    filterTime = "";
+
+    for (const value of data.values()) {
+        console.log(value);
+    }
+});

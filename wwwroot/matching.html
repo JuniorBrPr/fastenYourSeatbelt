@@ -59,6 +59,20 @@
 								>Uitgaande match verzoeken</span
 							>
 						</button>
+						<div class="filter-div">
+							<button class="filter-btn btn">
+								<span class="btn-text" data-translate="match.filter">Filter</span>
+							</button>
+							<form id="filter-form" class="filter-form">
+								<label for="filter-location">Locatie</label>
+								<input id="filter-location" name="location" type="search">
+
+								<label for="filter-time">Tijdsbestek (getal)</label>
+								<input id="filter-time" name="time" type="search">
+
+								<button id="filter-submit" class="filter-submit" type="submit">Zoek</button>
+							</form>
+						</div>
 					</div>
 					<div class="matching-matches-container d-flex">
 						<ul class="matching-matches d-flex"></ul>

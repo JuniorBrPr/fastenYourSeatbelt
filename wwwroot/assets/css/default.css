@@ -705,6 +705,43 @@ footer {
 	gap: 10px;
 }
 
+/* filter */
+.filter-div {
+	min-width: fit-content;
+	width: 100%;
+	position: relative;
+	display: none;
+}
+
+.filter-form {
+	position: absolute;
+	background: var(--color-bg-grey);
+	padding: 30px;
+	border-radius: 12px;
+	margin-top: 15px;
+	box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+	margin-left: 10px;
+	z-index: 999;
+	display: none;
+	flex-direction: column;
+}
+
+.filter-submit {
+	padding: 10px 24px;
+	background: var(--color-btn-green);
+	margin-top: 15px;
+	width: 100%;
+	border: 0;
+	color: var(--color-white);
+	border-radius: 3px;
+}
+
+.filter-submit:hover,
+.filter-submit:focus {
+	background-color: var(--color-btn-dark-green);
+	cursor: pointer;
+}
+
 .matching-sidebar .btn {
 	width: 100%;
 	min-width: 195px;
@@ -1589,6 +1626,10 @@ input:checked + .slider::before {
 }
 
 @media screen and (max-width: 768px) {
+	.filter-div {
+		margin-right: -60px;
+	}
+
 	.nav-menu > .nav-link,
 	.btn-container > :not(.language-switch) {
 		display: none;
@@ -1805,6 +1846,96 @@ input:checked + .slider::before {
 @media screen and (max-width: 350px) {
 	.logo {
 		width: 125px;
+	}
+}
+
+@media screen and (max-width: 850px) {
+	.filter-form {
+		margin-left: 45px;
+	}
+
+	/* Shrinks the navbar font-size and btn size to ensure that it can go down to ipad/tablet size */
+	.link-text {
+		font-size: var(--small-font-size);
+	}
+
+	/* about us page */
+	.corenbuddy-content-container {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.corenbuddy-text {
+		width: 90%;
+	}
+
+	.history-card {
+		grid-column: 1 / 4;
+		grid-row: 2 / 2;
+	}
+	.who-are-we-card {
+		grid-column: 1 / 4;
+		grid-row: 3 / 3;
+	}
+
+	.corenbuddy-text {
+		width: 100%;
+	}
+
+	.corenbuddy-btn {
+		margin-top: 10px;
+		margin-bottom: 0;
+	}
+
+	/*contact styling */
+	.contact-text {
+		width: 275px;
+	}
+
+	.fr-1 {
+		grid-column: 1 / 2;
+		grid-row: 1 / 2;
+	}
+
+	.fr-2 {
+		grid-column: 1 / 2;
+		grid-row: 2 / 3;
+	}
+
+	.fr-3 {
+		grid-column: 1 / 2;
+		grid-row: 3 / 4;
+	}
+
+	.contact-name,
+	.contact-phone,
+	.contact-email,
+	.contact-subject {
+		width: 275px;
+	}
+
+	.matching-sidebar .btn {
+		min-width: 120px;
+	}
+
+	.matching-sidebar .btn .btn-text {
+		font-size: var(--small-font-size);
+	}
+
+	.matching-matches {
+		align-items: center;
+		margin: 25px auto;
+	}
+}
+
+
+@media screen and (max-width: 500px) {
+	.filter-div {
+		margin-right: -30px;
+	}
+	.filter-form {
+		padding: 7px;
+		margin-left: 0;
 	}
 }
 
