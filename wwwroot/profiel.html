@@ -44,7 +44,7 @@ available  -->
                     type="text"
                     id="voornaam"
                     name="naam"
-                    placeholder="Quandale" />
+            />
         </div>
         <div class="profiel-container">
             <label class="p-label" for="achternaam" data-translate="profile.lastName"
@@ -55,7 +55,7 @@ available  -->
                     type="text"
                     id="achternaam"
                     name="naam"
-                    placeholder="Dingle" />
+            />
         </div>
         <div class="profiel-container">
             <label class="p-label" for="bio">Bio</label>
@@ -86,7 +86,7 @@ available  -->
             <select class="inter-field" name="interesses" id="inter-field-3">
             </select>
         </div>
-        <div>
+        <div id="divInter">
             <select class="inter-field" name="interesses" id="inter-field-4">
             </select>
             <select class="inter-field" name="interesses" id="inter-field-5">
@@ -143,10 +143,33 @@ available  -->
                 <option value="1" data-translate="profile.genderWomen">Vrouw</option>
                 <option value="2" data-translate="profile.genderOther">Anders</option>
             </select>
+            <div class="profiel-container">
+                <label class="p-label" for="budget" data-translate="profile.budget">
+                    Budget
+                </label>
+                <input
+                        class="profiel-field w-100"
+                        type="text"
+                        id="budget"
+                        name="budget"
+                />
+            </div>
+            <div class="profiel-container">
+                <label class="p-label" for="number" data-translate="profile.number">
+                    number
+                </label>
+                <input
+                        class="profiel-field w-100"
+                        type="text"
+                        id="number"
+                        name="number"
+                />
+            </div>
+
         </div>
         <div class="opslaan-container">
             <button
-                    class="sub-btn btn saveBtn"
+                    class="sub-btn btn saveBtn Btn-opslaan"
                     type="button"
                     data-translate="profile.save">
                 Opslaan
@@ -191,35 +214,59 @@ available  -->
             </button>
         </div>
         <div class="profiel-account-card">
+            <div class="profiel-account-card">
             <h2 data-translate="profile.myAccount">Mijn Account</h2>
-            <label for="email" class="p-label"> Email </label>
+            <label for="emailAcc" class="p-label"> Email </label>
             <input
                     type="email"
-                    name="email"
-                    id="email"
+                    name="emailAcc"
+                    id="emailAcc"
                     class="profiel-field"
-                    required
-                    placeholder="quandale@gmail.com" />
-            <label for="password" class="p-label" data-translate="profile.password">
+            />
+            <label for="emailRepeat" class="p-label"  data-translate="profile.emailRepeat"> Herhaal Email </label>
+            <input
+                    type="email"
+                    name="emailRepeat"
+                    id="emailRepeat"
+                    class="profiel-field"
+            />
+            <button class="sub-btn btn updateEmailBtn" data-translate="profile.updateEmail">
+                Update Email
+            </button>
+            </div>
+            <div class="profiel-account-card">
+            <label for="passwordAcc" class="p-label" data-translate="profile.password">
                 Wachtwoord
             </label>
             <input
                     type="password"
                     name="password"
-                    id="password"
+                    id="passwordAcc"
                     class="profiel-field"
-                    required
-                    placeholder="***********" />
-            <button class="sub-btn btn" data-translate="profile.updateAccount">
-                Update Account
+            />
+            <label for="passwordRepeat" class="p-label" data-translate="profile.passwordRepeat">
+               Herhaal Wachtwoord
+            </label>
+            <input
+                    type="password"
+                    name="passwordRepeat"
+                    id="passwordRepeat"
+                    class="profiel-field"
+            />
+            <button class="sub-btn btn updatePasswordBtn" data-translate="profile.updatePassword">
+                Update Password
             </button>
+                </div>
         </div>
         <div class="profiel-preference-card">
             <h2 data-translate="profile.preferences">Preferences</h2>
             <label class="p-label">Darkmode:</label>
 
             <div class="switch">
-                <input type="checkbox" />
+                <input
+                        type="checkbox"
+                        class="checkboxInput"
+                />
                 <span class="slider round"></span>
             </div>
         </div>

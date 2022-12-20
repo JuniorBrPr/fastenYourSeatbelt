@@ -1,43 +1,59 @@
-/*
-Author: Nizar Amine
-DiscordModerators, is101
-*
-
-TODO
- When hitting the Opslaan button, let user know.
- Validation for the fields, make sure user knows
- to fill in all DATE otherwise data wont submit to
- the database.
- -- Nizar
-
- */
-
-
+/**
+ @Author: Nizar Amine
+ DiscordModerators, is101
+ **/
 
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
+import {passwordHash, getUniqueSalt} from '../classes/hash.js';
+import {Validation} from '../classes/validation.js';
 
-const form = document.querySelector(".profiel");
+const validation = new Validation();
+
+const emailBtn = document.querySelector('.updateEmailBtn')
+const passwordBtn = document.querySelector('.updatePasswordBtn')
 const subBtn = document.querySelector(".saveBtn");
-const userId = FYSCloud.Session.get("userId", 10);
+const userId = FYSCloud.Session.get("userId");
+
 
 /*Checks if profiel_id exist otherwise it will create*/
 
-subBtn.addEventListener("click", async function (e) {
-    if (await profielExist()) {
 
-        updateData(createObject());
-        updateInter();
-    } else {
-
-        submitData(createObject());
-        updateInter();
+subBtn.addEventListener('click', async function (e) {
+    // Check if the fields are filled in correctly
+    if (checkFields()) {
+        if (await profielExist()) {
+            await updateData(createObject());
+            await updateInterest();
+        } else {
+            await submitData(createObject());
+            await updateInterest();
+        }
+        location.reload();
     }
 });
 
 
-console.log(userId);
+emailBtn.addEventListener('click', async function (e) {
+
+    if (checkEmailField()) {
+// Email field is valid, update email in the database
+        await updateEmail()
+    }
+
+
+});
+
+passwordBtn.addEventListener('click', async function (e) {
+
+    if (checkPasswordField()) {
+        await updatePassword()
+    }
+
+});
+
+
 await dataLoad();
-await outerInterFunction();
+await outerInterestFunction();
 await preSelectOptionField();
 
 async function dataLoad() {
@@ -52,6 +68,8 @@ async function dataLoad() {
     const tijdsbestekStart = document.getElementById("startdate");
     const tijdsbestekEnd = document.getElementById("enddate");
     const genderField = document.getElementById("geslacht-field-1");
+    const budgetField = document.getElementById("budget")
+    const numberField = document.getElementById("number");
 
 
     /* Pulling Data and parsing it into the fields*/
@@ -66,31 +84,15 @@ async function dataLoad() {
             "       start_date as startDate,\n" +
             "       end_date as endDate,\n" +
             "       destination,\n" +
-            "       budget\n" +
+            "       budget,\n" +
+            "       phone_number AS phoneNumber\n" +
             "FROM user\n" +
             "INNER JOIN profile p on p.profile_id = ?\n" +
             "WHERE user_id = ?;",
             [userId, userId]
         );
 
-        /* TODO
-        *   Interest Display and Update/Submit function
-        *   By loading DOM load in values of the interests dynamic
-        *   Populate interest field with value */
-
-        const getUserInterest = await FYSCloud.API.queryDatabase(
-            "SELECT i.interest_name AS inter\n" +
-            "FROM user_interest AS ui\n" +
-            "INNER JOIN interest AS i ON ui.interest_id = i.interest_id\n" +
-            "WHERE ui.profile_id = ?\n",
-            [userId]
-        );
-
-
-        console.log(getData);
-        console.log(getUserInterest);
         loadData(getData);
-
 
 
     } catch {
@@ -101,17 +103,6 @@ async function dataLoad() {
             [userId]
         );
 
-        const getUserInterest = await FYSCloud.API.queryDatabase(
-            "SELECT i.interest_name AS inter \n" +
-            "FROM user_interest AS ui\n" +
-            "INNER JOIN interest AS i ON ui.interest_id = i.interest_id\n" +
-            "WHERE ui.profile_id = ?;\n",
-            [userId]
-        );
-
-
-        console.log(getData);
-        console.log(getUserInterest);
         loadData(getData);
 
     }
@@ -135,9 +126,12 @@ async function dataLoad() {
 
 
             birthDateField.value = birthday;
-            tijdsbestekStart.value = tijdEndDate;
-            tijdsbestekEnd.value = tijdStartDate;
+            tijdsbestekStart.value = tijdStartDate;
+            tijdsbestekEnd.value = tijdEndDate;
             genderField.value = data[0].gender;
+            budgetField.value = data[0].budget;
+            numberField.value = data[0].phoneNumber;
+
         }
     }
 
@@ -170,6 +164,8 @@ async function updateData(data) {
         [data.firstName, data.lastName, userId]
     );
 
+
+
     const updateProfileData = await FYSCloud.API.queryDatabase(
         "UPDATE profile\n" +
         "SET    birthdate = ?,\n" +
@@ -178,7 +174,8 @@ async function updateData(data) {
         "       start_date = ?,\n" +
         "       end_date = ?,\n" +
         "       destination = ?,\n" +
-        "       budget = ?\n" +
+        "       budget = ?,\n" +
+        "       phone_number = ?\n" +
         "WHERE profile_id = ?;",
         [
             data.bday,
@@ -188,15 +185,19 @@ async function updateData(data) {
             data.endDate,
             data.destination,
             data.budget,
+            data.phoneNumber,
             userId,
         ]
     );
 
-    console.log(updateProfileData);
-    console.log(updateUserData);
+    const saveBtn = document.querySelector(".Btn-opslaan")
+
+    const errorMessage = "Profile saved!";
+    saveBtn.insertAdjacentHTML("afterend", "<p class='error-message valid'>" + errorMessage + "</p>");
+
 }
 
-/*Create an Object filled with values to be used in a Update/SubmitData function*/
+/* Create an Object filled with values to be used in a Update/SubmitData function*/
 
 function createObject() {
     return {
@@ -206,6 +207,8 @@ function createObject() {
         gender: document.getElementById("geslacht-field-1").value,
         bio: document.getElementById("bio").value,
         destination: document.getElementById("bestemming").value,
+        budget: document.getElementById("budget").value,
+        phoneNumber: document.getElementById("number").value,
         startDate: document.getElementById("startdate").value,
         endDate: document.getElementById("enddate").value,
     };
@@ -229,14 +232,13 @@ async function profielExist() {
 this will create a profile_id filled with profile related data */
 
 async function submitData(data) {
-    console.log(data.startDate);
     data.bday = FYSCloud.Utils.toSqlDatetime(new Date(data.bday));
     data.startDate = FYSCloud.Utils.toSqlDatetime(new Date(data.startDate));
     data.endDate = FYSCloud.Utils.toSqlDatetime(new Date(data.endDate));
 
     const insertProfileData = await FYSCloud.API.queryDatabase(
-        "INSERT INTO profile (profile_id, birthdate, gender, biography, start_date, end_date, destination, budget) " +
-        "VALUES (? ,? ,? ,? ,? ,? ,? ,?);",
+        "INSERT INTO profile (profile_id, birthdate, gender, biography, start_date, end_date, destination, budget, phone_number) " +
+        "VALUES (? ,? ,? ,? ,? ,? ,? ,? ,? );",
         [
             userId,
             data.bday,
@@ -246,22 +248,26 @@ async function submitData(data) {
             data.endDate,
             data.destination,
             data.budget,
+            data.phoneNumber,
         ]
     );
+    const saveBtn = document.querySelector(".Btn-opslaan")
+
+    const errorMessage = "Profile saved!";
+    saveBtn.insertAdjacentHTML("afterend", "<p class='error-message valid'>" + errorMessage + "</p>");
+
 }
 
 /*Function to be called to load in the interesse Fields
 * with the correct values from the database,
 * this is not user saved data.*/
 
-async function outerInterFunction() {
+async function outerInterestFunction() {
     const selectElements = document.querySelectorAll(".inter-field");
-    //console.log(selectElements);
 
     const getInterest = await FYSCloud.API.queryDatabase(
-        "SELECT interest_name as inter " +  "FROM interest;\n",
+        "SELECT interest_name as inter " + "FROM interest;\n",
     );
-    //console.log(getInterest);
 
     for (let i = 0; i < selectElements.length; i++) {
         await preLoadInterFields(selectElements[i], getInterest);
@@ -288,7 +294,7 @@ async function preLoadInterFields(selectElements, data) {
 * elements.*/
 
 async function preSelectOptionField() {
-    // Get all the select elements
+
     const selectElements = document.querySelectorAll(".inter-field");
 
     // Query the database to find the interest_name values associated with the profile_id
@@ -300,7 +306,6 @@ async function preSelectOptionField() {
         [userId]
     );
 
-    console.log(getUserInterest);
 
     const userInterests = getUserInterest.map(interest => interest.inter);
     selectElements.forEach((selectElement, i) => {
@@ -309,36 +314,22 @@ async function preSelectOptionField() {
 }
 
 
-/*This function deletes the existing interest,
+/*
+This function deletes the existing interest,
  to hold the maximum interest threshold. Could be updated upon
  feedback.
-
- TODO Warn user to select unique interest names on page
 * */
+async function updateInterest() {
 
-async function updateInter() {
-    // Get all the select elements
     const selectElements = document.querySelectorAll(".inter-field");
-
-    // Get the updated values from the select elements
     const updatedInterests = Array.from(selectElements).map(selectElement => selectElement.value);
-
-    // Checks for Duplicates in updatedInterests Array,
-    // hasDuplicates supplied to an IF statement.
-
     const hasDuplicates = new Set(updatedInterests).size !== updatedInterests.length;
 
-    if (hasDuplicates) {
-        console.log('Duplicates found')
-        alert('Kies uit verschillende interesses!' +
-            'je kan geen dubbele waardes hebben')
-    } else{
-
-        // Delete all of the existing interests
+    if (!hasDuplicates) {
         await FYSCloud.API.queryDatabase(
             "DELETE FROM user_interest WHERE profile_id = ?",
             [userId]
-        )
+        );
 
         // Loop over the updated interests and insert the maximum interest
         for (const interest of updatedInterests) {
@@ -354,9 +345,307 @@ async function updateInter() {
                 [userId, interestId]
             );
 
-            if (updatedInterests.indexOf(interest) === 5) {
+            if (updatedInterests.indexOf(interest) === 6) {
                 break;
             }
         }
     }
 }
+
+/*Functions displays an error message under the field,
+* takes arguments input which is the field element,
+* message which is the error message. It checks if
+* there is already an error message if yes, removes it
+* if not it adds error message*/
+
+function showErrorMessage(input, message) {
+    const existingErrorMessage = input.nextSibling;
+    if (existingErrorMessage && existingErrorMessage.classList && existingErrorMessage.classList.contains('error-message')) {
+        existingErrorMessage.remove();
+    }
+    input.insertAdjacentHTML('afterend', `<p class='error-message'>${message}</p>`);
+}
+
+function removeErrorMessage(input) {
+    const existingErrorMessage = input.nextSibling;
+    if (existingErrorMessage && existingErrorMessage.classList && existingErrorMessage.classList.contains('error-message')) {
+        existingErrorMessage.remove();
+    }
+}
+
+
+function validateField(input, errorMessage) {
+    if (!validation.emptyInput(input) && !validation.invalidName(input)) {
+        removeErrorMessage(input);
+        return true;
+    } else {
+        showErrorMessage(input, errorMessage);
+        return false;
+    }
+}
+
+function validateDates() {
+    const startDateInput = document.getElementById("startdate");
+    const endDateInput = document.getElementById("enddate");
+
+    const startDate = new Date(startDateInput.value);
+    const endDate = new Date(endDateInput.value);
+
+    if (endDate < startDate) {
+        showErrorMessage(endDateInput, "Please enter start-date before the end-date");
+        return false;
+    } else {
+        removeErrorMessage(endDateInput);
+        return true;
+    }
+}
+
+function validateNumberField(fieldId) {
+    const input = document.getElementById(fieldId);
+    const regex = /^\d{0,11}$/;
+
+    if (regex.test(input.value)) {
+        removeErrorMessage(input);
+        return true;
+    } else {
+        showErrorMessage(input, "Please enter only digits in this field and valid number.");
+        return false;
+    }
+}
+
+function validateBudgetField(fieldId) {
+    const input = document.getElementById(fieldId);
+    const regex = /^\d*$/;
+
+    if (regex.test(input.value)) {
+        removeErrorMessage(input);
+        return true;
+    } else {
+        showErrorMessage(input, "Please enter only digits in this field.");
+        return false;
+    }
+}
+
+function validateInterest() {
+    const selectElements = document.querySelectorAll(".inter-field");
+    const divInter = document.getElementById("divInter");
+
+    if (validation.validateInterest(selectElements)) {
+        selectElements.forEach(element => {
+            removeErrorMessage(element);
+        });
+        return true;
+    } else {
+            showErrorMessage(divInter, "Please don't use the same interest more then once.");
+        return false;
+    }
+}
+
+
+function checkFields() {
+    const isValidVoornaam = validateField(
+        document.getElementById("voornaam"),
+        "Please enter only letters (A-Z) in this field."
+    );
+    const isValidAchternaam = validateField(
+        document.getElementById("achternaam"),
+        "Please enter only letters (A-Z) in this field."
+    );
+    const isValidBestemming = validateField(
+        document.getElementById("bestemming"),
+        "Please enter only letters (A-Z) in this field."
+    );
+    const isValidDate = validateDates();
+    const isValidNumber = validateNumberField("number");
+    const isValidBudget = validateBudgetField("budget");
+
+    const selectElements = document.querySelectorAll(".inter-field");
+    const isValidInterest = validateInterest(selectElements);
+
+
+    if (isValidVoornaam && isValidAchternaam && isValidBestemming && isValidDate && isValidNumber && isValidBudget && isValidInterest) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+document.getElementById("voornaam").addEventListener("input", () => {
+    validateField(
+        document.getElementById("voornaam"),
+        "Please enter only letters (A-Z) in this field."
+    );
+    removeErrorMessage(document.getElementById("voornaam"));
+});
+
+document.getElementById("achternaam").addEventListener("input", () => {
+    validateField(
+        document.getElementById("achternaam"),
+        "Please enter only letters (A-Z) in this field."
+    );
+    removeErrorMessage(document.getElementById("achternaam"));
+});
+
+document.getElementById("bestemming").addEventListener("input", () => {
+    validateField(document.getElementById("bestemming"),
+        "Please enter only letters (A-Z) in this field."
+    );
+    removeErrorMessage(document.getElementById("bestemming"));
+});
+
+document.getElementById("number").addEventListener("input", () => {
+    validateNumberField("number");
+    removeErrorMessage(document.getElementById("number"));
+});
+
+document.getElementById("budget").addEventListener("input", () => {
+    validateBudgetField("budget");
+    removeErrorMessage(document.getElementById("budget"));
+});
+
+const selectElements = document.querySelectorAll(".inter-field");
+selectElements.forEach((element) => {
+    element.addEventListener("input", () => {
+        validateInterest(selectElements);
+        removeErrorMessage(element);
+    });
+});
+
+
+
+
+/*function allows the user to update their email address in the database.
+It first checks if the email is already in use, and if it is, it displays an error message.
+If the email is not in use, it updates the email in the database and displays a confirmation message.*/
+
+async function updateEmail() {
+    const validation = new Validation();
+
+    const emailInput = document.getElementById('emailAcc');
+
+    const email = emailInput.value;
+
+    try {
+        const emailInDatabase = await validation.emailInDatabase(emailInput);
+        if (emailInDatabase) {
+            showErrorMessage(emailInput, 'This email is already in use.');
+        } else {
+            // Update the email in the database
+            await FYSCloud.API.queryDatabase(
+                "UPDATE user SET email = ? WHERE user_id = ?",
+                [email, userId]
+            );
+            const errorMessage = "Email saved!";
+            emailBtn.insertAdjacentHTML("afterend", "<p class='error-message valid'>" + errorMessage + "</p>");
+
+        }
+    } catch (error) {
+        console.error(error);
+        showErrorMessage(emailInput, 'An error occurred while updating the email.');
+    }
+
+}
+
+/* function allows the user to update their password in the database.
+It retrieves the salt value for the user from the database and uses it to generate a hashed version of the password.
+The hashed password is then updated in the database and a confirmation message is displayed.*/
+
+async function updatePassword() {
+
+    const passwordInput = document.getElementById('passwordAcc');
+
+    const password = passwordInput.value;
+
+    const result = await FYSCloud.API.queryDatabase(
+        "SELECT salt FROM user WHERE user_id = ?",
+        [userId]
+    );
+
+    const mySalt = result[0].salt;
+
+    const hashedPassword = await passwordHash(password, mySalt);
+
+    await FYSCloud.API.queryDatabase(
+        "UPDATE user SET password = ? WHERE user_id = ?",
+        [hashedPassword, userId]
+    );
+
+    const errorMessage = "Password saved!";
+    passwordBtn.insertAdjacentHTML("afterend", "<p class='error-message valid'>" + errorMessage + "</p>");
+
+}
+
+/* this function is used to validate the email input fields before the email is updated.
+It checks if the email and repeat email inputs are empty or contain an invalid email,
+and if the emails match */
+
+function checkEmailField() {
+    const validation = new Validation();
+
+    const emailInput = document.getElementById('emailAcc');
+    const repeatEmailInput = document.getElementById('emailRepeat')
+
+    let isValid = true;
+
+    // Validate email field
+    if (validation.emptyInput(emailInput)) {
+        showErrorMessage(emailInput, 'Please fill in a email.');
+        isValid = false;
+    } else if (validation.invalidEmail(emailInput)) {
+        showErrorMessage(emailInput, 'Please fill in a valid email.');
+        isValid = false;
+    } else {
+        removeErrorMessage(emailInput);
+    }
+
+    if (validation.emptyInput(repeatEmailInput)) {
+        showErrorMessage(repeatEmailInput, 'Please fill in a repeat email.');
+        isValid = false;
+    } else if (validation.invalidEmail(repeatEmailInput)) {
+        showErrorMessage(repeatEmailInput, 'Please fill in a valid repeat email.');
+        isValid = false;
+    } else if (validation.passwordMatch(emailInput, repeatEmailInput)) {
+        showErrorMessage(repeatEmailInput, 'Please make sure the emails match.');
+        isValid = false;
+    } else {
+        removeErrorMessage(repeatEmailInput);
+    }
+
+    return isValid;
+}
+
+/* this function is used to validate the password input fields before the password is updated.
+It checks if the password and repeat password inputs are empty,
+if the passwords match, and if the password is at least 8 characters long.*/
+
+function checkPasswordField() {
+    const validation = new Validation();
+
+    const passwordInput = document.getElementById('passwordAcc');
+    const repeatPasswordInput = document.getElementById('passwordRepeat');
+
+    let isValid = true;
+
+    if (validation.emptyInput(passwordInput)) {
+        showErrorMessage(passwordInput, 'Please fill in a password.');
+        isValid = false;
+    } else if (passwordInput.value.length < 8) {
+        showErrorMessage(passwordInput, 'Please enter a password with at least 8 characters.');
+        isValid = false;
+    } else {
+        removeErrorMessage(passwordInput);
+    }
+
+    if (validation.emptyInput(repeatPasswordInput)) {
+        showErrorMessage(repeatPasswordInput, 'Please fill in a repeat password.');
+        isValid = false;
+    } else if (validation.passwordMatch(passwordInput, repeatPasswordInput)) {
+        showErrorMessage(repeatPasswordInput, 'Please make sure both passwords match.');
+        isValid = false;
+    } else {
+        removeErrorMessage(repeatPasswordInput);
+    }
+    return isValid;
+}
+
+
