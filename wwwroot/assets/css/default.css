@@ -799,6 +799,8 @@ footer {
 	width: 90px;
 	height: 90px;
 	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
 }
 
 .buddy-attr-container {
@@ -807,7 +809,6 @@ footer {
 	align-items: flex-start;
 	min-height: fit-content;
 	margin: auto;
-	background-color: rgba(0, 0, 0, 0.35);
 }
 
 .buddy-attr-label {
