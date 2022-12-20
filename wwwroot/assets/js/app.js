@@ -1167,6 +1167,132 @@ const translations = {
 				"juego.",
 		},
 	},
+	forgotPassword: {
+		page1: {
+			title: {
+				nl: "Wachtwoord vergeten",
+				en: "Forgot password",
+				es: "Olvidaste tu contraseña",
+			},
+			text: {
+				nl: "Vul de E-mail van uw CorenBuddy account in.",
+				en: "Please enter the E-mail of your CorenBuddy account.",
+				es: "Ingrese el correo electrónico de su cuenta de CorenBuddy.",
+			},
+			button: {
+				nl: "verder",
+				en: "continue",
+				es: "Seguir",
+			},
+			email: {
+				nl:"E-mail",
+				en:"E-mail",
+				es:"correo",
+			},
+			errorInvalidEmail: {
+				nl:"Ongeldige e-mail",
+				en:"Invalid Email",
+				es:"Email inválido",
+			},
+			errorResetCodeDeleteFailed: {
+				nl:"reset code verwijderen mislukt",
+				en:"reset code removal failed",
+				es:"la eliminación del código de reinicio falló",
+			},
+			errorResetCodeInsertFailed: {
+				nl:"reset code in database zetten mislukt",
+				en:"Failed to put reset code in database",
+				es:"No se pudo poner el código de reinicio en la base de datos",
+			},
+			errorSendEmailFailed: {
+				nl:"email versturen mislukt",
+				en:"Failed to send email",
+				es:"no se pudo enviar el correo electrónico",
+			},
+
+		},
+		page2: {
+			title: {
+				nl: "Wachtwoord vergeten",
+				en: "Forgot password",
+				es: "Olvidaste tu contraseña",
+			},
+			text: {
+				nl: "Goed zo! We hebben u misschien een E-mail gestuurd met een link om een" +
+					" nieuw wachtwoord aan te maken. De instructies volgen daar verder.",
+				en: "Well done! We may have sent you an email with a link to create a new " +
+					"password. The instructions follow there.",
+				es: "¡Bien hecho! Es posible que le hayamos enviado un correo electrónico con" +
+					"un enlace para crear una nueva contraseña. Las instrucciones siguen allí.",
+			},
+			button: {
+				nl: "Klaar",
+				en: "Finish",
+				es: "Finalizar",
+			},
+
+		},
+		page3: {
+			title: {
+				nl: "Nieuw wachtwoord aanmaken",
+				en: "Create new password",
+				es: "Crear nueva contraseña",
+			},
+			instruction: {
+				nl: "Vul uw nieuwe wachtwoord in",
+				en: "Please enter your new password",
+				es: "Introduzca su nueva contraseña",
+			},
+			input1: {
+				nl: "Nieuw wachtwoord",
+				en: "New password",
+				es: "Nueva contraseña",
+			},
+			input2: {
+				nl: "Nieuw wachtwoord herhalen",
+				en: "Repeat new password",
+				es: "repita la nueva contraseña",
+			},
+			button: {
+				nl: "Opslaan",
+				en: "Save",
+				es: "Ahorrar",
+			},
+			errorNoResetCode: {
+				nl: "Wachtwoord aanpassen mislukt, wachtwoord is al aangepast," +
+					" nieuw-wachtwoord-aanvraag mislukt of overschreven.",
+				en: "Password change failed, password has already been changed, " +
+					"new password request failed or overwritten",
+				es: "El cambio de contraseña falló, la contraseña ya se cambió, " +
+					"la solicitud de nueva contraseña falló o se sobrescribió",
+			},
+			errorNoEmail: {
+				nl: "Email ophalen mislukt",
+				en: "Failed to retrieve email",
+				es: "No se pudo recuperar el correo electrónico",
+			},
+			errorPasswordUpdateFailed: {
+				nl: "Wachtwoord updaten mislukt",
+				en: "Password update failed",
+				es: "Error al actualizar la contraseña",
+			},
+			errorResetCodeDeleteFailed: {
+				nl: "Reset code verwijderen mislukt",
+				en: "Delete reset code failed",
+				es: "No se pudo eliminar el código de reinicio",
+			},
+			updatePasswordSuccess:{
+				nl: "Wachtwoord aanpassen gelukt",
+				en: "Successfully changed password",
+				es: "Contraseña cambiada con éxito",
+			},
+		},
+		mail:{
+			nl: "test",
+			en: "eng",
+			es: "gringo",
+		},
+	},
 };
 
 FYSCloud.Localization.setTranslations(translations);

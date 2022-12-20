@@ -5,6 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Corenbuddy</title>
+  <!-- favicon -->
+  <link rel="shortcut icon" href="assets/img/favicon.svg" type="image/x-icon" />
 
   <!-- get open sans font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,74 +26,19 @@
   <!-- load javascript, defer makes sure scripts are loaded when dom-elements are
   available  -->
 
-  <script type="module" src="assets/js/config.js" defer></script>
   <script type="module" src="https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js" crossorigin></script>
-  <script type="module" src="assets/js/pages/wachtwoord-vergeten-DOM.js"></script>
+  <script type="module" src="assets/js/config.js" defer></script>
+  <script type="module" src="assets/js/app.js" defer></script>
+  <script type="module" src="assets/js/pages/wachtwoord-vergeten.js" defer></script>
 </head>
 <body>
-<header class="header d-flex justify-space-between align-c">
-  <nav class="nav-menu d-flex">
-    <a href="index.html" class="nav-link-logo">
-      <img
-              src="assets/img/logo.png"
-              alt="Corendon logo"
-              class="logo" />
-    </a>
-    <a href="index.html" class="nav-link">
-      <i class="fa-solid fa-house"></i>
-    </a>
-    <a href="#" class="nav-link">
-      <span class="link-text">corenbuddy</span>
-    </a>
-    <a href="#" class="nav-link">
-      <span class="link-text">zoek mijn buddy</span>
-    </a>
-    <a href="#" class="nav-link">
-      <span class="link-text">over ons</span>
-    </a>
-  </nav>
-  <div class="btn-container d-flex align-c">
-    <a href="#" class="btn login-btn">
-      <span class="btn-text">Login</span>
-      <span class="triangle">
-						<i class="fa-solid fa-play"></i>
-					</span>
-    </a>
-    <a href="#" class="btn register-btn">
-      <span class="btn-text">Registreren</span>
-      <span class="triangle">
-						<i class="fa-solid fa-play"></i>
-					</span>
-    </a>
-  </div>
-  <!-- tabindex makes hamburger-menu focusable -->
-  <i class="fa-solid fa-bars hamburger" tabindex="0"></i>
-</header>
-<aside class="nav-container">
-  <nav class="nav-menu-mobile">
-    <a href="#" class="nav-link">
-      <span class="link-text">Corenbuddy</span>
-    </a>
-    <a href="#" class="nav-link">
-      <span class="link-text">Zoek mijn buddy</span>
-    </a>
-    <a href="#" class="nav-link">
-      <span class="link-text">Over ons</span>
-    </a>
-    <a href="#" class="nav-link">
-      <span class="link-text">registreren</span>
-    </a>
-    <a href="#" class="nav-link">
-      <span class="link-text">login</span>
-    </a>
-  </nav>
-</aside>
+
 <main class="wwvg-main d-flex">
   <form id="pagina1" action="" method="post" class="wwvg-form d-flex">
-    <h1 class="title sub-title">Wachtwoord vergeten</h1>
-    <p>Vul de E-mail van uw CorenBuddy account in.</p>
+    <h1 data-translate="forgotPassword.page1.title" class="title sub-title">Wachtwoord vergeten</h1>
+    <p data-translate="forgotPassword.page1.text">Vul de E-mail van uw CorenBuddy account in.</p>
     <div class="input-container">
-      <label for="wwvg-email" class="input-label">
+      <label for="wwvg-email" class="input-label" data-translate="forgotPassword.page1.email">
         E-mail
       </label>
       <input
@@ -100,7 +47,7 @@
               id="wwvg-email"
               class="input"
               required
-              placeholder="Vul uw E-mail in"
+              placeholder=""
               autofocus />
       <p id="errorMessageContainerPage1" class="wwvg-error-message"></p>
     </div>
@@ -109,6 +56,7 @@
     <!-- actions are submitting form or opening login modal -->
     <div class="wwvg-btn-container">
       <button
+              data-translate="forgotPassword.page1.button"
               id="wwvg-knop"
 
               type="submit"
@@ -120,16 +68,17 @@
 
   </form>
   <form id="pagina2" action="" method="post" class="wwvg-form d-flex">
-    <h1 class="title sub-title">Wachtwoord vergeten</h1>
+    <h1 class="title sub-title" data-translate="forgotPassword.page2.title">Wachtwoord vergeten</h1>
 
 
-    <p>Goed zo! We hebben u misschien een E-mail gestuurd met een link om een nieuw wachtwoord aan te maken. De instructies volgen daar verder.</p>
+    <p data-translate="forgotPassword.page2.text">Goed zo! We hebben u misschien een E-mail gestuurd met een link om een
+      nieuw wachtwoord aan te maken. De instructies volgen daar verder.</p>
 
     <!-- actions are submitting form or opening login modal -->
     <div class="wwvg-btn-container">
       <button
               id="wwvg-knop2"
-
+              data-translate="forgotPassword.page2.button"
               type="submit"
               class="btn wwvg-submit-btn align-c justify-space-between">
         <i class="fa-solid fa-check"></i>
@@ -140,10 +89,10 @@
   </form>
 
   <form id="pagina3" name="nieuw-wachtwoord-form" method="post" class="wwvg-form d-flex">
-    <h1 class="title sub-title">Nieuw wachtwoord aanmaken</h1>
-    <p>Vul uw nieuwe wachtwoord in</p>
+    <h1 class="title sub-title" data-translate="forgotPassword.page3.title">Nieuw wachtwoord aanmaken</h1>
+    <p data-translate="forgotPassword.page3.instruction">Vul uw nieuwe wachtwoord in</p>
     <div class="input-container">
-      <label for="nieuw-wachtwoord" class="input-label">
+      <label for="nieuw-wachtwoord" class="input-label" data-translate="forgotPassword.page3.input1">
         Nieuw wachtwoord
       </label>
       <input
@@ -156,7 +105,7 @@
               autofocus />
     </div>
     <div class="input-container">
-      <label for="nieuw-wachtwoord-herhalen" class="input-label">
+      <label for="nieuw-wachtwoord-herhalen" class="input-label" data-translate="forgotPassword.page3.input2">
         Nieuw wachtwoord herhalen
       </label>
       <input
@@ -175,6 +124,7 @@
     <!-- actions are submitting form or opening login modal -->
     <div class="register-btn-container">
       <button
+              data-translate="forgotPassword.page3.button"
               id="wwvg-knop3"
               type="submit"
               class="btn register-submit-btn align-c justify-space-between">

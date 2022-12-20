@@ -64,7 +64,7 @@ async function verwerkEmail(evt) {
     evt.preventDefault();
     let email = document.getElementById("wwvg-email");
     if(await validation.invalidEmail(email)){
-        displayErrorMessagePage1("invalid email");
+        displayErrorMessagePage1("invalid email", "forgotPassword.page1.errorInvalidEmail");
         return 1;
     }
     if(!(await validation.emailInDatabase(email))){
@@ -73,7 +73,8 @@ async function verwerkEmail(evt) {
     }
     if(await validation.emailHasResetCodeInBd(email)){
         if(await deleteResetCodeInBd(email.value)){
-            displayErrorMessagePage1("reset code verwijderen mislukt");
+            displayErrorMessagePage1("reset code verwijderen mislukt",
+                "forgotPassword.page1.errorResetCodeDeleteFailed");
             return 1;
         };
     }
@@ -85,12 +86,34 @@ async function verwerkEmail(evt) {
     console.log("hashedResetCode: " + hashedResetCode);
     if (await zetKeyInDb(email, hashedResetCode, timestamp))
     {
-        displayErrorMessagePage1("reset code in database zetten mislukt");
+        displayErrorMessagePage1("reset code in database zetten mislukt",
+            "forgotPassword.page1.errorResetCodeInsertFailed");
         return 1;
     }
-    if (await sendMail(email, key, salt)){
-        displayErrorMessagePage1("email versturen mislukt");
-        return 1;
+    let initialLanguage = FYSCloud.Session.get("language", "nl");
+    console.log(initialLanguage);
+    switch (initialLanguage){
+        case "en":
+            if (await sendMailEnglish(email, key, salt)){
+                displayErrorMessagePage1("email versturen mislukt",
+                    "forgotPassword.page1.errorSendEmailFailed");
+                return 1;
+            }
+            break;
+        case "es":
+            if (await sendMailEspanol(email, key, salt)){
+                displayErrorMessagePage1("email versturen mislukt",
+                    "forgotPassword.page1.errorSendEmailFailed");
+                return 1;
+            }
+            break;
+        default:
+            if (await sendMailDutch(email, key, salt)){
+                displayErrorMessagePage1("email versturen mislukt",
+                    "forgotPassword.page1.errorSendEmailFailed");
+                return 1;
+            }
+            break;
     }
     showpage2(evt);
     return 0;
@@ -145,7 +168,7 @@ async function zetKeyInDb(email, key, date) {
  * @param key
  * @returns {Promise<void>} return 0 if succes, 1 if fail
  */
-async function sendMail(mail, key, salt){
+async function sendMailDutch(mail, key, salt){
     let url = FYSCloud.Utils.createUrl(window.location.href, {
         key: key, salt: salt
     });
@@ -164,6 +187,74 @@ async function sendMail(mail, key, salt){
             subject: "Nieuw wachtwoord aanmaken",
             html: "<h1>Hallo!</h1><p>Hier de link om een nieuw wachtwoord aan te maken.</p><p>url: " + url + "</p>" +
                 "<p>Groetjes leden van het discordmoderators team!</p>"
+
+        });
+        return 0;
+    } catch (reason) {
+        console.error(reason);
+        return 1;
+    };
+}
+
+/**
+ * send email with reset code
+ * @param mail
+ * @param key
+ * @returns {Promise<void>} return 0 if succes, 1 if fail
+ */
+async function sendMailEspanol(mail, key, salt){
+    let url = FYSCloud.Utils.createUrl(window.location.href, {
+        key: key, salt: salt
+    });
+    try {
+        await FYSCloud.API.sendEmail({
+            from: {
+                name: "corendon",
+                address: "group@hva.nl"
+            },
+            to: [
+                {
+                    name: "",
+                    address: mail.value
+                }
+            ],
+            subject: "Crear nueva contraseña",
+            html: "<h1>¡Hola!</h1><p>Este es el enlace para crear una nueva contraseña.</p><p>url: " + url + "</p>" +
+                "<p>¡Saludos miembros del equipo de moderadores de Discord!</p>"
+
+        });
+        return 0;
+    } catch (reason) {
+        console.error(reason);
+        return 1;
+    };
+}
+
+/**
+ * send email with reset code
+ * @param mail
+ * @param key
+ * @returns {Promise<void>} return 0 if succes, 1 if fail
+ */
+async function sendMailEnglish(mail, key, salt){
+    let url = FYSCloud.Utils.createUrl(window.location.href, {
+        key: key, salt: salt
+    });
+    try {
+        await FYSCloud.API.sendEmail({
+            from: {
+                name: "corendon",
+                address: "group@hva.nl"
+            },
+            to: [
+                {
+                    name: "",
+                    address: mail.value
+                }
+            ],
+            subject: "Create new password",
+            html: "<h1>Hello!</h1><p>Here's the link to create a new password.</p><p>url: " + url + "</p>" +
+                "<p>Greetings members of the discord moderators team!</p>"
 
         });
         return 0;
@@ -255,11 +346,12 @@ async function verwerkNieuwWachtwoord(evt) {
     let emailarray = await getEmailFromKey(await hashResetCode(key, salt));
     let hashedResetCode = await passwordHash(key, salt);
     if(!await keyInDb(hashedResetCode)){
-        displayErrorMessagePage3("Wachtwoord aanpassen mislukt, wachtwoord is al aangepast, nieuw-wachtwoord-aanvraag mislukt of overschreven.");
+        displayErrorMessagePage3("Wachtwoord aanpassen mislukt, wachtwoord is al aangepast," +
+            " nieuw-wachtwoord-aanvraag mislukt of overschreven.", "forgotPassword.page3.errorNoResetCode");
         return 1;
     }
     if (emailarray.length == 0) {
-        displayErrorMessagePage3("Email ophalen mislukt")
+        displayErrorMessagePage3("Email ophalen mislukt", "forgotPassword.page3.errorNoEmail")
         return 1;
     }
     let email = emailarray[0].email;
@@ -276,14 +368,17 @@ async function verwerkNieuwWachtwoord(evt) {
             [hashedPassword, salt, email]
         )
     } catch(error) {
-        displayErrorMessagePage3("Wachtwoord updaten mislukt");
+        displayErrorMessagePage3("Wachtwoord updaten mislukt",
+            "forgotPassword.page3.errorPasswordUpdateFailed");
         return 1;
     }
     if(await deleteResetCodeInBd(email)){
-        displayErrorMessagePage3("Reset code verwijderen mislukt");
+        displayErrorMessagePage3("Reset code verwijderen mislukt",
+            "forgotPassword.page3.errorResetCodeDeleteFailed");
         return 1;
     }
-    displayNonErrorMessagePage3("Wachtwoord aanpassen gelukt");
+    displayNonErrorMessagePage3("Wachtwoord aanpassen gelukt",
+        "forgotPassword.page3.updatePasswordSuccess");
 
 }
 
@@ -300,6 +395,7 @@ async function deleteResetCodeInBd(emailInput) {
         );
     } catch (error) {
         console.error(error);
+
         return 1;
     }
     return 0;
@@ -327,25 +423,34 @@ async function getEmailFromKey(key) {
  * displays message under email input tag in wachtwoord vergeten4.html
  * @param message
  */
-function displayErrorMessagePage1(message){
+function displayErrorMessagePage1(message, translateTag){
     document.getElementById("errorMessageContainerPage1").innerText = message;
     document.getElementById("wwvg-email").style.borderColor = "red";
+    document.getElementById("errorMessageContainerPage1").setAttribute("data-translate",
+        translateTag);
+    FYSCloud.Localization.translate();
 }
 
-function displayErrorMessagePage3(message){
+function displayErrorMessagePage3(message, translateTag){
     document.getElementById("errorMessageContainerPage3").style.display = "block";
     document.getElementById("errorMessageContainerPage3").innerText = message;
     document.getElementById("nieuw-wachtwoord").style.borderColor = "red";
     document.getElementById("nieuw-wachtwoord-herhalen").style.borderColor = "red";
     document.getElementById("errorMessageContainerPage3").style.color = "red";
+    document.getElementById("errorMessageContainerPage3").setAttribute("data-translate",
+        translateTag);
+    FYSCloud.Localization.translate();
 }
 
-function displayNonErrorMessagePage3(message){
+function displayNonErrorMessagePage3(message, translateTag){
     document.getElementById("errorMessageContainerPage3").style.display = "block";
     document.getElementById("errorMessageContainerPage3").innerText = message;
     document.getElementById("nieuw-wachtwoord").style.borderColor = "var(--color-border-grey)";
     document.getElementById("nieuw-wachtwoord-herhalen").style.borderColor = "var(--color-border-grey)";
     document.getElementById("errorMessageContainerPage3").style.color = "black";
+    document.getElementById("errorMessageContainerPage3").setAttribute("data-translate",
+        translateTag);
+    FYSCloud.Localization.translate();
 }
 
 /**
