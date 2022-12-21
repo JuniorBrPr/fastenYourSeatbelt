@@ -1,5 +1,7 @@
 import {getUniqueSalt, passwordHash} from "../classes/hash.js";
 import { Validation } from "../classes/validation.js";
+import { Database } from "../classes/database.js";
+
 import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
 
 /**
@@ -8,12 +10,14 @@ import FYSCloud from "https://cdn.fys.cloud/fyscloud/0.0.4/fyscloud.es6.min.js";
  */
 
 const validation = new Validation();
+const database = new Database();
+
 
 showPage1();
 document.getElementById("wwvg-knop").addEventListener("click", event => handleForgotPasswordRequest(event));
 document.getElementById("wwvg-knop3").addEventListener("click", event => handleNewPassword(event));
-console.log(hasKey(window.location.href));
-if (hasKey(window.location.href) == 0) {
+console.log(hasParameters(window.location.href));
+if (hasParameters(window.location.href)) {
     showPage3();
 }
 
@@ -47,8 +51,9 @@ function showPage3(){
 }
 
 /**
- * check if email is valid, delete password reset code in DB if present, generate key, put key in DB,
- * send email with key, show page 2.
+ * check if email is valid, delete forgotPasswordHash in DB if present, generate forgotPasswordCode, hash forgotPasswordCode,
+ * put forgotPasswordHash in DB,
+ * send email with forgotPasswordCode, show page 2.
  * @param event
  * @returns {Promise<number>}
  */
@@ -64,43 +69,41 @@ async function handleForgotPasswordRequest(event) {
         return 1;
     }
     if(await validation.emailHasResetCodeInBd(email)){
-        if(await deleteResetCodeInBd(email.value)){
+        if(await database.deleteResetHash(email.value)){
             displayErrorMessagePage1("reset code verwijderen mislukt",
                 "forgotPassword.page1.errorResetCodeDeleteFailed");
             return 1;
-        };
+        }
     }
-    const HIGHEST_RESET_CODE = 10000000;
-    let key = await generateKey(HIGHEST_RESET_CODE);
+    const HIGHEST_POSSIBLE_RESET_CODE = 10000000;
+    let forgotPasswordCode = await generateForgotPasswordCode(HIGHEST_POSSIBLE_RESET_CODE);
     let timestamp = new Date();
-    let salt = await getSaltFromDatabase(email.value);
-    let hashedResetCode = await hashResetCode(key, salt);
-    console.log("hashedResetCode: " + hashedResetCode);
-    if (await saveKeyInDb(email, hashedResetCode, timestamp))
+    let salt = await database.getSalt(email.value);
+    let forgotPasswordHash = await passwordHash(forgotPasswordCode, salt);
+    if (await database.saveForgotPasswordHash(email, forgotPasswordHash, timestamp))
     {
         displayErrorMessagePage1("reset code in database zetten mislukt",
             "forgotPassword.page1.errorResetCodeInsertFailed");
         return 1;
     }
     let initialLanguage = FYSCloud.Session.get("language", "nl");
-    console.log(initialLanguage);
     switch (initialLanguage){
         case "en":
-            if (await sendMailEnglish(email, key, salt)){
+            if (await sendMailEnglish(email, forgotPasswordCode, salt)){
                 displayErrorMessagePage1("email versturen mislukt",
                     "forgotPassword.page1.errorSendEmailFailed");
                 return 1;
             }
             break;
         case "es":
-            if (await sendMailEspanol(email, key, salt)){
+            if (await sendMailEspanol(email, forgotPasswordCode, salt)){
                 displayErrorMessagePage1("email versturen mislukt",
                     "forgotPassword.page1.errorSendEmailFailed");
                 return 1;
             }
             break;
         default:
-            if (await sendMailDutch(email, key, salt)){
+            if (await sendMailDutch(email, forgotPasswordCode, salt)){
                 displayErrorMessagePage1("email versturen mislukt",
                     "forgotPassword.page1.errorSendEmailFailed");
                 return 1;
@@ -133,34 +136,13 @@ function validateNewPassword(event) {
 }
 
 /**
- * put reset code in database
- * @param email
- * @param key
- * @param date
- * @returns {Promise<number>} return 0 if succes, 1 if fail
- */
-async function saveKeyInDb(email, key, date) {
-    try{
-        await FYSCloud.API.queryDatabase(
-            "INSERT INTO `forgot_password` (`email`, `code`, `date`) VALUES (?, ?, ?);",
-            [email.value, key, date.toISOString().slice(0, 10).replace('T', ' ')]
-        );
-        return 0;
-    } catch (reason)
-    {
-        console.error(reason);
-        return 1;
-    }
-}
-
-/**
  * send email with reset code
  * @param mail
- * @param key
+ * @param forgotPasswordCode
  * @returns {Promise<void>} return 0 if succes, 1 if fail
  */
-async function sendMailDutch(mail, key, salt){
-    let url = FYSCloud.Utils.createUrl(window.location.href, {key: key, salt: salt});
+async function sendMailDutch(mail, forgotPasswordCode, salt){
+    let url = FYSCloud.Utils.createUrl(window.location.href, {forgotPasswordCode: forgotPasswordCode, salt: salt});
     try {
         await FYSCloud.API.sendEmail({
             from: {
@@ -182,18 +164,18 @@ async function sendMailDutch(mail, key, salt){
     } catch (reason) {
         console.error(reason);
         return 1;
-    };
+    }
 }
 
 /**
  * send email with reset code
  * @param mail
- * @param key
+ * @param forgotPasswordCode
  * @returns {Promise<void>} return 0 if succes, 1 if fail
  */
-async function sendMailEspanol(mail, key, salt){
+async function sendMailEspanol(mail, forgotPasswordCode, salt){
     let url = FYSCloud.Utils.createUrl(window.location.href, {
-        key: key, salt: salt
+        forgotPasswordCode: forgotPasswordCode, salt: salt
     });
     try {
         await FYSCloud.API.sendEmail({
@@ -216,18 +198,18 @@ async function sendMailEspanol(mail, key, salt){
     } catch (reason) {
         console.error(reason);
         return 1;
-    };
+    }
 }
 
 /**
  * send email with reset code
  * @param mail
- * @param key
+ * @param forgotPasswordCode
  * @returns {Promise<void>} return 0 if succes, 1 if fail
  */
-async function sendMailEnglish(mail, key, salt){
+async function sendMailEnglish(mail, forgotPasswordCode, salt){
     let url = FYSCloud.Utils.createUrl(window.location.href, {
-        key: key, salt: salt
+        forgotPasswordCode: forgotPasswordCode, salt: salt
     });
     try {
         await FYSCloud.API.sendEmail({
@@ -250,7 +232,7 @@ async function sendMailEnglish(mail, key, salt){
     } catch (reason) {
         console.error(reason);
         return 1;
-    };
+    }
 }
 
 /**
@@ -258,16 +240,8 @@ async function sendMailEnglish(mail, key, salt){
  * @param url
  * @returns {number}
  */
-function hasKey(url){
-    let vars = parseURLParams(url);
-    if(vars.key == null)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+function hasParameters(url){
+    return parseURLParams(url).forgotPasswordCode;
 }
 
 /**
@@ -300,25 +274,12 @@ function parseURLParams(url) {
  * @param length
  * @returns {Promise<number>}
  */
-async function generateKey(length) {
-    let key = Math.floor(Math.random() * length);
-    while (await hasKeyInDb(key)){
-        key = Math.floor(Math.random() * length);
+async function generateForgotPasswordCode(length) {
+    let forgotPasswordCode = Math.floor(Math.random() * length);
+    while (await database.hasForgotPasswordHash(forgotPasswordCode)){
+        forgotPasswordCode = Math.floor(Math.random() * length);
     }
-    return key;
-}
-
-/**
- * check if reset code is present in database
- * @param key
- * @returns {Promise<boolean>} returns true if reset code is in database
- */
-async function hasKeyInDb(key){
-    const data = await FYSCloud.API.queryDatabase(
-        "SELECT `code` FROM `forgot_password` WHERE `code` = ?;",
-        [key]
-    );
-    return (data.length != 0);
+    return forgotPasswordCode;
 }
 
 /**
@@ -329,12 +290,15 @@ async function hasKeyInDb(key){
  */
 async function handleNewPassword(event) {
     event.preventDefault();
-    let key = parseURLParams(window.location.href).key;
-    let salt = parseURLParams(window.location.href).salt;
+    let forgotPasswordCode = null;
+    forgotPasswordCode = parseURLParams(window.location.href).forgotPasswordCode;
+    let test = parseURLParams(window.location.href);
+    let salt = null;
+        salt = test.salt;
 
-    let emailarray = await getEmailFromKey(await hashResetCode(key, salt));
-    let hashedResetCode = await passwordHash(key, salt);
-    if(!await hasKeyInDb(hashedResetCode)){
+    let emailarray = await database.getEmail(await passwordHash(forgotPasswordCode, salt));
+    let forgotPasswordHash = await passwordHash(forgotPasswordCode, salt);
+    if(!await database.hasForgotPasswordHash(forgotPasswordHash)){
         displayErrorMessagePage3("Wachtwoord aanpassen mislukt, wachtwoord is al aangepast," +
             " nieuw-wachtwoord-aanvraag mislukt of overschreven.", "forgotPassword.page3.errorNoResetCode");
         return 1;
@@ -350,18 +314,18 @@ async function handleNewPassword(event) {
     }
 
     salt = await getUniqueSalt();
-    const hashedPassword = await passwordHash(document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord"].value, salt);
+    const passwordHash = await passwordHash(document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord"].value, salt);
     try {
         await FYSCloud.API.queryDatabase(
             "UPDATE `user` SET `password`=?, `salt`=? WHERE email=?;",
-            [hashedPassword, salt, email]
+            [passwordHash, salt, email]
         )
     } catch(error) {
         displayErrorMessagePage3("Wachtwoord updaten mislukt",
             "forgotPassword.page3.errorPasswordUpdateFailed");
         return 1;
     }
-    if(await deleteResetCodeInBd(email)){
+    if(await database.deleteForgotPasswordHash(email)){
         displayErrorMessagePage3("Reset code verwijderen mislukt",
             "forgotPassword.page3.errorResetCodeDeleteFailed");
         return 1;
@@ -369,43 +333,6 @@ async function handleNewPassword(event) {
     displayNonErrorMessagePage3("Wachtwoord aanpassen gelukt",
         "forgotPassword.page3.updatePasswordSuccess");
 
-}
-
-/**
- * delete reset code cell from DB
- * @param emailInput
- * @returns {Promise<number>} return 0 if succes, 1 if fail
- */
-async function deleteResetCodeInBd(emailInput) {
-    try {
-        await FYSCloud.API.queryDatabase(
-            "DELETE FROM `forgot_password` WHERE `email` = ?;",
-            [emailInput]
-        );
-    } catch (error) {
-        console.error(error);
-
-        return 1;
-    }
-    return 0;
-}
-
-/**
- * gets email drom db forgot_password table based on reset code
- * @param key
- * @returns {Promise<number|*>} return email if success if fail return 0
- */
-async function getEmailFromKey(key) {
-    try {
-        const data = await FYSCloud.API.queryDatabase(
-            "SELECT `email` FROM `forgot_password` WHERE `code` = ?;",
-            [key]
-        );
-        return data;
-    } catch (error) {
-        console.error(error);
-        return 0;
-    }
 }
 
 /**
@@ -440,27 +367,4 @@ function displayNonErrorMessagePage3(message, translateTag){
     document.getElementById("errorMessageContainerPage3").setAttribute("data-translate",
         translateTag);
     FYSCloud.Localization.translate();
-}
-
-/**
- *
- * @param key
- * @param email
- * @returns {Promise<undefined|*>}
- */
-async function hashResetCode(key, salt){
-    return await passwordHash(key, salt);
-}
-
-async function getSaltFromDatabase(email){
-    try {
-        const data = await FYSCloud.API.queryDatabase(
-            "SELECT `salt` FROM `user` WHERE `email` = ?;",
-            [email]
-        );
-        return data[0].salt;
-    } catch (error) {
-        console.error(error);
-        return 0;
-    }
 }
