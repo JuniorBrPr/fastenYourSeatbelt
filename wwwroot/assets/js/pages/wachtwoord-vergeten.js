@@ -49,7 +49,7 @@ function showPage3(){
 /**
  * check if email is valid, delete password reset code in DB if present, generate key, put key in DB,
  * send email with key, show page 2.
- * @param evt
+ * @param event
  * @returns {Promise<number>}
  */
 async function handleForgotPasswordRequest(event) {
@@ -60,7 +60,7 @@ async function handleForgotPasswordRequest(event) {
         return 1;
     }
     if(!(await validation.emailInDatabase(email))){
-        showPage2(evt);
+        showPage2(event);
         return 1;
     }
     if(await validation.emailHasResetCodeInBd(email)){
@@ -107,26 +107,26 @@ async function handleForgotPasswordRequest(event) {
             }
             break;
     }
-    showPage2(evt);
+    showPage2(event);
     return 0;
 }
 
 /**
  * check if password fields are the same and not 0
- * @param evt
+ * @param event
  * @returns {number}
  */
-function validateForm(evt) {
-    evt.preventDefault();
-    let nieuwWw = document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord"].value;
-    let nieuwWwControle = document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord-herhalen"].value;
+function validateNewPassword(event) {
+    event.preventDefault();
+    let passwordInput = document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord"];
+    let repeatPasswordInput = document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord-herhalen"];
 
-    if (nieuwWw != nieuwWwControle) {
-        displayErrorMessagePage3("Wachtwoord komt niet overeen");
+    if (validation.passwordMatch(passwordInput, repeatPasswordInput)) {
+        displayErrorMessagePage3("Wachtwoord komt niet overeen", "");
         return 1;
     }
-    if (nieuwWw == "") {
-        displayErrorMessagePage3("Wachtwoord kan niet leeg zijn");
+    if (validation.emptyInput(passwordInput)) {
+        displayErrorMessagePage3("Wachtwoord kan niet leeg zijn", "");
         return 1;
     }
     return 0;
@@ -324,11 +324,11 @@ async function hasKeyInDb(key){
 /**
  * gets email from db using reset code, check if both inputs ar same aand not 0, gets salt and hashes password,
  * updates hash in DB
- * @param evt
+ * @param event
  * @returns {Promise<number>} return 0 if inputs are not correct
  */
-async function handleNewPassword(evt) {
-    evt.preventDefault();
+async function handleNewPassword(event) {
+    event.preventDefault();
     let key = parseURLParams(window.location.href).key;
     let salt = parseURLParams(window.location.href).salt;
 
@@ -345,7 +345,7 @@ async function handleNewPassword(evt) {
     }
     let email = emailarray[0].email;
 
-    if(validateForm(evt)){
+    if(validateNewPassword(event)){
         return 1;
     }
 
