@@ -48,7 +48,7 @@ loginSubmitBtn.addEventListener("click", async (e) => {
 			loginModal.style.display = "none";
 			clearLoginValues();
 
-			location.reload();
+			FYSCloud.URL.redirect("index.html");
 		} else {
 			displayErrorMessage(loginInput, passwordInput);
 		}

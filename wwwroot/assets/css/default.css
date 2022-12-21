@@ -125,6 +125,7 @@ textarea {
 	height: 40px;
 	margin-right: 16px;
 	position: relative;
+	cursor: pointer;
 }
 
 .btn:hover,
@@ -139,6 +140,7 @@ textarea {
 	height: inherit;
 	width: 80%;
 	position: absolute;
+	top: 0;
 	left: 0;
 }
 
@@ -151,6 +153,7 @@ textarea {
 	position: absolute;
 	height: inherit;
 	width: 20%;
+	top: 0;
 	right: 0;
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
@@ -234,7 +237,8 @@ button.btn {
 /* Minimum width for button */
 .register-btn,
 .login-btn,
-.profile-btn {
+.profile-btn,
+.language-switch {
 	min-width: 14ch;
 }
 
@@ -246,6 +250,11 @@ button.btn {
 	display: none;
 	padding: 4px;
 }
+
+.language-switch {
+	text-align: center;
+}
+
 .nav-shown {
 	display: visible;
 }
@@ -269,6 +278,15 @@ button.btn {
 	animation-timing-function: linear;
 	animation-duration: 300ms;
 	animation-fill-mode: forwards;
+}
+
+/* language switcher dropdown */
+[data-translate] {
+	visibility: hidden;
+}
+
+[data-translate][translated] {
+	visibility: visible;
 }
 
 /* styling of input */
@@ -686,6 +704,43 @@ footer {
 	gap: 10px;
 }
 
+/* filter */
+.filter-div {
+	min-width: fit-content;
+	width: 100%;
+	position: relative;
+	display: none;
+}
+
+.filter-form {
+	position: absolute;
+	background: var(--color-bg-grey);
+	padding: 30px;
+	border-radius: 12px;
+	margin-top: 15px;
+	box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+	margin-left: 10px;
+	z-index: 999;
+	display: none;
+	flex-direction: column;
+}
+
+.filter-submit {
+	padding: 10px 24px;
+	background: var(--color-btn-green);
+	margin-top: 15px;
+	width: 100%;
+	border: 0;
+	color: var(--color-white);
+	border-radius: 3px;
+}
+
+.filter-submit:hover,
+.filter-submit:focus {
+	background-color: var(--color-btn-dark-green);
+	cursor: pointer;
+}
+
 .matching-sidebar .btn {
 	width: 100%;
 	min-width: 195px;
@@ -743,6 +798,9 @@ footer {
 .buddy-img {
 	width: 90px;
 	height: 90px;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
 }
 
 .buddy-attr-container {
@@ -972,7 +1030,7 @@ footer {
 
 .corenbuddy-btn {
 	margin-right: 30px;
-	min-width: 18ch;
+	min-width: 20ch;
 	margin-top: 15px;
 }
 
@@ -992,12 +1050,11 @@ footer {
 
 /* wachtwoord vergeten styling*/
 
-.wwvg-main{
+.wwvg-main {
 	min-height: 100vh;
 	align-items: center;
 	flex-direction: column;
 	background-color: var(--color-bg-grey);
-
 }
 
 .wwvg-form {
@@ -1020,35 +1077,21 @@ footer {
 
 .wwvg-submit-btn {
 	min-width: 16ch;
-
 }
 
 #pagina1 #pagina2 #pagina3 {
 	display: none;
 }
 
-#errorMessageContainerPage3{
+#errorMessageContainerPage3 {
 	display: none;
 }
 
-.wwvg-error-message{
+.wwvg-error-message {
 	padding: 10px;
 	color: var(--color-red);
 	font-size: var(--small-font-size);
-
 }
-
-@media (max-width: 1000px){
-	.wwvg-main {
-		background-color: #0f0;
-		/*flex-direction: row;*/
-
-	}
-	.wwvg-form{
-		width: 95vw;
-	}
-}
-
 
 /* contact styling */
 
@@ -1182,7 +1225,7 @@ footer {
 	margin: 15px 2px;
 	cursor: pointer;
 	font-size: var(--small-font-size);
-	float: right;
+	font-family: "Open Sans", sans-serif;
 }
 
 .h1-mijn-profiel {
@@ -1203,8 +1246,8 @@ footer {
 .profiel-foto-card {
 	background: var(--color-bg-grey);
 	padding: 20px 40px;
-	height: 452px;
 	border-radius: 10px;
+	gap: 20px;
 }
 
 .profiel-foto-card h2 {
@@ -1212,9 +1255,24 @@ footer {
 	padding-bottom: 20px;
 }
 
-.profiel-foto-card img {
+.profiel-foto-card > img {
 	display: block;
 	border-radius: 999px;
+	object-fit: cover;
+	object-position: center;
+}
+.upload-file-btn {
+	font-size: var(--small-font-size);
+}
+.upload-file-btn + input[type="file"] {
+	display: none;
+}
+.preview {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
 }
 
 .profiel-foto-card p {
@@ -1231,7 +1289,7 @@ footer {
 .profiel-account-card {
 	background: var(--color-bg-grey);
 	padding: 20px 40px;
-	height: 343px;
+	height: auto;
 	border-radius: 10px;
 }
 
@@ -1240,8 +1298,8 @@ footer {
 	padding-bottom: 20px;
 }
 
-.profiel-account-card p {
-	text-align: right;
+.profiel-account-card .valid {
+	color: var(--color-green);
 }
 
 /* Preference card */
@@ -1270,9 +1328,10 @@ footer {
 	display: inline-block;
 	width: 60px;
 	height: 34px;
+	transition: background-color 0.4s ease;
 }
 
-.switch input {
+.switch .checkboxInput {
 	opacity: 0;
 	width: 0;
 	height: 0;
@@ -1285,40 +1344,91 @@ footer {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: var(--color-red);
+	background-color: #ccc;
 	transition: 0.4s;
+	border-radius: 34px;
 }
 
-.slider::before {
+.slider:before {
 	position: absolute;
 	content: "";
 	height: 26px;
 	width: 26px;
 	left: 4px;
 	bottom: 4px;
-	background-color: var(--color-white);
-	transition: 0.4s;
+	background-color: white;
+	transition: 0.4s, transform 0.4s;
+	border-radius: 50%;
+}
+.error-message {
+	font-weight: bold;
+	color: #ff0800;
+	font-size: small;
 }
 
-input:checked + .slider {
+.checkboxInput:checked + .slider {
 	background-color: #2196f3;
 }
 
-input:focus + .slider {
+.checkboxInput:focus + .slider {
 	box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked + .slider::before {
+.checkboxInput:checked + .slider:before {
 	transform: translateX(26px);
 }
 
-/* Rounded sliders */
-.slider.round {
-	border-radius: 10vw;
+/* Dropdown Button */
+.dropdown-btn {
+	background-color: var(--color-btn-green);
+	color: var(--color-white);
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+	min-width: 16ch;
 }
 
-.slider.round::before {
-	border-radius: 50%;
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+	margin-inline: auto;
+	padding: 5px;
+	display: none;
+	margin-top: 15px;
+	background-color: var(--color-bg-grey);
+	left: 0;
+	right: 16px;
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 10px;
+	border: 1.75px solid var(--color-border-grey);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+	color: var(--color-white);
+	text-decoration: none;
+	margin-block: 10px;
+	margin-inline: auto;
+	max-width: 12ch;
+	min-width: 12ch;
+}
+
+.logout-btn {
+	background-color: var(--color-red);
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+	background-color: var(--color-btn-dark-green);
+}
+
+.dropdown-content .logout-btn:hover {
+	background-color: var(--color-red-dark);
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:focus-within .dropdown-content {
+	display: block;
 }
 
 /* media queries  */
@@ -1446,12 +1556,91 @@ input:checked + .slider::before {
 		top: 100%;
 		width: max-content;
 	}
+	/* about us page */
+	.corenbuddy-content-container {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.corenbuddy-text {
+		width: 90%;
+	}
+
+	.history-card {
+		grid-column: 1 / 4;
+		grid-row: 2 / 2;
+	}
+	.who-are-we-card {
+		grid-column: 1 / 4;
+		grid-row: 3 / 3;
+	}
+
+	.corenbuddy-text {
+		width: 100%;
+	}
+
+	.corenbuddy-btn {
+		margin-top: 10px;
+		margin-bottom: 0;
+	}
+
+	/*contact styling */
+	.contact-text {
+		width: 275px;
+	}
+
+	.fr-1 {
+		grid-column: 1 / 2;
+		grid-row: 1 / 2;
+	}
+
+	.fr-2 {
+		grid-column: 1 / 2;
+		grid-row: 2 / 3;
+	}
+
+	.fr-3 {
+		grid-column: 1 / 2;
+		grid-row: 3 / 4;
+	}
+
+	.contact-name,
+	.contact-phone,
+	.contact-email,
+	.contact-subject {
+		width: 275px;
+	}
+
+	.matching-sidebar .btn {
+		min-width: 120px;
+	}
+
+	.matching-sidebar .btn .btn-text {
+		font-size: var(--small-font-size);
+	}
+
+	.matching-matches {
+		align-items: center;
+		margin: 25px auto;
+	}
 }
 
 @media screen and (max-width: 768px) {
+	.filter-div {
+		margin-right: -60px;
+	}
+
 	.nav-menu > .nav-link,
-	.btn-container {
+	.btn-container > :not(.language-switch) {
 		display: none;
+	}
+	.nav-menu {
+		position: relative;
+	}
+	.language-switch {
+		position: absolute;
+		/* width of the hamburger minus the predetermined margin right on the button class */
+		right: 34px;
 	}
 
 	.logo {
@@ -1616,10 +1805,6 @@ input:checked + .slider::before {
 		width: auto;
 	}
 
-	.profiel-foto-card img {
-		width: auto;
-	}
-
 	.sub-btn {
 		float: left;
 		width: auto;
@@ -1654,78 +1839,15 @@ input:checked + .slider::before {
 	}
 }
 
-@media screen and (max-width: 850px) {
-	/* Shrinks the navbar font-size and btn size to ensure that it can go down to ipad/tablet size */
-	.link-text {
-		font-size: var(--small-font-size);
+@media screen and (max-width: 500px) {
+	.logo {
+		width: 150px;
 	}
+}
 
-	/* about us page */
-	.corenbuddy-content-container {
-		flex-direction: column;
-		gap: 10px;
-	}
-
-	.corenbuddy-text {
-		width: 90%;
-	}
-
-	.history-card {
-		grid-column: 1 / 4;
-		grid-row: 2 / 2;
-	}
-	.who-are-we-card {
-		grid-column: 1 / 4;
-		grid-row: 3 / 3;
-	}
-
-	.corenbuddy-text {
-		width: 100%;
-	}
-
-	.corenbuddy-btn {
-		margin-top: 10px;
-		margin-bottom: 0;
-	}
-
-	/*contact styling */
-	.contact-text {
-		width: 275px;
-	}
-
-	.fr-1 {
-		grid-column: 1 / 2;
-		grid-row: 1 / 2;
-	}
-
-	.fr-2 {
-		grid-column: 1 / 2;
-		grid-row: 2 / 3;
-	}
-
-	.fr-3 {
-		grid-column: 1 / 2;
-		grid-row: 3 / 4;
-	}
-
-	.contact-name,
-	.contact-phone,
-	.contact-email,
-	.contact-subject {
-		width: 275px;
-	}
-
-	.matching-sidebar .btn {
-		min-width: 120px;
-	}
-
-	.matching-sidebar .btn .btn-text {
-		font-size: var(--small-font-size);
-	}
-
-	.matching-matches {
-		align-items: center;
-		margin: 25px auto;
+@media screen and (max-width: 350px) {
+	.logo {
+		width: 125px;
 	}
 }
 
