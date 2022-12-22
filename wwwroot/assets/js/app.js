@@ -664,6 +664,11 @@ const translations = {
 			en:"E-mail",
 			es:"Correo",
 		},
+		info: {
+			nl: "Informatie",
+			en: "Information",
+			es: "Información",
+		},
 		interestList: {
 			nl: "Interesses",
 			en: "Interests",

@@ -296,6 +296,18 @@ function addAttribute(name, value, container) {
     container.appendChild(cont);
 }
 
+function addProfileAttribute(name, value, container) {
+    const cont = document.createElement("div");
+    cont.className = "buddy-attr-container";
+
+    const lbl = document.createElement("span");
+    lbl.className = "buddy-attr w-100";
+    lbl.innerHTML = value;
+    cont.appendChild(lbl);
+
+    container.appendChild(cont);
+}
+
 function addAttributes(value, container) {
     const cont = document.createElement("div");
     cont.className = "buddy-attr-container";
@@ -638,14 +650,14 @@ function buddyModal(data, interests, img) {
     // object for buddy info
     data.forEach((buddy) => {
         // biography
-        addAttribute("bio", buddy.bio, descriptionDiv);
+        addProfileAttribute("bio", buddy.bio, descriptionDiv);
         description.appendChild(descriptionDiv);
 
         // profile picture
         buddyPicture.appendChild(img);
 
         // name
-        addAttribute("naam", buddy.name, nameDiv);
+        addProfileAttribute("naam", buddy.name, nameDiv);
         buddyPicture.appendChild(nameDiv);
 
         // personal information
