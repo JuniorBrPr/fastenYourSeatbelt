@@ -16,6 +16,7 @@ async function loadHeader() {
 			"./assets/dynamic/_login-modal.html"
 		);
 
+
 		const session = FYSCloud.Session.get("userId");
 		const header = nav[0];
 		const footerInsert = footer[0];
@@ -1459,4 +1460,45 @@ document.querySelector("#localizationLanguageSwitch").value = initialLanguage;
 document.querySelector("#localizationLanguageSwitch").addEventListener("change", function () {
 	FYSCloud.Localization.switchLanguage(this.value);
 	FYSCloud.Session.set("language", this.value);
+	placeholderChange();
 });
+
+/**
+ * This piece of code will translate the placeholders on the contact form.
+ * @author Lucas Meester
+ */
+
+// Checking if user is on about-us page.
+function placeholderChange() {
+	let userLanguage = document.querySelector("#localizationLanguageSwitch").value;
+
+	if (window.location.pathname == "/wwwroot/about-us.html") {
+		const userName = document.querySelector(".contact-name");
+		const userEmail = document.querySelector(".contact-email");
+		const userPhone = document.querySelector(".contact-phone");
+		const userSubject = document.querySelector(".contact-subject");
+		const userQuestion = document.querySelector(".contact-text");
+
+
+		if (userLanguage === "nl") {
+			userName.setAttribute("placeholder", "Bijv. Johan de Vries");
+			userEmail.setAttribute("placeholder", "Bijv. johande@vries.nl");
+			userPhone.setAttribute("placeholder", "Bijv. 06123456789");
+			userSubject.setAttribute("placeholder", "Bijv. Buddy verloren");
+			userQuestion.setAttribute("placeholder", "Bijv. Ik ben mijn buddy verloren, hoe nu verder?");
+		} else if (userLanguage === "en") {
+			userName.setAttribute("placeholder", "E.G. John Jaden");
+			userEmail.setAttribute("placeholder", "E.G. John@jaden.com");
+			userPhone.setAttribute("placeholder", "E.G. 06123456789");
+			userSubject.setAttribute("placeholder", "E.G. Lost my buddy");
+			userQuestion.setAttribute("placeholder", "E.G. I've lost my buddy, what do I do now?");
+		} else if (userLanguage === "es") {
+			userName.setAttribute("placeholder", "PE. James Johnsen");
+			userEmail.setAttribute("placeholder", "PE. James@Johnsen.es");
+			userPhone.setAttribute("placeholder", "PE. 06123456789");
+			userSubject.setAttribute("placeholder", "PE. Amigo perdido");
+			userQuestion.setAttribute("placeholder", "PE. Perdí a mi amigo, ¿ahora qué?");
+		}
+	}
+}
+placeholderChange();

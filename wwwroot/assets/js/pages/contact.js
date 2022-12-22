@@ -75,15 +75,3 @@ async function sendEmail(input) {
                 <h4>Phone: ${input.phone}</h4>`
     });
 }
-
-const language = document.querySelector("#localizationLanguageSwitch");
-
-if (language == "nl") {
-    console.log("NL");
-} else if (language == 'en') {
-    console.log("EN");
-} else if (language == 'es') {
-    console.log("ES");
-} else {
-    console.log("Error occured");
-}
