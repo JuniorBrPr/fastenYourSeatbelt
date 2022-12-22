@@ -669,6 +669,11 @@ const translations = {
 			en: "Information",
 			es: "Información",
 		},
+		zoek: {
+			nl: "Zoek",
+			en: "Search",
+			es: "Búsqueda",
+		},
 		interestList: {
 			nl: "Interesses",
 			en: "Interests",
