@@ -60,26 +60,35 @@ function showNewPasswordInput(){
 async function handleForgotPasswordRequest(event) {
     event.preventDefault();
     let email = document.getElementById("wwvg-email");
+    console.log("checking if email is invalid");
     if(await validation.invalidEmail(email)){
         displayErrorMessageEmailInput("invalid email", "forgotPassword.page1.errorInvalidEmail");
         return 1;
     }
+    console.log("checking if email is in database");
     if(!(await database.hasEmail(email))){
         showCheckYourEmail(event);
         return 1;
     }
-    if(await database.hasForgotPasswordHash(email)){
+
+    console.log("checking if database has forgot password hash");
+    if(await database.emailHasForgotPasswordHash(email.value)){
+        console.log("deleting forgot password hash");
         if(await database.deleteForgotPasswordHash(email.value)){
             displayErrorMessageEmailInput("reset code verwijderen mislukt",
                 "forgotPassword.page1.errorResetCodeDeleteFailed");
             return 1;
         }
     }
+
     const HIGHEST_POSSIBLE_FORGOT_PASSWORD_CODE = 10000000;
+    console.log("generating forgotpassword code");
     let forgotPasswordCode = await generateForgotPasswordCode(HIGHEST_POSSIBLE_FORGOT_PASSWORD_CODE);
     let timestamp = new Date();
     let salt = await database.getSalt(email.value);
     let forgotPasswordHash = await passwordHash(forgotPasswordCode, salt);
+
+    console.log("savind passwordhash");
     if (await database.saveForgotPasswordHash(email, forgotPasswordHash, timestamp))
     {
         displayErrorMessageEmailInput("reset code in database zetten mislukt",
@@ -87,6 +96,8 @@ async function handleForgotPasswordRequest(event) {
         return 1;
     }
     let initialLanguage = FYSCloud.Session.get("language", "nl");
+
+    console.log("sending mail");
     switch (initialLanguage){
         case "en":
             if (await sendMailEnglish(email, forgotPasswordCode, salt)){
@@ -110,6 +121,8 @@ async function handleForgotPasswordRequest(event) {
             }
             break;
     }
+
+    console.log("showing check your mail page");
     showCheckYourEmail(event);
     return 0;
 }
@@ -276,7 +289,7 @@ function parseURLParams(url) {
  */
 async function generateForgotPasswordCode(length) {
     let forgotPasswordCode = Math.floor(Math.random() * length);
-    while (await database.hasForgotPasswordHash(forgotPasswordCode)){
+    while (await database.hasForgotPasswordHash(await hashForgotPasswordCode(forgotPasswordCode))){
         forgotPasswordCode = Math.floor(Math.random() * length);
     }
     return forgotPasswordCode;

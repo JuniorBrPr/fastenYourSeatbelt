@@ -35,11 +35,38 @@ export class Database {
      * @returns {Promise<boolean>} returns true if reset code is in database
      */
     async hasForgotPasswordHash(forgotPasswordHash){
-        const data = await FYSCloud.API.queryDatabase(
-            "SELECT `code` FROM `forgot_password` WHERE `code` = ?;",
-            [forgotPasswordHash]
-        );
-        return (data.length != 0);
+        try {
+            const data = await FYSCloud.API.queryDatabase(
+                "SELECT `code` FROM `forgot_password` WHERE `code` = ?;",
+                [forgotPasswordHash]
+            );
+
+            return (data.length != 0);
+        }catch (error){
+            console.error(error);
+            return 1;
+        }
+
+    }
+
+    /**
+     * check if reset code is present in database using email
+     * @param key
+     * @returns {Promise<boolean>} returns true if reset code is in database
+     */
+    async emailHasForgotPasswordHash(email){
+        try {
+            const data = await FYSCloud.API.queryDatabase(
+                "SELECT `code` FROM `forgot_password` WHERE `email` = ?;",
+                [email]
+            );
+
+            return (data.length != 0);
+        }catch (error){
+            console.error(error);
+            return 1;
+        }
+
     }
 
     /**
@@ -104,4 +131,5 @@ export class Database {
         );
         return data.length > 0;
     }
+
 }
