@@ -302,7 +302,7 @@ button.btn {
 }
 .input::placeholder {
 	font-style: italic;
-	color: var(--color-text-grey);
+	color: hsl(0, 0%, 75%);
 }
 
 /* styling of sign-up page
@@ -373,6 +373,11 @@ styling of sign-up form */
 	display: block;
 	width: fit-content;
 }
+
+[data-success] {
+	font-size: var(--base-line-height);
+}
+
 [data-success="false"] {
 	font-weight: 700;
 	color: var(--color-red);
