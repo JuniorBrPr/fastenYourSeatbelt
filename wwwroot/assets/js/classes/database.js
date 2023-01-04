@@ -91,4 +91,17 @@ export class Database {
             return 0;
         }
     }
+
+    /**
+     * check if email already has an account
+     * @param {HTMLInputElement} emailInput email input to check
+     * @returns true if email is in database false if not
+     */
+    async hasEmail(emailInput) {
+        const data = await FYSCloud.API.queryDatabase(
+            "SELECT `email` FROM `user` WHERE `email` = ?;",
+            [emailInput.value]
+        );
+        return data.length > 0;
+    }
 }
