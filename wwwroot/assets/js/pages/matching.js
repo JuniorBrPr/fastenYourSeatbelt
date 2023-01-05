@@ -18,6 +18,8 @@ const outgoingBtn = document.querySelector(".outgoing-btn");
 const btnContainer = document.querySelector(".matching-sidebar");
 let prevButton = document.querySelector(".existing-btn");
 
+const userInterestsCount = await getBuddyInterests(FYSCloud.Session.get("userId")).then((data) => data.length);
+
 //Adds an active state to the sidebar buttons when clicked, used for the decoration of the button.
 setActiveBtn(btnContainer);
 
@@ -101,6 +103,8 @@ async function populateList(buddyList, type, data) {
         emptyListMsg.innerHTML =
             FYSCloud.Session.get("userId") === undefined || null || 0
                 ? "Oh oh, je bent niet ingelogd!"
+                : userInterestsCount === 0
+                ? "Je hebt nog geen interesses aangegeven in je profielpagina!"
                 : "Deze lijst is nog leeg ;(";
 
         buddyListItem.appendChild(emptyListMsg);
