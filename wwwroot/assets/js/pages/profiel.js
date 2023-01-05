@@ -12,7 +12,8 @@ const validation = new Validation();
 const emailBtn = document.querySelector('.updateEmailBtn')
 const passwordBtn = document.querySelector('.updatePasswordBtn')
 const subBtn = document.querySelector(".saveBtn");
-const userId = FYSCloud.Session.get("userId");
+const JURIANS_PROFILE_ID = 10;
+const userId = JURIANS_PROFILE_ID;//FYSCloud.Session.get("userId");
 
 
 /*Checks if profiel_id exist otherwise it will create*/
@@ -20,12 +21,18 @@ const userId = FYSCloud.Session.get("userId");
 
 subBtn.addEventListener('click', async function (e) {
     // Check if the fields are filled in correctly
+    console.log("submit knop ingedrukt");
     if (checkFields()) {
+        console.log("checkFields() is true");
         if (await profielExist()) {
+            console.log("profielExist() is true, gaat nu await updateData(createObject()) uitvoeren");
             await updateData(createObject());
+            console.log("profielExist() is true, gaat nu updateInterest() uitvoeren");
             await updateInterest();
         } else {
+            console.log("profielExist() is false, gaat nu await submitData(createObject()) uitvoeren");
             await submitData(createObject());
+            console.log("profielExist() is false, gaat nu updateInterest() uitvoeren");
             await updateInterest();
         }
         location.reload();
@@ -50,6 +57,23 @@ passwordBtn.addEventListener('click', async function (e) {
     }
 
 });
+
+/**
+ * eventlisteners interest buttons. zorgt ervoor dat de value veranderd als je erop klikt. Dit heb ik gebaseerd op een
+ * voorbeeld uit stackoverflow:
+ * https://stackoverflow.com/questions/51778043/how-to-assign-different-value-to-each-switch-toggle-in-html
+ * @author Jurian Blommers
+ */
+/*let interestInputs = document.querySelectorAll('.interest-input');
+
+interestInputs.forEach(function(item){
+    item.addEventListener('change', function(){
+        let data = this.dataset;
+        this.value = this.checked ? data.on : data.off;
+    });
+});*/
+
+
 
 
 await dataLoad();
@@ -321,10 +345,17 @@ This function deletes the existing interest,
 * */
 async function updateInterest() {
 
-    const selectElements = document.querySelectorAll(".inter-field");
-    const updatedInterests = Array.from(selectElements).map(selectElement => selectElement.value);
-    const hasDuplicates = new Set(updatedInterests).size !== updatedInterests.length;
+    const selectElements = document.querySelectorAll(".interest-input");
+    let updatedInterests = Array.from(selectElements).map(x => {
+        if(x.checked){
+            return x.value;
+        } else {
+            return null;
+        }
+    }).filter(item => {return item != null});
+    console.log(updatedInterests);
 
+    const hasDuplicates = false;//new Set(updatedInterests).size !== updatedInterests.length;
     if (!hasDuplicates) {
         await FYSCloud.API.queryDatabase(
             "DELETE FROM user_interest WHERE profile_id = ?",
@@ -344,10 +375,10 @@ async function updateInterest() {
                 "INSERT INTO user_interest (profile_id, interest_id) VALUES (?, ?)",
                 [userId, interestId]
             );
-
-            if (updatedInterests.indexOf(interest) === 6) {
-                break;
-            }
+            //
+            // if (updatedInterests.indexOf(interest) === 6) {
+            //     break;
+            // }
         }
     }
 }
@@ -459,8 +490,8 @@ function checkFields() {
     const isValidNumber = validateNumberField("number");
     const isValidBudget = validateBudgetField("budget");
 
-    const selectElements = document.querySelectorAll(".inter-field");
-    const isValidInterest = validateInterest(selectElements);
+    //const selectElements = document.querySelectorAll(".inter-field");
+    const isValidInterest = true;//validateInterest(selectElements);
 
 
     if (isValidVoornaam && isValidAchternaam && isValidBestemming && isValidDate && isValidNumber && isValidBudget && isValidInterest) {
@@ -503,13 +534,13 @@ document.getElementById("budget").addEventListener("input", () => {
     removeErrorMessage(document.getElementById("budget"));
 });
 
-const selectElements = document.querySelectorAll(".inter-field");
+/*const selectElements = document.querySelectorAll(".inter-field");
 selectElements.forEach((element) => {
     element.addEventListener("input", () => {
         validateInterest(selectElements);
         removeErrorMessage(element);
     });
-});
+});*/
 
 
 
