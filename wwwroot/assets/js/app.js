@@ -34,7 +34,8 @@ async function loadHeader() {
 		const loginClassMobile = mobileNavInsert.querySelector(".sign-up-login-link");
 		const profileClassMobile = mobileNavInsert.querySelector(".profile-link");
 		const logoutClassMobile = mobileNavInsert.querySelector(".logout-link");
-
+		const footerLinks = footerInsert.querySelectorAll("[data-footer-link]");
+		console.log(footerLinks);
 		if (session == null) {
 			registerClass.classList.add("nav-shown");
 			registerClassMobile.classList.add("nav-shown");
@@ -54,6 +55,13 @@ async function loadHeader() {
 			logoutClass.classList.remove("nav-shown");
 			logoutClassMobile.classList.add("nav-hidden");
 			logoutClassMobile.classList.remove("nav-shown");
+			footerLinks.forEach((link) => {
+				if (link.dataset.footerLink === "loggedIn") {
+					link.classList.add("nav-hidden");
+				} else {
+					link.classList.remove("nav-hidden");
+				}
+			});
 		} else {
 			registerClass.classList.add("nav-hidden");
 			registerClassMobile.classList.add("nav-hidden");
@@ -75,6 +83,13 @@ async function loadHeader() {
 			logoutClass.classList.remove("nav-hidden");
 			logoutClassMobile.classList.add("nav-shown");
 			logoutClassMobile.classList.remove("nav-hidden");
+			footerLinks.forEach((link) => {
+				if (link.dataset.footerLink === "loggedOut") {
+					link.classList.add("nav-hidden");
+				} else {
+					link.classList.remove("nav-hidden");
+				}
+			});
 		}
 
 		if (window.location.pathname == "/wwwroot/index.html") {
@@ -1225,31 +1240,30 @@ const translations = {
 				es: "Seguir",
 			},
 			email: {
-				nl:"E-mail",
-				en:"E-mail",
-				es:"correo",
+				nl: "E-mail",
+				en: "E-mail",
+				es: "correo",
 			},
 			errorInvalidEmail: {
-				nl:"Ongeldige e-mail",
-				en:"Invalid Email",
-				es:"Email inválido",
+				nl: "Ongeldige e-mail",
+				en: "Invalid Email",
+				es: "Email inválido",
 			},
 			errorResetCodeDeleteFailed: {
-				nl:"reset code verwijderen mislukt",
-				en:"reset code removal failed",
-				es:"la eliminación del código de reinicio falló",
+				nl: "reset code verwijderen mislukt",
+				en: "reset code removal failed",
+				es: "la eliminación del código de reinicio falló",
 			},
 			errorResetCodeInsertFailed: {
-				nl:"reset code in database zetten mislukt",
-				en:"Failed to put reset code in database",
-				es:"No se pudo poner el código de reinicio en la base de datos",
+				nl: "reset code in database zetten mislukt",
+				en: "Failed to put reset code in database",
+				es: "No se pudo poner el código de reinicio en la base de datos",
 			},
 			errorSendEmailFailed: {
-				nl:"email versturen mislukt",
-				en:"Failed to send email",
-				es:"no se pudo enviar el correo electrónico",
+				nl: "email versturen mislukt",
+				en: "Failed to send email",
+				es: "no se pudo enviar el correo electrónico",
 			},
-
 		},
 		page2: {
 			title: {
@@ -1258,11 +1272,14 @@ const translations = {
 				es: "Olvidaste tu contraseña",
 			},
 			text: {
-				nl: "Goed zo! We hebben u misschien een E-mail gestuurd met een link om een" +
+				nl:
+					"Goed zo! We hebben u misschien een E-mail gestuurd met een link om een" +
 					" nieuw wachtwoord aan te maken. De instructies volgen daar verder.",
-				en: "Well done! We may have sent you an email with a link to create a new " +
+				en:
+					"Well done! We may have sent you an email with a link to create a new " +
 					"password. The instructions follow there.",
-				es: "¡Bien hecho! Es posible que le hayamos enviado un correo electrónico con" +
+				es:
+					"¡Bien hecho! Es posible que le hayamos enviado un correo electrónico con" +
 					"un enlace para crear una nueva contraseña. Las instrucciones siguen allí.",
 			},
 			button: {
@@ -1270,7 +1287,6 @@ const translations = {
 				en: "Finish",
 				es: "Finalizar",
 			},
-
 		},
 		page3: {
 			title: {
@@ -1299,11 +1315,14 @@ const translations = {
 				es: "Ahorrar",
 			},
 			errorNoResetCode: {
-				nl: "Wachtwoord aanpassen mislukt, wachtwoord is al aangepast," +
+				nl:
+					"Wachtwoord aanpassen mislukt, wachtwoord is al aangepast," +
 					" nieuw-wachtwoord-aanvraag mislukt of overschreven.",
-				en: "Password change failed, password has already been changed, " +
+				en:
+					"Password change failed, password has already been changed, " +
 					"new password request failed or overwritten",
-				es: "El cambio de contraseña falló, la contraseña ya se cambió, " +
+				es:
+					"El cambio de contraseña falló, la contraseña ya se cambió, " +
 					"la solicitud de nueva contraseña falló o se sobrescribió",
 			},
 			errorNoEmail: {
@@ -1321,13 +1340,13 @@ const translations = {
 				en: "Delete reset code failed",
 				es: "No se pudo eliminar el código de reinicio",
 			},
-			updatePasswordSuccess:{
+			updatePasswordSuccess: {
 				nl: "Wachtwoord aanpassen gelukt",
 				en: "Successfully changed password",
 				es: "Contraseña cambiada con éxito",
 			},
 		},
-		mail:{
+		mail: {
 			nl: "test",
 			en: "eng",
 			es: "gringo",
