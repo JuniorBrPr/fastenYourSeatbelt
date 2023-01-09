@@ -114,6 +114,8 @@ async function populateList(buddyList, type, data) {
 
 		if (FYSCloud.Session.get("userId") === undefined || null || 0) {
 			emptyListMsg.setAttribute("data-translate", "match.notSignedIn");
+		} else if (userInterestsCount === 0) {
+			emptyListMsg.setAttribute("data-translate", "match.noInterests");
 		} else {
 			emptyListMsg.setAttribute("data-translate", "match.emptyList");
 		}
@@ -616,8 +618,9 @@ async function getBuddyInterests(userId) {
 
 /**
  * Makes profile from buddy fulle personal with real data
- * @param {data} data object filled with user and profile fields from db.
- * @param {interests} interests object filled with interested from the user.
+ * @param {[Object]} data array filled with user and profile fields from db.
+ * @param {[Object]} interests object filled with interests from the user.
+ * @param {Image} img the user's profile picture.
  * @author Johnny Magielse
  */
 function buddyModal(data, interests, img) {
