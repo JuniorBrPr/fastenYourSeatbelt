@@ -462,7 +462,7 @@ async function loadInterests() {
 async function userIdHasInterest(interestId, userId){
     let hasInterest
     try {
-        hasInterest = await FYSCloud.API.queryDatabase("SELECT * FROM fys_is101_2_dev.user_interest WHERE profile_id=? AND interest_id=?;", [userId, interestId]);
+        hasInterest = await FYSCloud.API.queryDatabase("SELECT * FROM user_interest WHERE profile_id=? AND interest_id=?;", [userId, interestId]);
     } catch(error) {
         alert("interests laden mislukt");
         return false;
