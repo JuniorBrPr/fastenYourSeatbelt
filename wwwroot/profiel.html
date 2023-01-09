@@ -138,21 +138,23 @@ available  -->
 						<label class="p-label" for="budget" data-translate="profile.budget">
 							Budget
 						</label>
+						<span class="currency">
 						<input
 							class="profiel-field w-100"
 							type="text"
 							id="budget"
-							name="budget" />
+							name="budget" /></span>
 					</div>
 					<div class="profiel-container">
 						<label class="p-label" for="number" data-translate="profile.number">
 							number
 						</label>
-						<input
-							class="profiel-field w-100"
+							<input
+							class="profiel-field w-100 "
 							type="text"
 							id="number"
-							name="number" />
+							name="number"
+							pattern="/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/"/>
 					</div>
 				</div>
 				<div class="opslaan-container">

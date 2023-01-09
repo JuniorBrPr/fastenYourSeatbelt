@@ -1233,6 +1233,19 @@ footer {
 	cursor: pointer;
 	font-size: var(--small-font-size);
 	font-family: "Open Sans", sans-serif;
+	min-width: 150px;
+}
+
+.delete-account-btn{
+	display: block;
+	padding: 5px 12px;
+	text-decoration: none;
+	margin: 15px 2px;
+	cursor: pointer;
+	font-size: var(--small-font-size);
+	font-family: "Open Sans", sans-serif;
+	min-width: 150px;
+
 }
 
 .h1-mijn-profiel {
@@ -1246,6 +1259,24 @@ footer {
 
 .opslaan-container button {
 	float: left;
+}
+
+.currency {
+	position: relative;
+}
+.currency input {
+	padding-left:18px;
+}
+
+.currency:before {
+	position: absolute;
+	margin-top:5px;
+	content:"€";
+	padding-right: 100px;
+}
+
+.currency:before {
+	left: 5px;
 }
 
 /* Mijn profiel foto card*/
@@ -1270,6 +1301,7 @@ footer {
 }
 .upload-file-btn {
 	font-size: var(--small-font-size);
+	min-width: 150px;
 }
 .upload-file-btn + input[type="file"] {
 	display: none;
@@ -1834,7 +1866,7 @@ footer {
 	.bio-textarea,
 	.profiel-field {
 		width: auto;
-		min-width: 50%;
+		min-width: 100%;
 	}
 
 	/* Buddy matching*/

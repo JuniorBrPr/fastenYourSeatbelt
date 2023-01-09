@@ -1344,39 +1344,3 @@ document.querySelector("#localizationLanguageSwitch").addEventListener("change",
 	FYSCloud.Localization.switchLanguage(this.value);
 	FYSCloud.Session.set("language", this.value);
 });
-
-//currency
-var currencyInput = document.querySelector("#budget")
-var currency = 'EUR'
-
-// format inital value
-onBlur({target:currencyInput})
-
-// bind event listeners
-currencyInput.addEventListener('focus', onFocus)
-currencyInput.addEventListener('blur', onBlur)
-
-//currency regex checker
-function localStringToNumber( s ){
-	return Number(String(s).replace(/[^0-9.-]+/g,""))
-}
-
-function onFocus(e){
-	var value = e.target.value;
-	e.target.value = value ? localStringToNumber(value) : ''
-}
-
-function onBlur(e){
-	var value = e.target.value
-
-	var options = {
-		maximumFractionDigits : 2,
-		currency              : currency,
-		style                 : "currency",
-		currencyDisplay       : "symbol"
-	}
-
-	e.target.value = (value || value === 0)
-		? localStringToNumber(value).toLocaleString(undefined, options)
-		: ''
-}
