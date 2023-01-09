@@ -1209,10 +1209,11 @@ footer {
 
 .interest-container {
 	border-radius: 10px;
-	border: 2px solid var(--color-text-grey);
+	border: 1px solid var(--color-text-grey);
 	display: inline-block;
 	position: relative;
 	cursor: pointer;
+	margin-bottom: 5px;
 }
 .checkmark {
 	padding: 5px;
@@ -1226,6 +1227,16 @@ footer {
 
 .interest-container input:checked ~ .checkmark {
 	background-color: var(--color-btn-green);
+	color: white;
+}
+
+.interests-container-board{
+	width: 500px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 2px;
+	line-height: normal;
 }
 
 

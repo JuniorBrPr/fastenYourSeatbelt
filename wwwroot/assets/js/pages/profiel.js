@@ -12,8 +12,8 @@ const validation = new Validation();
 const emailBtn = document.querySelector('.updateEmailBtn')
 const passwordBtn = document.querySelector('.updatePasswordBtn')
 const subBtn = document.querySelector(".saveBtn");
-const JURIANS_PROFILE_ID = 10;
-const userId = JURIANS_PROFILE_ID;//FYSCloud.Session.get("userId");
+// const JURIANS_PROFILE_ID = 10;
+const userId = FYSCloud.Session.get("userId");
 
 
 /*Checks if profiel_id exist otherwise it will create*/
@@ -21,18 +21,12 @@ const userId = JURIANS_PROFILE_ID;//FYSCloud.Session.get("userId");
 
 subBtn.addEventListener('click', async function (e) {
     // Check if the fields are filled in correctly
-    console.log("submit knop ingedrukt");
     if (checkFields()) {
-        console.log("checkFields() is true");
         if (await profielExist()) {
-            console.log("profielExist() is true, gaat nu await updateData(createObject()) uitvoeren");
             await updateData(createObject());
-            console.log("profielExist() is true, gaat nu updateInterest() uitvoeren");
             await updateInterest();
         } else {
-            console.log("profielExist() is false, gaat nu await submitData(createObject()) uitvoeren");
             await submitData(createObject());
-            console.log("profielExist() is false, gaat nu updateInterest() uitvoeren");
             await updateInterest();
         }
         location.reload();
@@ -131,6 +125,8 @@ async function dataLoad() {
 
     }
 
+    loadInterests();
+
     /*Load all data in the right fields on Profile page*/
 
     function loadData(data) {
@@ -172,10 +168,10 @@ async function dataLoad() {
     }
 }
 
+
 /*Submit data to the database if user has a profile*/
 
 async function updateData(data) {
-    console.log(data.startDate);
     data.bday = FYSCloud.Utils.toSqlDatetime(new Date(data.bday));
     data.startDate = FYSCloud.Utils.toSqlDatetime(new Date(data.startDate));
     data.endDate = FYSCloud.Utils.toSqlDatetime(new Date(data.endDate));
@@ -353,7 +349,6 @@ async function updateInterest() {
             return null;
         }
     }).filter(item => {return item != null});
-    console.log(updatedInterests);
 
     const hasDuplicates = false;//new Set(updatedInterests).size !== updatedInterests.length;
     if (!hasDuplicates) {
@@ -456,11 +451,11 @@ function validateBudgetField(fieldId) {
         return false;
     }
 }
-loadInterests();
+
 
 async function loadInterests() {
     let interests;
-    let interestsContainer = document.getElementById("interests-container");
+    let interestsContainerBoard = document.getElementById("interests-container-board");
     try {
         interests = await FYSCloud.API.queryDatabase(
             "SELECT * FROM interest"
@@ -470,15 +465,34 @@ async function loadInterests() {
         return 1;
     }
     for (let i = 0; i < interests.length; i++) {
-        interestsContainer.appendChild(
-            createInterestContainer(interests[i].interest_name, interests[i].interestId)
+        interestsContainerBoard.appendChild(
+            createInterestContainer(interests[i].interest_name, interests[i].interest_id)
         );
+        let hasInterest = await userIdHasInterest(interests[i].interest_id, userId);
+        if(hasInterest == true) {
+            document.getElementById("inter-field-" + interests[i].interest_id).checked = true;
+        } else {
+
+            document.getElementById("inter-field-" + interests[i].interest_id).checked = false;
+        }
     }
 
 
 }
 
-// document.getElementById("interests-container").appendChild(createInterestContainer( "test interesse", 1));
+async function userIdHasInterest(interestId, userId){
+    let hasInterest
+    try {
+        hasInterest = await FYSCloud.API.queryDatabase("SELECT * FROM fys_is101_2_dev.user_interest WHERE profile_id=? AND interest_id=?;", [userId, interestId]);
+    } catch(error) {
+        alert("interests laden mislukt");
+        return false;
+    }
+    let returnValue = (hasInterest.length != 0);
+
+
+    return returnValue;
+}
 
 /**
  * Create and return container for message text with text inserted.
