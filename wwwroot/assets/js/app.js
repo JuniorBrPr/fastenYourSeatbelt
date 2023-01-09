@@ -1356,7 +1356,7 @@ onBlur({target:currencyInput})
 currencyInput.addEventListener('focus', onFocus)
 currencyInput.addEventListener('blur', onBlur)
 
-//Legit currency regex
+//currency regex checker
 function localStringToNumber( s ){
 	return Number(String(s).replace(/[^0-9.-]+/g,""))
 }
