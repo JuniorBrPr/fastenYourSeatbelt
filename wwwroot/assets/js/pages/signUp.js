@@ -114,6 +114,11 @@ signUpForm.addEventListener("submit", async (e) => {
 				input.value = "";
 			});
 			FYSCloud.Localization.translate();
+			//login user after sign up
+			setTimeout(() => {
+				FYSCloud.Session.set("userId", data.insertId);
+				FYSCloud.URL.redirect("profiel.html");
+			}, 1000);
 		} else {
 			throw "Submit Error";
 		}
