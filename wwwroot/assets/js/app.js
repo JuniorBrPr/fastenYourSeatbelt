@@ -16,7 +16,6 @@ async function loadHeader() {
 			"./assets/dynamic/_login-modal.html"
 		);
 
-
 		const session = FYSCloud.Session.get("userId");
 		const header = nav[0];
 		const footerInsert = footer[0];
@@ -36,7 +35,7 @@ async function loadHeader() {
 		const profileClassMobile = mobileNavInsert.querySelector(".profile-link");
 		const logoutClassMobile = mobileNavInsert.querySelector(".logout-link");
 		const footerLinks = footerInsert.querySelectorAll("[data-footer-link]");
-		console.log(footerLinks);
+
 		if (session == null) {
 			registerClass.classList.add("nav-shown");
 			registerClassMobile.classList.add("nav-shown");
@@ -539,9 +538,9 @@ const translations = {
 			fullName: {
 				nl: "Bijv. Jan Knops",
 				en: "F.E. John Moose",
-				es: "P.E. Juan Tier"
-			}
-		}
+				es: "P.E. Juan Tier",
+			},
+		},
 	},
 	//Translate matching
 	match: {
@@ -578,7 +577,7 @@ const translations = {
 		notSignedIn: {
 			nl: "Oh oh, je bent niet ingelogd!",
 			en: "Oh oh, you're not signed in!",
-			es: "¡Oh oh, no has iniciado sesión!"
+			es: "¡Oh oh, no has iniciado sesión!",
 		},
 		naam: {
 			nl: "Naam",
@@ -623,7 +622,7 @@ const translations = {
 		accepteerVerzoek: {
 			nl: "Verzoek accepteren",
 			en: "Accept request",
-			es: "Aceptar petición"
+			es: "Aceptar petición",
 		},
 		weigerVerzoek: {
 			nl: "Verzoek weigeren",
@@ -676,9 +675,9 @@ const translations = {
 			es: "Numero",
 		},
 		email: {
-			nl:"E-mail",
-			en:"E-mail",
-			es:"Correo",
+			nl: "E-mail",
+			en: "E-mail",
+			es: "Correo",
 		},
 		info: {
 			nl: "Informatie",
@@ -1357,15 +1356,9 @@ const translations = {
 				es: "Seguir",
 			},
 			email: {
-<<<<<<< HEAD
-				nl:"E-mail",
-				en:"E-mail",
-				es:"Correo",
-=======
 				nl: "E-mail",
 				en: "E-mail",
-				es: "correo",
->>>>>>> main
+				es: "Correo",
 			},
 			errorInvalidEmail: {
 				nl: "Ongeldige e-mail",
@@ -1373,35 +1366,19 @@ const translations = {
 				es: "Email inválido",
 			},
 			errorResetCodeDeleteFailed: {
-<<<<<<< HEAD
-				nl:"Reset code verwijderen mislukt",
-				en:"Reset code removal failed",
-				es:"La eliminación del código de reinicio falló",
+				nl: "Reset code verwijderen mislukt",
+				en: "Reset code removal failed",
+				es: "La eliminación del código de reinicio falló",
 			},
 			errorResetCodeInsertFailed: {
-				nl:"Reset code in database zetten mislukt",
-				en:"Failed to put reset code in database",
-				es:"No se pudo poner el código de reinicio en la base de datos",
-			},
-			errorSendEmailFailed: {
-				nl:"Email versturen mislukt",
-				en:"Failed to send email",
-				es:"No se pudo enviar el correo electrónico",
-=======
-				nl: "reset code verwijderen mislukt",
-				en: "reset code removal failed",
-				es: "la eliminación del código de reinicio falló",
-			},
-			errorResetCodeInsertFailed: {
-				nl: "reset code in database zetten mislukt",
+				nl: "Reset code in database zetten mislukt",
 				en: "Failed to put reset code in database",
 				es: "No se pudo poner el código de reinicio en la base de datos",
 			},
 			errorSendEmailFailed: {
-				nl: "email versturen mislukt",
+				nl: "Email versturen mislukt",
 				en: "Failed to send email",
-				es: "no se pudo enviar el correo electrónico",
->>>>>>> main
+				es: "No se pudo enviar el correo electrónico",
 			},
 		},
 		page2: {
@@ -1411,17 +1388,11 @@ const translations = {
 				es: "Olvidaste tu contraseña",
 			},
 			text: {
-<<<<<<< HEAD
-				nl: "Goed zo! We hebben u een E-mail gestuurd met een link om een" +
-					" nieuw wachtwoord aan te maken. De instructies volgen daar verder.",
-				en: "Well done! We have sent you an email with a link to create a new " +
-=======
 				nl:
-					"Goed zo! We hebben u misschien een E-mail gestuurd met een link om een" +
+					"Goed zo! We hebben u een E-mail gestuurd met een link om een" +
 					" nieuw wachtwoord aan te maken. De instructies volgen daar verder.",
 				en:
-					"Well done! We may have sent you an email with a link to create a new " +
->>>>>>> main
+					"Well done! We have sent you an email with a link to create a new " +
 					"password. The instructions follow there.",
 				es:
 					"¡Bien hecho! Es posible que le hayamos enviado un correo electrónico con" +
@@ -1460,17 +1431,11 @@ const translations = {
 				es: "Ahorrar",
 			},
 			errorNoResetCode: {
-<<<<<<< HEAD
-				nl: "Wachtwoord aanpassen mislukt, wachtwoord is al aangepast," +
-					"nieuw-wachtwoord-aanvraag mislukt of overschreven.",
-				en: "Password change failed, password has already been changed, " +
-=======
 				nl:
 					"Wachtwoord aanpassen mislukt, wachtwoord is al aangepast," +
-					" nieuw-wachtwoord-aanvraag mislukt of overschreven.",
+					"nieuw-wachtwoord-aanvraag mislukt of overschreven.",
 				en:
 					"Password change failed, password has already been changed, " +
->>>>>>> main
 					"new password request failed or overwritten",
 				es:
 					"El cambio de contraseña falló, la contraseña ya se cambió, " +
@@ -1497,17 +1462,10 @@ const translations = {
 				es: "Contraseña cambiada con éxito",
 			},
 		},
-<<<<<<< HEAD
-		mail:{
+		mail: {
 			nl: "Test",
 			en: "Eng",
 			es: "Gringo",
-=======
-		mail: {
-			nl: "test",
-			en: "eng",
-			es: "gringo",
->>>>>>> main
 		},
 	},
 };
@@ -1539,19 +1497,24 @@ function placeholderChange() {
 		const userSubject = document.querySelector(".contact-subject");
 		const userQuestion = document.querySelector(".contact-text");
 
-
 		if (userLanguage === "nl") {
 			userName.setAttribute("placeholder", "Bijv. Johan de Vries");
 			userEmail.setAttribute("placeholder", "Bijv. johande@vries.nl");
 			userPhone.setAttribute("placeholder", "Bijv. 06123456789");
 			userSubject.setAttribute("placeholder", "Bijv. Buddy verloren");
-			userQuestion.setAttribute("placeholder", "Bijv. Ik ben mijn buddy verloren, hoe nu verder?");
+			userQuestion.setAttribute(
+				"placeholder",
+				"Bijv. Ik ben mijn buddy verloren, hoe nu verder?"
+			);
 		} else if (userLanguage === "en") {
 			userName.setAttribute("placeholder", "E.G. John Jaden");
 			userEmail.setAttribute("placeholder", "E.G. John@jaden.com");
 			userPhone.setAttribute("placeholder", "E.G. 06123456789");
 			userSubject.setAttribute("placeholder", "E.G. Lost my buddy");
-			userQuestion.setAttribute("placeholder", "E.G. I've lost my buddy, what do I do now?");
+			userQuestion.setAttribute(
+				"placeholder",
+				"E.G. I've lost my buddy, what do I do now?"
+			);
 		} else if (userLanguage === "es") {
 			userName.setAttribute("placeholder", "PE. James Johnsen");
 			userEmail.setAttribute("placeholder", "PE. James@Johnsen.es");
