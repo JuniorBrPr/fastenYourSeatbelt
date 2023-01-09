@@ -1207,6 +1207,40 @@ footer {
 	padding-inline-start: 6px;
 }
 
+.interest-container {
+	border-radius: 10px;
+	border: 2px solid var(--color-text-grey);
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+}
+.checkmark {
+	padding: 5px;
+	border-radius: 9px;
+	display: inline-block;
+}
+
+.interest-container:hover {
+	background-color: var(--color-bg-grey);
+}
+
+.interest-container input:checked ~ .checkmark {
+	background-color: var(--color-btn-green);
+}
+
+
+
+/* Hide the browser's default checkbox */
+.interest-container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+/*inetrest end*/
+
 .inter-field {
 	margin-bottom: 20px;
 	margin-right: 10px;

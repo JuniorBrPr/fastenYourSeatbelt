@@ -456,6 +456,62 @@ function validateBudgetField(fieldId) {
         return false;
     }
 }
+loadInterests();
+
+async function loadInterests() {
+    let interests;
+    let interestsContainer = document.getElementById("interests-container");
+    try {
+        interests = await FYSCloud.API.queryDatabase(
+            "SELECT * FROM interest"
+        )
+    } catch(error) {
+        alert("interests laden mislukt");
+        return 1;
+    }
+    for (let i = 0; i < interests.length; i++) {
+        interestsContainer.appendChild(
+            createInterestContainer(interests[i].interest_name, interests[i].interestId)
+        );
+    }
+
+
+}
+
+// document.getElementById("interests-container").appendChild(createInterestContainer( "test interesse", 1));
+
+/**
+ * Create and return container for message text with text inserted.
+ *
+ * @param messageText text to be inserted in element
+ * @returns {HTMLParagraphElement} p element with text
+ */
+function createInterestContainer(interestName, interestId) {
+    let interestContainer = document.createElement("label");
+    interestContainer.classList.add("interest-container");
+    interestContainer.appendChild(createInterestInput(interestId, interestName));
+    interestContainer.appendChild(createInterestSpan(interestName));
+    return interestContainer;
+}
+
+
+function createInterestInput(interestId, interestName){
+    let interestInput = document.createElement("input");
+    interestInput.classList.add("interest-input");
+    interestInput.setAttribute("id","inter-field-" + interestId);
+    interestInput.setAttribute("value", interestName);
+    interestInput.setAttribute("type", "checkbox");
+    return interestInput;
+}
+
+function createInterestSpan(interestName){
+    let interestSpan = document.createElement("span");
+    interestSpan.setAttribute("class", "checkmark");
+    interestSpan.innerText = interestName;
+    return interestSpan;
+}
+
+
 
 function validateInterest() {
     const selectElements = document.querySelectorAll(".inter-field");
