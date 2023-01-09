@@ -1084,7 +1084,7 @@ footer {
 	min-width: 16ch;
 }
 
-#pagina1 #pagina2 #pagina3 {
+#emailInputPage #checkYourEmailMessagePage #newPasswordInputPage {
 	display: none;
 }
 
