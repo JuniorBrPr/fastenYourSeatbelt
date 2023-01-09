@@ -237,6 +237,7 @@ button.btn {
 /* Minimum width for button */
 .register-btn,
 .login-btn,
+.profile-btn,
 .language-switch {
 	min-width: 14ch;
 }
@@ -253,9 +254,7 @@ button.btn {
 .language-switch {
 	text-align: center;
 }
-.language-switch option:first-child {
-	padding-top: 16px;
-}
+
 .nav-shown {
 	display: visible;
 }
@@ -303,7 +302,7 @@ button.btn {
 }
 .input::placeholder {
 	font-style: italic;
-	color: var(--color-text-grey);
+	color: hsl(0, 0%, 75%);
 }
 
 /* styling of sign-up page
@@ -374,6 +373,11 @@ styling of sign-up form */
 	display: block;
 	width: fit-content;
 }
+
+[data-success] {
+	font-size: var(--base-line-height);
+}
+
 [data-success="false"] {
 	font-weight: 700;
 	color: var(--color-red);
@@ -800,6 +804,8 @@ footer {
 	width: 90px;
 	height: 90px;
 	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
 }
 
 .buddy-attr-container {
@@ -873,6 +879,7 @@ footer {
 	z-index: 1000;
 	min-width: 100%;
 	min-height: 100%;
+	background-color: rgba(0, 0, 0, 0.35);
 }
 
 .login {
@@ -1077,14 +1084,18 @@ footer {
 	min-width: 16ch;
 }
 
-@media (max-width: 1000px) {
-	.wwvg-main {
-		background-color: #0f0;
-		/*flex-direction: row;*/
-	}
-	.wwvg-form {
-		width: 95vw;
-	}
+#pagina1 #pagina2 #pagina3 {
+	display: none;
+}
+
+#errorMessageContainerPage3 {
+	display: none;
+}
+
+.wwvg-error-message {
+	padding: 10px;
+	color: var(--color-red);
+	font-size: var(--small-font-size);
 }
 
 /* contact styling */
@@ -1264,7 +1275,7 @@ footer {
 	margin: 15px 2px;
 	cursor: pointer;
 	font-size: var(--small-font-size);
-	font-family: "open sans", sans-serif;
+	font-family: "Open Sans", sans-serif;
 }
 
 .h1-mijn-profiel {
@@ -1399,7 +1410,6 @@ footer {
 	transition: 0.4s, transform 0.4s;
 	border-radius: 50%;
 }
-
 .error-message {
 	font-weight: bold;
 	color: #ff0800;
@@ -1596,11 +1606,6 @@ footer {
 		top: 100%;
 		width: max-content;
 	}
-	/* Shrinks the navbar font-size and btn size to ensure that it can go down to ipad/tablet size */
-	.link-text {
-		font-size: var(--small-font-size);
-	}
-
 	/* about us page */
 	.corenbuddy-content-container {
 		flex-direction: column;
@@ -1889,98 +1894,10 @@ footer {
 		width: 150px;
 	}
 }
+
 @media screen and (max-width: 350px) {
 	.logo {
 		width: 125px;
-	}
-}
-
-@media screen and (max-width: 850px) {
-	.filter-form {
-		margin-left: 45px;
-	}
-
-	/* Shrinks the navbar font-size and btn size to ensure that it can go down to ipad/tablet size */
-	.link-text {
-		font-size: var(--small-font-size);
-	}
-
-	/* about us page */
-	.corenbuddy-content-container {
-		flex-direction: column;
-		gap: 10px;
-	}
-
-	.corenbuddy-text {
-		width: 90%;
-	}
-
-	.history-card {
-		grid-column: 1 / 4;
-		grid-row: 2 / 2;
-	}
-	.who-are-we-card {
-		grid-column: 1 / 4;
-		grid-row: 3 / 3;
-	}
-
-	.corenbuddy-text {
-		width: 100%;
-	}
-
-	.corenbuddy-btn {
-		margin-top: 10px;
-		margin-bottom: 0;
-	}
-
-	/*contact styling */
-	.contact-text {
-		width: 275px;
-	}
-
-	.fr-1 {
-		grid-column: 1 / 2;
-		grid-row: 1 / 2;
-	}
-
-	.fr-2 {
-		grid-column: 1 / 2;
-		grid-row: 2 / 3;
-	}
-
-	.fr-3 {
-		grid-column: 1 / 2;
-		grid-row: 3 / 4;
-	}
-
-	.contact-name,
-	.contact-phone,
-	.contact-email,
-	.contact-subject {
-		width: 275px;
-	}
-
-	.matching-sidebar .btn {
-		min-width: 120px;
-	}
-
-	.matching-sidebar .btn .btn-text {
-		font-size: var(--small-font-size);
-	}
-
-	.matching-matches {
-		align-items: center;
-		margin: 25px auto;
-	}
-}
-
-@media screen and (max-width: 500px) {
-	.filter-div {
-		margin-right: -30px;
-	}
-	.filter-form {
-		padding: 7px;
-		margin-left: 0;
 	}
 }
 
