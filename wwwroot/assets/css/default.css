@@ -1270,9 +1270,10 @@ footer {
 
 .currency:before {
 	position: absolute;
-	margin-top:5px;
+	top: 50%;
+	transform: translateY(-50%);
 	content:"€";
-	padding-right: 100px;
+
 }
 
 .currency:before {
