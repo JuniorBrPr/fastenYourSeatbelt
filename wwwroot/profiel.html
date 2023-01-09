@@ -33,7 +33,7 @@ available  -->
 		<script type="module" defer src="assets/js/pages/profiel.js	"></script>
 	</head>
 	<body>
-		<main class="profiel-main justify-c">
+		<main class="profiel-main d-flex justify-c">
 			<form class="profiel align-c" action="results.html" method="GET">
 				<h1 class="h1-mijn-profiel" data-translate="profile.myProfile">
 					Mijn Profiel
@@ -138,23 +138,21 @@ available  -->
 						<label class="p-label" for="budget" data-translate="profile.budget">
 							Budget
 						</label>
-						<span class="currency">
 						<input
 							class="profiel-field w-100"
 							type="text"
 							id="budget"
-							name="budget" /></span>
+							name="budget" />
 					</div>
 					<div class="profiel-container">
 						<label class="p-label" for="number" data-translate="profile.number">
 							number
 						</label>
-							<input
-							class="profiel-field w-100 "
+						<input
+							class="profiel-field w-100"
 							type="text"
 							id="number"
-							name="number"
-							pattern="/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/"/>
+							name="number" />
 					</div>
 				</div>
 				<div class="opslaan-container">
