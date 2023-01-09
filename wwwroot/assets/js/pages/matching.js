@@ -618,8 +618,8 @@ async function getBuddyInterests(userId) {
 
 /**
  * Makes profile from buddy fulle personal with real data
- * @param {[Object]} data array filled with user and profile fields from db.
- * @param {[Object]} interests object filled with interests from the user.
+ * @param {Object} data object filled with user and profile fields from db.
+ * @param {[Object]} interests object array filled with interests from the user.
  * @param {Image} img the user's profile picture.
  * @author Johnny Magielse
  */
