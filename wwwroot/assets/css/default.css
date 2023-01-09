@@ -642,7 +642,7 @@ footer {
 	background-color: var(--color-white);
 }
 
-.flex-container {
+.footer-container {
 	display: flex;
 	border-top: 15px solid var(--color-red);
 }
@@ -680,6 +680,7 @@ footer {
 	position: absolute;
 	right: 2%;
 	margin-top: 15px;
+	margin-left: 15px;
 }
 
 /* Styling buddy matching */
@@ -1064,7 +1065,7 @@ footer {
 
 .wwvg-form {
 	min-height: 80vh;
-	min-width: 1000px;
+	min-width: 85%;
 	/*max-width: 100vw;*/
 	/*align-items: center;*/
 	padding-inline: 2vw;
@@ -1175,6 +1176,7 @@ footer {
 .profiel-main {
 	margin: 40px;
 	gap: 10px 60px;
+	display: flex;
 }
 
 /* Profiel form input field  */
@@ -1525,6 +1527,13 @@ footer {
 	.buddy-list-item {
 		width: 100%;
 	}
+
+	/* Profiel form */
+	.profiel-main {
+		margin: 40px;
+		gap: 10px 60px;
+		display: grid;
+	}
 }
 
 @media screen and (max-width: 850px) {
@@ -1554,6 +1563,12 @@ footer {
 
 	.footer-link-block {
 		margin-left: 10px;
+	}
+
+	.socialMedia {
+		position: static;
+		margin-top: 15px;
+		margin-left: 15px;
 	}
 
 	.copyright {
