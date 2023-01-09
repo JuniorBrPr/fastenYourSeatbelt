@@ -34,6 +34,16 @@ await populateList(
 
 //Button to switch to the list of existing buddy's
 existingBtn.addEventListener("click", async () => {
+<<<<<<< HEAD
+    matchingHeaderTitleText.setAttribute("data-translate", "match.existingBuddy");
+    await populateList(
+        buddyList,
+        "existing",
+        await getExistingBuddies(FYSCloud.Session.get("userId"))
+    );
+    document.querySelector(".filter-div").style.display = "none";
+    FYSCloud.Localization.translate();
+=======
 	matchingHeaderTitleText.innerHTML = "Corenbuddy’s";
 	await populateList(
 		buddyList,
@@ -41,10 +51,21 @@ existingBtn.addEventListener("click", async () => {
 		await getExistingBuddies(FYSCloud.Session.get("userId"))
 	);
 	document.querySelector(".filter-div").style.display = "none";
+>>>>>>> main
 });
 
 //Button to switch to the list of suggested buddies
 suggestedBtn.addEventListener("click", async () => {
+<<<<<<< HEAD
+    matchingHeaderTitleText.setAttribute("data-translate", "match.suggestedMatch");
+    await populateList(
+        buddyList,
+        "suggested",
+        await getRecommendedBuddies(FYSCloud.Session.get("userId"))
+    );
+    document.querySelector(".filter-div").style.display = "block";
+    FYSCloud.Localization.translate();
+=======
 	matchingHeaderTitleText.innerHTML = "Voorgestelde Corenbuddy’s";
 	await populateList(
 		buddyList,
@@ -52,10 +73,21 @@ suggestedBtn.addEventListener("click", async () => {
 		await getRecommendedBuddies(FYSCloud.Session.get("userId"))
 	);
 	document.querySelector(".filter-div").style.display = "block";
+>>>>>>> main
 });
 
 //Button to switch to the list of incoming buddy requests
 incomingBtn.addEventListener("click", async () => {
+<<<<<<< HEAD
+    matchingHeaderTitleText.setAttribute("data-translate", "match.incomingRequest");
+    await populateList(
+        buddyList,
+        "incoming",
+        await getIncomingBuddyRequests(FYSCloud.Session.get("userId"))
+    );
+    document.querySelector(".filter-div").style.display = "none";
+    FYSCloud.Localization.translate();
+=======
 	matchingHeaderTitleText.innerHTML = "Inkomendende buddy verzoeken";
 	await populateList(
 		buddyList,
@@ -63,10 +95,21 @@ incomingBtn.addEventListener("click", async () => {
 		await getIncomingBuddyRequests(FYSCloud.Session.get("userId"))
 	);
 	document.querySelector(".filter-div").style.display = "none";
+>>>>>>> main
 });
 
 //Button to switch to the list of outgoing buddy requests
 outgoingBtn.addEventListener("click", async () => {
+<<<<<<< HEAD
+    matchingHeaderTitleText.setAttribute("data-translate", "match.outgoingRequest");
+    await populateList(
+        buddyList,
+        "outgoing",
+        await getOutgoingBuddyRequests(FYSCloud.Session.get("userId"))
+    );
+    document.querySelector(".filter-div").style.display = "none";
+    FYSCloud.Localization.translate();
+=======
 	matchingHeaderTitleText.innerHTML = "Uitgaande buddy verzoeken";
 	await populateList(
 		buddyList,
@@ -74,16 +117,28 @@ outgoingBtn.addEventListener("click", async () => {
 		await getOutgoingBuddyRequests(FYSCloud.Session.get("userId"))
 	);
 	document.querySelector(".filter-div").style.display = "none";
+>>>>>>> main
 });
 
 // hides modal and deletes data fields otherwise they duplicate
 buddyProfileCloseBtn.addEventListener("click", () => {
+<<<<<<< HEAD
+    matchingHeaderTitleText.setAttribute("data-translate", "match.buddyProfile");
+    buddyProfile.style.display = "none";
+
+    const remove = (sel) => document.querySelectorAll(sel).forEach((el) => el.remove());
+    remove(".interests");
+    remove(".biography");
+    remove(".username, .buddy-image");
+    FYSCloud.Localization.translate();
+=======
 	buddyProfile.style.display = "none";
 
 	const remove = (sel) => document.querySelectorAll(sel).forEach((el) => el.remove());
 	remove(".interests");
 	remove(".biography");
 	remove(".username, .buddy-image");
+>>>>>>> main
 });
 
 /**
@@ -106,12 +161,20 @@ async function populateList(buddyList, type, data) {
 		const emptyListMsg = document.createElement("h2");
 		emptyListMsg.className = "empty-buddy-list";
 
+<<<<<<< HEAD
+        if(FYSCloud.Session.get("userId") === undefined || null || 0) {
+            emptyListMsg.setAttribute("data-translate", "match.notSignedIn");
+        } else {
+            emptyListMsg.setAttribute("data-translate", "match.emptyList");
+        }
+=======
 		emptyListMsg.innerHTML =
 			FYSCloud.Session.get("userId") === undefined || null || 0
 				? "Oh oh, je bent niet ingelogd!"
 				: userInterestsCount === 0
 				? "Je hebt nog geen interesses aangegeven in je profielpagina!"
 				: "Deze lijst is nog leeg ;(";
+>>>>>>> main
 
 		buddyListItem.appendChild(emptyListMsg);
 		buddyList.appendChild(buddyListItem);
@@ -132,6 +195,23 @@ async function populateList(buddyList, type, data) {
 		fileSystem.refreshPhoto(await fileSystem.getPhoto(buddy.userid), buddyImg);
 		buddyAttributeContainer.appendChild(buddyImg);
 
+<<<<<<< HEAD
+        //Add the name of the buddy
+        addAttribute("naam", buddy.name, buddyAttributeContainer);
+
+        //Add the preferred destination of the buddy
+        addAttribute("bestemming", buddy.destination, buddyAttributeContainer);
+
+        //Add the time expenditure of the buddy
+        addAttribute("tijdsbestek", buddy.timeframe + " dagen", buddyAttributeContainer);
+
+        //Add the amount of common interests with the buddy
+        addAttribute(
+            "gemeenschappelijkeInteresses",
+            buddy.commonInterests,
+            buddyAttributeContainer
+        );
+=======
 		//Add the name of the buddy
 		addAttribute("Naam", buddy.name, buddyAttributeContainer);
 
@@ -147,17 +227,26 @@ async function populateList(buddyList, type, data) {
 			buddy.commonInterests,
 			buddyAttributeContainer
 		);
+>>>>>>> main
 
 		//Add the container which will hold the buttons for the buddy list item
 		const btnContainer = document.createElement("div");
 		btnContainer.className = "buddy-btn-container w-100";
 		buddyListItem.appendChild(btnContainer);
 
+<<<<<<< HEAD
+        const buddyProfileBtn = addButton(
+            "profielBekijken",
+            "buddy-profile-btn",
+            btnContainer
+        );
+=======
 		const buddyProfileBtn = addButton(
 			"Profiel bekijken",
 			"buddy-profile-btn",
 			btnContainer
 		);
+>>>>>>> main
 
 		// Onclick make the buddy profile modal visible and personal fields invisible
 		buddyProfileBtn.addEventListener("click", async () => {
@@ -178,23 +267,40 @@ async function populateList(buddyList, type, data) {
 			buddyProfile.style.display = "block";
 		});
 
+<<<<<<< HEAD
+        /*
+         * If buddy type = "existing", add a "book a trip" button to the buddy
+         * and also add a "delete buddy" button to the buddy list item.
+         */
+        if (type === "existing") {
+            const bookTripBtn = addButton("reisBoeken", "buddy-book-btn", btnContainer);
+=======
 		/*
 		 * If buddy type = "existing", add a "book a trip" button to the buddy
 		 * and also add a "delete buddy" button to the buddy list item.
 		 */
 		if (type === "existing") {
 			const bookTripBtn = addButton("Boek een reis!", "buddy-book-btn", btnContainer);
+>>>>>>> main
 
 			//The "book a trip" button redirects to the corendon website.
 			bookTripBtn.addEventListener("click", () => {
 				location.href = "https:////www.corendon.nl";
 			});
 
+<<<<<<< HEAD
+            const buddyDelete = addButton(
+                "verwijderBuddy",
+                "btn-red buddy-delete-btn",
+                btnContainer
+            );
+=======
 			const buddyDelete = addButton(
 				"Buddy verwijderen",
 				"btn-red buddy-delete-btn",
 				btnContainer
 			);
+>>>>>>> main
 
 			buddyDelete.addEventListener("click", async () => {
 				if (confirm("Buddy verwijderen?")) {
@@ -206,6 +312,15 @@ async function populateList(buddyList, type, data) {
 			});
 		}
 
+<<<<<<< HEAD
+        // If buddy type = "suggested" add a "send buddy request" button to the buddy list item.
+        if (type === "suggested") {
+            const sendRequestBtn = addButton(
+                "stuurVerzoek",
+                "buddy-send-request-btn",
+                btnContainer
+            );
+=======
 		// If buddy type = "suggested" add a "send buddy request" button to the buddy list item.
 		if (type === "suggested") {
 			const sendRequestBtn = addButton(
@@ -213,6 +328,7 @@ async function populateList(buddyList, type, data) {
 				"buddy-send-request-btn",
 				btnContainer
 			);
+>>>>>>> main
 
 			sendRequestBtn.addEventListener("click", async () => {
 				await sendBuddyRequest(FYSCloud.Session.get("userId"), buddy.userid).then(() =>
@@ -221,6 +337,17 @@ async function populateList(buddyList, type, data) {
 			});
 		}
 
+<<<<<<< HEAD
+        /* If buddy type = "incoming" add an "accept buddy request" button  and a
+         * refuse buddy request button to the buddy list item.
+         */
+        if (type === "incoming") {
+            const acceptRequestBtn = addButton(
+                "accepteerVerzoek",
+                "buddy-accept-request-btn",
+                btnContainer
+            );
+=======
 		/* If buddy type = "incoming" add an "accept buddy request" button  and a
 		 * refuse buddy request button to the buddy list item.
 		 */
@@ -230,6 +357,7 @@ async function populateList(buddyList, type, data) {
 				"buddy-accept-request-btn",
 				btnContainer
 			);
+>>>>>>> main
 
 			acceptRequestBtn.addEventListener("click", async () => {
 				await acceptBuddyRequest(FYSCloud.Session.get("userId"), buddy.userid).then(
@@ -237,11 +365,19 @@ async function populateList(buddyList, type, data) {
 				);
 			});
 
+<<<<<<< HEAD
+            const denyRequestBtn = addButton(
+                "weigerVerzoek",
+                "btn-red buddy-refuse-request-btn",
+                btnContainer
+            );
+=======
 			const denyRequestBtn = addButton(
 				"Verzoek weigeren",
 				"btn-red buddy-refuse-request-btn",
 				btnContainer
 			);
+>>>>>>> main
 
 			denyRequestBtn.addEventListener("click", async () => {
 				if (confirm("Verzoek weigeren?")) {
@@ -253,6 +389,15 @@ async function populateList(buddyList, type, data) {
 			});
 		}
 
+<<<<<<< HEAD
+        //If buddy type = "outgoing" add a "withdraw buddy request" button to the buddy list item.
+        if (type === "outgoing") {
+            const withdrawRequestBtn = addButton(
+                "verzoekIntrekken",
+                "btn-red buddy-refuse-request-btn",
+                btnContainer
+            );
+=======
 		//If buddy type = "outgoing" add a "withdraw buddy request" button to the buddy list item.
 		if (type === "outgoing") {
 			const withdrawRequestBtn = addButton(
@@ -260,6 +405,7 @@ async function populateList(buddyList, type, data) {
 				"btn-red buddy-refuse-request-btn",
 				btnContainer
 			);
+>>>>>>> main
 
 			withdrawRequestBtn.addEventListener("click", async () => {
 				if (confirm("Verzoek intrekken?")) {
@@ -286,10 +432,17 @@ function addAttribute(name, value, container) {
 	const cont = document.createElement("div");
 	cont.className = "buddy-attr-container";
 
+<<<<<<< HEAD
+    const lbl = document.createElement("h3");
+    lbl.className = "buddy-attr-label w-100";
+    lbl.setAttribute("data-translate", "match." + name);
+    cont.appendChild(lbl);
+=======
 	const lbl = document.createElement("h3");
 	lbl.className = "buddy-attr-label w-100";
 	lbl.innerHTML = name;
 	cont.appendChild(lbl);
+>>>>>>> main
 
 	const content = document.createElement("span");
 	content.className = "buddy-attr w-100";
@@ -299,6 +452,29 @@ function addAttribute(name, value, container) {
 	container.appendChild(cont);
 }
 
+function addProfileAttribute(name, value, container) {
+    const cont = document.createElement("div");
+    cont.className = "buddy-attr-container";
+
+    const lbl = document.createElement("span");
+    lbl.className = "buddy-attr w-100";
+    lbl.innerHTML = value;
+    cont.appendChild(lbl);
+
+    container.appendChild(cont);
+}
+
+function addAttributes(value, container) {
+    const cont = document.createElement("div");
+    cont.className = "buddy-attr-container";
+
+    const content = document.createElement("span");
+    content.className = "buddy-attr w-100";
+    content.innerHTML = value;
+    cont.appendChild(content);
+
+    container.appendChild(cont);
+}
 /**
  * Adds a button a given container
  * @param {string} text The text to be added to the button.
@@ -310,10 +486,17 @@ function addButton(text, className, container) {
 	const btn = document.createElement("button");
 	btn.className = "btn " + className;
 
+<<<<<<< HEAD
+    const btnText = document.createElement("span");
+    btnText.className = "btn-text";
+    btnText.setAttribute("data-translate", "match." + text);
+    btn.appendChild(btnText);
+=======
 	const btnText = document.createElement("span");
 	btnText.className = "btn-text";
 	btnText.innerHTML = text;
 	btn.appendChild(btnText);
+>>>>>>> main
 
 	container.appendChild(btn);
 
@@ -620,6 +803,20 @@ function buddyModal(data, interests, img) {
 	const nameDiv = document.createElement("div");
 	nameDiv.className = "username";
 
+<<<<<<< HEAD
+    // object for interests from buddy
+    interests.forEach((interest) => {
+        // interests
+        addAttributes(interest.interest_name, interestDiv);
+        interestMain.appendChild(interestDiv);
+    });
+
+    // object for buddy info
+    data.forEach((buddy) => {
+        // biography
+        addProfileAttribute("bio", buddy.bio, descriptionDiv);
+        description.appendChild(descriptionDiv);
+=======
 	// object for interests from buddy
 	interests.forEach((interest) => {
 		// interests
@@ -632,10 +829,34 @@ function buddyModal(data, interests, img) {
 		// biography
 		addAttribute("", buddy.bio, descriptionDiv);
 		description.appendChild(descriptionDiv);
+>>>>>>> main
 
 		// profile picture
 		buddyPicture.appendChild(img);
 
+<<<<<<< HEAD
+        // name
+        addProfileAttribute("naam", buddy.name, nameDiv);
+        buddyPicture.appendChild(nameDiv);
+
+        // personal information
+        addAttribute(
+            "birthDate",
+            new Date(buddy.date).toISOString().slice(0, 10),
+            personalDiv
+        );
+        if (buddy.gender === 0) {
+            addAttribute("gender", "Man", personalDiv);
+        } else if (buddy.gender === 1) {
+            addAttribute("gender", "Vrouw", personalDiv);
+        } else {
+            addAttribute("gender", "Anders", personalDiv);
+        }
+        addAttribute("budget", buddy.budget, personalDiv);
+        addAttribute("bestemming", buddy.destination, personalDiv);
+        addAttribute("email", buddy.email, emailDiv);
+        addAttribute("number", buddy.phoneNumber, phoneDiv);
+=======
 		// name
 		addAttribute("", buddy.name, nameDiv);
 		buddyPicture.appendChild(nameDiv);
@@ -662,6 +883,7 @@ function buddyModal(data, interests, img) {
 		addAttribute("Bestemming", buddy.destination, personalDiv);
 		addAttribute("Email", buddy.email, emailDiv);
 		addAttribute("Telefoon", buddy.phoneNumber, phoneDiv);
+>>>>>>> main
 
 		personalDiv.appendChild(phoneDiv);
 		personalDiv.appendChild(emailDiv);
@@ -728,7 +950,16 @@ filterForm.addEventListener("formdata", async (e) => {
 	// changes back to default filter value if you switch tabs
 	filterTime = "";
 
+<<<<<<< HEAD
+    for (const value of data.values()) {
+        console.log(value);
+    }
+});
+
+await FYSCloud.Localization.translate();
+=======
 	for (const value of data.values()) {
 		console.log(value);
 	}
 });
+>>>>>>> main

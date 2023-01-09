@@ -16,6 +16,7 @@ async function loadHeader() {
 			"./assets/dynamic/_login-modal.html"
 		);
 
+
 		const session = FYSCloud.Session.get("userId");
 		const header = nav[0];
 		const footerInsert = footer[0];
@@ -249,12 +250,6 @@ export function clearLoginValues() {
 const initialLanguage = FYSCloud.Session.get("language", "nl");
 
 const translations = {
-	//translate 404
-	404: {
-		nl: "Sorry, de pagina die u zoekt kan niet worden gevonden.",
-		en: "Sorry, the page you are looking for could not be found.",
-		es: "Lo siento, la página que está buscando no se ha podido encontrar.",
-	},
 	//Translate navbar and hamburger
 	navbar: {
 		findBuddy: {
@@ -263,8 +258,8 @@ const translations = {
 			es: "Encontrar a mi amigo",
 		},
 		aboutUs: {
-			nl: "over ons",
-			en: "about us",
+			nl: "Over ons",
+			en: "About us",
 			es: "Sobre nosotros",
 		},
 		login: {
@@ -274,18 +269,18 @@ const translations = {
 		},
 		register: {
 			nl: "Registreren",
-			en: "sign up",
+			en: "Sign up",
 			es: "Inscribirse",
 		},
 		myProfile: {
-			nl: "Mijn Profiel",
-			en: "My Profile",
+			nl: "Mijn profiel",
+			en: "My profile",
 			es: "Mi perfil",
 		},
 		logout: {
-			nl: "uitloggen",
-			en: "logout",
-			es: "cerrar sesión",
+			nl: "Uitloggen",
+			en: "Logout",
+			es: "Cerrar sesión",
 		},
 		myAccount: {
 			nl: "Mijn account",
@@ -298,7 +293,7 @@ const translations = {
 		password: {
 			nl: "Wachtwoord:",
 			en: "Password:",
-			es: "Contraseña",
+			es: "Contraseña:",
 		},
 		login: {
 			nl: "Inloggen",
@@ -318,7 +313,7 @@ const translations = {
 		noAccount: {
 			nl: "Nog geen",
 			en: "Create an",
-			es: "crea una",
+			es: "Crea una",
 		},
 		noAccountLink: {
 			nl: "Account",
@@ -354,7 +349,7 @@ const translations = {
 			es: "Contacto",
 		},
 		profile: {
-			nl: "Profile",
+			nl: "Profiel",
 			en: "Profile",
 			es: "Perfil",
 		},
@@ -373,7 +368,7 @@ const translations = {
 	index: {
 		heroTitle: {
 			nl: "Wel reizen, maar niet alleen?",
-			en: "Do you want to travel, but not alone?",
+			en: "Want to travel, but not alone?",
 			es: "¿Quieres viajar, pero no solo?",
 		},
 		heroDescr: {
@@ -382,8 +377,8 @@ const translations = {
 			es: "¡Encuentra tu Corenbuddy ahora!",
 		},
 		firstCardTitle: {
-			nl: "Veilig Gebruikmaken",
-			en: "Safe Use",
+			nl: "Veilig gebruikmaken",
+			en: "Safe use",
 			es: "Uso seguro",
 		},
 		firstCardDescr: {
@@ -403,8 +398,8 @@ const translations = {
 		},
 		thirdCardTitle: {
 			nl: "Effectiviteit",
-			en: "effectiveness",
-			es: "eficacia",
+			en: "Effectiveness",
+			es: "Eficacia",
 		},
 		thirdCardDescr: {
 			nl: "Onze website heeft al meer dan 1000 buddy's bij elkaar gebracht",
@@ -464,7 +459,7 @@ const translations = {
 				"CorenBuddy is het meest geavanceerde platform om jouw Travel Buddy te vinden, gebasseerd op het meest efficiente matching systeem. Vind nu een bijpassende " +
 				"reisgenoot met dezelfde interesses en dromen. Vlieg samen, geniet samen!",
 			en:
-				"CorenBuddy is the most advanced platform to find your Travel Buddy, based on the most efficient matching system. Now find a matching " +
+				"CorenBuddy is the most advanced platform to find your Travel Buddy, based on the most efficient matching system. Find a matching " +
 				"travel companion with the same interests and dreams. Fly together, enjoy together!",
 			es:
 				"CorenBuddy es la plataforma más avanzada para encontrar a tu Travel Buddy, basada en el sistema de emparejamiento más eficiente. Ahora encuentra una coincidencia " +
@@ -473,7 +468,7 @@ const translations = {
 		findBuddy: {
 			nl: "Vind mijn buddy",
 			en: "Find my buddy",
-			es: "encontrar a mi amigo",
+			es: "Encontrar a mi amigo",
 		},
 		historyTitle: {
 			nl: "Geschiedenis van Corendon",
@@ -486,11 +481,11 @@ const translations = {
 				"tHet bedrijf begon als Turkije-specialist dat eerst alleen vliegtickets en later ook volledig verzorgde reizen naar Turkije verkocht." +
 				"In 20 jaar tijd is Corendon uitgegroeid tot een toonaangevende, zeer succesvolle touroperator en dé nummer 1 reisorganisatie als het gaat om veel Turkse en andere populaire bestemmingen binnen en buiten Europa, zoals bijvoorbeeld Ibiza, Cyprus en Curaçao.",
 			en:
-				"The company Corendon was founded in 2000 in Haarlem, when Atilay Uslu and his business partner Yildiray Karaer decided to join forces. Before then, the young entrepreneur Uslu had already taken his first steps in the travel industry, but the real success came with the establishment of Corendon." +
-				"tThe company started as a Turkey specialist that first only sold airline tickets and later also fully arranged trips to Turkey." +
+				"The company Corendon was founded in 2000 in Haarlem a city in The Netherlands, when Atilay Uslu and his business partner Yildiray Karaer decided to join forces. Before then, the young entrepreneur Uslu had already taken his first steps in the travel industry, but the real success came with the establishment of Corendon." +
+				"The company started as a Turkey specialist that first only sold airline tickets and later also fully arranged trips to Turkey." +
 				"In 20 years, Corendon has grown into a leading, very successful tour operator and the number 1 travel organization when it comes to many Turkish and other popular destinations within and outside Europe, such as Ibiza, Cyprus and Curaçao.",
 			es:
-				"La empresa Corendon se fundó en el año 2000 en Haarlem, cuando Atilay Uslu y su socio comercial Yildiray Karaer decidieron unir fuerzas. Antes de eso, el joven emprendedor Uslu ya había dado sus primeros pasos en la industria de viajes, pero el verdadero éxito llegó con el establecimiento de Corendon." +
+				"La empresa Corendon se fundó en el año 2000 en Haarlem citio en Hollandia, cuando Atilay Uslu y su socio comercial Yildiray Karaer decidieron unir fuerzas. Antes de eso, el joven emprendedor Uslu ya había dado sus primeros pasos en la industria de viajes, pero el verdadero éxito llegó con el establecimiento de Corendon." +
 				"La compañía comenzó como un especialista en Turquía que primero solo vendía boletos de avión y luego también organizaba viajes completos a Turquía." +
 				"En 20 años, Corendon se ha convertido en un operador turístico líder y de gran éxito y en la organización de viajes número 1 en lo que respecta a muchos destinos populares de Turquía y otros dentro y fuera de Europa, como Ibiza, Chipre y Curaçao.",
 		},
@@ -502,13 +497,13 @@ const translations = {
 		whoAreWeDescr: {
 			nl:
 				"Wij zijn een team van getalenteerde studenten op de Hogeschool van Amsterdam met een visie om het beste platform te ontwikkelen voor het project Fasten Your Seatbelts." +
-				"tDit is het eerste project dat ons is voorgelegd in ons eerste blok van de studie.",
+				"Dit is het eerste project dat ons is voorgelegd in ons eerste blok van de studie.",
 			en:
 				"We are a team of talented students at the Hogeschool van Amsterdam with a vision to develop the best platform for the Fasten Your Seatbelts project." +
-				"“tThis is the first project presented to us in our first block of the study.",
+				"This is the first project presented to us in our first block of the study.",
 			es:
 				"Somos un equipo de estudiantes talentosos en la Hogeschool van Amsterdam con la visión de desarrollar la mejor plataforma para el proyecto Fasten Your Seatbelts." +
-				"“Este es el primer proyecto que se nos presenta en nuestro primer bloque de estudio.",
+				"Este es el primer proyecto que se nos presenta en nuestro primer bloque de estudio.",
 		},
 		contact: {
 			nl: "Contact",
@@ -532,14 +527,21 @@ const translations = {
 		},
 		question: {
 			nl: "Uw vraag",
-			en: "your question",
+			en: "Your question",
 			es: "Tu pregunta",
 		},
 		send: {
 			nl: "Verstuur",
 			en: "Send",
-			es: "enviar",
+			es: "Enviar",
 		},
+		placeholder: {
+			fullName: {
+				nl: "Bijv. Jan Knops",
+				en: "F.E. John Moose",
+				es: "P.E. Juan Tier"
+			}
+		}
 	},
 	//Translate matching
 	match: {
@@ -568,10 +570,125 @@ const translations = {
 			en: "Buddy profile",
 			es: "Perfil de amistud",
 		},
+		emptyList: {
+			nl: "Deze lijst is nog leeg. ;(",
+			en: "This list is empty. ;(",
+			es: "Esta lista está vacía. ;(",
+		},
+		notSignedIn: {
+			nl: "Oh oh, je bent niet ingelogd!",
+			en: "Oh oh, you're not signed in!",
+			es: "¡Oh oh, no has iniciado sesión!"
+		},
+		naam: {
+			nl: "Naam",
+			en: "Name",
+			es: "Nombre",
+		},
+		bestemming: {
+			nl: "Bestemming",
+			en: "Destination",
+			es: "Destino",
+		},
+		tijdsbestek: {
+			nl: "Tijdsbestek",
+			en: "Duration",
+			es: "Periodo de tiempo",
+		},
+		gemeenschappelijkeInteresses: {
+			nl: "Gemeenschappelijke Interesses",
+			en: "Similar interests",
+			es: "Los mismos intereses",
+		},
+		profielBekijken: {
+			nl: "Profiel bekijken",
+			en: "Show profile",
+			es: "Ver perfil",
+		},
+		reisBoeken: {
+			nl: "Boek een reis!",
+			en: "Plan a trip!",
+			es: "Reservar un viaje!",
+		},
+		verwijderBuddy: {
+			nl: "Buddy verwijderen",
+			en: "Remove buddy",
+			es: "Eliminar amigo",
+		},
+		stuurVerzoek: {
+			nl: "Verzoek sturen",
+			en: "Send request",
+			es: "Enviar petición",
+		},
+		accepteerVerzoek: {
+			nl: "Verzoek accepteren",
+			en: "Accept request",
+			es: "Aceptar petición"
+		},
+		weigerVerzoek: {
+			nl: "Verzoek weigeren",
+			en: "Reject request",
+			es: "Denegar solicitud",
+		},
+		verzoekIntrekken: {
+			nl: "Verzoek intrekken",
+			en: "Revoke request",
+			es: "Petición de retiro",
+		},
 		bio: {
 			nl: "Biografie",
 			en: "Biography",
 			es: "Biografía",
+		},
+		birthDate: {
+			nl: "Geboortedatum",
+			en: "Date of birth",
+			es: "Fecha de nacimiento",
+		},
+		gender: {
+			nl: "Geslacht",
+			en: "Gender",
+			es: "Género",
+		},
+		genderMan: {
+			nl: "Man",
+			en: "Man",
+			es: "Hombre",
+		},
+		genderWomen: {
+			nl: "Vrouw",
+			en: "Woman",
+			es: "Mujeres",
+		},
+		genderOther: {
+			nl: "Anders",
+			en: "Other",
+			es: "De lo contrario",
+		},
+		budget: {
+			nl: "Budget",
+			en: "Budget",
+			es: "Presupuesto",
+		},
+		number: {
+			nl: "Telefoonnummer",
+			en: "Phone number",
+			es: "Numero",
+		},
+		email: {
+			nl:"E-mail",
+			en:"E-mail",
+			es:"Correo",
+		},
+		info: {
+			nl: "Informatie",
+			en: "Information",
+			es: "Información",
+		},
+		zoek: {
+			nl: "Zoek",
+			en: "Search",
+			es: "Búsqueda",
 		},
 		interestList: {
 			nl: "Interesses",
@@ -580,8 +697,8 @@ const translations = {
 		},
 		firstInterest: {
 			nl: "Schaken",
-			en: "chess",
-			es: " ajedrez",
+			en: "Chess",
+			es: "Ajedrez",
 		},
 		secondInterest: {
 			nl: "Vissen",
@@ -595,18 +712,18 @@ const translations = {
 		},
 		fourthInterest: {
 			nl: "Zonnen",
-			en: "Sun tanning",
+			en: "Tanning",
 			es: "Bronceado",
 		},
 		fifthInterest: {
 			nl: "Zwemmen",
 			en: "Swimming",
-			es: " Natación",
+			es: "Natación",
 		},
 		sixthInterest: {
 			nl: "Warme landen",
 			en: "Warm countries",
-			es: " países cálidos",
+			es: "Países cálidos",
 		},
 		filter: {
 			nl: "Filter",
@@ -617,7 +734,7 @@ const translations = {
 	//Translate matching
 	profile: {
 		myProfile: {
-			nl: "Mijn Profiel",
+			nl: "Mijn profiel",
 			en: "My profile:",
 			es: "Mi perfil:",
 		},
@@ -644,7 +761,7 @@ const translations = {
 		interest: {
 			nl: "Interesses",
 			en: "Interests",
-			es: " Intereses",
+			es: "Intereses",
 		},
 		destination: {
 			nl: "Bestemming",
@@ -663,23 +780,23 @@ const translations = {
 		},
 		gender: {
 			nl: "Geslacht",
-			en: "gender",
-			es: "género",
+			en: "Gender",
+			es: "Género",
 		},
 		genderMan: {
 			nl: "Man",
 			en: "Man",
-			es: "hombre",
+			es: "Hombre",
 		},
 		genderWomen: {
 			nl: "Vrouw",
-			en: "woman",
-			es: "mujeres",
+			en: "Woman",
+			es: "Mujeres",
 		},
 		genderOther: {
 			nl: "Anders",
 			en: "Other",
-			es: "de lo contrario",
+			es: "De lo contrario",
 		},
 		save: {
 			nl: "Opslaan",
@@ -694,7 +811,7 @@ const translations = {
 		password: {
 			nl: "Wachtwoord",
 			en: "password",
-			es: "contraseña",
+			es: "Contraseña",
 		},
 		uploadPhoto: {
 			nl: "Upload foto",
@@ -704,7 +821,7 @@ const translations = {
 		uploadFile: {
 			nl: "Kies een foto",
 			en: "Choose a photo",
-			es: "elige una foto",
+			es: "Elige una foto",
 		},
 		previewText: {
 			nl: "Geen bestand gekozen",
@@ -738,7 +855,7 @@ const translations = {
 		},
 		number: {
 			nl: "Telefoonnummer",
-			en: "Number",
+			en: "Phone number",
 			es: "Numero",
 		},
 		emailRepeat: {
@@ -785,7 +902,7 @@ const translations = {
 			es: "Contraseña",
 		},
 		repeatPassword: {
-			nl: "Herhaal Wachtwoord",
+			nl: "Herhaal wachtwoord",
 			en: "Repeat password",
 			es: "Repita la contraseña",
 		},
@@ -811,13 +928,13 @@ const translations = {
 		},
 		warningPassword: {
 			nl: "Wachtwoorden zijn niet hetzelfde!",
-			en: "The passwords you entered do not match.",
+			en: "The passwords do not match.",
 			es: "Las contraseñas que ingresaste no coinciden.",
 		},
 		agreement: {
 			nl: "Als u registreert gaat u akkoord met de",
 			en: "By registering you agree to the",
-			es: " Al registrarte aceptas las",
+			es: "Al registrarte aceptas las",
 		},
 		agreeTerms: {
 			nl: "algemene voorwaarden",
@@ -854,8 +971,8 @@ const translations = {
 			//spaces are necessary
 			secondSpan: {
 				nl: " uw account is aangemaakt!",
-				en: " Your account has been created!",
-				es: " ¡Su cuenta ha sido creada!",
+				en: " your account has been created!",
+				es: " su cuenta ha sido creada!",
 			},
 		},
 	},
@@ -867,9 +984,9 @@ const translations = {
 			es: "Términos y condiciones",
 		},
 		privacyTitle: {
-			nl: "privacy",
-			en: "privacy",
-			es: "privacidad",
+			nl: "Privacy",
+			en: "Privacy",
+			es: "Privacidad",
 		},
 		privacyDescr: {
 			nl:
@@ -896,12 +1013,12 @@ const translations = {
 		onRegister: {
 			nl: "Bij registratie",
 			en: "On registration",
-			es: "en el registro",
+			es: "En el registro",
 		},
 		yourName: {
 			nl: "Uw naam",
-			en: "your name",
-			es: " Su nombre",
+			en: "Your name",
+			es: "Su nombre",
 		},
 		yourEmail: {
 			nl: "Uw emailadres",
@@ -921,37 +1038,37 @@ const translations = {
 		yourGender: {
 			nl: "Uw geslacht",
 			en: "Your gender",
-			es: " Tu género",
+			es: "Tu género",
 		},
 		yourBirthDate: {
 			nl: "Uw geboortedatum",
-			en: "your date of birth",
-			es: " tu fecha de nacimiento",
+			en: "Your date of birth",
+			es: "Tu fecha de nacimiento",
 		},
 		yourHobby: {
 			nl: "Uw hobby's en interesses",
 			en: "Your hobbies and interests",
-			es: " Tus aficiones e intereses.",
+			es: "Tus aficiones e intereses.",
 		},
 		yourBudget: {
 			nl: "Uw reisbudget",
 			en: "Your travel budget",
-			es: " Tu presupuesto de viaje",
+			es: "Tu presupuesto de viaje",
 		},
 		yourPhone: {
 			nl: "Contactgegevens zoals telefoonnummer en social media",
 			en: "Contact details such as telephone number and social media",
-			es: " Datos de contacto como número de teléfono y redes sociales",
+			es: "Datos de contacto como número de teléfono y redes sociales",
 		},
 		whyData: {
 			nl: "Waarom verzamelen wij deze gegevens?",
 			en: "Why do we collect this data?",
-			es: " ¿Por qué recopilamos estos datos?",
+			es: "¿Por qué recopilamos estos datos?",
 		},
 		customerContact: {
 			nl: "Om contact te kunnen leggen met u als gebruiker:",
 			en: "To be able to contact you as a user:",
-			es: " Para poder contactar contigo como usuario:",
+			es: "Para poder contactar contigo como usuario:",
 		},
 		customerContactDescr: {
 			nl:
@@ -960,12 +1077,12 @@ const translations = {
 				"kunt u sneller geholpen worden. Denk hierbij aan uw emailadres en/of" +
 				"telefoonnummer.",
 			en:
-				"It is important if you want to contact us that we have a number of" +
-				"have data from you, this makes communication smoother and" +
+				"It is important if we want to communicate with eachother that we have some" +
+				"data from you, this makes communication smoother and" +
 				"you can be helped faster. Think of your email address and/or" +
 				"phone number.",
 			es:
-				" Es importante si desea contactarnos que contamos con un número de" +
+				"Es importante si desea contactarnos que contamos con un número de" +
 				"tener datos tuyos, esto hace que la comunicación sea más fluida y" +
 				"Puedes recibir ayuda más rápido. Piensa en tu dirección de correo electrónico y/o" +
 				"número de teléfono.",
@@ -973,7 +1090,7 @@ const translations = {
 		findMatch: {
 			nl: "Om een geschikte match te kunnen vinden:",
 			en: "To find a suitable match:",
-			es: " Para encontrar una coincidencia adecuada:",
+			es: "Para encontrar una coincidencia adecuada:",
 		},
 		findMatchDescr: {
 			nl:
@@ -985,13 +1102,13 @@ const translations = {
 				"goed gebruik van onze website.",
 			en:
 				"In order to find a good match for you, it is important that we" +
-				"know where you want to travel, what your hobbies and interests are. Via" +
-				"our filters allow us to offer users a list of suitable" +
-				"matches. These filters are based on your travel location, whenever you want" +
-				"travel and your interests. This data is therefore essential for a" +
+				"know where you want to travel, what your hobbies and interests are." +
+				"Our filters allow us to offer users a list of suitable" +
+				"matches. These filters are based on your travel location, travel date" +
+				"and your interests. This data is therefore essential for a" +
 				"good use of our website.",
 			es:
-				" Para encontrar una buena pareja para ti, es importante que nosotros" +
+				"Para encontrar una buena pareja para ti, es importante que nosotros" +
 				"sepa a donde quiere viajar, cuales son sus hobbies e intereses. Vía" +
 				"nuestros filtros nos permiten ofrecer a los usuarios una lista de adecuados" +
 				"coincidencias. Estos filtros se basan en la ubicación de tu viaje, cuando quieras" +
@@ -1001,7 +1118,7 @@ const translations = {
 		contactMatches: {
 			nl: "Om contact te leggen met matches:",
 			en: "To make contact with matches:",
-			es: " Para ponerse en contacto con los partidos:",
+			es: "Para ponerse en contacto con los partidos:",
 		},
 		contactMatchesDescr: {
 			nl:
@@ -1019,7 +1136,7 @@ const translations = {
 				"user has never been a match option, never get access to" +
 				"your contact details.",
 			es:
-				" Después de crear un poder con uno de los otros usuarios, " +
+				"Después de crear un poder con uno de los otros usuarios, " +
 				"ese usuario accede a su información de contacto como redes sociales y" +
 				"número de teléfono. Usuarios con los que no tiene una coincidencia porque tiene el" +
 				"el usuario rechazó, el usuario te negó, o el" +
@@ -1044,7 +1161,7 @@ const translations = {
 				"It is also possible that Corendon advertises about travel destinations" +
 				"offer to you.",
 			es:
-				" Nosotros, como corenbuddy, somos una subsidiaria. Eso significa que también" +
+				"Nosotros, como corenbuddy, somos una subsidiaria. Eso significa que también" +
 				"Corendon tiene acceso a sus datos personales. Corendon utilizará sus datos" +
 				"Úselo solo para poder ofrecerle un viaje adecuado a usted y a su" +
 				"coincidencia. Además, hay varias referencias al sitio web en el sitio web" +
@@ -1055,7 +1172,7 @@ const translations = {
 		deleteData: {
 			nl: "Verwijderen persoonsgegevens:",
 			en: "Delete personal data:",
-			es: " Eliminar datos personales:",
+			es: "Eliminar datos personales:",
 		},
 		deleteDataDescr: {
 			nl:
@@ -1067,14 +1184,14 @@ const translations = {
 				"database deleted. Would you like to use our" +
 				"service, you must provide us with your details again.",
 			es:
-				" Cuando elimine su cuenta, sus datos personales también se eliminarán de nuestra" +
+				"Cuando elimine su cuenta, sus datos personales también se eliminarán de nuestra" +
 				"base de datos eliminada. ¿Le gustaría usar nuestra" +
 				"servicio, debe proporcionarnos sus datos nuevamente.",
 		},
 		service: {
 			nl: "Service",
 			en: "Service",
-			es: " Servicio",
+			es: "Servicio",
 		},
 		serviceDescr: {
 			nl:
@@ -1084,13 +1201,13 @@ const translations = {
 				"We offer you a way to find a travel partner. To this" +
 				"We have set some rules",
 			es:
-				" Le ofrecemos una forma de encontrar un compañero de viaje. A esto" +
+				"Le ofrecemos una forma de encontrar un compañero de viaje. A esto" +
 				"Hemos establecido algunas reglas.",
 		},
 		usage: {
 			nl: "Gebruik:",
 			en: "Usage:",
-			es: " Uso:",
+			es: "Uso:",
 		},
 		firstUsageDescr: {
 			nl:
@@ -1102,7 +1219,7 @@ const translations = {
 				"This means that we do not offer any service(s) to arrange a trip" +
 				"to travel with your match.",
 			es:
-				" Corenbuddy se usa exclusivamente para hacer combinaciones de viaje." +
+				"Corenbuddy se usa exclusivamente para hacer combinaciones de viaje." +
 				"Esto significa que no ofrecemos ningún servicio para organizar un viaje" +
 				"para viajar con tu pareja.",
 		},
@@ -1115,8 +1232,8 @@ const translations = {
 			en:
 				"Contact between matches is made by the persons themselves. Corenbuddy" +
 				"itself offers no possibility of contact between matches via the" +
-				"web application. We do provide the correct data to match the" +
-				"to give you the opportunity to make contact.",
+				"web application. We do provide the correct data to match " +
+				"to give you the opportunity to make contact with your match.",
 			es:
 				" El contacto entre partidos lo hacen las propias personas. Corenbuddy" +
 				"en sí no ofrece posibilidad de contacto entre partidos a través del" +
@@ -1126,11 +1243,11 @@ const translations = {
 		determineMatches: {
 			nl: "Hoe bepalen wij matches?",
 			en: "How do we determine matches?",
-			es: " ¿Cómo determinamos las coincidencias?",
+			es: "¿Cómo determinamos las coincidencias?",
 		},
 		determineMatchesDescr: {
 			nl:
-				"De lijst van machtes wordt bepaald op basis van uw reisbestemming, de" +
+				"De lijst van matches wordt bepaald op basis van uw reisbestemming, de" +
 				"periode waarin u wilt reizen en uw interesses. Wij laten u geen matches" +
 				"zien als de reisbestemming en tijdsbestek niet overeenkomen. U kan zelf aan" +
 				"de hand van onze filters aangeven welke interesses prioriteit hebben. U" +
@@ -1138,15 +1255,15 @@ const translations = {
 				"hoeft te maken over te dure vakanties. U als gebruiker besluit zelf of u" +
 				"met andere gebruiker wilt matchen of niet.",
 			en:
-				"The list of powers is determined based on your travel destination, the" +
+				"The list of matches is determined based on your travel destination, the" +
 				"period you want to travel and your interests. We won't show you matches" +
-				"see if the travel destination and time frame do not match. You can handle it yourself" +
-				"Use our filters to indicate which interests take priority. You" +
-				"optionally you can also filter based on your budget, so you don't have to worry" +
-				"have to worry about too expensive holidays. You as a user decide whether you" +
-				"match with other user or not.",
+				" if the travel destination and time frame do not match. You can handle it yourself" +
+				"with the use our filters to indicate which interests take priority. You" +
+				"optionally can also filter based on your budget, so you don't have to worry" +
+				"about a too expensive holiday. You as a user decide whether you" +
+				"match with other user(s) or not.",
 			es:
-				" La lista de poderes se determina en función de su destino de viaje, el" +
+				"La lista de poderes se determina en función de su destino de viaje, el" +
 				"punto que quieres viajar y tus intereses. No te mostraremos coincidencias" +
 				"Mira si el destino del viaje y el marco de tiempo no coinciden. Puedes manejarlo tú mismo" +
 				"Usa nuestros filtros para indicar qué intereses tienen prioridad. Tú" +
@@ -1157,7 +1274,7 @@ const translations = {
 		liability: {
 			nl: "Aansprakelijkheid:",
 			en: "Liability:",
-			es: " Responsabilidad:",
+			es: "Responsabilidad:",
 		},
 		firstLiability: {
 			nl:
@@ -1167,30 +1284,30 @@ const translations = {
 				"Corenbuddy is not responsible for situations arising from" +
 				"arrangements made during private contact between the matches.",
 			es:
-				" Corenbuddy no se hace responsable de situaciones derivadas de " +
+				"Corenbuddy no se hace responsable de situaciones derivadas de " +
 				"arreglos hechos durante el contacto privado entre los partidos.",
 		},
 		secondLiability: {
 			nl:
 				"Corenbuddy is niet verantwoordelijk voor problemen die ontstaan tijdens" +
-				"de reis met je match, hiervoor verwijzen wij u naar de",
+				"de reis met je match, hiervoor verwijzen wij u naar de reismaatschappij",
 			en:
 				"Corenbuddy is not responsible for problems that arise during " +
-				"the journey with your match, for this we refer you to the",
+				"the journey with your match, for this we refer you to the travel agency.",
 			es:
-				" Corenbuddy no se hace responsable de los problemas que surjan durante" +
+				"Corenbuddy no se hace responsable de los problemas que surjan durante" +
 				"el viaje con su pareja, para ello le remitimos a la",
 		},
 		termsOfUseCorendon: {
-			nl: "algemene voorwaarde van Corendon.",
-			en: "general terms and conditions of Corendon",
-			es: " Términos y condiciones generales de Corendon",
+			nl: "Algemene voorwaarde van Corendon.",
+			en: "General terms and conditions of Corendon",
+			es: "Términos y condiciones generales de Corendon",
 		},
 		firstTermsOfUseCorendon: {
 			nl: "Bij herhaald misbruik van onze match service kan uw account verwijderd worden.",
 			en: "Repeated misuse of our match service may result in your account being deleted.",
 			es:
-				" El uso indebido repetido de nuestro servicio de coincidencias puede resultar" +
+				"El uso indebido repetido de nuestro servicio de coincidencias puede resultar" +
 				"en la eliminación de su cuenta.",
 		},
 		secondTermsOfUseCorendon: {
@@ -1200,10 +1317,10 @@ const translations = {
 				"te maken zonder de juiste kennis over uw match.",
 			en:
 				"Corenbuddy tries in all his capacities to track down abusers and" +
-				" We advise our users never to make payments without" +
-				"without proper knowledge about your match.",
+				"we advise our users never to make payments without" +
+				"proper knowledge about your match.",
 			es:
-				" Corenbuddy intenta en todas sus capacidades rastrear a los abusadores y" +
+				"Corenbuddy intenta en todas sus capacidades rastrear a los abusadores y" +
 				"Aconsejamos a nuestros usuarios que nunca realicen pagos sin" +
 				"sin el conocimiento adecuado acerca de su partido.",
 		},
@@ -1217,7 +1334,7 @@ const translations = {
 				"responsible for making your contact details known to your" +
 				"match.",
 			es:
-				" Después de la aceptación mutua de un partido, corenbuddy ya no está" +
+				"Después de la aceptación mutua de un partido, corenbuddy ya no está" +
 				"responsable de dar a conocer sus datos de contacto a su" +
 				"juego.",
 		},
@@ -1235,14 +1352,20 @@ const translations = {
 				es: "Ingrese el correo electrónico de su cuenta de CorenBuddy.",
 			},
 			button: {
-				nl: "verder",
-				en: "continue",
+				nl: "Verder",
+				en: "Continue",
 				es: "Seguir",
 			},
 			email: {
+<<<<<<< HEAD
+				nl:"E-mail",
+				en:"E-mail",
+				es:"Correo",
+=======
 				nl: "E-mail",
 				en: "E-mail",
 				es: "correo",
+>>>>>>> main
 			},
 			errorInvalidEmail: {
 				nl: "Ongeldige e-mail",
@@ -1250,6 +1373,21 @@ const translations = {
 				es: "Email inválido",
 			},
 			errorResetCodeDeleteFailed: {
+<<<<<<< HEAD
+				nl:"Reset code verwijderen mislukt",
+				en:"Reset code removal failed",
+				es:"La eliminación del código de reinicio falló",
+			},
+			errorResetCodeInsertFailed: {
+				nl:"Reset code in database zetten mislukt",
+				en:"Failed to put reset code in database",
+				es:"No se pudo poner el código de reinicio en la base de datos",
+			},
+			errorSendEmailFailed: {
+				nl:"Email versturen mislukt",
+				en:"Failed to send email",
+				es:"No se pudo enviar el correo electrónico",
+=======
 				nl: "reset code verwijderen mislukt",
 				en: "reset code removal failed",
 				es: "la eliminación del código de reinicio falló",
@@ -1263,6 +1401,7 @@ const translations = {
 				nl: "email versturen mislukt",
 				en: "Failed to send email",
 				es: "no se pudo enviar el correo electrónico",
+>>>>>>> main
 			},
 		},
 		page2: {
@@ -1272,11 +1411,17 @@ const translations = {
 				es: "Olvidaste tu contraseña",
 			},
 			text: {
+<<<<<<< HEAD
+				nl: "Goed zo! We hebben u een E-mail gestuurd met een link om een" +
+					" nieuw wachtwoord aan te maken. De instructies volgen daar verder.",
+				en: "Well done! We have sent you an email with a link to create a new " +
+=======
 				nl:
 					"Goed zo! We hebben u misschien een E-mail gestuurd met een link om een" +
 					" nieuw wachtwoord aan te maken. De instructies volgen daar verder.",
 				en:
 					"Well done! We may have sent you an email with a link to create a new " +
+>>>>>>> main
 					"password. The instructions follow there.",
 				es:
 					"¡Bien hecho! Es posible que le hayamos enviado un correo electrónico con" +
@@ -1307,7 +1452,7 @@ const translations = {
 			input2: {
 				nl: "Nieuw wachtwoord herhalen",
 				en: "Repeat new password",
-				es: "repita la nueva contraseña",
+				es: "Repita la nueva contraseña",
 			},
 			button: {
 				nl: "Opslaan",
@@ -1315,11 +1460,17 @@ const translations = {
 				es: "Ahorrar",
 			},
 			errorNoResetCode: {
+<<<<<<< HEAD
+				nl: "Wachtwoord aanpassen mislukt, wachtwoord is al aangepast," +
+					"nieuw-wachtwoord-aanvraag mislukt of overschreven.",
+				en: "Password change failed, password has already been changed, " +
+=======
 				nl:
 					"Wachtwoord aanpassen mislukt, wachtwoord is al aangepast," +
 					" nieuw-wachtwoord-aanvraag mislukt of overschreven.",
 				en:
 					"Password change failed, password has already been changed, " +
+>>>>>>> main
 					"new password request failed or overwritten",
 				es:
 					"El cambio de contraseña falló, la contraseña ya se cambió, " +
@@ -1337,7 +1488,7 @@ const translations = {
 			},
 			errorResetCodeDeleteFailed: {
 				nl: "Reset code verwijderen mislukt",
-				en: "Delete reset code failed",
+				en: "Deletion of reset code failed",
 				es: "No se pudo eliminar el código de reinicio",
 			},
 			updatePasswordSuccess: {
@@ -1346,10 +1497,17 @@ const translations = {
 				es: "Contraseña cambiada con éxito",
 			},
 		},
+<<<<<<< HEAD
+		mail:{
+			nl: "Test",
+			en: "Eng",
+			es: "Gringo",
+=======
 		mail: {
 			nl: "test",
 			en: "eng",
 			es: "gringo",
+>>>>>>> main
 		},
 	},
 };
@@ -1362,4 +1520,45 @@ document.querySelector("#localizationLanguageSwitch").value = initialLanguage;
 document.querySelector("#localizationLanguageSwitch").addEventListener("change", function () {
 	FYSCloud.Localization.switchLanguage(this.value);
 	FYSCloud.Session.set("language", this.value);
+	placeholderChange();
 });
+
+/**
+ * This piece of code will translate the placeholders on the contact form.
+ * @author Lucas Meester
+ */
+
+// Checking if user is on about-us page.
+function placeholderChange() {
+	let userLanguage = document.querySelector("#localizationLanguageSwitch").value;
+
+	if (window.location.pathname == "/wwwroot/about-us.html") {
+		const userName = document.querySelector(".contact-name");
+		const userEmail = document.querySelector(".contact-email");
+		const userPhone = document.querySelector(".contact-phone");
+		const userSubject = document.querySelector(".contact-subject");
+		const userQuestion = document.querySelector(".contact-text");
+
+
+		if (userLanguage === "nl") {
+			userName.setAttribute("placeholder", "Bijv. Johan de Vries");
+			userEmail.setAttribute("placeholder", "Bijv. johande@vries.nl");
+			userPhone.setAttribute("placeholder", "Bijv. 06123456789");
+			userSubject.setAttribute("placeholder", "Bijv. Buddy verloren");
+			userQuestion.setAttribute("placeholder", "Bijv. Ik ben mijn buddy verloren, hoe nu verder?");
+		} else if (userLanguage === "en") {
+			userName.setAttribute("placeholder", "E.G. John Jaden");
+			userEmail.setAttribute("placeholder", "E.G. John@jaden.com");
+			userPhone.setAttribute("placeholder", "E.G. 06123456789");
+			userSubject.setAttribute("placeholder", "E.G. Lost my buddy");
+			userQuestion.setAttribute("placeholder", "E.G. I've lost my buddy, what do I do now?");
+		} else if (userLanguage === "es") {
+			userName.setAttribute("placeholder", "PE. James Johnsen");
+			userEmail.setAttribute("placeholder", "PE. James@Johnsen.es");
+			userPhone.setAttribute("placeholder", "PE. 06123456789");
+			userSubject.setAttribute("placeholder", "PE. Amigo perdido");
+			userQuestion.setAttribute("placeholder", "PE. Perdí a mi amigo, ¿ahora qué?");
+		}
+	}
+}
+placeholderChange();
