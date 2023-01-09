@@ -46,8 +46,10 @@ passwordBtn.addEventListener("click", async function (e) {
 	}
 });
 deleteAccountBtn.addEventListener("click", async () => {
-	await deleteAccount();
+    await deleteAccount();
 });
+
+
 
 await dataLoad();
 await outerInterestFunction();
@@ -99,7 +101,9 @@ async function dataLoad() {
 		loadData(getData);
 	}
 
-	/*Load all data in the right fields on Profile page*/
+    loadInterests();
+
+    /*Load all data in the right fields on Profile page*/
 
 	function loadData(data) {
 		firstNameField.value = data[0].firstName;
@@ -203,6 +207,7 @@ function createObject() {
 	};
 }
 
+
 /*Checks if user has a profile_id,
  if not an if statement will be fired to select which function
 * needs to be used. IF statement used in line 6 */
@@ -214,6 +219,7 @@ async function profielExist() {
 	);
 	return data.length > 0;
 }
+
 
 /*Submit data if user has no profile,
 this will create a profile_id filled with profile related data */
@@ -298,22 +304,29 @@ async function preSelectOptionField() {
 	});
 }
 
+
 /*
 This function deletes the existing interest,
  to hold the maximum interest threshold. Could be updated upon
  feedback.
 * */
 async function updateInterest() {
-	const selectElements = document.querySelectorAll(".inter-field");
-	const updatedInterests = Array.from(selectElements).map(
-		(selectElement) => selectElement.value
-	);
-	const hasDuplicates = new Set(updatedInterests).size !== updatedInterests.length;
 
-	if (!hasDuplicates) {
-		await FYSCloud.API.queryDatabase("DELETE FROM user_interest WHERE profile_id = ?", [
-			userId,
-		]);
+    const selectElements = document.querySelectorAll(".interest-input");
+    let updatedInterests = Array.from(selectElements).map(x => {
+        if(x.checked){
+            return x.value;
+        } else {
+            return null;
+        }
+    }).filter(item => {return item != null});
+
+    const hasDuplicates = false;//new Set(updatedInterests).size !== updatedInterests.length;
+    if (!hasDuplicates) {
+        await FYSCloud.API.queryDatabase(
+            "DELETE FROM user_interest WHERE profile_id = ?",
+            [userId]
+        );
 
 		// Loop over the updated interests and insert the maximum interest
 		for (const interest of updatedInterests) {
@@ -323,17 +336,17 @@ async function updateInterest() {
 			);
 			const interestId = result[0].interest_id;
 
-			// Insert the updated interest
-			await FYSCloud.API.queryDatabase(
-				"INSERT INTO user_interest (profile_id, interest_id) VALUES (?, ?)",
-				[userId, interestId]
-			);
-
-			if (updatedInterests.indexOf(interest) === 6) {
-				break;
-			}
-		}
-	}
+            // Insert the updated interest
+            await FYSCloud.API.queryDatabase(
+                "INSERT INTO user_interest (profile_id, interest_id) VALUES (?, ?)",
+                [userId, interestId]
+            );
+            //
+            // if (updatedInterests.indexOf(interest) === 6) {
+            //     break;
+            // }
+        }
+    }
 }
 
 /*Functions displays an error message under the field,
@@ -364,6 +377,7 @@ function removeErrorMessage(input) {
 		existingErrorMessage.remove();
 	}
 }
+
 
 function validateField(input, errorMessage) {
 	if (!validation.emptyInput(input) && !validation.invalidName(input)) {
@@ -417,6 +431,81 @@ function validateBudgetField(fieldId) {
 	}
 }
 
+
+async function loadInterests() {
+    let interests;
+    let interestsContainerBoard = document.getElementById("interests-container-board");
+    try {
+        interests = await FYSCloud.API.queryDatabase(
+            "SELECT * FROM interest"
+        )
+    } catch(error) {
+        alert("interests laden mislukt");
+        return 1;
+    }
+    for (let i = 0; i < interests.length; i++) {
+        interestsContainerBoard.appendChild(
+            createInterestContainer(interests[i].interest_name, interests[i].interest_id)
+        );
+        let hasInterest = await userIdHasInterest(interests[i].interest_id, userId);
+        if(hasInterest == true) {
+            document.getElementById("inter-field-" + interests[i].interest_id).checked = true;
+        } else {
+
+            document.getElementById("inter-field-" + interests[i].interest_id).checked = false;
+        }
+    }
+
+
+}
+
+async function userIdHasInterest(interestId, userId){
+    let hasInterest
+    try {
+        hasInterest = await FYSCloud.API.queryDatabase("SELECT * FROM fys_is101_2_dev.user_interest WHERE profile_id=? AND interest_id=?;", [userId, interestId]);
+    } catch(error) {
+        alert("interests laden mislukt");
+        return false;
+    }
+    let returnValue = (hasInterest.length != 0);
+
+
+    return returnValue;
+}
+
+/**
+ * Create and return container for message text with text inserted.
+ *
+ * @param messageText text to be inserted in element
+ * @returns {HTMLParagraphElement} p element with text
+ */
+function createInterestContainer(interestName, interestId) {
+    let interestContainer = document.createElement("label");
+    interestContainer.classList.add("interest-container");
+    interestContainer.appendChild(createInterestInput(interestId, interestName));
+    interestContainer.appendChild(createInterestSpan(interestName));
+    return interestContainer;
+}
+
+
+function createInterestInput(interestId, interestName){
+    let interestInput = document.createElement("input");
+    interestInput.classList.add("interest-input");
+    interestInput.setAttribute("id","inter-field-" + interestId);
+    interestInput.setAttribute("value", interestName);
+    interestInput.setAttribute("type", "checkbox");
+    return interestInput;
+}
+
+function createInterestSpan(interestName){
+    let interestSpan = document.createElement("span");
+    interestSpan.setAttribute("class", "checkmark");
+    interestSpan.innerText = interestName;
+    return interestSpan;
+}
+
+
+
 function validateInterest() {
 	const selectElements = document.querySelectorAll(".inter-field");
 	const divInter = document.getElementById("divInter");
@@ -431,6 +520,7 @@ function validateInterest() {
 		return false;
 	}
 }
+
 
 function checkFields() {
 	const isValidVoornaam = validateField(
@@ -449,8 +539,8 @@ function checkFields() {
 	const isValidNumber = validateNumberField("number");
 	const isValidBudget = validateBudgetField("budget");
 
-	const selectElements = document.querySelectorAll(".inter-field");
-	const isValidInterest = validateInterest(selectElements);
+    //const selectElements = document.querySelectorAll(".inter-field");
+    const isValidInterest = true;//validateInterest(selectElements);
 
 	if (
 		isValidVoornaam &&
@@ -501,13 +591,16 @@ document.getElementById("budget").addEventListener("input", () => {
 	removeErrorMessage(document.getElementById("budget"));
 });
 
-const selectElements = document.querySelectorAll(".inter-field");
+/*const selectElements = document.querySelectorAll(".inter-field");
 selectElements.forEach((element) => {
-	element.addEventListener("input", () => {
-		validateInterest(selectElements);
-		removeErrorMessage(element);
-	});
-});
+    element.addEventListener("input", () => {
+        validateInterest(selectElements);
+        removeErrorMessage(element);
+    });
+});*/
+
+
+
 
 /*function allows the user to update their email address in the database.
 It first checks if the email is already in use, and if it is, it displays an error message.

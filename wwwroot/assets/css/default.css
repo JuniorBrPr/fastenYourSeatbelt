@@ -680,7 +680,6 @@ footer {
 	position: absolute;
 	right: 2%;
 	margin-top: 15px;
-	margin-left: 15px;
 }
 
 /* Styling buddy matching */
@@ -1220,6 +1219,49 @@ footer {
 	padding-inline-start: 6px;
 }
 
+.interest-container {
+	border-radius: 10px;
+	border: 1px solid var(--color-text-grey);
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	margin-bottom: 5px;
+}
+.checkmark {
+	padding: 5px;
+	border-radius: 9px;
+	display: inline-block;
+}
+
+.interest-container:hover {
+	background-color: var(--color-bg-grey);
+}
+
+.interest-container input:checked ~ .checkmark {
+	background-color: var(--color-btn-green);
+	color: white;
+}
+
+.interests-container-board {
+	width: 500px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 2px;
+	line-height: normal;
+}
+
+/* Hide the browser's default checkbox */
+.interest-container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+/*inetrest end*/
+
 .inter-field {
 	margin-bottom: 20px;
 	margin-right: 10px;
@@ -1236,7 +1278,7 @@ footer {
 	min-width: 150px;
 }
 
-.delete-account-btn{
+.delete-account-btn {
 	display: block;
 	padding: 5px 12px;
 	text-decoration: none;
@@ -1245,7 +1287,6 @@ footer {
 	font-size: var(--small-font-size);
 	font-family: "Open Sans", sans-serif;
 	min-width: 150px;
-
 }
 
 .h1-mijn-profiel {
@@ -1265,15 +1306,14 @@ footer {
 	position: relative;
 }
 .currency input {
-	padding-left:18px;
+	padding-left: 18px;
 }
 
 .currency:before {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	content:"€";
-
+	content: "€";
 }
 
 .currency:before {
@@ -1525,6 +1565,12 @@ footer {
 		width: 100%;
 		margin-left: 0;
 	}
+	/* Profiel form */
+	.profiel-main {
+		margin: 40px;
+		gap: 10px 60px;
+		display: grid;
+	}
 }
 
 @media screen and (max-width: 1024px) {
@@ -1559,13 +1605,6 @@ footer {
 	/* Buddy matching */
 	.buddy-list-item {
 		width: 100%;
-	}
-
-	/* Profiel form */
-	.profiel-main {
-		margin: 40px;
-		gap: 10px 60px;
-		display: grid;
 	}
 }
 
