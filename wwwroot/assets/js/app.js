@@ -1458,6 +1458,16 @@ const translations = {
 				en: "Successfully changed password",
 				es: "Contraseña cambiada con éxito",
 			},
+			errorNewPasswordRepeatNotSame: {
+				nl: "Wachtwoorden komen niet overeen",
+				en: "Passwords do not match",
+				es: "Las contraseñas no coinciden",
+			},
+			errorEmptyPasswordInput: {
+				nl: "Wachtwoord kan niet leeg zijn",
+				en: "Password cannot be empty",
+				es: "La contraseña no puede estar vacía",
+			},
 		},
 	},
 };
