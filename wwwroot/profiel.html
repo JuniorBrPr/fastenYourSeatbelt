@@ -22,7 +22,6 @@
 		<link rel="stylesheet" href="assets/css/default.css" />
 		<!-- load javascript, defer makes sure scripts are loaded when dom-elements are
 available  -->
-
 		<!-- Scripts API -->
 		<script
 			type="module"
@@ -30,10 +29,11 @@ available  -->
 			crossorigin></script>
 		<script type="module" src="assets/js/config.js"></script>
 		<script type="module" src="assets/js/app.js" defer></script>
-		<script type="module" defer src="assets/js/pages/profiel.js	"></script>
+
+		<script type="module" defer src="assets/js/pages/profiel.js"></script>
 	</head>
 	<body>
-		<main class="profiel-main justify-c">
+		<main class="profiel-main d-flex justify-c">
 			<form class="profiel align-c" action="results.html" method="GET">
 				<h1 class="h1-mijn-profiel" data-translate="profile.myProfile">
 					Mijn Profiel
@@ -69,21 +69,11 @@ available  -->
 						name="date"
 						max="2003-01-01" />
 				</div>
-				<div>
-					<label
-						class="p-label"
-						for="inter-field-1"
-						data-translate="profile.interest"
-						>Interesses</label
-					>
-					<select class="inter-field" name="interesses" id="inter-field-1"></select>
-					<select class="inter-field" name="interesses" id="inter-field-2"></select>
-					<select class="inter-field" name="interesses" id="inter-field-3"></select>
-				</div>
-				<div id="divInter">
-					<select class="inter-field" name="interesses" id="inter-field-4"></select>
-					<select class="inter-field" name="interesses" id="inter-field-5"></select>
-					<select class="inter-field" name="interesses" id="inter-field-6"></select>
+				<div class="interests" id="interests-container">
+					<div class="p-label">Interesses</div>
+					<div
+						class="interests-container-board"
+						id="interests-container-board"></div>
 				</div>
 				<div class="profiel-container">
 					<label
@@ -126,9 +116,9 @@ available  -->
 					<label
 						class="p-label"
 						for="geslacht-field-1"
-						data-translate="profile.gender"
-						>Geslacht</label
-					>
+						data-translate="profile.gender">
+						Geslacht
+					</label>
 					<select class="gender-field" name="geslacht" id="geslacht-field-1">
 						<option value="0" data-translate="profile.genderMan">Man</option>
 						<option value="1" data-translate="profile.genderWomen">Vrouw</option>
@@ -139,22 +129,23 @@ available  -->
 							Budget
 						</label>
 						<span class="currency">
-						<input
-							class="profiel-field w-100"
-							type="text"
-							id="budget"
-							name="budget" /></span>
+							<input
+								class="profiel-field w-100"
+								type="text"
+								id="budget"
+								name="budget"
+						/></span>
 					</div>
 					<div class="profiel-container">
 						<label class="p-label" for="number" data-translate="profile.number">
 							number
 						</label>
-							<input
-							class="profiel-field w-100 "
+						<input
+							class="profiel-field w-100"
 							type="text"
 							id="number"
 							name="number"
-							pattern="/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/"/>
+							pattern="/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/" />
 					</div>
 				</div>
 				<div class="opslaan-container">
@@ -172,9 +163,7 @@ available  -->
 					<img
 						src="assets/img/users/skeleton_profile_picture.svg"
 						id="profile-picture"
-						alt="Profiel foto"
-						width="300"
-						height="300" />
+						alt="Profiel foto" />
 					<label
 						for="profile-upload"
 						class="btn upload-file-btn d-flex justify-c align-c"
@@ -211,7 +200,7 @@ available  -->
 							type="email"
 							name="emailAcc"
 							id="emailAcc"
-							class="profiel-field" />
+							class="profiel-field w-100" />
 						<label
 							for="emailRepeat"
 							class="p-label"
@@ -222,7 +211,7 @@ available  -->
 							type="email"
 							name="emailRepeat"
 							id="emailRepeat"
-							class="profiel-field" />
+							class="profiel-field w-100" />
 						<button
 							class="sub-btn btn updateEmailBtn"
 							data-translate="profile.updateEmail">
@@ -240,7 +229,7 @@ available  -->
 							type="password"
 							name="password"
 							id="passwordAcc"
-							class="profiel-field" />
+							class="profiel-field w-100" />
 						<label
 							for="passwordRepeat"
 							class="p-label"
@@ -251,7 +240,7 @@ available  -->
 							type="password"
 							name="passwordRepeat"
 							id="passwordRepeat"
-							class="profiel-field" />
+							class="profiel-field w-100" />
 						<button
 							class="sub-btn btn updatePasswordBtn"
 							data-translate="profile.updatePassword">
@@ -262,15 +251,6 @@ available  -->
 							data-translate="profile.deleteAccount">
 							delete account
 						</button>
-					</div>
-				</div>
-				<div class="profiel-preference-card">
-					<h2 data-translate="profile.preferences">Preferences</h2>
-					<label class="p-label">Darkmode:</label>
-
-					<div class="switch">
-						<input type="checkbox" class="checkboxInput" />
-						<span class="slider round"></span>
 					</div>
 				</div>
 			</section>
