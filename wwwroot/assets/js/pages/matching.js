@@ -754,6 +754,7 @@ filterForm.addEventListener("formdata", async (e) => {
 		"suggested",
 		await getRecommendedBuddies(FYSCloud.Session.get("userId"), buddyLocation, buddyTime)
 	);
+	FYSCloud.Localization.translate();
 
 	// changes back to default filter value if you switch tabs
 	filterTime = "";
