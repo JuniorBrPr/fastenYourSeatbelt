@@ -140,11 +140,11 @@ function validateNewPassword(event) {
     let repeatPasswordInput = document.forms["nieuw-wachtwoord-form"]["nieuw-wachtwoord-herhalen"];
 
     if (validation.passwordMatch(passwordInput, repeatPasswordInput)) {
-        displayErrorMessageNewPasswordInput("Wachtwoord komt niet overeen", "");
+        displayErrorMessageNewPasswordInput("Wachtwoord komt niet overeen", "forgotPassword.page3.errorNewPasswordRepeatNotSame");
         return 1;
     }
     if (validation.emptyInput(passwordInput)) {
-        displayErrorMessageNewPasswordInput("Wachtwoord kan niet leeg zijn", "");
+        displayErrorMessageNewPasswordInput("Wachtwoord kan niet leeg zijn", "forgotPassword.page3.errorEmptyPasswordInput");
         return 1;
     }
     return 0;
