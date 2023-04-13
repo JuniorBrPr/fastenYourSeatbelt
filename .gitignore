@@ -1,3 +1,7 @@
 .DS_Store
 .idea
 debug.log
+config.dev.js
+config.js
+config.live.js
+config.mockup.js
